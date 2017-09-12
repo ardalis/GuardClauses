@@ -2,6 +2,11 @@
 
 namespace Ardalis.GuardClauses
 {
+    /// <summary>
+    /// A collection of helper methods for implenting Guard Clauses.
+    /// 
+    /// </summary>
+    /// <remarks>See http://www.weeklydevtips.com/004 on Guard Clauses</remarks>
     public static partial class Guard
     {
         /// <summary>
@@ -9,6 +14,7 @@ namespace Ardalis.GuardClauses
         /// </summary>
         /// <param name="input"></param>
         /// <param name="parameterName"></param>
+        /// <exception cref="ArgumentNullException"></exception>
         public static void AgainstNull(object input, string parameterName)
         {
             if (null == input)
@@ -23,6 +29,8 @@ namespace Ardalis.GuardClauses
         /// </summary>
         /// <param name="input"></param>
         /// <param name="parameterName"></param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
         public static void AgainstNullOrEmpty(string input, string parameterName)
         {
             Guard.AgainstNull(input, parameterName);

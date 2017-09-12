@@ -2,6 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageId>Ardalis.GuardClauses</PackageId>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Steve Smith (@ardalis)</Authors>
+    <Company>Ardalis.com</Company>
+    <PackageProjectUrl>https://github.com/ardalis/guardclauses</PackageProjectUrl>
+    <Description>A simple package with guard clause helper methods. Guard class is partial so you can extend it in your own projects if desired.</Description>
+    <RepositoryUrl>https://github.com/ardalis/guardclauses</RepositoryUrl>
+    <PackageTags>guard</PackageTags>
+    <PackageReleaseNotes>Initial release.</PackageReleaseNotes>
   </PropertyGroup>
 
 </Project>
