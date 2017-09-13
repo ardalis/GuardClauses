@@ -26,7 +26,8 @@ A simple package with guard clause extensions.
 To extend your own guards, you can do the following:
 
 ```c#
-	// Using the same namespace will make sure your code picks up your extensions no matter where they are in your codebase.
+	// Using the same namespace will make sure your code picks up your 
+	// extensions no matter where they are in your codebase.
 	namespace Ardalis.GuardClauses
 	{
 		public static class FooGuard
