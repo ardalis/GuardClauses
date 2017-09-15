@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Ardalis.GuardClauses;
 
-// Using the Namespace so I don't need an extra using in my project that will prevent new extensions from showing up
+// By using the same namespace, the required using for Ardalis.GuardClauses will include custom guards regardless of location.
 namespace Ardalis.GuardClauses
 {
     public static class FooGuard

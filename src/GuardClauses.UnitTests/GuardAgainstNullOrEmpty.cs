@@ -14,7 +14,7 @@ namespace GuardClauses.UnitTests
         }
 
         [Fact]
-        public void DoesNothingGivenNonEmptyStringValueUsingSpecificMethodPath()
+        public void DoesNothingGivenNonEmptyStringValueUsingExtensionMethod()
         {
             Guard.Against.NullOrEmpty("a", "string");
             Guard.Against.NullOrEmpty("1", "aNumericString");
@@ -33,13 +33,13 @@ namespace GuardClauses.UnitTests
         }
 
         [Fact]
-        public void ThrowsGivenNullValueUsingSpecificMethodPath()
+        public void ThrowsGivenNullValueUsingExtensionMethod()
         {
             Assert.Throws<ArgumentNullException>(() => Guard.Against.NullOrEmpty(null, "null"));
         }
 
         [Fact]
-        public void ThrowsGivenEmptyStringUsingSpecificMethodPath()
+        public void ThrowsGivenEmptyStringUsingExtensionMethod()
         {
             Assert.Throws<ArgumentException>(() => Guard.Against.NullOrEmpty("", "emptystring"));
         }

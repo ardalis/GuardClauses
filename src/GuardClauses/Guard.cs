@@ -2,19 +2,38 @@
 
 namespace Ardalis.GuardClauses
 {
+    /// <summary>
+    /// Simple interface to provide a generic mechanism to build guard clause extension methods from.
+    /// </summary>
     public interface IGuardClause
     {
     }
 
     /// <summary>
-    /// A collection of helper methods for implenting Guard Clauses.
+    /// A collection of helper methods for implementing Guard Clauses.
     /// 
     /// </summary>
     /// <remarks>See http://www.weeklydevtips.com/004 on Guard Clauses</remarks>
     public class Guard : IGuardClause
     {
         public static IGuardClause Against { get; } = new Guard();
+
+        /// <summary>
+        /// Throws an ArgumentNullException if input is null.
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        /// <exception cref="ArgumentNullException"></exception>
         public static void AgainstNull(object input, string parameterName) => Against.Null(input, parameterName);
+
+        /// <summary>
+        /// Throws an ArgumentNullException if input is null.
+        /// Throws an ArgumentException if input is an empty string.
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
         public static void AgainstNullOrEmpty(string input, string parameterName) => Against.NullOrEmpty(input, parameterName);
     }
 

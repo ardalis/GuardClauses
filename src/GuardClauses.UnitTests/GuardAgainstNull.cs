@@ -17,7 +17,7 @@ namespace GuardClauses.UnitTests
         }
 
         [Fact]
-        public void DoesNothingGivenNonNullValueUsingSpecificMethodPath()
+        public void DoesNothingGivenNonNullValueUsingExtensionMethod()
         {
             Guard.Against.Null("", "string");
             Guard.Against.Null(1, "int");
@@ -33,7 +33,7 @@ namespace GuardClauses.UnitTests
         }
 
         [Fact]
-        public void ThrowsGivenNullValueUsingSpecificMethodPath()
+        public void ThrowsGivenNullValueUsingExtensionMethod()
         {
             Assert.Throws<ArgumentNullException>(() => Guard.Against.Null(null, "null"));
         }
