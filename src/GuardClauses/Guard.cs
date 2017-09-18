@@ -18,6 +18,8 @@ namespace Ardalis.GuardClauses
     {
         public static IGuardClause Against { get; } = new Guard();
 
+        private Guard() { }
+
         /// <summary>
         /// Throws an ArgumentNullException if input is null.
         /// </summary>
