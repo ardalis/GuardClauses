@@ -24,6 +24,7 @@ A simple package with guard clause extensions.
 
 - **AgainstNull** (throws if input is null) **Guard.Against.Null** is equivalent.
 - **AgainstNullOrEmpty** (throws if string input is null or empty) **Guard.Against.NullOrEmpty** is equivalent.
+- **AgainstOutOfRange** (throws if integer input is outside a provided range) **Guard.Against.OutOfRange** is equivalent.
 
 ## Extending with your own Guard Clauses
 
