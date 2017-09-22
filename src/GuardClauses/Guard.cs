@@ -45,7 +45,7 @@ namespace Ardalis.GuardClauses
         /// <param name="parameterName"></param>
         /// <param name="rangeFrom"></param>
         /// <param name="rangeTo"></param>
-        public static void AgainsOutOfRange(int input, string parameterName, int rangeFrom, int rangeTo)
+        public static void AgainstOutOfRange(int input, string parameterName, int rangeFrom, int rangeTo)
             => Against.OutOfRange(input, parameterName, rangeFrom, rangeTo);
     }
 
