@@ -21,6 +21,26 @@ A simple package with guard clause extensions.
 - **AgainstNull** (throws if input is null)
 - **AgainstNullOrEmpty** (throws if string input is null or empty)
 
+## Extending with your own Guard Clauses
+
+To extend your own guards, you can do the following:
+
+```c#
+	// Using the same namespace will make sure your code picks up your 
+	// extensions no matter where they are in your codebase.
+	namespace Ardalis.GuardClauses
+	{
+		public static class FooGuard
+		{
+			public static void Foo(this IGuardClause guardClause, string input, string parameterName)
+			{
+				if (input?.ToLower() == "foo")
+					throw new ArgumentException("Should not have been foo!", parameterName);
+			}
+		}
+	}
+```
+
 ## References
 
 - [Guard Clauses (podcast: 7 minutes)](http://www.weeklydevtips.com/004)
