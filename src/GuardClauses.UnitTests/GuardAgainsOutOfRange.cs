@@ -6,28 +6,40 @@ namespace GuardClauses.UnitTests
 {
     public class GuardAgainsOutOfRange
     {
-        [Fact]
-        public void DoesNothingGivenInRangeValueUsingShortcutMethod()
+        [Theory]
+        [InlineData(1, 1, 5)]
+        [InlineData(2, 1, 5)]
+        [InlineData(3, 1, 5)]
+        public void DoesNothingGivenInRangeValueUsingShortcutMethod(int input, int rangeFrom, int rangeTo)
         {
-            Guard.AgainsOutOfRange(2, "index", 1, 5);
+            Guard.AgainsOutOfRange(input, "index", rangeFrom, rangeTo);
         }
 
-        [Fact]
-        public void DoesNothingGivenInRangeValueUsingExtensionMethod()
+        [Theory]
+        [InlineData(1, 1, 5)]
+        [InlineData(2, 1, 5)]
+        [InlineData(3, 1, 5)]
+        public void DoesNothingGivenInRangeValueUsingExtensionMethod(int input, int rangeFrom, int rangeTo)
         {
-            Guard.Against.OutOfRange(2, "index", 1, 5);
+            Guard.Against.OutOfRange(input, "index", rangeFrom, rangeTo);
         }
 
-        [Fact]
-        public void ThrowsGivenOutOfRangeValueUsingShortcutMethod()
+        [Theory]
+        [InlineData(-1, 1, 5)]
+        [InlineData(0, 1, 5)]
+        [InlineData(6, 1, 5)]
+        public void ThrowsGivenOutOfRangeValueUsingShortcutMethod(int input, int rangeFrom, int rangeTo)
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() => Guard.AgainsOutOfRange(5, "index", 1, 4));
+            Assert.Throws<ArgumentOutOfRangeException>(() => Guard.AgainsOutOfRange(input, "index", rangeFrom, rangeTo));
         }
 
-        [Fact]
-        public void ThrowsGivenOutOfRangeValueUsingExtensionMethod()
+        [Theory]
+        [InlineData(-1, 1, 5)]
+        [InlineData(0, 1, 5)]
+        [InlineData(6, 1, 5)]
+        public void ThrowsGivenOutOfRangeValueUsingExtensionMethod(int input, int rangeFrom, int rangeTo)
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() => Guard.Against.OutOfRange(5, "index", 1, 4));
+            Assert.Throws<ArgumentOutOfRangeException>(() => Guard.Against.OutOfRange(input, "index", rangeFrom, rangeTo));
         }
     }
 }
