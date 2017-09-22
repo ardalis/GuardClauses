@@ -30,26 +30,25 @@ A simple package with guard clause extensions.
 To extend your own guards, you can do the following:
 
 ```c#
-	// Using the same namespace will make sure your code picks up your 
-	// extensions no matter where they are in your codebase.
-	namespace Ardalis.GuardClauses
-	{
-		public static class FooGuard
-		{
-			public static void Foo(this IGuardClause guardClause, string input, string parameterName)
-			{
-				if (input?.ToLower() == "foo")
-					throw new ArgumentException("Should not have been foo!", parameterName);
-			}
-		}
-	}
-	
-	// Usage
-	public void SomeMethod(string something)
-	{
-	    Guard.Against.Foo(something, nameof(something));
-	    
-	}
+    // Using the same namespace will make sure your code picks up your 
+    // extensions no matter where they are in your codebase.
+    namespace Ardalis.GuardClauses
+    {
+        public static class FooGuard
+        {
+            public static void Foo(this IGuardClause guardClause, string input, string parameterName)
+            {
+                if (input?.ToLower() == "foo")
+                    throw new ArgumentException("Should not have been foo!", parameterName);
+            }
+        }
+    }
+
+    // Usage
+    public void SomeMethod(string something)
+    {
+        Guard.Against.Foo(something, nameof(something));
+    }
 ```
 
 ## References
