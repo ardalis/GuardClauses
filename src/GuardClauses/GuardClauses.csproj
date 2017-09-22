@@ -3,14 +3,18 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>Ardalis.GuardClauses</PackageId>
+    <Title>Ardalis.GuardClauses</Title>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Steve Smith (@ardalis)</Authors>
     <Company>Ardalis.com</Company>
     <PackageProjectUrl>https://github.com/ardalis/guardclauses</PackageProjectUrl>
-    <Description>A simple package with guard clause helper methods. Guard class is partial so you can extend it in your own projects if desired.</Description>
+    <Description>A simple package with guard clause helper methods. See docs for how to extend using your own extension methods.</Description>
+    <Summary>A simple package with guard clause helper methods. See docs for how to extend using your own extension methods.</Summary>
     <RepositoryUrl>https://github.com/ardalis/guardclauses</RepositoryUrl>
     <PackageTags>guard</PackageTags>
-    <PackageReleaseNotes>Initial release.</PackageReleaseNotes>
+    <PackageReleaseNotes>Added OutOfRange guard.</PackageReleaseNotes>
+    <Version>1.0.2</Version>
+    <PackageIconUrl>https://user-images.githubusercontent.com/782127/30345969-31364232-97d5-11e7-99b2-5317a13c9e7e.png</PackageIconUrl>
   </PropertyGroup>
 
 </Project>

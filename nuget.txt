@@ -1,2 +1,2 @@
 dotnet pack -c release /p:Version=1.0.0
-dotnet nuget push -s nuget.org -k <key> Ardalis.GuardClauses.1.0.1.nupkg
+dotnet nuget push -s https://www.nuget.org/api/v2/package -k <key> Ardalis.GuardClauses.1.0.1.nupkg
