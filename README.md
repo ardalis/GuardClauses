@@ -1,4 +1,4 @@
-![nuget](https://img.shields.io/nuget/dt/Ardalis.GuardClauses.svg)
+[![nuget](https://img.shields.io/nuget/dt/Ardalis.GuardClauses.svg)](https://www.nuget.org/packages/Ardalis.GuardClauses)
 
 Nuget: [Ardalis.GuardClauses](https://www.nuget.org/packages/Ardalis.GuardClauses)
 
