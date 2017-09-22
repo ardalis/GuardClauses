@@ -10,7 +10,11 @@ A simple package with guard clause extensions.
 ```c#
     public void ProcessOrder(Order order)
     {
+        // shortcut
         Guard.AgainstNull(order, nameof(order));
+	
+	// equivalent
+	Guard.Against.Null(order, nameof(order));
 
         // process order here
     }
@@ -18,8 +22,8 @@ A simple package with guard clause extensions.
 
 ## Supported Guard Clauses
 
-- **AgainstNull** (throws if input is null)
-- **AgainstNullOrEmpty** (throws if string input is null or empty)
+- **AgainstNull** (throws if input is null) **Guard.Against.Null** is equivalent.
+- **AgainstNullOrEmpty** (throws if string input is null or empty) **Guard.Against.NullOrEmpty** is equivalent.
 
 ## Extending with your own Guard Clauses
 
@@ -38,6 +42,13 @@ To extend your own guards, you can do the following:
 					throw new ArgumentException("Should not have been foo!", parameterName);
 			}
 		}
+	}
+	
+	// Usage
+	public void SomeMethod(string something)
+	{
+	    Guard.Against.Foo(something, nameof(something));
+	    
 	}
 ```
 
