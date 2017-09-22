@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard1.4</TargetFramework>
     <PackageId>Ardalis.GuardClauses</PackageId>
     <Title>Ardalis.GuardClauses</Title>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -13,7 +13,7 @@
     <RepositoryUrl>https://github.com/ardalis/guardclauses</RepositoryUrl>
     <PackageTags>guard</PackageTags>
     <PackageReleaseNotes>Added OutOfRange guard.</PackageReleaseNotes>
-    <Version>1.0.2</Version>
+    <Version>1.0.3</Version>
     <PackageIconUrl>https://user-images.githubusercontent.com/782127/30345969-31364232-97d5-11e7-99b2-5317a13c9e7e.png</PackageIconUrl>
   </PropertyGroup>
 

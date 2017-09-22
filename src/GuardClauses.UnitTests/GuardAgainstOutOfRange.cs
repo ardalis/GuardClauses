@@ -45,21 +45,21 @@ namespace GuardClauses.UnitTests
         }
 
         [Theory]
-        [InlineData(-1, 1, 3)]
-        [InlineData(0, 1, 3)]
-        [InlineData(4, 1, 3)]
+        [InlineData(-1, 3, 1)]
+        [InlineData(0, 3, 1)]
+        [InlineData(4, 3, 1)]
         public void ThrowsGivenInvalidArgumentValueUsingShortcutMethod(int input, int rangeFrom, int rangeTo)
         {
-            Assert.Throws<ArgumentException>(() => Guard.Against.OutOfRange(input, "index", rangeTo, rangeFrom));
+            Assert.Throws<ArgumentException>(() => Guard.Against.OutOfRange(input, "index", rangeFrom, rangeTo));
         }
 
         [Theory]
-        [InlineData(-1, 1, 3)]
-        [InlineData(0, 1, 3)]
-        [InlineData(4, 1, 3)]
+        [InlineData(-1, 3, 1)]
+        [InlineData(0, 3, 1)]
+        [InlineData(4, 3, 1)]
         public void ThrowsGivenInvalidArgumentValueUsingExtensionMethod(int input, int rangeFrom, int rangeTo)
         {
-            Assert.Throws<ArgumentException>(() => Guard.Against.OutOfRange(input, "index", rangeTo, rangeFrom));
+            Assert.Throws<ArgumentException>(() => Guard.Against.OutOfRange(input, "index", rangeFrom, rangeTo));
         }
     }
 }
