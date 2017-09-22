@@ -95,6 +95,11 @@ namespace Ardalis.GuardClauses
         public static void OutOfRange(this IGuardClause guardClause, int input, string parameterName,
             int rangeFrom, int rangeTo)
         {
+            if (rangeFrom > rangeTo)
+            {
+                throw new ArgumentException($"{nameof(rangeFrom)} should be less or equal than {nameof(rangeTo)}");
+            }
+
             if (input < rangeFrom || input > rangeTo)
             {
                 throw new ArgumentOutOfRangeException($"Input {parameterName} was out of range", parameterName);
