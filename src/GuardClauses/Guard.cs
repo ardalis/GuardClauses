@@ -37,6 +37,16 @@ namespace Ardalis.GuardClauses
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentException"></exception>
         public static void AgainstNullOrEmpty(string input, string parameterName) => Against.NullOrEmpty(input, parameterName);
+
+        /// <summary>
+        /// Throws an ArgumentOutOfRange if input is less than <see cref="rangeFrom"/> or greater than <see cref="rangeTo"/>
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        /// <param name="rangeFrom"></param>
+        /// <param name="rangeTo"></param>
+        public static void AgainsOutOfRange(int input, string parameterName, int rangeFrom, int rangeTo)
+            => Against.OutOfRange(input, parameterName, rangeFrom, rangeTo);
     }
 
     public static class CoreGuards
@@ -71,6 +81,28 @@ namespace Ardalis.GuardClauses
             if (input == String.Empty)
             {
                 throw new ArgumentException($"Required input {parameterName} was empty.", parameterName);
+            }
+        }
+
+        /// <summary>
+        /// Throws an ArgumentOutOfRange if input is less than <see cref="rangeFrom"/> or greater than <see cref="rangeTo"/>
+        /// </summary>
+        /// <param name="guardClause"></param>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        /// <param name="rangeFrom"></param>
+        /// <param name="rangeTo"></param>
+        public static void OutOfRange(this IGuardClause guardClause, int input, string parameterName,
+            int rangeFrom, int rangeTo)
+        {
+            if (rangeFrom > rangeTo)
+            {
+                throw new ArgumentException($"{nameof(rangeFrom)} should be less or equal than {nameof(rangeTo)}");
+            }
+
+            if (input < rangeFrom || input > rangeTo)
+            {
+                throw new ArgumentOutOfRangeException($"Input {parameterName} was out of range", parameterName);
             }
         }
     }
