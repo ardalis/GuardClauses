@@ -13,7 +13,7 @@ namespace GuardClauses.UnitTests
         [InlineData(3, 1, 3)]
         public void DoesNothingGivenInRangeValueUsingShortcutMethod(int input, int rangeFrom, int rangeTo)
         {
-            Guard.AgainsOutOfRange(input, "index", rangeFrom, rangeTo);
+            Guard.AgainstOutOfRange(input, "index", rangeFrom, rangeTo);
         }
 
         [Theory]
@@ -32,7 +32,7 @@ namespace GuardClauses.UnitTests
         [InlineData(4, 1, 3)]
         public void ThrowsGivenOutOfRangeValueUsingShortcutMethod(int input, int rangeFrom, int rangeTo)
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() => Guard.AgainsOutOfRange(input, "index", rangeFrom, rangeTo));
+            Assert.Throws<ArgumentOutOfRangeException>(() => Guard.AgainstOutOfRange(input, "index", rangeFrom, rangeTo));
         }
 
         [Theory]
