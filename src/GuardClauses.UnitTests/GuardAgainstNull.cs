@@ -7,17 +7,7 @@ namespace GuardClauses.UnitTests
     public class GuardAgainstNull
     {
         [Fact]
-        public void DoesNothingGivenNonNullValueUsingShortcutMethod()
-        {
-            Guard.AgainstNull("", "string");
-            Guard.AgainstNull(1, "int");
-            Guard.AgainstNull(Guid.Empty, "guid");
-            Guard.AgainstNull(DateTime.Now, "datetime");
-            Guard.AgainstNull(new Object(), "object");
-        }
-
-        [Fact]
-        public void DoesNothingGivenNonNullValueUsingExtensionMethod()
+        public void DoesNothingGivenNonNullValue()
         {
             Guard.Against.Null("", "string");
             Guard.Against.Null(1, "int");
@@ -27,13 +17,7 @@ namespace GuardClauses.UnitTests
         }
 
         [Fact]
-        public void ThrowsGivenNullValueUsingShortcutMethod()
-        {
-            Assert.Throws<ArgumentNullException>(() => Guard.AgainstNull(null, "null"));
-        }
-
-        [Fact]
-        public void ThrowsGivenNullValueUsingExtensionMethod()
+        public void ThrowsGivenNullValue()
         {
             Assert.Throws<ArgumentNullException>(() => Guard.Against.Null(null, "null"));
         }

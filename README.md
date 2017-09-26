@@ -10,11 +10,7 @@ A simple package with guard clause extensions.
 ```c#
     public void ProcessOrder(Order order)
     {
-        // shortcut
-        Guard.AgainstNull(order, nameof(order));
-	
-	// equivalent
-	Guard.Against.Null(order, nameof(order));
+    	Guard.Against.Null(order, nameof(order));
 
         // process order here
     }
@@ -22,9 +18,9 @@ A simple package with guard clause extensions.
 
 ## Supported Guard Clauses
 
-- **AgainstNull** (throws if input is null) **Guard.Against.Null** is equivalent.
-- **AgainstNullOrEmpty** (throws if string input is null or empty) **Guard.Against.NullOrEmpty** is equivalent.
-- **AgainstOutOfRange** (throws if integer input is outside a provided range) **Guard.Against.OutOfRange** is equivalent.
+- **Guard.Against.Null** (throws if input is null)
+- **Guard.Against.NullOrEmpty** (throws if string input is null or empty)
+- **Guard.Against.OutOfRange** (throws if integer input is outside a provided range) 
 
 ## Extending with your own Guard Clauses
 
