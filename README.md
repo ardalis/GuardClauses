@@ -20,6 +20,7 @@ A simple package with guard clause extensions.
 
 - **Guard.Against.Null** (throws if input is null)
 - **Guard.Against.NullOrEmpty** (throws if string input is null or empty)
+- **Guard.Against.NullOrWhiteSpace** (throws if string input is null or whitespace)
 - **Guard.Against.OutOfRange** (throws if integer input is outside a provided range) 
 
 ## Extending with your own Guard Clauses
