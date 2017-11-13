@@ -12,8 +12,8 @@
     <Summary>A simple package with guard clause helper methods. See docs for how to extend using your own extension methods.</Summary>
     <RepositoryUrl>https://github.com/ardalis/guardclauses</RepositoryUrl>
     <PackageTags>guard</PackageTags>
-    <PackageReleaseNotes>Updated target frameworks.</PackageReleaseNotes>
-    <Version>1.1.1</Version>
+    <PackageReleaseNotes>Added NullOrWhiteSpace</PackageReleaseNotes>
+    <Version>1.2.1</Version>
     <AssemblyName>Ardalis.GuardClauses</AssemblyName>
     <PackageIconUrl>https://user-images.githubusercontent.com/782127/30345969-31364232-97d5-11e7-99b2-5317a13c9e7e.png</PackageIconUrl>
   </PropertyGroup>
