@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 
 namespace Ardalis.GuardClauses
 {
@@ -11,7 +12,7 @@ namespace Ardalis.GuardClauses
     public static class GuardClauseExtensions
     {
         /// <summary>
-        /// Throws an ArgumentNullException if input is null.
+        /// Throws an <see cref="ArgumentNullException" /> if <see cref="input" /> is null.
         /// </summary>
         /// <param name="guardClause"></param>
         /// <param name="input"></param>
@@ -26,8 +27,8 @@ namespace Ardalis.GuardClauses
         }
 
         /// <summary>
-        /// Throws an ArgumentNullException if input is null.
-        /// Throws an ArgumentException if input is an empty string.
+        /// Throws an <see cref="ArgumentNullException" /> if <see cref="input" /> is null.
+        /// Throws an <see cref="ArgumentException" /> if <see cref="input" /> is an empty string.
         /// </summary>
         /// <param name="guardClause"></param>
         /// <param name="input"></param>
@@ -44,7 +45,25 @@ namespace Ardalis.GuardClauses
         }
 
         /// <summary>
-        /// Throws an ArgumentOutOfRange if input is less than <see cref="rangeFrom"/> or greater than <see cref="rangeTo"/>
+        /// Throws an <see cref="ArgumentNullException" /> if <see cref="input" /> is null.
+        /// Throws an <see cref="ArgumentException" /> if <see cref="input" /> is an empty or white space string.
+        /// </summary>
+        /// <param name="guardClause"></param>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
+        public static void NullOrWhiteSpace(this IGuardClause guardClause, string input, string parameterName)
+        {
+            Guard.Against.NullOrEmpty(input, parameterName);
+            if (Regex.IsMatch(input, @"\s"))
+            {
+                throw new ArgumentException($"Required input {parameterName} was empty.", parameterName);
+            }
+        }
+
+        /// <summary>
+        /// Throws an <see cref="ArgumentOutOfRangeException" /> if <see cref="input" /> is less than <see cref="rangeFrom" /> or greater than <see cref="rangeTo" />.
         /// </summary>
         /// <param name="guardClause"></param>
         /// <param name="input"></param>
@@ -53,8 +72,7 @@ namespace Ardalis.GuardClauses
         /// <param name="rangeTo"></param>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public static void OutOfRange(this IGuardClause guardClause, int input, string parameterName,
-            int rangeFrom, int rangeTo)
+        public static void OutOfRange(this IGuardClause guardClause, int input, string parameterName, int rangeFrom, int rangeTo)
         {
             if (rangeFrom > rangeTo)
             {
