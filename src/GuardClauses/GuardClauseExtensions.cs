@@ -86,6 +86,29 @@ namespace Ardalis.GuardClauses
         }
 
         /// <summary>
+        /// Throws an <see cref="ArgumentOutOfRangeException" /> if <see cref="input" /> is less than <see cref="rangeFrom" /> or greater than <see cref="rangeTo" />.
+        /// </summary>
+        /// <param name="guardClause"></param>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        /// <param name="rangeFrom"></param>
+        /// <param name="rangeTo"></param>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        public static void OutOfRange(this IGuardClause guardClause, DateTime input, string parameterName, DateTime rangeFrom, DateTime rangeTo)
+        {
+            if (rangeFrom > rangeTo)
+            {
+                throw new ArgumentException($"{nameof(rangeFrom)} should be less or equal than {nameof(rangeTo)}");
+            }
+
+            if (input < rangeFrom || input > rangeTo)
+            {
+                throw new ArgumentOutOfRangeException($"Input {parameterName} was out of range", parameterName);
+            }
+        }
+
+        /// <summary>
         /// Throws an <see cref="ArgumentOutOfRangeException" /> if <see cref="input" /> is not in the range of valid <see cref="SqlDateTIme" /> values.
         /// </summary>
         /// <param name="guardClause"></param>
@@ -97,13 +120,8 @@ namespace Ardalis.GuardClauses
             // System.Data is unavailable in .NET Standard so we can't use SqlDateTime.
             const long sqlMinDateTicks = 552877920000000000;
             const long sqlMaxDateTicks = 3155378975999970000;
-            DateTime rangeFrom = new DateTime(sqlMinDateTicks);
-            DateTime rangeTo = new DateTime(sqlMaxDateTicks);
 
-            if (input < rangeFrom || input > rangeTo)
-            {
-                throw new ArgumentOutOfRangeException($"Input {parameterName} was out of range", parameterName);
-            }
+            OutOfRange(guardClause, input, parameterName, new DateTime(sqlMinDateTicks), new DateTime(sqlMaxDateTicks));
         }
     }
 }
