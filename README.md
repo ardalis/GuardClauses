@@ -1,6 +1,6 @@
-[![nuget](https://img.shields.io/nuget/dt/Ardalis.GuardClauses.svg)](https://www.nuget.org/packages/Ardalis.GuardClauses)
+[![NuGet](https://img.shields.io/nuget/dt/Ardalis.GuardClauses.svg)](https://www.nuget.org/packages/Ardalis.GuardClauses)
 
-Nuget: [Ardalis.GuardClauses](https://www.nuget.org/packages/Ardalis.GuardClauses)
+NuGet: [Ardalis.GuardClauses](https://www.nuget.org/packages/Ardalis.GuardClauses)
 
 # Guard Clauses
 A simple package with guard clause extensions.
@@ -21,7 +21,8 @@ A simple package with guard clause extensions.
 - **Guard.Against.Null** (throws if input is null)
 - **Guard.Against.NullOrEmpty** (throws if string input is null or empty)
 - **Guard.Against.NullOrWhiteSpace** (throws if string input is null or whitespace)
-- **Guard.Against.OutOfRange** (throws if integer input is outside a provided range) 
+- **Guard.Against.OutOfRange** (throws if integer/DateTime input is outside a provided range)
+- **Guard.Against.OutOfSQLDateRange** (throws if DateTime input is outside the valid range of SQL Server DateTime values)
 
 ## Extending with your own Guard Clauses
 

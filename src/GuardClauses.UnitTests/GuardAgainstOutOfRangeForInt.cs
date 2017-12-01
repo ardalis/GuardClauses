@@ -4,7 +4,7 @@ using Xunit;
 
 namespace GuardClauses.UnitTests
 {
-    public class GuardAgainstOutOfRange
+    public class GuardAgainstOutOfRangeForInt
     {
         [Theory]
         [InlineData(1, 1, 1)]
@@ -23,15 +23,6 @@ namespace GuardClauses.UnitTests
         public void ThrowsGivenOutOfRangeValue(int input, int rangeFrom, int rangeTo)
         {
             Assert.Throws<ArgumentOutOfRangeException>(() => Guard.Against.OutOfRange(input, "index", rangeFrom, rangeTo));
-        }
-
-        [Theory]
-        [InlineData(-1, 3, 1)]
-        [InlineData(0, 3, 1)]
-        [InlineData(4, 3, 1)]
-        public void ThrowsGivenInvalidArgumentValueUsingShortcutMethod(int input, int rangeFrom, int rangeTo)
-        {
-            Assert.Throws<ArgumentException>(() => Guard.Against.OutOfRange(input, "index", rangeFrom, rangeTo));
         }
 
         [Theory]
