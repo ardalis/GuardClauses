@@ -5,7 +5,7 @@ using Xunit;
 
 namespace GuardClauses.UnitTests
 {
-    public class GuardAgainstInvalidSqlDate
+    public class GuardAgainstOutOfSQLDateRange
     {
         [Theory]
         [InlineData(1)]
@@ -18,15 +18,15 @@ namespace GuardClauses.UnitTests
         {
             DateTime date = SqlDateTime.MinValue.Value.AddSeconds(-offsetInSeconds);
 
-            Assert.Throws<ArgumentOutOfRangeException>(() => Guard.Against.InvalidSqlDate(date, nameof(date)));
+            Assert.Throws<ArgumentOutOfRangeException>(() => Guard.Against.OutOfSQLDateRange(date, nameof(date)));
         }
 
         [Fact]
         public void DoNothingGivenCurrentDate()
         {
-            Guard.Against.InvalidSqlDate(DateTime.Today, "Today");
-            Guard.Against.InvalidSqlDate(DateTime.Now, "Now");
-            Guard.Against.InvalidSqlDate(DateTime.UtcNow, "UTC Now");
+            Guard.Against.OutOfSQLDateRange(DateTime.Today, "Today");
+            Guard.Against.OutOfSQLDateRange(DateTime.Now, "Now");
+            Guard.Against.OutOfSQLDateRange(DateTime.UtcNow, "UTC Now");
         }
 
         [Theory]
@@ -41,7 +41,7 @@ namespace GuardClauses.UnitTests
         {
             DateTime date = SqlDateTime.MinValue.Value.AddSeconds(offsetInSeconds);
 
-            Guard.Against.InvalidSqlDate(date, nameof(date));
+            Guard.Against.OutOfSQLDateRange(date, nameof(date));
         }
 
         [Theory]
@@ -56,7 +56,7 @@ namespace GuardClauses.UnitTests
         {
             DateTime date = SqlDateTime.MaxValue.Value.AddSeconds(-offsetInSeconds);
 
-            Guard.Against.InvalidSqlDate(date, nameof(date));
+            Guard.Against.OutOfSQLDateRange(date, nameof(date));
         }
     }
 }

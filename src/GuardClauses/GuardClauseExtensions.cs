@@ -115,7 +115,7 @@ namespace Ardalis.GuardClauses
         /// <param name="input"></param>
         /// <param name="parameterName"></param>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public static void InvalidSqlDate(this IGuardClause guardClause, DateTime input, string parameterName)
+        public static void OutOfSQLDateRange(this IGuardClause guardClause, DateTime input, string parameterName)
         {
             // System.Data is unavailable in .NET Standard so we can't use SqlDateTime.
             const long sqlMinDateTicks = 552877920000000000;
