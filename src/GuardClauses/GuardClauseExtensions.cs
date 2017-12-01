@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 namespace Ardalis.GuardClauses
@@ -74,15 +75,7 @@ namespace Ardalis.GuardClauses
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public static void OutOfRange(this IGuardClause guardClause, int input, string parameterName, int rangeFrom, int rangeTo)
         {
-            if (rangeFrom > rangeTo)
-            {
-                throw new ArgumentException($"{nameof(rangeFrom)} should be less or equal than {nameof(rangeTo)}");
-            }
-
-            if (input < rangeFrom || input > rangeTo)
-            {
-                throw new ArgumentOutOfRangeException($"Input {parameterName} was out of range", parameterName);
-            }
+            OutOfRange<int>(guardClause, input, parameterName, rangeFrom, rangeTo);
         }
 
         /// <summary>
@@ -97,15 +90,7 @@ namespace Ardalis.GuardClauses
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public static void OutOfRange(this IGuardClause guardClause, DateTime input, string parameterName, DateTime rangeFrom, DateTime rangeTo)
         {
-            if (rangeFrom > rangeTo)
-            {
-                throw new ArgumentException($"{nameof(rangeFrom)} should be less or equal than {nameof(rangeTo)}");
-            }
-
-            if (input < rangeFrom || input > rangeTo)
-            {
-                throw new ArgumentOutOfRangeException($"Input {parameterName} was out of range", parameterName);
-            }
+            OutOfRange<DateTime>(guardClause, input, parameterName, rangeFrom, rangeTo);
         }
 
         /// <summary>
@@ -122,6 +107,21 @@ namespace Ardalis.GuardClauses
             const long sqlMaxDateTicks = 3155378975999970000;
 
             OutOfRange(guardClause, input, parameterName, new DateTime(sqlMinDateTicks), new DateTime(sqlMaxDateTicks));
+        }
+
+        private static void OutOfRange<T>(this IGuardClause guardClause, T input, string parameterName, T rangeFrom, T rangeTo)
+        {
+            Comparer<T> comparer = Comparer<T>.Default;
+
+            if (comparer.Compare(rangeFrom, rangeTo) > 0)
+            {
+                throw new ArgumentException($"{nameof(rangeFrom)} should be less or equal than {nameof(rangeTo)}");
+            }
+
+            if (comparer.Compare(input, rangeFrom) < 0 || comparer.Compare(input, rangeTo) > 0)
+            {
+                throw new ArgumentOutOfRangeException($"Input {parameterName} was out of range", parameterName);
+            }
         }
     }
 }
