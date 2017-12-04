@@ -12,8 +12,8 @@
     <Summary>A simple package with guard clause helper methods. See docs for how to extend using your own extension methods.</Summary>
     <RepositoryUrl>https://github.com/ardalis/guardclauses</RepositoryUrl>
     <PackageTags>guard</PackageTags>
-    <PackageReleaseNotes>Added SqlDateRange check</PackageReleaseNotes>
-    <Version>1.2.2</Version>
+    <PackageReleaseNotes>Fixed bug #2 in NullOrWhiteSpace guard.</PackageReleaseNotes>
+    <Version>1.2.3</Version>
     <AssemblyName>Ardalis.GuardClauses</AssemblyName>
     <PackageIconUrl>https://user-images.githubusercontent.com/782127/30345969-31364232-97d5-11e7-99b2-5317a13c9e7e.png</PackageIconUrl>
   </PropertyGroup>
