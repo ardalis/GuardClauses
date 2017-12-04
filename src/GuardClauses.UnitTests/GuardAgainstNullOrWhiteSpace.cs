@@ -9,6 +9,9 @@ namespace GuardClauses.UnitTests
         [Theory]
         [InlineData("a")]
         [InlineData("1")]
+        [InlineData("some text")]
+        [InlineData(" leading whitespace")]
+        [InlineData("trailing whitespace ")]
         public void DoesNothingGivenNonEmptyStringValue(string nonEmptyString)
         {
             Guard.Against.NullOrWhiteSpace(nonEmptyString, "string");
