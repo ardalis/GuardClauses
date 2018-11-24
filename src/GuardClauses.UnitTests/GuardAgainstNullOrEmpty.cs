@@ -1,5 +1,6 @@
 using Ardalis.GuardClauses;
 using System;
+using System.Linq;
 using Xunit;
 
 namespace GuardClauses.UnitTests
@@ -14,6 +15,13 @@ namespace GuardClauses.UnitTests
         }
 
         [Fact]
+        public void DoesNothingGivenNonEmptyEnumerable()
+        {
+            Guard.Against.NullOrEmpty(new [] { "foo", "bar" }, "stringArray");
+            Guard.Against.NullOrEmpty(new [] { 1, 2 }, "intArray");
+        }
+
+        [Fact]
         public void ThrowsGivenNullValue()
         {
             Assert.Throws<ArgumentNullException>(() => Guard.Against.NullOrEmpty(null, "null"));
@@ -23,6 +31,12 @@ namespace GuardClauses.UnitTests
         public void ThrowsGivenEmptyString()
         {
             Assert.Throws<ArgumentException>(() => Guard.Against.NullOrEmpty("", "emptystring"));
+        }
+
+        [Fact]
+        public void ThrowsGivenEmptyEnumerable()
+        {
+            Assert.Throws<ArgumentException>(() => Guard.Against.NullOrEmpty(Enumerable.Empty<string>(), "emptyStringEnumerable"));
         }
     }
 }
