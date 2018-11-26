@@ -1,6 +1,10 @@
+-- Don't forget to update the .csproj file with version and release notes!
+
 dotnet pack -c release /p:Version=1.0.0
 
 -- from /bin/release folder
 dotnet nuget push -s https://www.nuget.org/api/v2/package -k <key> Ardalis.GuardClauses.1.0.1.nupkg
 
 git tag -a v1.2.4 -m "Published 1.2.4 to nuget.org"
+
+git push --follow-tags
