@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace Ardalis.GuardClauses
@@ -40,6 +42,24 @@ namespace Ardalis.GuardClauses
         {
             Guard.Against.Null(input, parameterName);
             if (input == String.Empty)
+            {
+                throw new ArgumentException($"Required input {parameterName} was empty.", parameterName);
+            }
+        }
+
+        /// <summary>
+        /// Throws an <see cref="ArgumentNullException" /> if <see cref="input" /> is null.
+        /// Throws an <see cref="ArgumentException" /> if <see cref="input" /> is an empty enumerable.
+        /// </summary>
+        /// <param name="guardClause"></param>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
+        public static void NullOrEmpty<T>(this IGuardClause guardClause, IEnumerable<T> input, string parameterName)
+        {
+            Guard.Against.Null(input, parameterName);
+            if (!input.Any())
             {
                 throw new ArgumentException($"Required input {parameterName} was empty.", parameterName);
             }
