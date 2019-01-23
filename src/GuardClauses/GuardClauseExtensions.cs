@@ -143,5 +143,80 @@ namespace Ardalis.GuardClauses
                 throw new ArgumentOutOfRangeException($"Input {parameterName} was out of range", parameterName);
             }
         }
+
+        /// <summary>
+        /// Throws an <see cref="ArgumentException" /> if <see cref="input" /> is zero.
+        /// </summary>
+        /// <param name="guardClause"></param>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        /// <exception cref="ArgumentException"></exception>
+        public static void Zero(this IGuardClause guardClause, int input, string parameterName)
+        {
+            Zero<int>(guardClause, input, parameterName);
+        }
+
+        /// <summary>
+        /// Throws an <see cref="ArgumentException" /> if <see cref="input" /> is zero.
+        /// </summary>
+        /// <param name="guardClause"></param>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        /// <exception cref="ArgumentException"></exception>
+        public static void Zero(this IGuardClause guardClause, long input, string parameterName)
+        {
+            Zero<long>(guardClause, input, parameterName);
+        }
+
+        /// <summary>
+        /// Throws an <see cref="ArgumentException" /> if <see cref="input" /> is zero.
+        /// </summary>
+        /// <param name="guardClause"></param>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        /// <exception cref="ArgumentException"></exception>
+        public static void Zero(this IGuardClause guardClause, decimal input, string parameterName)
+        {
+            Zero<decimal>(guardClause, input, parameterName);
+        }
+
+        /// <summary>
+        /// Throws an <see cref="ArgumentException" /> if <see cref="input" /> is zero.
+        /// </summary>
+        /// <param name="guardClause"></param>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        /// <exception cref="ArgumentException"></exception>
+        public static void Zero(this IGuardClause guardClause, float input, string parameterName)
+        {
+            Zero<float>(guardClause, input, parameterName);
+        }
+
+        /// <summary>
+        /// Throws an <see cref="ArgumentException" /> if <see cref="input" /> is zero.
+        /// </summary>
+        /// <param name="guardClause"></param>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        /// <exception cref="ArgumentException"></exception>
+        public static void Zero(this IGuardClause guardClause, double input, string parameterName)
+        {
+            Zero<double>(guardClause, input, parameterName);
+        }
+
+        /// <summary>
+        /// Throws an <see cref="ArgumentException" /> if <see cref="input" /> is zero.
+        /// </summary>
+        /// <param name="guardClause"></param>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        /// <exception cref="ArgumentException"></exception>
+        private static void Zero<T>(this IGuardClause guardClause, T input, string parameterName)
+        {
+            if (EqualityComparer<T>.Default.Equals(input, default(T)))
+            {
+                throw new ArgumentException($"Required input {parameterName} cannot be zero.", parameterName);
+            }
+        }
     }
 }
