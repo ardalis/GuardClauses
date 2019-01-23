@@ -1,3 +1,6 @@
+Checklist:
+https://ardalis.com/nuget-publication-checklist
+
 -- Don't forget to update the .csproj file with version and release notes!
 
 dotnet pack -c release /p:Version=1.0.0
