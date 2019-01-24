@@ -32,7 +32,7 @@ namespace GuardClauses.UnitTests
         [Fact]
         public void ThrowsGivenZeroValueLongZero()
         {
-            Assert.Throws<ArgumentException>(() => Guard.Against.Zero(0l, "zero"));
+            Assert.Throws<ArgumentException>(() => Guard.Against.Zero(0L, "zero"));
         }
 
         [Fact]
