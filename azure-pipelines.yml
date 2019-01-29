@@ -23,3 +23,7 @@ steps:
     command: test
     projects: '**/*Tests/*.csproj'
     arguments: '--configuration $(buildConfiguration)'
+
+- script: CCM.exe ccm.config
+  workingDirectory: $(Agent.BuildDirectory)/CCM
+  displayName: 'Aggregate Complexity'
