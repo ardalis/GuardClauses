@@ -1,3 +1,7 @@
+<h1 align=center>
+<img src="media/logotype.svg" width=50%>
+</h1>
+
 [![NuGet](https://img.shields.io/nuget/dt/Ardalis.GuardClauses.svg)](https://www.nuget.org/packages/Ardalis.GuardClauses)
 [![Build Status](https://dev.azure.com/ardalis/GuardClauses/_apis/build/status/ardalis.GuardClauses?branchName=master)](https://dev.azure.com/ardalis/GuardClauses/_build/latest?definitionId=1&branchName=master)
 
