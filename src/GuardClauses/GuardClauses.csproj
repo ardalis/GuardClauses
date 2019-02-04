@@ -12,8 +12,8 @@
     <Summary>A simple package with guard clause helper methods. See docs for how to extend using your own extension methods.</Summary>
     <RepositoryUrl>https://github.com/ardalis/guardclauses</RepositoryUrl>
     <PackageTags>guard</PackageTags>
-    <PackageReleaseNotes>Added GuardAgainstZero support.</PackageReleaseNotes>
-    <Version>1.2.6</Version>
+    <PackageReleaseNotes>Fixing regression; updating logo.</PackageReleaseNotes>
+    <Version>1.2.7</Version>
     <AssemblyName>Ardalis.GuardClauses</AssemblyName>
     <PackageIconUrl>https://user-images.githubusercontent.com/782127/52231271-7d561400-2887-11e9-9ca5-648259e60b37.png</PackageIconUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -21,6 +21,6 @@
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-*" PrivateAssets="All"/>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-*" PrivateAssets="All" />
   </ItemGroup>
 </Project>
