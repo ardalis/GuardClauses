@@ -1,5 +1,5 @@
 <h1 align=center>
-<img src="media/logotype.svg" width=50%>
+<img src="media/logotype 1024.svg" width=50%>
 </h1>
 
 [![NuGet](https://img.shields.io/nuget/dt/Ardalis.GuardClauses.svg)](https://www.nuget.org/packages/Ardalis.GuardClauses)
