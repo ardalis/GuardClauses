@@ -14,17 +14,17 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'Build: $(buildConfiguration)'
-  workingDirectory: src
+#- script: dotnet build --configuration $(buildConfiguration)
+#  displayName: 'Build: $(buildConfiguration)'
+#  workingDirectory: src
 
-- task: DotNetCoreCLI@2
-  displayName: 'Test'
-  inputs:
-    command: test
-    projects: '**/*Tests/*.csproj'
-    arguments: '--configuration $(buildConfiguration)'
+#- task: DotNetCoreCLI@2
+#  displayName: 'Test'
+#  inputs:
+#    command: test
+#    projects: '**/*Tests/*.csproj'
+#    arguments: '--configuration $(buildConfiguration)'
 
-#- script: CCM.exe ccm.config
-#  displayName: 'Aggregate Complexity'
-#  workingDirectory: CCM
+- script: CCM.exe ccm.config
+  displayName: 'Aggregate Complexity Calculation'
+  workingDirectory: CCM
