@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Ardalis.GuardClauses
 {
@@ -25,76 +27,6 @@ namespace Ardalis.GuardClauses
             {
                 throw new ArgumentNullException(parameterName);
             }
-
-            // Adding useless things to test Aggregate Cyclomatic Complexity
-            if (null == input)
-            {
-                throw new ArgumentNullException(parameterName);
-            }
-            if (null == input)
-            {
-                throw new ArgumentNullException(parameterName);
-            }
-            if (null == input)
-            {
-                throw new ArgumentNullException(parameterName);
-            }
-            if (null == input)
-            {
-                throw new ArgumentNullException(parameterName);
-            } else if (null == input)
-            {
-                throw new ArgumentNullException(parameterName);
-            }
-            if (null == input)
-            {
-                throw new ArgumentNullException(parameterName);
-            }
-            if (null == input)
-            {
-                throw new ArgumentNullException(parameterName);
-            }
-            if (null == input)
-            {
-                throw new ArgumentNullException(parameterName);
-            }
-            if (null == input)
-            {
-                throw new ArgumentNullException(parameterName);
-            }
-            if (null == input)
-            {
-                throw new ArgumentNullException(parameterName);
-            }
-            if (null == input)
-            {
-                throw new ArgumentNullException(parameterName);
-            }
-            if (null == input)
-            {
-                throw new ArgumentNullException(parameterName);
-            }
-            if (null == input)
-            {
-                throw new ArgumentNullException(parameterName);
-            }
-            if (null == input)
-            {
-                throw new ArgumentNullException(parameterName);
-            }
-            if (null == input)
-            {
-                throw new ArgumentNullException(parameterName);
-            }
-            if (null == input)
-            {
-                throw new ArgumentNullException(parameterName);
-            }
-            if (null == input)
-            {
-                throw new ArgumentNullException(parameterName);
-            }
-
         }
 
         /// <summary>
