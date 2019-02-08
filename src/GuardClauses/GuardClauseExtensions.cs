@@ -220,7 +220,7 @@ namespace Ardalis.GuardClauses
         }
 
         /// <summary>
-        /// Throws an <see cref="ArgumentOutOfRangeException" /> if <see cref="input" /> is nuo a valid enum value.
+        /// Throws an <see cref="ArgumentOutOfRangeException" /> if <see cref="input" /> is not a valid enum value.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="guardClause"></param>
