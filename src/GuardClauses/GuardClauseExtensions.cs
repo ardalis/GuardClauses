@@ -218,5 +218,21 @@ namespace Ardalis.GuardClauses
                 throw new ArgumentException($"Required input {parameterName} cannot be zero.", parameterName);
             }
         }
+
+        /// <summary>
+        /// Throws an <see cref="ArgumentOutOfRangeException" /> if <see cref="input" /> is nuo a valid enum value.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="guardClause"></param>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        public static void OutOfRange<T>(this IGuardClause guardClause, int input, string parameterName) where T : Enum
+        {
+            if (!Enum.IsDefined(typeof(T), input))
+            {
+                throw new ArgumentOutOfRangeException($"Required input {parameterName} was invalid.", parameterName);
+            }
+        }
     }
 }
