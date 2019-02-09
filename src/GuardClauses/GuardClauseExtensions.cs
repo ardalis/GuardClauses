@@ -231,7 +231,8 @@ namespace Ardalis.GuardClauses
         {
             if (!Enum.IsDefined(typeof(T), input))
             {
-                throw new ArgumentOutOfRangeException($"Required input {parameterName} was invalid.", parameterName);
+                string enumName = typeof(T).ToString();
+                throw new ArgumentOutOfRangeException($"Required input {parameterName} was not a valid enum value for {typeof(T).ToString()}.", parameterName);
             }
         }
     }
