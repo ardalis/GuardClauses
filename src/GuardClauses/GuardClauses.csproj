@@ -11,9 +11,9 @@
     <Description>A simple package with guard clause helper methods. See docs for how to extend using your own extension methods.</Description>
     <Summary>A simple package with guard clause helper methods. See docs for how to extend using your own extension methods.</Summary>
     <RepositoryUrl>https://github.com/ardalis/guardclauses</RepositoryUrl>
-    <PackageTags>guard</PackageTags>
-    <PackageReleaseNotes>Fixing regression; updating logo.</PackageReleaseNotes>
-    <Version>1.2.7</Version>
+    <PackageTags>guard clause clauses assert assertion</PackageTags>
+    <PackageReleaseNotes>Added enum support to Guard.Against.OutOfRange. </PackageReleaseNotes>
+    <Version>1.2.8</Version>
     <AssemblyName>Ardalis.GuardClauses</AssemblyName>
     <PackageIconUrl>https://user-images.githubusercontent.com/782127/52231271-7d561400-2887-11e9-9ca5-648259e60b37.png</PackageIconUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
