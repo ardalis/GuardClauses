@@ -2,7 +2,7 @@
 <img src="media/logotype 1024.svg" width=50%>
 </h1>
 
-[![NuGet](https://img.shields.io/nuget/dt/Ardalis.GuardClauses.svg)](https://www.nuget.org/packages/Ardalis.GuardClauses)
+[![NuGet](https://img.shields.io/nuget/v/Ardalis.GuardClauses.svg)](https://www.nuget.org/packages/Ardalis.GuardClauses)[![NuGet](https://img.shields.io/nuget/dt/Ardalis.GuardClauses.svg)](https://www.nuget.org/packages/Ardalis.GuardClauses)
 [![Build Status](https://dev.azure.com/ardalis/GuardClauses/_apis/build/status/ardalis.GuardClauses?branchName=master)](https://dev.azure.com/ardalis/GuardClauses/_build/latest?definitionId=1&branchName=master)
 
 NuGet: [Ardalis.GuardClauses](https://www.nuget.org/packages/Ardalis.GuardClauses)
