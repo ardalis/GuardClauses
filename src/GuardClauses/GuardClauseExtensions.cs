@@ -235,5 +235,20 @@ namespace Ardalis.GuardClauses
                 throw new ArgumentOutOfRangeException($"Required input {parameterName} was not a valid enum value for {typeof(T).ToString()}.", parameterName);
             }
         }
+
+        /// <summary>
+        /// Throws an <see cref="ArgumentException" /> if <see cref="input" /> is default for that type.
+        /// </summary>
+        /// <param name="guardClause"></param>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        /// <exception cref="ArgumentException"></exception>
+        public static void Default<T>(this IGuardClause guardClause, T input, string parameterName)
+        {
+            if (EqualityComparer<T>.Default.Equals(input, default(T)))
+            {
+                throw new ArgumentException($"Parameter [{parameterName}] is default value for type {typeof(T).Name}");
+            }
+        }
     }
 }
