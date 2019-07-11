@@ -14,8 +14,9 @@ variables:
   buildPlatform: 'Any CPU'
   solution: '**/*.sln'
 
-# Prepare
 steps:
+
+# Prepare
 - task: DotNetCoreCLI@2
   displayName: 'dotnet info'
   inputs:
@@ -55,7 +56,6 @@ steps:
     restoreSolution: '$(solution)'
     
 # Build    
-steps:
 - task: VSBuild@1
   inputs:
     solution: '$(solution)'
