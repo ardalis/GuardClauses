@@ -7,30 +7,98 @@ pr:
 - master
 
 pool:
-  vmImage: 'VS2017-Win2016'
+  vmImage: 'windows-2019'
 
 variables:
-  BuildConfiguration: 'Release'
+  buildConfiguration: 'Release'
+  buildPlatform: 'Any CPU'
+  solution: '**/*.sln'
 
 steps:
+
+# Prepare
 - task: DotNetCoreCLI@2
-  displayName: Restore
+  displayName: 'dotnet info'
   inputs:
-    command: restore
-    projects: '**/*.csproj'
+    command: custom
+    custom: '--info'
 
 - task: DotNetCoreCLI@2
-  displayName: Build
+  displayName: 'dotnet version'
   inputs:
-    projects: '**/*.csproj'
-    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    command: custom
+    custom: '--version'
 
+- task: DotNetCoreInstaller@0
+  displayName: 'Use .NET Core SDK 2.2.300'
+  inputs:
+    version: 2.2.300
+
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet info'
+  inputs:
+    command: custom
+    custom: '--info'
+
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet version'
+  inputs:
+    command: custom
+    custom: '--version'
+
+- task: NuGetToolInstaller@0
+  displayName: 'Use NuGet 4.9.3'
+  inputs:
+    versionSpec: 4.9.3
+
+- task: NuGetCommand@2
+  inputs:
+    restoreSolution: '$(solution)'
+    
+# Build    
+- task: VSBuild@1
+  inputs:
+    solution: '$(solution)'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+    arguments: '--output $(Build.ArtifactStagingDirectory)'
+
+#- task: DotNetCoreCLI@2
+#  displayName: Build
+#  inputs:
+#    projects: '**/*.csproj'
+#    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+
+# Run tests and create coverage report
 - task: DotNetCoreCLI@2
   displayName: Test
   inputs:
     command: test
+#    projects: '$(Parameters.TestProjects)'
     projects: '**/*[Tt]ests/*.csproj'
-    arguments: '--configuration $(BuildConfiguration)'
+    arguments: '--configuration $(BuildConfiguration) --no-build /p:AltCover=true /p:AltCoverForce=true /p:AltCoverCallContext=[Fact] /p:AltCoverXmlReport=..\target\reports\coverage\coverage.opencover.xml --collect "Code Coverage"'
+
+- task: Palmmedia.reportgenerator.reportgenerator-build-release-task.reportgenerator@4
+  displayName: ReportGenerator
+  inputs:
+    reports: 'src\target\reports\coverage\coverage.opencover.xml'
+    targetdir: 'src\target\reports\coverage'
+    reporttypes: 'HtmlInline_AzurePipelines;Cobertura;Badges'
+    assemblyfilters: '-xunit*'
+
+- task: PublishCodeCoverageResults@1
+  displayName: 'Publish code coverage results'
+  inputs:
+    codeCoverageTool: Cobertura
+    summaryFileLocation: '$(build.sourcesdirectory)\src\target\reports\coverage\Cobertura.xml'
+    reportDirectory: '$(build.sourcesdirectory)\src\target\reports\coverage'
+
+#- task: DotNetCoreCLI@2
+#  displayName: Test
+#  inputs:
+#    command: test
+#    projects: '**/*[Tt]ests/*.csproj'
+#    arguments: '--configuration $(buildConfiguration)'
 
 - task: CopyFiles@2
   displayName: 'Copy Files'
@@ -40,6 +108,7 @@ steps:
     TargetFolder: '$(Build.ArtifactStagingDirectory)\Package'
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
 
+# Publish
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact'
   inputs:
