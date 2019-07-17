@@ -63,12 +63,6 @@ steps:
     configuration: '$(buildConfiguration)'
     arguments: '--output $(Build.ArtifactStagingDirectory)'
 
-#- task: DotNetCoreCLI@2
-#  displayName: Build
-#  inputs:
-#    projects: '**/*.csproj'
-#    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
-
 # Run tests and create coverage report
 - task: DotNetCoreCLI@2
   displayName: Test
@@ -92,13 +86,6 @@ steps:
     codeCoverageTool: Cobertura
     summaryFileLocation: '$(build.sourcesdirectory)\src\target\reports\coverage\Cobertura.xml'
     reportDirectory: '$(build.sourcesdirectory)\src\target\reports\coverage'
-
-#- task: DotNetCoreCLI@2
-#  displayName: Test
-#  inputs:
-#    command: test
-#    projects: '**/*[Tt]ests/*.csproj'
-#    arguments: '--configuration $(buildConfiguration)'
 
 - task: CopyFiles@2
   displayName: 'Copy Files'
