@@ -29,23 +29,6 @@ steps:
     command: custom
     custom: '--version'
 
-- task: DotNetCoreInstaller@0
-  displayName: 'Use .NET Core SDK 2.2.300'
-  inputs:
-    version: 2.2.300
-
-- task: DotNetCoreCLI@2
-  displayName: 'dotnet info'
-  inputs:
-    command: custom
-    custom: '--info'
-
-- task: DotNetCoreCLI@2
-  displayName: 'dotnet version'
-  inputs:
-    command: custom
-    custom: '--version'
-
 - task: NuGetToolInstaller@0
   displayName: 'Use NuGet 4.9.3'
   inputs:
