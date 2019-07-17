@@ -71,11 +71,12 @@ steps:
     reportDirectory: '$(build.sourcesdirectory)\src\target\reports\coverage'
 
 - task: CopyFiles@2
-  displayName: 'Copy Files'
+  displayName: 'Copy *.nupkg Files'
   inputs:
-    SourceFolder: '$(Build.ArtifactStagingDirectory)'
+    SourceFolder: '$(Build.SourcesDirectory)'
     Contents: '**\*.nupkg'
     TargetFolder: '$(Build.ArtifactStagingDirectory)\Package'
+    flattenFolders: true
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
 
 # Publish
