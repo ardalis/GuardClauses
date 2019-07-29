@@ -247,7 +247,7 @@ namespace Ardalis.GuardClauses
         {
             if (EqualityComparer<T>.Default.Equals(input, default(T)))
             {
-                throw new ArgumentException($"Parameter [{parameterName}] is default value for type {typeof(T).Name}");
+                throw new ArgumentException($"Parameter [{parameterName}] is default value for type {typeof(T).Name}", parameterName);
             }
         }
     }

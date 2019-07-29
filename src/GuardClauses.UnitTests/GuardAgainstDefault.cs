@@ -19,11 +19,11 @@ namespace GuardClauses.UnitTests
         [Fact]
         public void ThrowsGivenDefaultValue()
         {
-            Assert.Throws<ArgumentException>(() => Guard.Against.Default(default(string), "string"));
-            Assert.Throws<ArgumentException>(() => Guard.Against.Default(default(int), "int"));
-            Assert.Throws<ArgumentException>(() => Guard.Against.Default(default(Guid), "guid"));
-            Assert.Throws<ArgumentException>(() => Guard.Against.Default(default(DateTime), "datetime"));
-            Assert.Throws<ArgumentException>(() => Guard.Against.Default(default(object), "object"));
+            Assert.Throws<ArgumentException>("string", () => Guard.Against.Default(default(string), "string"));
+            Assert.Throws<ArgumentException>("int", () => Guard.Against.Default(default(int), "int"));
+            Assert.Throws<ArgumentException>("guid", () => Guard.Against.Default(default(Guid), "guid"));
+            Assert.Throws<ArgumentException>("datetime", () => Guard.Against.Default(default(DateTime), "datetime"));
+            Assert.Throws<ArgumentException>("object", () => Guard.Against.Default(default(object), "object"));
         }
     }
 }
