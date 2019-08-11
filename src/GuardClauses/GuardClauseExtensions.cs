@@ -15,7 +15,7 @@ namespace Ardalis.GuardClauses
     public static class GuardClauseExtensions
     {
         /// <summary>
-        /// Throws an <see cref="ArgumentNullException" /> if <see cref="input" /> is null.
+        /// Throws an <see cref="ArgumentNullException" /> if <paramref name="input" /> is null.
         /// </summary>
         /// <param name="guardClause"></param>
         /// <param name="input"></param>
@@ -30,8 +30,8 @@ namespace Ardalis.GuardClauses
         }
 
         /// <summary>
-        /// Throws an <see cref="ArgumentNullException" /> if <see cref="input" /> is null.
-        /// Throws an <see cref="ArgumentException" /> if <see cref="input" /> is an empty string.
+        /// Throws an <see cref="ArgumentNullException" /> if <paramref name="input" /> is null.
+        /// Throws an <see cref="ArgumentException" /> if <paramref name="input" /> is an empty string.
         /// </summary>
         /// <param name="guardClause"></param>
         /// <param name="input"></param>
@@ -48,8 +48,8 @@ namespace Ardalis.GuardClauses
         }
 
         /// <summary>
-        /// Throws an <see cref="ArgumentNullException" /> if <see cref="input" /> is null.
-        /// Throws an <see cref="ArgumentException" /> if <see cref="input" /> is an empty enumerable.
+        /// Throws an <see cref="ArgumentNullException" /> if <paramref name="input" /> is null.
+        /// Throws an <see cref="ArgumentException" /> if <paramref name="input" /> is an empty enumerable.
         /// </summary>
         /// <param name="guardClause"></param>
         /// <param name="input"></param>
@@ -66,8 +66,8 @@ namespace Ardalis.GuardClauses
         }
 
         /// <summary>
-        /// Throws an <see cref="ArgumentNullException" /> if <see cref="input" /> is null.
-        /// Throws an <see cref="ArgumentException" /> if <see cref="input" /> is an empty or white space string.
+        /// Throws an <see cref="ArgumentNullException" /> if <paramref name="input" /> is null.
+        /// Throws an <see cref="ArgumentException" /> if <paramref name="input" /> is an empty or white space string.
         /// </summary>
         /// <param name="guardClause"></param>
         /// <param name="input"></param>
@@ -84,7 +84,7 @@ namespace Ardalis.GuardClauses
         }
 
         /// <summary>
-        /// Throws an <see cref="ArgumentOutOfRangeException" /> if <see cref="input" /> is less than <see cref="rangeFrom" /> or greater than <see cref="rangeTo" />.
+        /// Throws an <see cref="ArgumentOutOfRangeException" /> if <paramref name="input" /> is less than <paramref name="rangeFrom" /> or greater than <paramref name="rangeTo" />.
         /// </summary>
         /// <param name="guardClause"></param>
         /// <param name="input"></param>
@@ -99,7 +99,7 @@ namespace Ardalis.GuardClauses
         }
 
         /// <summary>
-        /// Throws an <see cref="ArgumentOutOfRangeException" /> if <see cref="input" /> is less than <see cref="rangeFrom" /> or greater than <see cref="rangeTo" />.
+        /// Throws an <see cref="ArgumentOutOfRangeException" /> if <paramref name="input" /> is less than <paramref name="rangeFrom" /> or greater than <paramref name="rangeTo" />.
         /// </summary>
         /// <param name="guardClause"></param>
         /// <param name="input"></param>
@@ -114,7 +114,7 @@ namespace Ardalis.GuardClauses
         }
 
         /// <summary>
-        /// Throws an <see cref="ArgumentOutOfRangeException" /> if <see cref="input" /> is not in the range of valid <see cref="SqlDateTIme" /> values.
+        /// Throws an <see cref="ArgumentOutOfRangeException" /> if <paramref name="input" /> is not in the range of valid SqlDateTIme /> values.
         /// </summary>
         /// <param name="guardClause"></param>
         /// <param name="input"></param>
@@ -145,7 +145,7 @@ namespace Ardalis.GuardClauses
         }
 
         /// <summary>
-        /// Throws an <see cref="ArgumentException" /> if <see cref="input" /> is zero.
+        /// Throws an <see cref="ArgumentException" /> if <paramref name="input" /> is zero.
         /// </summary>
         /// <param name="guardClause"></param>
         /// <param name="input"></param>
@@ -157,7 +157,7 @@ namespace Ardalis.GuardClauses
         }
 
         /// <summary>
-        /// Throws an <see cref="ArgumentException" /> if <see cref="input" /> is zero.
+        /// Throws an <see cref="ArgumentException" /> if <paramref name="input" /> is zero.
         /// </summary>
         /// <param name="guardClause"></param>
         /// <param name="input"></param>
@@ -169,7 +169,7 @@ namespace Ardalis.GuardClauses
         }
 
         /// <summary>
-        /// Throws an <see cref="ArgumentException" /> if <see cref="input" /> is zero.
+        /// Throws an <see cref="ArgumentException" /> if <paramref name="input" /> is zero.
         /// </summary>
         /// <param name="guardClause"></param>
         /// <param name="input"></param>
@@ -181,7 +181,7 @@ namespace Ardalis.GuardClauses
         }
 
         /// <summary>
-        /// Throws an <see cref="ArgumentException" /> if <see cref="input" /> is zero.
+        /// Throws an <see cref="ArgumentException" /> if <paramref name="input" /> is zero.
         /// </summary>
         /// <param name="guardClause"></param>
         /// <param name="input"></param>
@@ -193,7 +193,7 @@ namespace Ardalis.GuardClauses
         }
 
         /// <summary>
-        /// Throws an <see cref="ArgumentException" /> if <see cref="input" /> is zero.
+        /// Throws an <see cref="ArgumentException" /> if <paramref name="input" /> is zero.
         /// </summary>
         /// <param name="guardClause"></param>
         /// <param name="input"></param>
@@ -205,7 +205,7 @@ namespace Ardalis.GuardClauses
         }
 
         /// <summary>
-        /// Throws an <see cref="ArgumentException" /> if <see cref="input" /> is zero.
+        /// Throws an <see cref="ArgumentException" /> if <paramref name="input" /> is zero.
         /// </summary>
         /// <param name="guardClause"></param>
         /// <param name="input"></param>
@@ -220,7 +220,7 @@ namespace Ardalis.GuardClauses
         }
 
         /// <summary>
-        /// Throws an <see cref="ArgumentOutOfRangeException" /> if <see cref="input" /> is not a valid enum value.
+        /// Throws an <see cref="ArgumentOutOfRangeException" /> if <paramref name="input" /> is not a valid enum value.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="guardClause"></param>
@@ -237,7 +237,7 @@ namespace Ardalis.GuardClauses
         }
 
         /// <summary>
-        /// Throws an <see cref="ArgumentException" /> if <see cref="input" /> is default for that type.
+        /// Throws an <see cref="ArgumentException" /> if <paramref name="input" /> is default for that type.
         /// </summary>
         /// <param name="guardClause"></param>
         /// <param name="input"></param>
