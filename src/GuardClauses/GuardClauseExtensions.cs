@@ -140,7 +140,7 @@ namespace Ardalis.GuardClauses
 
             if (comparer.Compare(input, rangeFrom) < 0 || comparer.Compare(input, rangeTo) > 0)
             {
-                throw new ArgumentOutOfRangeException($"Input {parameterName} was out of range", parameterName);
+                throw new ArgumentOutOfRangeException(parameterName, $"Input {parameterName} was out of range");
             }
         }
 
@@ -232,7 +232,7 @@ namespace Ardalis.GuardClauses
             if (!Enum.IsDefined(typeof(T), input))
             {
                 string enumName = typeof(T).ToString();
-                throw new ArgumentOutOfRangeException($"Required input {parameterName} was not a valid enum value for {typeof(T).ToString()}.", parameterName);
+                throw new ArgumentOutOfRangeException(parameterName, $"Required input {parameterName} was not a valid enum value for {typeof(T).ToString()}.");
             }
         }
 
