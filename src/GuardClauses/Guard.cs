@@ -1,4 +1,5 @@
 ﻿using System;
+using JetBrains.Annotations;
 
 namespace Ardalis.GuardClauses
 {
@@ -15,7 +16,7 @@ namespace Ardalis.GuardClauses
     /// <remarks>See http://www.weeklydevtips.com/004 on Guard Clauses</remarks>
     public class Guard : IGuardClause
     {
-        public static IGuardClause Against { get; } = new Guard();
+        [NotNull] public static IGuardClause Against { get; } = new Guard();
 
         private Guard() { }
     }
