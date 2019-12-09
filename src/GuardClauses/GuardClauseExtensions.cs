@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 
 namespace Ardalis.GuardClauses
 {
@@ -127,6 +125,34 @@ namespace Ardalis.GuardClauses
             const long sqlMaxDateTicks = 3155378975999970000;
 
             OutOfRange<DateTime>(guardClause, input, parameterName, new DateTime(sqlMinDateTicks), new DateTime(sqlMaxDateTicks));
+        }
+
+        /// <summary>
+        /// Throws an <see cref="ArgumentOutOfRangeException" /> if <see cref="input" /> is less than <see cref="rangeFrom" /> or greater than <see cref="rangeTo" />.
+        /// </summary>
+        /// <param name="guardClause"></param>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        /// <param name="rangeFrom"></param>
+        /// <param name="rangeTo"></param>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        public static void OutOfRange(this IGuardClause guardClause, decimal input, string parameterName, decimal rangeFrom, decimal rangeTo)
+        {
+            OutOfRange<decimal>(guardClause, input, parameterName, rangeFrom, rangeTo);
+        }
+
+        /// <summary>
+        /// Throws an <see cref="ArgumentOutOfRangeException" /> if <see cref="input" /> is less than <see cref="rangeFrom" /> or greater than <see cref="rangeTo" />.
+        /// </summary>
+        /// <param name="guardClause"></param>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        /// <param name="rangeFrom"></param>
+        /// <param name="rangeTo"></param>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        public static void OutOfRange(this IGuardClause guardClause, short input, string parameterName, short rangeFrom, short rangeTo)
+        {
+            OutOfRange<short>(guardClause, input, parameterName, rangeFrom, rangeTo);
         }
 
         private static void OutOfRange<T>(this IGuardClause guardClause, T input, string parameterName, T rangeFrom, T rangeTo)
