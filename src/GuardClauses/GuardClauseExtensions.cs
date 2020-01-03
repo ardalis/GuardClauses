@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
 
 namespace Ardalis.GuardClauses
 {
@@ -19,7 +20,7 @@ namespace Ardalis.GuardClauses
         /// <param name="input"></param>
         /// <param name="parameterName"></param>
         /// <exception cref="ArgumentNullException"></exception>
-        public static void Null(this IGuardClause guardClause, object input, string parameterName)
+        public static void Null([NotNull] this IGuardClause guardClause, [NotNull] object input, [NotNull] string parameterName)
         {
             if (null == input)
             {
@@ -36,7 +37,7 @@ namespace Ardalis.GuardClauses
         /// <param name="parameterName"></param>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentException"></exception>
-        public static void NullOrEmpty(this IGuardClause guardClause, string input, string parameterName)
+        public static void NullOrEmpty([NotNull] this IGuardClause guardClause, [NotNull] string input, [NotNull] string parameterName)
         {
             Guard.Against.Null(input, parameterName);
             if (input == String.Empty)
@@ -54,7 +55,7 @@ namespace Ardalis.GuardClauses
         /// <param name="parameterName"></param>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentException"></exception>
-        public static void NullOrEmpty<T>(this IGuardClause guardClause, IEnumerable<T> input, string parameterName)
+        public static void NullOrEmpty<T>([NotNull] this IGuardClause guardClause, [NotNull] IEnumerable<T> input, [NotNull] string parameterName)
         {
             Guard.Against.Null(input, parameterName);
             if (!input.Any())
@@ -72,7 +73,7 @@ namespace Ardalis.GuardClauses
         /// <param name="parameterName"></param>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentException"></exception>
-        public static void NullOrWhiteSpace(this IGuardClause guardClause, string input, string parameterName)
+        public static void NullOrWhiteSpace([NotNull] this IGuardClause guardClause, [NotNull] string input, [NotNull] string parameterName)
         {
             Guard.Against.NullOrEmpty(input, parameterName);
             if (String.IsNullOrWhiteSpace(input))
@@ -91,8 +92,9 @@ namespace Ardalis.GuardClauses
         /// <param name="rangeTo"></param>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public static void OutOfRange(this IGuardClause guardClause, int input, string parameterName, int rangeFrom, int rangeTo)
+        public static void OutOfRange([NotNull] this IGuardClause guardClause, int input, [NotNull] string parameterName, int rangeFrom, int rangeTo)
         {
+            
             OutOfRange<int>(guardClause, input, parameterName, rangeFrom, rangeTo);
         }
 
@@ -106,7 +108,7 @@ namespace Ardalis.GuardClauses
         /// <param name="rangeTo"></param>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public static void OutOfRange(this IGuardClause guardClause, DateTime input, string parameterName, DateTime rangeFrom, DateTime rangeTo)
+        public static void OutOfRange([NotNull] this IGuardClause guardClause, DateTime input, [NotNull] string parameterName, DateTime rangeFrom, DateTime rangeTo)
         {
             OutOfRange<DateTime>(guardClause, input, parameterName, rangeFrom, rangeTo);
         }
@@ -118,7 +120,7 @@ namespace Ardalis.GuardClauses
         /// <param name="input"></param>
         /// <param name="parameterName"></param>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public static void OutOfSQLDateRange(this IGuardClause guardClause, DateTime input, string parameterName)
+        public static void OutOfSQLDateRange([NotNull] this IGuardClause guardClause, DateTime input, [NotNull] string parameterName)
         {
             // System.Data is unavailable in .NET Standard so we can't use SqlDateTime.
             const long sqlMinDateTicks = 552877920000000000;
@@ -177,7 +179,7 @@ namespace Ardalis.GuardClauses
         /// <param name="input"></param>
         /// <param name="parameterName"></param>
         /// <exception cref="ArgumentException"></exception>
-        public static void Zero(this IGuardClause guardClause, int input, string parameterName)
+        public static void Zero([NotNull] this IGuardClause guardClause, int input, [NotNull] string parameterName)
         {
             Zero<int>(guardClause, input, parameterName);
         }
@@ -189,7 +191,7 @@ namespace Ardalis.GuardClauses
         /// <param name="input"></param>
         /// <param name="parameterName"></param>
         /// <exception cref="ArgumentException"></exception>
-        public static void Zero(this IGuardClause guardClause, long input, string parameterName)
+        public static void Zero([NotNull] this IGuardClause guardClause, long input, [NotNull] string parameterName)
         {
             Zero<long>(guardClause, input, parameterName);
         }
@@ -201,7 +203,7 @@ namespace Ardalis.GuardClauses
         /// <param name="input"></param>
         /// <param name="parameterName"></param>
         /// <exception cref="ArgumentException"></exception>
-        public static void Zero(this IGuardClause guardClause, decimal input, string parameterName)
+        public static void Zero([NotNull] this IGuardClause guardClause, decimal input, [NotNull] string parameterName)
         {
             Zero<decimal>(guardClause, input, parameterName);
         }
@@ -213,7 +215,7 @@ namespace Ardalis.GuardClauses
         /// <param name="input"></param>
         /// <param name="parameterName"></param>
         /// <exception cref="ArgumentException"></exception>
-        public static void Zero(this IGuardClause guardClause, float input, string parameterName)
+        public static void Zero([NotNull] this IGuardClause guardClause, float input, [NotNull] string parameterName)
         {
             Zero<float>(guardClause, input, parameterName);
         }
@@ -225,7 +227,7 @@ namespace Ardalis.GuardClauses
         /// <param name="input"></param>
         /// <param name="parameterName"></param>
         /// <exception cref="ArgumentException"></exception>
-        public static void Zero(this IGuardClause guardClause, double input, string parameterName)
+        public static void Zero([NotNull] this IGuardClause guardClause, double input, [NotNull] string parameterName)
         {
             Zero<double>(guardClause, input, parameterName);
         }
@@ -237,8 +239,9 @@ namespace Ardalis.GuardClauses
         /// <param name="input"></param>
         /// <param name="parameterName"></param>
         /// <exception cref="ArgumentException"></exception>
-        private static void Zero<T>(this IGuardClause guardClause, T input, string parameterName)
+        private static void Zero<T>([NotNull] this IGuardClause guardClause, [NotNull] T input, [NotNull] string parameterName)
         {
+            if (input == null) throw new ArgumentNullException(nameof(input));
             if (EqualityComparer<T>.Default.Equals(input, default(T)))
             {
                 throw new ArgumentException($"Required input {parameterName} cannot be zero.", parameterName);
@@ -253,13 +256,11 @@ namespace Ardalis.GuardClauses
         /// <param name="input"></param>
         /// <param name="parameterName"></param>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public static void OutOfRange<T>(this IGuardClause guardClause, int input, string parameterName) where T : Enum
+        public static void OutOfRange<T>([NotNull] this IGuardClause guardClause, int input, [NotNull] string parameterName) where T : Enum
         {
-            if (!Enum.IsDefined(typeof(T), input))
-            {
-                string enumName = typeof(T).ToString();
-                throw new ArgumentOutOfRangeException(parameterName, $"Required input {parameterName} was not a valid enum value for {typeof(T).ToString()}.");
-            }
+            if (Enum.IsDefined(typeof(T), input)) return;
+            var enumName = typeof(T).ToString();
+            throw new ArgumentOutOfRangeException(parameterName, $"Required input {parameterName} was not a valid enum value for {typeof(T).ToString()}.");
         }
 
         /// <summary>
@@ -269,7 +270,7 @@ namespace Ardalis.GuardClauses
         /// <param name="input"></param>
         /// <param name="parameterName"></param>
         /// <exception cref="ArgumentException"></exception>
-        public static void Default<T>(this IGuardClause guardClause, T input, string parameterName)
+        public static void Default<T>([NotNull] this IGuardClause guardClause, [NotNull] T input, [NotNull] string parameterName)
         {
             if (EqualityComparer<T>.Default.Equals(input, default(T)))
             {
