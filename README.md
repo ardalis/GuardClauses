@@ -62,3 +62,8 @@ To extend your own guards, you can do the following:
 
 - [Guard Clauses (podcast: 7 minutes)](http://www.weeklydevtips.com/004)
 - [Guard Clause](http://deviq.com/guard-clause/)
+
+## Build Notes
+
+- Remember to update the PackageVersion in the csproj file and then a build on master should automatically publish the new package to nuget.org.
+
