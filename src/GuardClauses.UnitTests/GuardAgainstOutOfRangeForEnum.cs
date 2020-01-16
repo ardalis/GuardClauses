@@ -28,10 +28,32 @@ namespace GuardClauses.UnitTests
             Assert.Throws<ArgumentOutOfRangeException>(() => Guard.Against.OutOfRange<TestEnum>(enumValue, nameof(enumValue)));
         }
 
+        [Theory]
+        [InlineData(TestEnum.Budgie)]
+        [InlineData(TestEnum.Cat)]
+        [InlineData(TestEnum.Dog)]
+        [InlineData(TestEnum.Fish)]
+        [InlineData(TestEnum.Frog)]
+        [InlineData(TestEnum.Penguin)]
+        public void DoesNothingGivenInRangeEnum(TestEnum enumValue)
+        {
+            Guard.Against.OutOfRange(enumValue, nameof(enumValue));
+        }
+
+
+        [Theory]
+        [InlineData((TestEnum) (-1))]
+        [InlineData((TestEnum) 6)]
+        [InlineData((TestEnum) 10)]
+        public void ThrowsGivenOutOfRangeEnum(TestEnum enumValue)
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => Guard.Against.OutOfRange(enumValue, nameof(enumValue)));
+        }
+        
     }
 
 
-    internal enum TestEnum
+    public enum TestEnum
     {
         Cat = 0,
         Dog = 1,
