@@ -262,6 +262,22 @@ namespace Ardalis.GuardClauses
             var enumName = typeof(T).ToString();
             throw new ArgumentOutOfRangeException(parameterName, $"Required input {parameterName} was not a valid enum value for {typeof(T).ToString()}.");
         }
+        
+        /// <summary>
+        /// Throws an <see cref="ArgumentOutOfRangeException" /> if <see cref="input" /> is not a valid enum value.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="guardClause"></param>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        public static void OutOfRange<T>([NotNull] this IGuardClause guardClause, T input, [NotNull] string parameterName) where T : Enum
+        {
+            if (!Enum.IsDefined(typeof(T), input))
+            {
+                throw new ArgumentOutOfRangeException(parameterName, $"Required input {parameterName} was not a valid enum value for {typeof(T)}.");
+            }
+        }
 
         /// <summary>
         /// Throws an <see cref="ArgumentException" /> if <paramref name="input" /> is default for that type.
