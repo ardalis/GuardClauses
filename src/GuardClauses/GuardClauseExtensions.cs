@@ -247,6 +247,82 @@ namespace Ardalis.GuardClauses
                 throw new ArgumentException($"Required input {parameterName} cannot be zero.", parameterName);
             }
         }
+        
+        /// <summary>
+        /// Throws an <see cref="ArgumentException" /> if <see cref="input" /> is negative.
+        /// </summary>
+        /// <param name="guardClause"></param>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        /// <exception cref="ArgumentException"></exception>
+        public static void Negative([NotNull] this IGuardClause guardClause, int input, [NotNull] string parameterName)
+        {
+            Negative<int>(guardClause, input, parameterName);
+        }
+        
+        /// <summary>
+        /// Throws an <see cref="ArgumentException" /> if <see cref="input" /> is negative.
+        /// </summary>
+        /// <param name="guardClause"></param>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        /// <exception cref="ArgumentException"></exception>
+        public static void Negative([NotNull] this IGuardClause guardClause, long input, [NotNull] string parameterName)
+        {
+            Negative<long>(guardClause, input, parameterName);
+        }
+        
+        /// <summary>
+        /// Throws an <see cref="ArgumentException" /> if <see cref="input" /> is negative.
+        /// </summary>
+        /// <param name="guardClause"></param>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        /// <exception cref="ArgumentException"></exception>
+        public static void Negative([NotNull] this IGuardClause guardClause, decimal input, [NotNull] string parameterName)
+        {
+            Negative<decimal>(guardClause, input, parameterName);
+        }
+        
+        /// <summary>
+        /// Throws an <see cref="ArgumentException" /> if <see cref="input" /> is negative.
+        /// </summary>
+        /// <param name="guardClause"></param>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        /// <exception cref="ArgumentException"></exception>
+        public static void Negative([NotNull] this IGuardClause guardClause, float input, [NotNull] string parameterName)
+        {
+            Negative<float>(guardClause, input, parameterName);
+        }
+        
+        /// <summary>
+        /// Throws an <see cref="ArgumentException" /> if <see cref="input" /> is negative.
+        /// </summary>
+        /// <param name="guardClause"></param>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        /// <exception cref="ArgumentException"></exception>
+        public static void Negative([NotNull] this IGuardClause guardClause, double input, [NotNull] string parameterName)
+        {
+            Negative<double>(guardClause, input, parameterName);
+        }
+        
+        /// <summary>
+        /// Throws an <see cref="ArgumentException" /> if <see cref="input" /> is negative.
+        /// </summary>
+        /// <param name="guardClause"></param>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        /// <exception cref="ArgumentException"></exception>
+        private static void Negative<T>([NotNull] this IGuardClause guardClause, [NotNull] T input, [NotNull] string parameterName) where T : IComparable 
+        {
+            if (input == null) throw new ArgumentNullException(nameof(input));
+            if (input.CompareTo(default(T)) < 0)
+            {
+                throw new ArgumentException($"Required input {parameterName} cannot be negative.", parameterName);
+            }
+        }
 
         /// <summary>
         /// Throws an <see cref="ArgumentOutOfRangeException" /> if <paramref name="input" /> is not a valid enum value.
