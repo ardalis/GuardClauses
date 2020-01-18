@@ -6,7 +6,7 @@ using JetBrains.Annotations;
 namespace Ardalis.GuardClauses
 {
     /// <summary>
-    /// A collection of common guard clauses, implented as extensions.
+    /// A collection of common guard clauses, implemented as extensions.
     /// </summary>
     /// <example>
     /// Guard.Against.Null(input, nameof(input));
@@ -94,7 +94,6 @@ namespace Ardalis.GuardClauses
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public static void OutOfRange([NotNull] this IGuardClause guardClause, int input, [NotNull] string parameterName, int rangeFrom, int rangeTo)
         {
-            
             OutOfRange<int>(guardClause, input, parameterName, rangeFrom, rangeTo);
         }
 
@@ -130,7 +129,7 @@ namespace Ardalis.GuardClauses
         }
 
         /// <summary>
-        /// Throws an <see cref="ArgumentOutOfRangeException" /> if <see cref="input" /> is less than <see cref="rangeFrom" /> or greater than <see cref="rangeTo" />.
+        /// Throws an <see cref="ArgumentOutOfRangeException" /> if <paramref name="input"/> is less than <paramref name="rangeFrom"/> or greater than <paramref name="rangeTo"/>.
         /// </summary>
         /// <param name="guardClause"></param>
         /// <param name="input"></param>
@@ -144,7 +143,7 @@ namespace Ardalis.GuardClauses
         }
 
         /// <summary>
-        /// Throws an <see cref="ArgumentOutOfRangeException" /> if <see cref="input" /> is less than <see cref="rangeFrom" /> or greater than <see cref="rangeTo" />.
+        /// Throws an <see cref="ArgumentOutOfRangeException" /> if <paramref name="input"/> is less than <paramref name="rangeFrom"/> or greater than <paramref name="rangeTo"/>.
         /// </summary>
         /// <param name="guardClause"></param>
         /// <param name="input"></param>
@@ -157,6 +156,15 @@ namespace Ardalis.GuardClauses
             OutOfRange<short>(guardClause, input, parameterName, rangeFrom, rangeTo);
         }
 
+        /// <summary>
+        /// Throws an <see cref="ArgumentOutOfRangeException" /> if <paramref name="input"/> is less than <paramref name="rangeFrom"/> or greater than <paramref name="rangeTo"/>.
+        /// </summary>
+        /// <param name="guardClause"></param>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        /// <param name="rangeFrom"></param>
+        /// <param name="rangeTo"></param>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         private static void OutOfRange<T>(this IGuardClause guardClause, T input, string parameterName, T rangeFrom, T rangeTo)
         {
             Comparer<T> comparer = Comparer<T>.Default;
@@ -247,9 +255,9 @@ namespace Ardalis.GuardClauses
                 throw new ArgumentException($"Required input {parameterName} cannot be zero.", parameterName);
             }
         }
-        
+
         /// <summary>
-        /// Throws an <see cref="ArgumentException" /> if <see cref="input" /> is negative.
+        /// Throws an <see cref="ArgumentException" /> if <paramref name="input"/> is negative.
         /// </summary>
         /// <param name="guardClause"></param>
         /// <param name="input"></param>
@@ -259,9 +267,9 @@ namespace Ardalis.GuardClauses
         {
             Negative<int>(guardClause, input, parameterName);
         }
-        
+
         /// <summary>
-        /// Throws an <see cref="ArgumentException" /> if <see cref="input" /> is negative.
+        /// Throws an <see cref="ArgumentException" /> if <paramref name="input"/> is negative.
         /// </summary>
         /// <param name="guardClause"></param>
         /// <param name="input"></param>
@@ -271,9 +279,9 @@ namespace Ardalis.GuardClauses
         {
             Negative<long>(guardClause, input, parameterName);
         }
-        
+
         /// <summary>
-        /// Throws an <see cref="ArgumentException" /> if <see cref="input" /> is negative.
+        /// Throws an <see cref="ArgumentException" /> if <paramref name="input"/> is negative.
         /// </summary>
         /// <param name="guardClause"></param>
         /// <param name="input"></param>
@@ -283,9 +291,9 @@ namespace Ardalis.GuardClauses
         {
             Negative<decimal>(guardClause, input, parameterName);
         }
-        
+
         /// <summary>
-        /// Throws an <see cref="ArgumentException" /> if <see cref="input" /> is negative.
+        /// Throws an <see cref="ArgumentException" /> if <paramref name="input"/> is negative.
         /// </summary>
         /// <param name="guardClause"></param>
         /// <param name="input"></param>
@@ -295,9 +303,9 @@ namespace Ardalis.GuardClauses
         {
             Negative<float>(guardClause, input, parameterName);
         }
-        
+
         /// <summary>
-        /// Throws an <see cref="ArgumentException" /> if <see cref="input" /> is negative.
+        /// Throws an <see cref="ArgumentException" /> if <paramref name="input"/> is negative.
         /// </summary>
         /// <param name="guardClause"></param>
         /// <param name="input"></param>
@@ -309,7 +317,7 @@ namespace Ardalis.GuardClauses
         }
         
         /// <summary>
-        /// Throws an <see cref="ArgumentException" /> if <see cref="input" /> is negative.
+        /// Throws an <see cref="ArgumentException" /> if <paramref name="input"/> is negative.
         /// </summary>
         /// <param name="guardClause"></param>
         /// <param name="input"></param>
@@ -325,7 +333,78 @@ namespace Ardalis.GuardClauses
         }
 
         /// <summary>
-        /// Throws an <see cref="ArgumentOutOfRangeException" /> if <paramref name="input" /> is not a valid enum value.
+        /// Throws an <see cref="ArgumentException"/> if <paramref name="input"/> is negative or zero.
+        /// </summary>
+        /// <param name="guardClause"></param>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        public static void NegativeOrZero([NotNull] this IGuardClause guardClause, int input, [NotNull] string parameterName)
+        {
+            NegativeOrZero<int>(guardClause ,input, parameterName);
+        }
+
+        /// <summary>
+        /// Throws an <see cref="ArgumentException"/> if <paramref name="input"/> is negative or zero.
+        /// </summary>
+        /// <param name="guardClause"></param>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        public static void NegativeOrZero([NotNull] this IGuardClause guardClause, long input, [NotNull] string parameterName)
+        {
+            NegativeOrZero<long>(guardClause, input, parameterName);
+        }
+
+        /// <summary>
+        /// Throws an <see cref="ArgumentException"/> if <paramref name="input"/> is negative or zero.
+        /// </summary>
+        /// <param name="guardClause"></param>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        public static void NegativeOrZero([NotNull] this IGuardClause guardClause, decimal input, [NotNull] string parameterName)
+        {
+            NegativeOrZero<decimal>(guardClause, input, parameterName);
+        }
+
+        /// <summary>
+        /// Throws an <see cref="ArgumentException"/> if <paramref name="input"/> is negative or zero.
+        /// </summary>
+        /// <param name="guardClause"></param>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        public static void NegativeOrZero([NotNull] this IGuardClause guardClause, float input, [NotNull] string parameterName)
+        {
+            NegativeOrZero<float>(guardClause, input, parameterName);
+        }
+
+        /// <summary>
+        /// Throws an <see cref="ArgumentException"/> if <paramref name="input"/> is negative or zero.
+        /// </summary>
+        /// <param name="guardClause"></param>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        public static void NegativeOrZero([NotNull] this IGuardClause guardClause, double input, [NotNull] string parameterName)
+        {
+            NegativeOrZero<double>(guardClause, input, parameterName);
+        }
+
+        /// <summary>
+        /// Throws an <see cref="ArgumentException"/> if <paramref name="input"/> is negative or zero. 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="guardClause"></param>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        private static void NegativeOrZero<T>([NotNull] this IGuardClause guardClause, [NotNull] T input, [NotNull] string parameterName) where T : IComparable
+        {
+            if (input == null) throw new ArgumentNullException(nameof(input));
+            if (input.CompareTo(default(T)) <= 0)
+            {
+                throw new ArgumentException($"Required input {parameterName} cannot be zero or negative.", parameterName);
+            }
+        }
+
+        /// <summary>
+        /// Throws an <see cref="ArgumentOutOfRangeException" /> if <paramref name="input"/> is not a valid enum value.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="guardClause"></param>
@@ -335,12 +414,11 @@ namespace Ardalis.GuardClauses
         public static void OutOfRange<T>([NotNull] this IGuardClause guardClause, int input, [NotNull] string parameterName) where T : Enum
         {
             if (Enum.IsDefined(typeof(T), input)) return;
-            var enumName = typeof(T).ToString();
-            throw new ArgumentOutOfRangeException(parameterName, $"Required input {parameterName} was not a valid enum value for {typeof(T).ToString()}.");
+            throw new ArgumentOutOfRangeException(parameterName, $"Required input {parameterName} was not a valid enum value for {typeof(T)}.");
         }
-        
+
         /// <summary>
-        /// Throws an <see cref="ArgumentOutOfRangeException" /> if <see cref="input" /> is not a valid enum value.
+        /// Throws an <see cref="ArgumentOutOfRangeException" /> if <paramref name="input"/> is not a valid enum value.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="guardClause"></param>
