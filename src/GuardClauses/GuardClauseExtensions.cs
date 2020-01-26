@@ -248,10 +248,9 @@ namespace Ardalis.GuardClauses
         /// <param name="input"></param>
         /// <param name="parameterName"></param>
         /// <exception cref="ArgumentException"></exception>
-        private static void Zero<T>([JetBrainsNotNull] this IGuardClause guardClause, [JetBrainsNotNull] T input, [JetBrainsNotNull] string parameterName)
+        private static void Zero<T>([JetBrainsNotNull] this IGuardClause guardClause, T input, [JetBrainsNotNull] string parameterName) where T : struct
         {
-            if (input == null) throw new ArgumentNullException(nameof(input));
-            if (EqualityComparer<T>.Default.Equals(input, default(T)!))
+            if (EqualityComparer<T>.Default.Equals(input, default(T)))
             {
                 throw new ArgumentException($"Required input {parameterName} cannot be zero.", parameterName);
             }
@@ -324,10 +323,9 @@ namespace Ardalis.GuardClauses
         /// <param name="input"></param>
         /// <param name="parameterName"></param>
         /// <exception cref="ArgumentException"></exception>
-        private static void Negative<T>([JetBrainsNotNull] this IGuardClause guardClause, [JetBrainsNotNull] T input, [JetBrainsNotNull] string parameterName) where T : IComparable 
+        private static void Negative<T>([JetBrainsNotNull] this IGuardClause guardClause, T input, [JetBrainsNotNull] string parameterName) where T : struct, IComparable
         {
-            if (input == null) throw new ArgumentNullException(nameof(input));
-            if (input.CompareTo(default(T)!) < 0)
+            if (input.CompareTo(default(T)) < 0)
             {
                 throw new ArgumentException($"Required input {parameterName} cannot be negative.", parameterName);
             }
@@ -395,10 +393,9 @@ namespace Ardalis.GuardClauses
         /// <param name="guardClause"></param>
         /// <param name="input"></param>
         /// <param name="parameterName"></param>
-        private static void NegativeOrZero<T>([JetBrainsNotNull] this IGuardClause guardClause, [JetBrainsNotNull] T input, [JetBrainsNotNull] string parameterName) where T : IComparable
+        private static void NegativeOrZero<T>([JetBrainsNotNull] this IGuardClause guardClause, T input, [JetBrainsNotNull] string parameterName) where T : struct, IComparable
         {
-            if (input == null) throw new ArgumentNullException(nameof(input));
-            if (input.CompareTo(default(T)!) <= 0)
+            if (input.CompareTo(default(T)) <= 0)
             {
                 throw new ArgumentException($"Required input {parameterName} cannot be zero or negative.", parameterName);
             }
@@ -412,7 +409,7 @@ namespace Ardalis.GuardClauses
         /// <param name="input"></param>
         /// <param name="parameterName"></param>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public static void OutOfRange<T>([JetBrainsNotNull] this IGuardClause guardClause, int input, [JetBrainsNotNull] string parameterName) where T : Enum
+        public static void OutOfRange<T>([JetBrainsNotNull] this IGuardClause guardClause, int input, [JetBrainsNotNull] string parameterName) where T : struct, Enum
         {
             if (Enum.IsDefined(typeof(T), input)) return;
             throw new ArgumentOutOfRangeException(parameterName, $"Required input {parameterName} was not a valid enum value for {typeof(T)}.");
@@ -426,7 +423,7 @@ namespace Ardalis.GuardClauses
         /// <param name="input"></param>
         /// <param name="parameterName"></param>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public static void OutOfRange<T>([JetBrainsNotNull] this IGuardClause guardClause, T input, [JetBrainsNotNull] string parameterName) where T : Enum
+        public static void OutOfRange<T>([JetBrainsNotNull] this IGuardClause guardClause, T input, [JetBrainsNotNull] string parameterName) where T : struct, Enum
         {
             if (!Enum.IsDefined(typeof(T), input))
             {
