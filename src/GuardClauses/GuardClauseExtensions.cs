@@ -441,7 +441,7 @@ namespace Ardalis.GuardClauses
         /// <param name="input"></param>
         /// <param name="parameterName"></param>
         /// <exception cref="ArgumentException"></exception>
-        public static void Default<T>([JetBrainsNotNull] this IGuardClause guardClause, [NotNull, JetBrainsNotNull] T input, [JetBrainsNotNull] string parameterName)
+        public static void Default<T>([JetBrainsNotNull] this IGuardClause guardClause, [AllowNull, NotNull, JetBrainsNotNull] T input, [JetBrainsNotNull] string parameterName)
         {
             if (EqualityComparer<T>.Default.Equals(input, default(T)!))
             {
