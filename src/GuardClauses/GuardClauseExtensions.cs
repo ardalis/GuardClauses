@@ -250,7 +250,7 @@ namespace Ardalis.GuardClauses
         private static void Zero<T>([JetBrainsNotNull] this IGuardClause guardClause, [JetBrainsNotNull] T input, [JetBrainsNotNull] string parameterName)
         {
             if (input == null) throw new ArgumentNullException(nameof(input));
-            if (EqualityComparer<T>.Default.Equals(input, default(T)))
+            if (EqualityComparer<T>.Default.Equals(input, default(T)!))
             {
                 throw new ArgumentException($"Required input {parameterName} cannot be zero.", parameterName);
             }
@@ -326,7 +326,7 @@ namespace Ardalis.GuardClauses
         private static void Negative<T>([JetBrainsNotNull] this IGuardClause guardClause, [JetBrainsNotNull] T input, [JetBrainsNotNull] string parameterName) where T : IComparable 
         {
             if (input == null) throw new ArgumentNullException(nameof(input));
-            if (input.CompareTo(default(T)) < 0)
+            if (input.CompareTo(default(T)!) < 0)
             {
                 throw new ArgumentException($"Required input {parameterName} cannot be negative.", parameterName);
             }
@@ -397,7 +397,7 @@ namespace Ardalis.GuardClauses
         private static void NegativeOrZero<T>([JetBrainsNotNull] this IGuardClause guardClause, [JetBrainsNotNull] T input, [JetBrainsNotNull] string parameterName) where T : IComparable
         {
             if (input == null) throw new ArgumentNullException(nameof(input));
-            if (input.CompareTo(default(T)) <= 0)
+            if (input.CompareTo(default(T)!) <= 0)
             {
                 throw new ArgumentException($"Required input {parameterName} cannot be zero or negative.", parameterName);
             }
@@ -442,7 +442,7 @@ namespace Ardalis.GuardClauses
         /// <exception cref="ArgumentException"></exception>
         public static void Default<T>([JetBrainsNotNull] this IGuardClause guardClause, [JetBrainsNotNull] T input, [JetBrainsNotNull] string parameterName)
         {
-            if (EqualityComparer<T>.Default.Equals(input, default(T)))
+            if (EqualityComparer<T>.Default.Equals(input, default(T)!))
             {
                 throw new ArgumentException($"Parameter [{parameterName}] is default value for type {typeof(T).Name}", parameterName);
             }
