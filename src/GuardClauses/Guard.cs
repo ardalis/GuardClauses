@@ -1,5 +1,4 @@
-﻿using System;
-using JetBrains.Annotations;
+﻿using JetBrainsNotNullAttribute = JetBrains.Annotations.NotNullAttribute;
 
 namespace Ardalis.GuardClauses
 {
@@ -19,7 +18,7 @@ namespace Ardalis.GuardClauses
         /// <summary>
         /// An entry point to a set of Guard Clauses.
         /// </summary>
-        [NotNull] public static IGuardClause Against { get; } = new Guard();
+        [JetBrainsNotNull] public static IGuardClause Against { get; } = new Guard();
 
         private Guard() { }
     }
