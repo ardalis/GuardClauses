@@ -21,7 +21,7 @@ namespace Ardalis.GuardClauses
         /// <param name="input"></param>
         /// <param name="parameterName"></param>
         /// <exception cref="ArgumentNullException"></exception>
-        public static void Null([JetBrainsNotNull] this IGuardClause guardClause, [NotNull, JetBrainsNotNull] object? input, [JetBrainsNotNull] string parameterName)
+        public static void Null([JetBrainsNotNull] this IGuardClause guardClause, [NotNull, JetBrainsNotNull][ValidatedNotNull] object? input, [JetBrainsNotNull] string parameterName)
         {
             if (null == input)
             {
@@ -38,7 +38,7 @@ namespace Ardalis.GuardClauses
         /// <param name="parameterName"></param>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentException"></exception>
-        public static void NullOrEmpty([JetBrainsNotNull] this IGuardClause guardClause, [NotNull, JetBrainsNotNull] string? input, [JetBrainsNotNull] string parameterName)
+        public static void NullOrEmpty([JetBrainsNotNull] this IGuardClause guardClause, [NotNull, JetBrainsNotNull][ValidatedNotNull] string? input, [JetBrainsNotNull] string parameterName)
         {
             Guard.Against.Null(input, parameterName);
             if (input == String.Empty)
@@ -56,7 +56,7 @@ namespace Ardalis.GuardClauses
         /// <param name="parameterName"></param>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentException"></exception>
-        public static void NullOrEmpty<T>([JetBrainsNotNull] this IGuardClause guardClause, [NotNull, JetBrainsNotNull] IEnumerable<T>? input, [JetBrainsNotNull] string parameterName)
+        public static void NullOrEmpty<T>([JetBrainsNotNull] this IGuardClause guardClause, [NotNull, JetBrainsNotNull][ValidatedNotNull] IEnumerable<T>? input, [JetBrainsNotNull] string parameterName)
         {
             Guard.Against.Null(input, parameterName);
             if (!input.Any())
@@ -74,7 +74,7 @@ namespace Ardalis.GuardClauses
         /// <param name="parameterName"></param>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentException"></exception>
-        public static void NullOrWhiteSpace([JetBrainsNotNull] this IGuardClause guardClause, [NotNull, JetBrainsNotNull] string? input, [JetBrainsNotNull] string parameterName)
+        public static void NullOrWhiteSpace([JetBrainsNotNull] this IGuardClause guardClause, [NotNull, JetBrainsNotNull][ValidatedNotNull] string? input, [JetBrainsNotNull] string parameterName)
         {
             Guard.Against.NullOrEmpty(input, parameterName);
             if (String.IsNullOrWhiteSpace(input))
