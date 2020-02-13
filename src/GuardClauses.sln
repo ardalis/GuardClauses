@@ -1,11 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26730.12
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuardClauses", "GuardClauses\GuardClauses.csproj", "{2A1AA760-8929-433C-BC27-5513F0289842}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuardClauses.UnitTests", "GuardClauses.UnitTests\GuardClauses.UnitTests.csproj", "{7EC129B9-8A9B-469E-A160-8C351161F097}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuardClauses.UnitTests", "GuardClauses.UnitTests\GuardClauses.UnitTests.csproj", "{7EC129B9-8A9B-469E-A160-8C351161F097}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D0831547-3E6D-4E0E-8CB0-F7DA27F4E8EA}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
