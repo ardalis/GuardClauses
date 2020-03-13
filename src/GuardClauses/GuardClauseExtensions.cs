@@ -166,6 +166,34 @@ namespace Ardalis.GuardClauses
         /// <param name="rangeFrom"></param>
         /// <param name="rangeTo"></param>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
+        public static void OutOfRange(this IGuardClause guardClause, double input, string parameterName, double rangeFrom, double rangeTo)
+        {
+            OutOfRange<double>(guardClause, input, parameterName, rangeFrom, rangeTo);
+        }
+
+        /// <summary>
+        /// Throws an <see cref="ArgumentOutOfRangeException" /> if <paramref name="input"/> is less than <paramref name="rangeFrom"/> or greater than <paramref name="rangeTo"/>.
+        /// </summary>
+        /// <param name="guardClause"></param>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        /// <param name="rangeFrom"></param>
+        /// <param name="rangeTo"></param>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        public static void OutOfRange(this IGuardClause guardClause, float input, string parameterName, float rangeFrom, float rangeTo)
+        {
+            OutOfRange<float>(guardClause, input, parameterName, rangeFrom, rangeTo);
+        }
+
+        /// <summary>
+        /// Throws an <see cref="ArgumentOutOfRangeException" /> if <paramref name="input"/> is less than <paramref name="rangeFrom"/> or greater than <paramref name="rangeTo"/>.
+        /// </summary>
+        /// <param name="guardClause"></param>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        /// <param name="rangeFrom"></param>
+        /// <param name="rangeTo"></param>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         private static void OutOfRange<T>(this IGuardClause guardClause, T input, string parameterName, T rangeFrom, T rangeTo)
         {
             Comparer<T> comparer = Comparer<T>.Default;
