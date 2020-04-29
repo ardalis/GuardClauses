@@ -40,5 +40,21 @@ namespace GuardClauses.UnitTests
             DateTime rangeTo = input.AddSeconds(rangeToOffset);
             Assert.Throws<ArgumentException>(() => Guard.Against.OutOfRange(DateTime.Now, "index", rangeFrom, rangeTo));
         }
+
+        [Theory]
+        [InlineData(0, 0)]
+        [InlineData(0, 3)]
+        [InlineData(-1, 1)]
+        [InlineData(-1, 0)]
+        public void ReturnsExpectedValueGivenInRangeValue(int rangeFromOffset, int rangeToOffset)
+        {
+            DateTime input = DateTime.Now;
+            DateTime expected = input;
+            DateTime rangeFrom = input.AddSeconds(rangeFromOffset);
+            DateTime rangeTo = input.AddSeconds(rangeToOffset);
+            Assert.Equal(expected, Guard.Against.OutOfRange(input, "index", rangeFrom, rangeTo));
+        }
+
+
     }
 }

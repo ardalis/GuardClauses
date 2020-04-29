@@ -21,6 +21,26 @@ If you like or are using this project please give it a star. Thanks!
 
         // process order here
     }
+
+    // OR
+
+    public class Order
+    {
+        private string _name;
+        private int _quantity;
+        private long _max;
+        private decimal _unitPrice;
+        private DateTime _dateCreated;
+
+        public Order(string name, int quantity, long max, decimal unitPrice, DateTime dateCreated)
+        {
+            _name = Guard.Against.NullOrWhiteSpace(name, nameof(name));
+            _quantity = Guard.Against.NegativeOrZero(quantity, nameof(quantity));
+            _max = Guard.Against.Zero(max, nameof(max));
+            _unitPrice = Guard.Against.Negative(unitPrice, nameof(unitPrice));
+            _dateCreated = Guard.Against.OutOfSQLDateRange(dateCreated, nameof(dateCreated));
+        }
+    }
 ```
 
 ## Supported Guard Clauses
