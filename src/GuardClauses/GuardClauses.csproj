@@ -13,7 +13,7 @@
     <RepositoryUrl>https://github.com/ardalis/guardclauses</RepositoryUrl>
     <PackageTags>guard clause clauses assert assertion</PackageTags>
     <PackageReleaseNotes>Adding return values on guards as optional usage.</PackageReleaseNotes>
-    <Version>1.5</Version>
+    <Version>1.5.0</Version>
     <AssemblyName>Ardalis.GuardClauses</AssemblyName>
     <PackageIconUrl>https://user-images.githubusercontent.com/782127/52231271-7d561400-2887-11e9-9ca5-648259e60b37.png</PackageIconUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
