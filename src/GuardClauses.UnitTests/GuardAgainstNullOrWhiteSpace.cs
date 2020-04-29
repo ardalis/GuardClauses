@@ -37,5 +37,17 @@ namespace GuardClauses.UnitTests
         {
             Assert.Throws<ArgumentException>(() => Guard.Against.NullOrWhiteSpace(whiteSpaceString, "whitespacestring"));
         }
+
+        [Theory]
+        [InlineData("a", "a")]
+        [InlineData("1", "1")]
+        [InlineData("some text", "some text")]
+        [InlineData(" leading whitespace", " leading whitespace")]
+        [InlineData("trailing whitespace ", "trailing whitespace ")]
+        public void ReturnsExpectedValueGivenNonEmptyStringValue(string nonEmptyString, string expected)
+        {
+            Assert.Equal(expected, Guard.Against.NullOrWhiteSpace(nonEmptyString, "string"));
+            Assert.Equal(expected, Guard.Against.NullOrWhiteSpace(nonEmptyString, "aNumericString"));
+        }
     }
 }

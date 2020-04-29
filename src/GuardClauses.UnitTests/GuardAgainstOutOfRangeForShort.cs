@@ -33,5 +33,15 @@ namespace GuardClauses.UnitTests
         {
             Assert.Throws<ArgumentException>(() => Guard.Against.OutOfRange(input, "index", rangeFrom, rangeTo));
         }
+
+        [Theory]
+        [InlineData(1, 1, 1, 1)]
+        [InlineData(1, 1, 3, 1)]
+        [InlineData(2, 1, 3, 2)]
+        [InlineData(3, 1, 3, 3)]
+        public void ReturnsExpectedValueGivenInRangeValue(short input, short rangeFrom, short rangeTo, short expected)
+        {
+            Assert.Equal(expected, Guard.Against.OutOfRange(input, "index", rangeFrom, rangeTo));
+        }
     }
 }

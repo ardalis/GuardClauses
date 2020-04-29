@@ -83,5 +83,15 @@ namespace GuardClauses.UnitTests
             Assert.Throws<ArgumentException>(() => Guard.Against.NegativeOrZero(-1.0, "doubleNegative"));
             Assert.Throws<ArgumentException>(() => Guard.Against.NegativeOrZero(-456.453, "doubleNegative"));
         }
+
+        [Fact]
+        public void ReturnsExpectedValueWhenGivenPositiveValue()
+        {
+            Assert.Equal(1, Guard.Against.NegativeOrZero(1, "intPositive"));
+            Assert.Equal(1L, Guard.Against.NegativeOrZero(1L, "longPositive"));
+            Assert.Equal(1.0M, Guard.Against.NegativeOrZero(1.0M, "decimalPositive"));
+            Assert.Equal(1.0f, Guard.Against.NegativeOrZero(1.0f, "floatPositive"));
+            Assert.Equal(1.0, Guard.Against.NegativeOrZero(1.0, "doublePositive"));
+        }
     }
 }

@@ -92,5 +92,21 @@ namespace GuardClauses.UnitTests
             Assert.Throws<ArgumentException>(() => Guard.Against.Zero(decimal.Zero, "zero"));
         }
 
+        [Fact]
+        public void ReturnsExpectedValueWhenGivenNonZeroValue()
+        {
+            Assert.Equal(-1, Guard.Against.Zero(-1, "minusOne"));
+            Assert.Equal(1, Guard.Against.Zero(1, "plusOne"));
+            Assert.Equal(int.MinValue, Guard.Against.Zero(int.MinValue, "int.MinValue"));
+            Assert.Equal(int.MaxValue, Guard.Against.Zero(int.MaxValue, "int.MaxValue"));
+            Assert.Equal(long.MinValue, Guard.Against.Zero(long.MinValue, "long.MinValue"));
+            Assert.Equal(long.MaxValue, Guard.Against.Zero(long.MaxValue, "long.MaxValue"));
+            Assert.Equal(decimal.MinValue, Guard.Against.Zero(decimal.MinValue, "decimal.MinValue"));
+            Assert.Equal(decimal.MaxValue, Guard.Against.Zero(decimal.MaxValue, "decimal.MaxValue"));
+            Assert.Equal(float.MinValue, Guard.Against.Zero(float.MinValue, "float.MinValue"));
+            Assert.Equal(float.MaxValue, Guard.Against.Zero(float.MaxValue, "float.MaxValue"));
+            Assert.Equal(double.MinValue, Guard.Against.Zero(double.MinValue, "double.MinValue"));
+            Assert.Equal(double.MaxValue, Guard.Against.Zero(double.MaxValue, "double.MaxValue"));
+        }
     }
 }

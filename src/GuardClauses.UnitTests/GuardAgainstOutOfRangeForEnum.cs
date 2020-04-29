@@ -49,6 +49,32 @@ namespace GuardClauses.UnitTests
         {
             Assert.Throws<ArgumentOutOfRangeException>(() => Guard.Against.OutOfRange(enumValue, nameof(enumValue)));
         }
+
+        [Theory]
+        [InlineData(0)]
+        [InlineData(1)]
+        [InlineData(2)]
+        [InlineData(3)]
+        [InlineData(4)]
+        [InlineData(5)]
+        public void ReturnsExpectedValueGivenInRangeValue(int enumValue)
+        {
+            var expected = enumValue;
+            Assert.Equal(expected, Guard.Against.OutOfRange<TestEnum>(enumValue, nameof(enumValue)));
+        }
+
+        [Theory]
+        [InlineData(TestEnum.Budgie)]
+        [InlineData(TestEnum.Cat)]
+        [InlineData(TestEnum.Dog)]
+        [InlineData(TestEnum.Fish)]
+        [InlineData(TestEnum.Frog)]
+        [InlineData(TestEnum.Penguin)]
+        public void ReturnsExpectedValueGivenInRangeEnum(TestEnum enumValue)
+        {
+            var expected = enumValue;
+            Assert.Equal(expected, Guard.Against.OutOfRange(enumValue, nameof(enumValue)));
+        }
         
     }
 

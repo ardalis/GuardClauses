@@ -21,5 +21,21 @@ namespace GuardClauses.UnitTests
         {
             Assert.Throws<ArgumentNullException>(() => Guard.Against.Null(null, "null"));
         }
+
+        [Fact]
+        public void ReturnsExpectedValueWhenGivenNonNullValue()
+        {
+            Assert.Equal("", Guard.Against.Null("", "string"));
+            Assert.Equal(1, Guard.Against.Null(1, "int"));
+
+            var guid = Guid.Empty;
+            Assert.Equal(guid, Guard.Against.Null(guid, "guid"));
+            
+            var now = DateTime.Now;
+            Assert.Equal(now, Guard.Against.Null(now, "datetime"));
+
+            var obj = new Object();
+            Assert.Equal(obj, Guard.Against.Null(obj, "object"));
+        }
     }
 }
