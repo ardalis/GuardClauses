@@ -37,20 +37,20 @@ namespace GuardClauses.UnitTests
         [Fact]
         public void ThrowsGivenEmptyString()
         {
-            Assert.Throws<ArgumentException>(() => Guard.Against.NullOrEmpty("", "emptystring"));
+            Assert.Throws<ArgumentException>(() => Guard.Against.NullOrEmpty("", "emptyString"));
         }
 
         [Fact]
         public void ThrowsGivenNullGuid()
         {
             Guid? nullGuid = null;
-            Assert.Throws<ArgumentNullException>(() => Guard.Against.NullOrEmpty(nullGuid, "nullguid"));
+            Assert.Throws<ArgumentNullException>(() => Guard.Against.NullOrEmpty(nullGuid, "nullGuid"));
         }
 
         [Fact]
         public void ThrowsGivenEmptyGuid()
         {
-            Assert.Throws<ArgumentException>(() => Guard.Against.NullOrEmpty(Guid.Empty, "emptyguid"));
+            Assert.Throws<ArgumentException>(() => Guard.Against.NullOrEmpty(Guid.Empty, "emptyGuid"));
         }
 
         [Fact]
