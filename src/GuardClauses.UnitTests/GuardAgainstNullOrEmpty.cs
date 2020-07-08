@@ -15,6 +15,12 @@ namespace GuardClauses.UnitTests
         }
 
         [Fact]
+        public void DoesNothingGivenNonEmptyGuidValue()
+        {
+            Guard.Against.NullOrEmpty(Guid.NewGuid(), "guid");
+        }
+
+        [Fact]
         public void DoesNothingGivenNonEmptyEnumerable()
         {
             Guard.Against.NullOrEmpty(new [] { "foo", "bar" }, "stringArray");
@@ -22,15 +28,29 @@ namespace GuardClauses.UnitTests
         }
 
         [Fact]
-        public void ThrowsGivenNullValue()
+        public void ThrowsGivenNullString()
         {
-            Assert.Throws<ArgumentNullException>(() => Guard.Against.NullOrEmpty(null, "null"));
+            string? nullString = null;
+            Assert.Throws<ArgumentNullException>(() => Guard.Against.NullOrEmpty(nullString, "nullString"));
         }
 
         [Fact]
         public void ThrowsGivenEmptyString()
         {
-            Assert.Throws<ArgumentException>(() => Guard.Against.NullOrEmpty("", "emptystring"));
+            Assert.Throws<ArgumentException>(() => Guard.Against.NullOrEmpty("", "emptyString"));
+        }
+
+        [Fact]
+        public void ThrowsGivenNullGuid()
+        {
+            Guid? nullGuid = null;
+            Assert.Throws<ArgumentNullException>(() => Guard.Against.NullOrEmpty(nullGuid, "nullGuid"));
+        }
+
+        [Fact]
+        public void ThrowsGivenEmptyGuid()
+        {
+            Assert.Throws<ArgumentException>(() => Guard.Against.NullOrEmpty(Guid.Empty, "emptyGuid"));
         }
 
         [Fact]
