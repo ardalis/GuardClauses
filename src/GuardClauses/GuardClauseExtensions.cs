@@ -55,6 +55,27 @@ namespace Ardalis.GuardClauses
 
         /// <summary>
         /// Throws an <see cref="ArgumentNullException" /> if <paramref name="input" /> is null.
+        /// Throws an <see cref="ArgumentException" /> if <paramref name="input" /> is an empty guid.
+        /// </summary>
+        /// <param name="guardClause"></param>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        /// <returns><paramref name="input" /> if the value is not an empty guid or null.</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
+        public static Guid NullOrEmpty([JetBrainsNotNull] this IGuardClause guardClause, [NotNull, JetBrainsNotNull][ValidatedNotNull] Guid? input, [JetBrainsNotNull] string parameterName)
+        {
+            Guard.Against.Null(input, parameterName);
+            if (input == Guid.Empty)
+            {
+                throw new ArgumentException($"Required input {parameterName} was empty.", parameterName);
+            }
+
+            return input.Value;
+        }
+
+        /// <summary>
+        /// Throws an <see cref="ArgumentNullException" /> if <paramref name="input" /> is null.
         /// Throws an <see cref="ArgumentException" /> if <paramref name="input" /> is an empty enumerable.
         /// </summary>
         /// <param name="guardClause"></param>
