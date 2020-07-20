@@ -9,33 +9,33 @@ namespace GuardClauses.UnitTests
         [Fact]
         public void DoesNothingGivenNonNullValue()
         {
-            Guard.Against.Null("", "string");
-            Guard.Against.Null(1, "int");
-            Guard.Against.Null(Guid.Empty, "guid");
-            Guard.Against.Null(DateTime.Now, "datetime");
-            Guard.Against.Null(new Object(), "object");
+            Guard.WithValue("").AgainstNull("string");
+            Guard.WithValue(1).AgainstNull("int");
+            Guard.WithValue(Guid.Empty).AgainstNull("guid");
+            Guard.WithValue(DateTime.Now).AgainstNull("datetime");
+            Guard.WithValue(new object()).AgainstNull("object");
         }
 
         [Fact]
         public void ThrowsGivenNullValue()
         {
-            Assert.Throws<ArgumentNullException>(() => Guard.Against.Null(null, "null"));
+            Assert.Throws<ArgumentNullException>(() => Guard.WithValue<string>(null!).AgainstNull("null"));
         }
 
         [Fact]
         public void ReturnsExpectedValueWhenGivenNonNullValue()
         {
-            Assert.Equal("", Guard.Against.Null("", "string"));
-            Assert.Equal(1, Guard.Against.Null(1, "int"));
+            Assert.Equal("", Guard.WithValue("").AgainstNull("string").Value);
+            Assert.Equal(1, Guard.WithValue(1).AgainstNull("int").Value);
 
             var guid = Guid.Empty;
-            Assert.Equal(guid, Guard.Against.Null(guid, "guid"));
+            Assert.Equal(guid, Guard.WithValue(guid).AgainstNull("guid").Value);
             
             var now = DateTime.Now;
-            Assert.Equal(now, Guard.Against.Null(now, "datetime"));
+            Assert.Equal(now, Guard.WithValue(now).AgainstNull("datetime").Value);
 
             var obj = new Object();
-            Assert.Equal(obj, Guard.Against.Null(obj, "object"));
+            Assert.Equal(obj, Guard.WithValue(obj).AgainstNull("object").Value);
         }
     }
 }

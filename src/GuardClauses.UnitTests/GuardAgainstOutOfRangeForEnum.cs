@@ -15,7 +15,7 @@ namespace GuardClauses.UnitTests
         [InlineData(5)]
         public void DoesNothingGivenInRangeValue(int enumValue)
         {
-            Guard.Against.OutOfRange<TestEnum>(enumValue, nameof(enumValue));
+            Guard.WithValue(enumValue).AgainstOutOfRange<TestEnum>(nameof(enumValue));
         }
         
 
@@ -25,7 +25,7 @@ namespace GuardClauses.UnitTests
         [InlineData(10)]
         public void ThrowsGivenOutOfRangeValue(int enumValue)
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() => Guard.Against.OutOfRange<TestEnum>(enumValue, nameof(enumValue)));
+            Assert.Throws<ArgumentOutOfRangeException>(() => Guard.WithValue(enumValue).AgainstOutOfRange<TestEnum>(nameof(enumValue)));
         }
 
         [Theory]
@@ -37,7 +37,7 @@ namespace GuardClauses.UnitTests
         [InlineData(TestEnum.Penguin)]
         public void DoesNothingGivenInRangeEnum(TestEnum enumValue)
         {
-            Guard.Against.OutOfRange(enumValue, nameof(enumValue));
+            Guard.WithValue(enumValue).AgainstOutOfRange(nameof(enumValue));
         }
 
 
@@ -47,7 +47,7 @@ namespace GuardClauses.UnitTests
         [InlineData((TestEnum) 10)]
         public void ThrowsGivenOutOfRangeEnum(TestEnum enumValue)
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() => Guard.Against.OutOfRange(enumValue, nameof(enumValue)));
+            Assert.Throws<ArgumentOutOfRangeException>(() => Guard.WithValue(enumValue).AgainstOutOfRange(nameof(enumValue)));
         }
 
         [Theory]
@@ -60,7 +60,7 @@ namespace GuardClauses.UnitTests
         public void ReturnsExpectedValueGivenInRangeValue(int enumValue)
         {
             var expected = enumValue;
-            Assert.Equal(expected, Guard.Against.OutOfRange<TestEnum>(enumValue, nameof(enumValue)));
+            Assert.Equal(expected, Guard.WithValue(enumValue).AgainstOutOfRange<TestEnum>(nameof(enumValue)).Value);
         }
 
         [Theory]
@@ -73,11 +73,10 @@ namespace GuardClauses.UnitTests
         public void ReturnsExpectedValueGivenInRangeEnum(TestEnum enumValue)
         {
             var expected = enumValue;
-            Assert.Equal(expected, Guard.Against.OutOfRange(enumValue, nameof(enumValue)));
+            Assert.Equal(expected, Guard.WithValue(enumValue).AgainstOutOfRange(nameof(enumValue)).Value);
         }
         
     }
-
 
     public enum TestEnum
     {

@@ -14,20 +14,20 @@ namespace GuardClauses.UnitTests
         [InlineData("trailing whitespace ")]
         public void DoesNothingGivenNonEmptyStringValue(string nonEmptyString)
         {
-            Guard.Against.NullOrWhiteSpace(nonEmptyString, "string");
-            Guard.Against.NullOrWhiteSpace(nonEmptyString, "aNumericString");
+            Guard.WithValue(nonEmptyString).AgainstNullOrWhiteSpace("string");
+            Guard.WithValue(nonEmptyString).AgainstNullOrWhiteSpace("aNumericString");
         }
 
         [Fact]
         public void ThrowsGivenNullValue()
         {
-            Assert.Throws<ArgumentNullException>(() => Guard.Against.NullOrWhiteSpace(null, "null"));
+            Assert.Throws<ArgumentNullException>(() => Guard.WithValue<string>(null!).AgainstNullOrWhiteSpace("null"));
         }
 
         [Fact]
         public void ThrowsGivenEmptyString()
         {
-            Assert.Throws<ArgumentException>(() => Guard.Against.NullOrWhiteSpace("", "emptystring"));
+            Assert.Throws<ArgumentException>(() => Guard.WithValue("").AgainstNullOrWhiteSpace("emptystring"));
         }
 
         [Theory]
@@ -35,7 +35,7 @@ namespace GuardClauses.UnitTests
         [InlineData("   ")]
         public void ThrowsGivenWhiteSpaceString(string whiteSpaceString)
         {
-            Assert.Throws<ArgumentException>(() => Guard.Against.NullOrWhiteSpace(whiteSpaceString, "whitespacestring"));
+            Assert.Throws<ArgumentException>(() => Guard.WithValue(whiteSpaceString).AgainstNullOrWhiteSpace("whitespacestring"));
         }
 
         [Theory]
@@ -46,8 +46,8 @@ namespace GuardClauses.UnitTests
         [InlineData("trailing whitespace ", "trailing whitespace ")]
         public void ReturnsExpectedValueGivenNonEmptyStringValue(string nonEmptyString, string expected)
         {
-            Assert.Equal(expected, Guard.Against.NullOrWhiteSpace(nonEmptyString, "string"));
-            Assert.Equal(expected, Guard.Against.NullOrWhiteSpace(nonEmptyString, "aNumericString"));
+            Assert.Equal(expected, Guard.WithValue(nonEmptyString).AgainstNullOrWhiteSpace("string").Value);
+            Assert.Equal(expected, Guard.WithValue(nonEmptyString).AgainstNullOrWhiteSpace("aNumericString").Value);
         }
     }
 }

@@ -9,86 +9,86 @@ namespace GuardClauses.UnitTests
         [Fact]
         public void DoesNothingGivenZeroValue()
         {
-            Guard.Against.Negative(0, "intZero");
-            Guard.Against.Negative(0L, "longZero");
-            Guard.Against.Negative(0.0M, "decimalZero");
-            Guard.Against.Negative(0.0f, "floatZero");
-            Guard.Against.Negative(0.0, "doubleZero");
+            Guard.WithValue(0).AgainstNegative("intZero");
+            Guard.WithValue(0L).AgainstNegative("longZero");
+            Guard.WithValue(0.0M).AgainstNegative("decimalZero");
+            Guard.WithValue(0.0F).AgainstNegative("floatZero");
+            Guard.WithValue(0.0).AgainstNegative("doubleZero");
         }
         
         [Fact]
         public void DoesNothingGivenPositiveValue()
         {
-            Guard.Against.Negative(1, "intZero");
-            Guard.Against.Negative(1L, "longZero");
-            Guard.Against.Negative(1.0M, "decimalZero");
-            Guard.Against.Negative(1.0f, "floatZero");
-            Guard.Against.Negative(1.0, "doubleZero");
+            Guard.WithValue(1).AgainstNegative("intZero");
+            Guard.WithValue(1L).AgainstNegative("longZero");
+            Guard.WithValue(1.0M).AgainstNegative("decimalZero");
+            Guard.WithValue(1.0F).AgainstNegative("floatZero");
+            Guard.WithValue(1.0).AgainstNegative("doubleZero");
         }
         
         [Fact]
         public void ThrowsGivenNegativeIntValue()
         {
-            Assert.Throws<ArgumentException>(() => Guard.Against.Negative(-1, "negative"));
+            Assert.Throws<ArgumentException>(() => Guard.WithValue(-1).AgainstNegative("negative"));
         }
 
         [Fact]
         public void ThrowsGivenNegativeLongValue()
         {
-            Assert.Throws<ArgumentException>(() => Guard.Against.Negative(-1L, "negative"));
+            Assert.Throws<ArgumentException>(() => Guard.WithValue(-1L).AgainstNegative("negative"));
         }
 
         [Fact]
         public void ThrowsGivenNegativeDecimalValue()
         {
-            Assert.Throws<ArgumentException>(() => Guard.Against.Negative(-1.0M, "negative"));
+            Assert.Throws<ArgumentException>(() => Guard.WithValue(-1.0M).AgainstNegative("negative"));
         }
 
         [Fact]
         public void ThrowsGivenNegativeFloatValue()
         {
-            Assert.Throws<ArgumentException>(() => Guard.Against.Negative(-1.0f, "negative"));
+            Assert.Throws<ArgumentException>(() => Guard.WithValue(-1.0F).AgainstNegative("negative"));
         }
 
         [Fact]
         public void ThrowsGivenNegativeDoubleValue()
         {
-            Assert.Throws<ArgumentException>(() => Guard.Against.Negative(-1.0, "negative"));
+            Assert.Throws<ArgumentException>(() => Guard.WithValue(-1.0).AgainstNegative("negative"));
         }
 
         [Fact]
         public void ReturnsExpectedValueGivenNonNegativeIntValue()
         {
-            Assert.Equal(0, Guard.Against.Negative(0, "intZero"));
-            Assert.Equal(1, Guard.Against.Negative(1, "intOne"));
+            Assert.Equal(0, Guard.WithValue(0).AgainstNegative("intZero").Value);
+            Assert.Equal(1, Guard.WithValue(1).AgainstNegative("intOne").Value);
         }
 
         [Fact]
         public void ReturnsExpectedValueGivenNonNegativeLongValue()
         {
-            Assert.Equal(0L, Guard.Against.Negative(0L, "longZero"));
-            Assert.Equal(1L, Guard.Against.Negative(1L, "longOne"));
+            Assert.Equal(0L, Guard.WithValue(0L).AgainstNegative("longZero").Value);
+            Assert.Equal(1L, Guard.WithValue(1L).AgainstNegative("longOne").Value);
         }
 
         [Fact]
         public void ReturnsExpectedValueGivenNonNegativeDecimalValue()
         {
-            Assert.Equal(0.0M, Guard.Against.Negative(0.0M, "decimalZero"));
-            Assert.Equal(1.0M, Guard.Against.Negative(1.0M, "decimalOne"));
+            Assert.Equal(0.0M, Guard.WithValue(0.0M).AgainstNegative("decimalZero").Value);
+            Assert.Equal(1.0M, Guard.WithValue(1.0M).AgainstNegative("decimalOne").Value);
         }
 
         [Fact]
         public void ReturnsExpectedValueGivenNonNegativeFloatValue()
         {
-            Assert.Equal(0.0f, Guard.Against.Negative(0.0f, "floatZero"));
-            Assert.Equal(1.0f, Guard.Against.Negative(1.0f, "floatOne"));
+            Assert.Equal(0.0f, Guard.WithValue(0.0F).AgainstNegative("floatZero").Value);
+            Assert.Equal(1.0f, Guard.WithValue(1.0F).AgainstNegative("floatOne").Value);
         }
 
         [Fact]
         public void ReturnsExpectedValueGivenNonNegativeDoubleValue()
         {
-            Assert.Equal(0.0, Guard.Against.Negative(0.0, "doubleZero"));
-            Assert.Equal(1.0, Guard.Against.Negative(1.0, "doubleOne"));
+            Assert.Equal(0.0, Guard.WithValue(0.0).AgainstNegative("doubleZero").Value);
+            Assert.Equal(1.0, Guard.WithValue(1.0).AgainstNegative("doubleOne").Value);
         }
     }
 }

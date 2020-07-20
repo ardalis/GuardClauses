@@ -1,25 +1,46 @@
-﻿using JetBrainsNotNullAttribute = JetBrains.Annotations.NotNullAttribute;
-
-namespace Ardalis.GuardClauses
+﻿namespace Ardalis.GuardClauses
 {
     /// <summary>
     /// Simple interface to provide a generic mechanism to build guard clause extension methods from.
     /// </summary>
-    public interface IGuardClause
+    /// <typeparam name="T"></typeparam>
+    public interface IGuard<out T>
     {
+        /// <summary>
+        /// The value that is validated by guard clauses.
+        /// </summary>
+        public T Value { get; }
     }
 
     /// <summary>
     /// An entry point to a set of Guard Clauses defined as extension methods on IGuardClause.
     /// </summary>
-    /// <remarks>See http://www.weeklydevtips.com/004 on Guard Clauses</remarks>
-    public class Guard : IGuardClause
+    internal class Guard<T> : IGuard<T>
+    {
+        internal Guard(T value)
+        {
+            Value = value;
+        }
+
+        /// <summary>
+        /// The validated value.
+        /// </summary>
+        public T Value { get; }
+    }
+
+    /// <summary>
+    /// An entry point to a set of Guard Clauses defined as extension methods on IGuardClause.
+    /// </summary>
+    public static class Guard
     {
         /// <summary>
         /// An entry point to a set of Guard Clauses.
         /// </summary>
-        [JetBrainsNotNull] public static IGuardClause Against { get; } = new Guard();
-
-        private Guard() { }
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static IGuard<T> WithValue<T>(T value)
+        {
+            return new Guard<T>(value);
+        }
     }
 }

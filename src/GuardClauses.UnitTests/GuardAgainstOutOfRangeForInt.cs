@@ -13,7 +13,7 @@ namespace GuardClauses.UnitTests
         [InlineData(3, 1, 3)]
         public void DoesNothingGivenInRangeValue(int input, int rangeFrom, int rangeTo)
         {
-            Guard.Against.OutOfRange(input, "index", rangeFrom, rangeTo);
+            Guard.WithValue(input).AgainstOutOfRange("index", rangeFrom, rangeTo);
         }
 
         [Theory]
@@ -22,7 +22,7 @@ namespace GuardClauses.UnitTests
         [InlineData(4, 1, 3)]
         public void ThrowsGivenOutOfRangeValue(int input, int rangeFrom, int rangeTo)
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() => Guard.Against.OutOfRange(input, "index", rangeFrom, rangeTo));
+            Assert.Throws<ArgumentOutOfRangeException>(() => Guard.WithValue(input).AgainstOutOfRange("index", rangeFrom, rangeTo));
         }
 
         [Theory]
@@ -31,7 +31,7 @@ namespace GuardClauses.UnitTests
         [InlineData(4, 3, 1)]
         public void ThrowsGivenInvalidArgumentValue(int input, int rangeFrom, int rangeTo)
         {
-            Assert.Throws<ArgumentException>(() => Guard.Against.OutOfRange(input, "index", rangeFrom, rangeTo));
+            Assert.Throws<ArgumentException>(() => Guard.WithValue(input).AgainstOutOfRange("index", rangeFrom, rangeTo));
         }
 
         [Theory]
@@ -41,7 +41,7 @@ namespace GuardClauses.UnitTests
         [InlineData(3, 1, 3, 3)]
         public void ReturnsExpectedValueGivenInRangeValue(int input, int rangeFrom, int rangeTo, int expected)
         {
-            Assert.Equal(expected, Guard.Against.OutOfRange(input, "index", rangeFrom, rangeTo));
+            Assert.Equal(expected, Guard.WithValue(input).AgainstOutOfRange("index", rangeFrom, rangeTo).Value);
         }
     }
 }

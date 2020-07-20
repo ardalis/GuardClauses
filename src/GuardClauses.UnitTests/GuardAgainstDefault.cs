@@ -10,28 +10,28 @@ namespace GuardClauses.UnitTests
         [Fact]
         public void DoesNothingGivenNonDefaultValue()
         {
-            Guard.Against.Default("", "string");
-            Guard.Against.Default(1, "int");
-            Guard.Against.Default(Guid.NewGuid(), "guid");
-            Guard.Against.Default(DateTime.Now, "datetime");
-            Guard.Against.Default(new Object(), "object");
+            Guard.WithValue("").AgainstDefault("string");
+            Guard.WithValue(1).AgainstDefault("int");
+            Guard.WithValue(Guid.NewGuid()).AgainstDefault("guid");
+            Guard.WithValue(DateTime.Now).AgainstDefault("datetime");
+            Guard.WithValue(new object()).AgainstDefault("object");
         }
 
         [Fact]
         public void ThrowsGivenDefaultValue()
         {
-            Assert.Throws<ArgumentException>("string", () => Guard.Against.Default(default(string), "string"));
-            Assert.Throws<ArgumentException>("int", () => Guard.Against.Default(default(int), "int"));
-            Assert.Throws<ArgumentException>("guid", () => Guard.Against.Default(default(Guid), "guid"));
-            Assert.Throws<ArgumentException>("datetime", () => Guard.Against.Default(default(DateTime), "datetime"));
-            Assert.Throws<ArgumentException>("object", () => Guard.Against.Default(default(object), "object"));
+            Assert.Throws<ArgumentException>("string", () => Guard.WithValue(default(string)).AgainstDefault("string"));
+            Assert.Throws<ArgumentException>("int", () => Guard.WithValue(default(int)).AgainstDefault("int"));
+            Assert.Throws<ArgumentException>("guid", () => Guard.WithValue(default(Guid)).AgainstDefault("guid"));
+            Assert.Throws<ArgumentException>("datetime", () => Guard.WithValue(default(DateTime)).AgainstDefault( "datetime"));
+            Assert.Throws<ArgumentException>("object", () => Guard.WithValue(default(object)).AgainstDefault("object"));
         }
 
         [Theory]
         [MemberData(nameof(GetNonDefaultTestVectors))]
         public void ReturnsExpectedValueWhenGivenNonDefaultValue(object input, string name, object expected)
         {
-            var actual = Guard.Against.Default(input, name);
+            var actual = Guard.WithValue(input).AgainstDefault(name).Value;
             Assert.Equal(expected, actual);
         }
 

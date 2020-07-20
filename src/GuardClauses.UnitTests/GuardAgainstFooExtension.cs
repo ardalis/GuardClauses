@@ -9,14 +9,14 @@ namespace GuardClauses.UnitTests
         [Fact]
         public void ThrowsGivenFoo()
         {
-            Assert.Throws<ArgumentException>(() => Guard.Against.Foo("foo", "aParameterName"));
+            Assert.Throws<ArgumentException>(() => Guard.WithValue("foo").AgainstFoo("aParameterName"));
         }
 
         [Fact]
         public void DoesNothingGivenAnythingElse()
         {
-            Guard.Against.Foo("anythingElse", "aParameterName");
-            Guard.Against.Foo(null, "aParameterName");
+            Guard.WithValue("anythingElse").AgainstFoo("aParameterName");
+            Guard.WithValue<string>(null!).AgainstFoo("aParameterName");
         }
     }
 }
