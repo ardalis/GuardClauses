@@ -19,7 +19,8 @@ namespace GuardClauses.UnitTests
         [Fact]
         public void ThrowsGivenNullValue()
         {
-            Assert.Throws<ArgumentNullException>(() => Guard.Against.Null(null, "null"));
+            object obj = null!;
+            Assert.Throws<ArgumentNullException>(() => Guard.Against.Null(obj, "null"));
         }
 
         [Fact]
