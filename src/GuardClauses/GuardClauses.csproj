@@ -28,8 +28,6 @@
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-*" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="icon.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
   </ItemGroup>
 </Project>
