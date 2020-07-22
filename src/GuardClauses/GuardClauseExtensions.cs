@@ -544,7 +544,7 @@ namespace Ardalis.GuardClauses
         /// <exception cref="ArgumentException"></exception>
         public static T Default<T>([JetBrainsNotNull] this IGuardClause guardClause, [AllowNull, NotNull, JetBrainsNotNull] T input, [JetBrainsNotNull] string parameterName)
         {
-            if (EqualityComparer<T>.Default.Equals(input, default(T)!))
+            if (EqualityComparer<T>.Default.Equals(input, default(T)!) || input is null)
             {
                 throw new ArgumentException($"Parameter [{parameterName}] is default value for type {typeof(T).Name}", parameterName);
             }

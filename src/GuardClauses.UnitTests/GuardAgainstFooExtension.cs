@@ -16,7 +16,7 @@ namespace GuardClauses.UnitTests
         public void DoesNothingGivenAnythingElse()
         {
             Guard.Against.Foo("anythingElse", "aParameterName");
-            Guard.Against.Foo(null, "aParameterName");
+            //Guard.Against.Foo(null, "aParameterName");
         }
     }
 }

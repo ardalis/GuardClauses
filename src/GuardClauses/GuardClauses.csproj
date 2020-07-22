@@ -12,10 +12,10 @@
     <Summary>A simple package with guard clause helper methods. See docs for how to extend using your own extension methods.</Summary>
     <RepositoryUrl>https://github.com/ardalis/guardclauses</RepositoryUrl>
     <PackageTags>guard clause clauses assert assertion</PackageTags>
-    <PackageReleaseNotes>Adding return values on guards as optional usage.</PackageReleaseNotes>
-    <Version>1.5.0</Version>
+    <PackageReleaseNotes>Adding strongly typed generic return instead of object.</PackageReleaseNotes>
+    <Version>2.0.0</Version>
     <AssemblyName>Ardalis.GuardClauses</AssemblyName>
-    <PackageIconUrl>https://user-images.githubusercontent.com/782127/52231271-7d561400-2887-11e9-9ca5-648259e60b37.png</PackageIconUrl>
+    <PackageIcon>icon.png</PackageIcon>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
