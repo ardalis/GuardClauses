@@ -3,8 +3,7 @@
 </h1>
 
 [![NuGet](https://img.shields.io/nuget/v/Ardalis.GuardClauses.svg)](https://www.nuget.org/packages/Ardalis.GuardClauses)[![NuGet](https://img.shields.io/nuget/dt/Ardalis.GuardClauses.svg)](https://www.nuget.org/packages/Ardalis.GuardClauses)
-[![Build Status](https://dev.azure.com/ardalis/GuardClauses/_apis/build/status/ardalis.GuardClauses?branchName=master)](https://dev.azure.com/ardalis/GuardClauses/_build/latest?definitionId=1&branchName=master)
-[![Azure DevOps coverage](https://img.shields.io/azure-devops/coverage/ardalis/guardclauses/1.svg)](https://dev.azure.com/ardalis/GuardClauses/_build/latest?definitionId=1&branchName=master)
+![publish Ardalis.GuardClauses to nuget](https://github.com/ardalis/GuardClauses/workflows/publish%20Ardalis.GuardClauses%20to%20nuget/badge.svg)
 
 # Guard Clauses
 A simple package with guard clause extensions.
