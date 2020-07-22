@@ -17,14 +17,14 @@ namespace Ardalis.GuardClauses
         /// <summary>
         /// Throws an <see cref="ArgumentNullException" /> if <paramref name="input" /> is null.
         /// </summary>
+        /// <typeparam name="T"></typeparam>
         /// <param name="guardClause"></param>
         /// <param name="input"></param>
         /// <param name="parameterName"></param>
         /// <returns><paramref name="input" /> if the value is not null.</returns>
-        /// <exception cref="ArgumentNullException"></exception>
-        public static object Null([JetBrainsNotNull] this IGuardClause guardClause, [NotNull, JetBrainsNotNull][ValidatedNotNull] object? input, [JetBrainsNotNull] string parameterName)
+        public static T Null<T>([JetBrainsNotNull] this IGuardClause guardClause, [NotNull, JetBrainsNotNull][ValidatedNotNull] T input, [JetBrainsNotNull] string parameterName)
         {
-            if (null == input)
+            if (input is null)
             {
                 throw new ArgumentNullException(parameterName);
             }
