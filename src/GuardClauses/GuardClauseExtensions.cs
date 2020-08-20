@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using JetBrainsNotNullAttribute = JetBrains.Annotations.NotNullAttribute;
@@ -497,38 +498,38 @@ namespace Ardalis.GuardClauses
         }
 
         /// <summary>
-        /// Throws an <see cref="ArgumentOutOfRangeException" /> if <paramref name="input"/> is not a valid enum value.
+        /// Throws an <see cref="InvalidEnumArgumentException" /> if <paramref name="input"/> is not a valid enum value.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="guardClause"></param>
         /// <param name="input"></param>
         /// <param name="parameterName"></param>
         /// <returns><paramref name="input" /> if the value is not out of range.</returns>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        /// <exception cref="InvalidEnumArgumentException"></exception>
         public static int OutOfRange<T>([JetBrainsNotNull] this IGuardClause guardClause, int input, [JetBrainsNotNull] string parameterName) where T : struct, Enum
         {
             if (!Enum.IsDefined(typeof(T), input))
             {
-                throw new ArgumentOutOfRangeException(parameterName, $"Required input {parameterName} was not a valid enum value for {typeof(T)}.");
+                throw new InvalidEnumArgumentException($"Required input {parameterName} was not a valid enum value for {typeof(T)}.");
             }
 
             return input;
         }
 
         /// <summary>
-        /// Throws an <see cref="ArgumentOutOfRangeException" /> if <paramref name="input"/> is not a valid enum value.
+        /// Throws an <see cref="InvalidEnumArgumentException" /> if <paramref name="input"/> is not a valid enum value.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="guardClause"></param>
         /// <param name="input"></param>
         /// <param name="parameterName"></param>
         /// <returns><paramref name="input" /> if the value is not out of range.</returns>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        /// <exception cref="InvalidEnumArgumentException"></exception>
         public static T OutOfRange<T>([JetBrainsNotNull] this IGuardClause guardClause, T input, [JetBrainsNotNull] string parameterName) where T : struct, Enum
         {
             if (!Enum.IsDefined(typeof(T), input))
             {
-                throw new ArgumentOutOfRangeException(parameterName, $"Required input {parameterName} was not a valid enum value for {typeof(T)}.");
+                throw new InvalidEnumArgumentException($"Required input {parameterName} was not a valid enum value for {typeof(T)}.");
             }
 
             return input;
