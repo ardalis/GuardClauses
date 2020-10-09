@@ -510,7 +510,7 @@ namespace Ardalis.GuardClauses
         {
             if (!Enum.IsDefined(typeof(T), input))
             {
-                throw new InvalidEnumArgumentException($"Required input {parameterName} was not a valid enum value for {typeof(T)}.");
+                throw new InvalidEnumArgumentException(parameterName, Convert.ToInt32(input), typeof(T));
             }
 
             return input;
@@ -529,7 +529,7 @@ namespace Ardalis.GuardClauses
         {
             if (!Enum.IsDefined(typeof(T), input))
             {
-                throw new InvalidEnumArgumentException($"Required input {parameterName} was not a valid enum value for {typeof(T)}.");
+                throw new InvalidEnumArgumentException(parameterName, Convert.ToInt32(input), typeof(T));
             }
 
             return input;

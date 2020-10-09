@@ -1,5 +1,4 @@
 ﻿using Ardalis.GuardClauses;
-using System;
 using System.ComponentModel;
 using Xunit;
 
@@ -26,7 +25,8 @@ namespace GuardClauses.UnitTests
         [InlineData(10)]
         public void ThrowsGivenOutOfRangeValue(int enumValue)
         {
-            Assert.Throws<InvalidEnumArgumentException>(() => Guard.Against.OutOfRange<TestEnum>(enumValue, nameof(enumValue)));
+            var exception = Assert.Throws<InvalidEnumArgumentException>(() => Guard.Against.OutOfRange<TestEnum>(enumValue, nameof(enumValue)));
+            Assert.Equal(nameof(enumValue), exception.ParamName);
         }
 
         [Theory]
@@ -48,7 +48,8 @@ namespace GuardClauses.UnitTests
         [InlineData((TestEnum) 10)]
         public void ThrowsGivenOutOfRangeEnum(TestEnum enumValue)
         {
-            Assert.Throws<InvalidEnumArgumentException>(() => Guard.Against.OutOfRange(enumValue, nameof(enumValue)));
+            var exception = Assert.Throws<InvalidEnumArgumentException>(() => Guard.Against.OutOfRange(enumValue, nameof(enumValue)));
+            Assert.Equal(nameof(enumValue), exception.ParamName);
         }
 
         [Theory]
