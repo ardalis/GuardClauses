@@ -12,8 +12,8 @@
     <Summary>A simple package with guard clause helper methods. See docs for how to extend using your own extension methods.</Summary>
     <RepositoryUrl>https://github.com/ardalis/guardclauses</RepositoryUrl>
     <PackageTags>guard clause clauses assert assertion</PackageTags>
-    <PackageReleaseNotes>OutOfRange changed to InvalidEnumArgument exception.</PackageReleaseNotes>
-    <Version>3.0.0</Version>
+    <PackageReleaseNotes>Modify OutOfRange to include parameter name in InvalidEnumArgument exception.</PackageReleaseNotes>
+    <Version>3.0.1</Version>
     <AssemblyName>Ardalis.GuardClauses</AssemblyName>
     <PackageIcon>icon.png</PackageIcon>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
