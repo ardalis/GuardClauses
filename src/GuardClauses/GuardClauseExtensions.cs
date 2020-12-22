@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Text.RegularExpressions;
 using JetBrainsNotNullAttribute = JetBrains.Annotations.NotNullAttribute;
 
 namespace Ardalis.GuardClauses
@@ -400,7 +401,7 @@ namespace Ardalis.GuardClauses
         {
             return Negative<double>(guardClause, input, parameterName);
         }
-        
+
         /// <summary>
         /// Throws an <see cref="ArgumentException" /> if <paramref name="input"/> is negative.
         /// </summary>
@@ -428,7 +429,7 @@ namespace Ardalis.GuardClauses
         /// <returns><paramref name="input" /> if the value is not negative or zero.</returns>
         public static int NegativeOrZero([JetBrainsNotNull] this IGuardClause guardClause, int input, [JetBrainsNotNull] string parameterName)
         {
-            return NegativeOrZero<int>(guardClause ,input, parameterName);
+            return NegativeOrZero<int>(guardClause, input, parameterName);
         }
 
         /// <summary>
@@ -551,6 +552,166 @@ namespace Ardalis.GuardClauses
             }
 
             return input;
+        }
+
+        /// <summary>
+        /// Throws an <see cref="ArgumentException" /> if  <paramref name="input"/> doesn't match the <paramref name="regexPattern"/>.
+        /// </summary>
+        /// <param name="guardClause"></param>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        /// <param name="regexPattern"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public static string InvalidFormat([JetBrainsNotNull] this IGuardClause guardClause, [JetBrainsNotNull] string input, [JetBrainsNotNull] string parameterName, [JetBrainsNotNull] string regexPattern)
+        {
+            if (input != Regex.Match(input, regexPattern).Value)
+                throw new ArgumentException($"Input {parameterName} was not in required format", parameterName);
+
+            return input;
+        }
+
+        /// <summary>
+        /// Throws an <see cref="ArgumentException" /> if  <paramref name="input"/> doesn't satisfy the <paramref name="predicate"/> function.
+        /// </summary>
+        /// <param name="guardClause"></param>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        /// <param name="predicate"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public static T InvalidInput<T>([JetBrainsNotNull] this IGuardClause guardClause, [JetBrainsNotNull] T input, [JetBrainsNotNull] string parameterName, Func<T, bool> predicate)
+        {
+            if (!predicate(input))
+                throw new ArgumentException($"Input {parameterName} did not satisfy the options", parameterName);
+
+            return input;
+        }
+
+
+        /// <summary>
+        /// Throws an <see cref="ArgumentOutOfRangeException" /> if  any <paramref name="input"/>'s item is less than <paramref name="rangeFrom"/> or greater than <paramref name="rangeTo"/>.
+        /// </summary>
+        /// <param name="guardClause"></param>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        /// <param name="rangeFrom"></param>
+        /// <param name="rangeTo"></param>
+        /// <returns><paramref name="input" /> if any item is not out of range.</returns>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        private static IEnumerable<T> OutOfRange<T>(this IGuardClause guardClause, IEnumerable<T> input, string parameterName, T rangeFrom, T rangeTo) where T : IComparable
+        {
+            Comparer<T> comparer = Comparer<T>.Default;
+
+            if (comparer.Compare(rangeFrom, rangeTo) > 0)
+            {
+                throw new ArgumentException($"{nameof(rangeFrom)} should be less or equal than {nameof(rangeTo)}");
+            }
+
+            if (input.Any(x => comparer.Compare(x, rangeFrom) < 0 || comparer.Compare(x, rangeTo) > 0))
+            {
+                throw new ArgumentOutOfRangeException(parameterName, $"Input {parameterName} had out of range item(s)");
+            }
+
+            return input;
+        }
+
+        /// <summary>
+        /// Throws an <see cref="ArgumentOutOfRangeException" /> if  any <paramref name="input"/>'s item is less than <paramref name="rangeFrom"/> or greater than <paramref name="rangeTo"/>.
+        /// </summary>
+        /// <param name="guardClause"></param>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        /// <param name="rangeFrom"></param>
+        /// <param name="rangeTo"></param>
+        /// <returns><paramref name="input" /> if any item is not out of range.</returns>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        public static IEnumerable<int> OutOfRange([JetBrainsNotNull] this IGuardClause guardClause, IEnumerable<int> input, [JetBrainsNotNull] string parameterName, int rangeFrom, int rangeTo)
+        {
+            return OutOfRange<int>(guardClause, input, parameterName, rangeFrom, rangeTo);
+        }
+
+        /// <summary>
+        /// Throws an <see cref="ArgumentOutOfRangeException" /> if  any <paramref name="input"/>'s item is less than <paramref name="rangeFrom"/> or greater than <paramref name="rangeTo"/>.
+        /// </summary>
+        /// <param name="guardClause"></param>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        /// <param name="rangeFrom"></param>
+        /// <param name="rangeTo"></param>
+        /// <returns><paramref name="input" /> if any item is not out of range.</returns>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        public static IEnumerable<long> OutOfRange([JetBrainsNotNull] this IGuardClause guardClause, IEnumerable<long> input, [JetBrainsNotNull] string parameterName, long rangeFrom, long rangeTo)
+        {
+            return OutOfRange<long>(guardClause, input, parameterName, rangeFrom, rangeTo);
+        }
+
+        /// <summary>
+        /// Throws an <see cref="ArgumentOutOfRangeException" /> if  any <paramref name="input"/>'s item is less than <paramref name="rangeFrom"/> or greater than <paramref name="rangeTo"/>.
+        /// </summary>
+        /// <param name="guardClause"></param>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        /// <param name="rangeFrom"></param>
+        /// <param name="rangeTo"></param>
+        /// <returns><paramref name="input" /> if any item is not out of range.</returns>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        public static IEnumerable<decimal> OutOfRange([JetBrainsNotNull] this IGuardClause guardClause, IEnumerable<decimal> input, [JetBrainsNotNull] string parameterName, decimal rangeFrom, decimal rangeTo)
+        {
+            return OutOfRange<decimal>(guardClause, input, parameterName, rangeFrom, rangeTo);
+        }
+
+        /// <summary>
+        /// Throws an <see cref="ArgumentOutOfRangeException" /> if  any <paramref name="input"/>'s item is less than <paramref name="rangeFrom"/> or greater than <paramref name="rangeTo"/>.
+        /// </summary>
+        /// <param name="guardClause"></param>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        /// <param name="rangeFrom"></param>
+        /// <param name="rangeTo"></param>
+        /// <returns><paramref name="input" /> if any item is not out of range.</returns>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        public static IEnumerable<float> OutOfRange([JetBrainsNotNull] this IGuardClause guardClause, IEnumerable<float> input, [JetBrainsNotNull] string parameterName, float rangeFrom, float rangeTo)
+        {
+            return OutOfRange<float>(guardClause, input, parameterName, rangeFrom, rangeTo);
+        }
+
+        /// <summary>
+        /// Throws an <see cref="ArgumentOutOfRangeException" /> if  any <paramref name="input"/>'s item is less than <paramref name="rangeFrom"/> or greater than <paramref name="rangeTo"/>.
+        /// </summary>
+        /// <param name="guardClause"></param>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        /// <param name="rangeFrom"></param>
+        /// <param name="rangeTo"></param>
+        /// <returns><paramref name="input" /> if any item is not out of range.</returns>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        public static IEnumerable<double> OutOfRange([JetBrainsNotNull] this IGuardClause guardClause, IEnumerable<double> input, [JetBrainsNotNull] string parameterName, double rangeFrom, double rangeTo)
+        {
+            return OutOfRange<double>(guardClause, input, parameterName, rangeFrom, rangeTo);
+        }
+
+        /// <summary>
+        /// Throws an <see cref="ArgumentOutOfRangeException" /> if  any <paramref name="input"/>'s item is less than <paramref name="rangeFrom"/> or greater than <paramref name="rangeTo"/>.
+        /// </summary>
+        /// <param name="guardClause"></param>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        /// <param name="rangeFrom"></param>
+        /// <param name="rangeTo"></param>
+        /// <returns><paramref name="input" /> if any item is not out of range.</returns>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        public static IEnumerable<short> OutOfRange([JetBrainsNotNull] this IGuardClause guardClause, IEnumerable<short> input, [JetBrainsNotNull] string parameterName, short rangeFrom, short rangeTo)
+        {
+            return OutOfRange<short>(guardClause, input, parameterName, rangeFrom, rangeTo);
         }
     }
 }
