@@ -401,7 +401,7 @@ namespace Ardalis.GuardClauses
         {
             return Negative<double>(guardClause, input, parameterName);
         }
-        
+
         /// <summary>
         /// Throws an <see cref="ArgumentException" /> if <paramref name="input"/> is negative.
         /// </summary>
@@ -429,7 +429,7 @@ namespace Ardalis.GuardClauses
         /// <returns><paramref name="input" /> if the value is not negative or zero.</returns>
         public static int NegativeOrZero([JetBrainsNotNull] this IGuardClause guardClause, int input, [JetBrainsNotNull] string parameterName)
         {
-            return NegativeOrZero<int>(guardClause ,input, parameterName);
+            return NegativeOrZero<int>(guardClause, input, parameterName);
         }
 
         /// <summary>
@@ -567,6 +567,24 @@ namespace Ardalis.GuardClauses
         {
             if (input != Regex.Match(input, regexPattern).Value)
                 throw new ArgumentException($"Input {parameterName} was not in required format", parameterName);
+
+            return input;
+        }
+
+        /// <summary>
+        /// Throws an <see cref="ArgumentException" /> if  <paramref name="input"/> doesn't satisfy the <paramref name="predicate"/> function.
+        /// </summary>
+        /// <param name="guardClause"></param>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        /// <param name="predicate"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public static T InvalidInput<T>([JetBrainsNotNull] this IGuardClause guardClause, [JetBrainsNotNull] T input, [JetBrainsNotNull] string parameterName, Func<T, bool> predicate)
+        {
+            if (!predicate(input))
+                throw new ArgumentException($"Input {parameterName} did not satisfy the options", parameterName);
 
             return input;
         }
