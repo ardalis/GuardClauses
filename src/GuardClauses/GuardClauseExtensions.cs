@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Text.RegularExpressions;
 using JetBrainsNotNullAttribute = JetBrains.Annotations.NotNullAttribute;
 
 namespace Ardalis.GuardClauses
@@ -549,6 +550,23 @@ namespace Ardalis.GuardClauses
             {
                 throw new ArgumentException($"Parameter [{parameterName}] is default value for type {typeof(T).Name}", parameterName);
             }
+
+            return input;
+        }
+
+        /// <summary>
+        /// Throws an <see cref="ArgumentException" /> if  <paramref name="input"/> doesn't match the <paramref name="regexPattern"/>.
+        /// </summary>
+        /// <param name="guardClause"></param>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        /// <param name="regexPattern"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public static string InvalidFormat([JetBrainsNotNull] this IGuardClause guardClause, [JetBrainsNotNull] string input, [JetBrainsNotNull] string parameterName, [JetBrainsNotNull] string regexPattern)
+        {
+            if (input != Regex.Match(input, regexPattern).Value)
+                throw new ArgumentException($"Input {parameterName} was not in required format", parameterName);
 
             return input;
         }
