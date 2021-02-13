@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using Ardalis.GuardClauses;
 using Xunit;
 
@@ -14,6 +14,7 @@ namespace GuardClauses.UnitTests
             Guard.Against.Negative(0.0M, "decimalZero");
             Guard.Against.Negative(0.0f, "floatZero");
             Guard.Against.Negative(0.0, "doubleZero");
+            Guard.Against.Negative(TimeSpan.Zero, "timespanZero");
         }
         
         [Fact]
@@ -24,6 +25,7 @@ namespace GuardClauses.UnitTests
             Guard.Against.Negative(1.0M, "decimalZero");
             Guard.Against.Negative(1.0f, "floatZero");
             Guard.Against.Negative(1.0, "doubleZero");
+            Guard.Against.Negative(TimeSpan.FromSeconds(1), "timespanZero");
         }
         
         [Fact]
@@ -54,6 +56,12 @@ namespace GuardClauses.UnitTests
         public void ThrowsGivenNegativeDoubleValue()
         {
             Assert.Throws<ArgumentException>(() => Guard.Against.Negative(-1.0, "negative"));
+        }
+
+        [Fact]
+        public void ThrowsGivenNegativeTimeSpanValue()
+        {
+            Assert.Throws<ArgumentException>(() => Guard.Against.Negative(TimeSpan.FromSeconds(-1), "negative"));
         }
 
         [Fact]
@@ -89,6 +97,13 @@ namespace GuardClauses.UnitTests
         {
             Assert.Equal(0.0, Guard.Against.Negative(0.0, "doubleZero"));
             Assert.Equal(1.0, Guard.Against.Negative(1.0, "doubleOne"));
+        }
+
+        [Fact]
+        public void ReturnsExpectedValueGivenNonNegativeTimeSpanValue()
+        {
+            Assert.Equal(TimeSpan.Zero, Guard.Against.Negative(TimeSpan.Zero, "timespanZero"));
+            Assert.Equal(TimeSpan.FromSeconds(1), Guard.Against.Negative(TimeSpan.FromSeconds(1), "timespanOne"));
         }
     }
 }

@@ -16,6 +16,7 @@ namespace GuardClauses.UnitTests
             Guard.Against.NegativeOrZero(1.0M, "decimalPositive");
             Guard.Against.NegativeOrZero(1.0f, "floatPositive");
             Guard.Against.NegativeOrZero(1.0, "doublePositive");
+            Guard.Against.NegativeOrZero(TimeSpan.FromSeconds(1), "timespanPositive");
         }
 
         [Fact]
@@ -46,6 +47,12 @@ namespace GuardClauses.UnitTests
         public void ThrowsGivenZeroDoubleValue()
         {
             Assert.Throws<ArgumentException>(() => Guard.Against.NegativeOrZero(0.0, "doubleZero"));
+        }
+
+        [Fact]
+        public void ThrowsGivenZeroTimeSpanValue()
+        {
+            Assert.Throws<ArgumentException>(() => Guard.Against.NegativeOrZero(TimeSpan.Zero, "timespanZero"));
         }
 
 
@@ -85,6 +92,13 @@ namespace GuardClauses.UnitTests
         }
 
         [Fact]
+        public void ThrowsGivenNegativeTimeSpanValue()
+        {
+            Assert.Throws<ArgumentException>(() => Guard.Against.NegativeOrZero(TimeSpan.FromSeconds(-1), "timespanNegative"));
+            Assert.Throws<ArgumentException>(() => Guard.Against.NegativeOrZero(TimeSpan.FromSeconds(-456), "timespanNegative"));
+        }
+
+        [Fact]
         public void ReturnsExpectedValueWhenGivenPositiveValue()
         {
             Assert.Equal(1, Guard.Against.NegativeOrZero(1, "intPositive"));
@@ -92,6 +106,7 @@ namespace GuardClauses.UnitTests
             Assert.Equal(1.0M, Guard.Against.NegativeOrZero(1.0M, "decimalPositive"));
             Assert.Equal(1.0f, Guard.Against.NegativeOrZero(1.0f, "floatPositive"));
             Assert.Equal(1.0, Guard.Against.NegativeOrZero(1.0, "doublePositive"));
+            Assert.Equal(TimeSpan.FromSeconds(1), Guard.Against.NegativeOrZero(TimeSpan.FromSeconds(1), "timespanPositive"));
         }
     }
 }
