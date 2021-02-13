@@ -237,6 +237,21 @@ namespace Ardalis.GuardClauses
         /// <param name="rangeTo"></param>
         /// <returns><paramref name="input" /> if the value is not out of range.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
+        public static TimeSpan OutOfRange(this IGuardClause guardClause, TimeSpan input, string parameterName, TimeSpan rangeFrom, TimeSpan rangeTo)
+        {
+            return OutOfRange<TimeSpan>(guardClause, input, parameterName, rangeFrom, rangeTo);
+        }
+
+        /// <summary>
+        /// Throws an <see cref="ArgumentOutOfRangeException" /> if <paramref name="input"/> is less than <paramref name="rangeFrom"/> or greater than <paramref name="rangeTo"/>.
+        /// </summary>
+        /// <param name="guardClause"></param>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        /// <param name="rangeFrom"></param>
+        /// <param name="rangeTo"></param>
+        /// <returns><paramref name="input" /> if the value is not out of range.</returns>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         private static T OutOfRange<T>(this IGuardClause guardClause, T input, string parameterName, T rangeFrom, T rangeTo)
         {
             Comparer<T> comparer = Comparer<T>.Default;
@@ -317,6 +332,19 @@ namespace Ardalis.GuardClauses
         public static double Zero([JetBrainsNotNull] this IGuardClause guardClause, double input, [JetBrainsNotNull] string parameterName)
         {
             return Zero<double>(guardClause, input, parameterName);
+        }
+
+        /// <summary>
+        /// Throws an <see cref="ArgumentException" /> if <paramref name="input" /> is zero.
+        /// </summary>
+        /// <param name="guardClause"></param>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        /// <returns><paramref name="input" /> if the value is not zero.</returns>
+        /// <exception cref="ArgumentException"></exception>
+        public static TimeSpan Zero([JetBrainsNotNull] this IGuardClause guardClause, TimeSpan input, [JetBrainsNotNull] string parameterName)
+        {
+            return Zero<TimeSpan>(guardClause, input, parameterName);
         }
 
         /// <summary>
@@ -410,6 +438,19 @@ namespace Ardalis.GuardClauses
         /// <param name="parameterName"></param>
         /// <returns><paramref name="input" /> if the value is not negative.</returns>
         /// <exception cref="ArgumentException"></exception>
+        public static TimeSpan Negative([JetBrainsNotNull] this IGuardClause guardClause, TimeSpan input, [JetBrainsNotNull] string parameterName)
+        {
+            return Negative<TimeSpan>(guardClause, input, parameterName);
+        }
+
+        /// <summary>
+        /// Throws an <see cref="ArgumentException" /> if <paramref name="input"/> is negative.
+        /// </summary>
+        /// <param name="guardClause"></param>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        /// <returns><paramref name="input" /> if the value is not negative.</returns>
+        /// <exception cref="ArgumentException"></exception>
         private static T Negative<T>([JetBrainsNotNull] this IGuardClause guardClause, T input, [JetBrainsNotNull] string parameterName) where T : struct, IComparable
         {
             if (input.CompareTo(default(T)) < 0)
@@ -478,6 +519,18 @@ namespace Ardalis.GuardClauses
         public static double NegativeOrZero([JetBrainsNotNull] this IGuardClause guardClause, double input, [JetBrainsNotNull] string parameterName)
         {
             return NegativeOrZero<double>(guardClause, input, parameterName);
+        }
+
+        /// <summary>
+        /// Throws an <see cref="ArgumentException"/> if <paramref name="input"/> is negative or zero.
+        /// </summary>
+        /// <param name="guardClause"></param>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        /// <returns><paramref name="input" /> if the value is not negative or zero.</returns>
+        public static TimeSpan NegativeOrZero([JetBrainsNotNull] this IGuardClause guardClause, TimeSpan input, [JetBrainsNotNull] string parameterName)
+        {
+            return NegativeOrZero<TimeSpan>(guardClause, input, parameterName);
         }
 
         /// <summary>
@@ -712,6 +765,22 @@ namespace Ardalis.GuardClauses
         public static IEnumerable<short> OutOfRange([JetBrainsNotNull] this IGuardClause guardClause, IEnumerable<short> input, [JetBrainsNotNull] string parameterName, short rangeFrom, short rangeTo)
         {
             return OutOfRange<short>(guardClause, input, parameterName, rangeFrom, rangeTo);
+        }
+
+        /// <summary>
+        /// Throws an <see cref="ArgumentOutOfRangeException" /> if  any <paramref name="input"/>'s item is less than <paramref name="rangeFrom"/> or greater than <paramref name="rangeTo"/>.
+        /// </summary>
+        /// <param name="guardClause"></param>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        /// <param name="rangeFrom"></param>
+        /// <param name="rangeTo"></param>
+        /// <returns><paramref name="input" /> if any item is not out of range.</returns>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        public static IEnumerable<TimeSpan> OutOfRange([JetBrainsNotNull] this IGuardClause guardClause, IEnumerable<TimeSpan> input, [JetBrainsNotNull] string parameterName, TimeSpan rangeFrom, TimeSpan rangeTo)
+        {
+            return OutOfRange<TimeSpan>(guardClause, input, parameterName, rangeFrom, rangeTo);
         }
     }
 }
