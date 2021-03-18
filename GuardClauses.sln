@@ -13,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuardClauses.UnitTests", "test\GuardClauses.UnitTests\GuardClauses.UnitTests.csproj", "{B84F450E-7778-48C8-A9DB-CCD5EE80E92E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuardClauses.Fluent", "src\GuardClauses.Fluent\GuardClauses.Fluent.csproj", "{FDAAD30E-500B-46A8-AE1C-F0CD8972D3A3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{B84F450E-7778-48C8-A9DB-CCD5EE80E92E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B84F450E-7778-48C8-A9DB-CCD5EE80E92E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B84F450E-7778-48C8-A9DB-CCD5EE80E92E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDAAD30E-500B-46A8-AE1C-F0CD8972D3A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDAAD30E-500B-46A8-AE1C-F0CD8972D3A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDAAD30E-500B-46A8-AE1C-F0CD8972D3A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDAAD30E-500B-46A8-AE1C-F0CD8972D3A3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
