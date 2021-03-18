@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net40</TargetFrameworks>
     <AssemblyName>Ardalis.GuardClauses.Fluent</AssemblyName>
-    <RootNamespace>Ardalis.GuardClauses.Fluent</RootNamespace>
+    <RootNamespace>Ardalis.GuardClauses</RootNamespace>
     <PackageId>Ardalis.GuardClauses.Fluent</PackageId>
     <Title>Ardalis.GuardClauses.Fluent</Title>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>

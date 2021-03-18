@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Ardalis.GuardClauses.Fluent
+namespace Ardalis.GuardClauses
 {
     /// <summary>
     /// Simple interface to provide a generic mechanism to build extension methods from.

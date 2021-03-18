@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using JetBrainsNotNullAttribute = JetBrains.Annotations.NotNullAttribute;
 
-namespace Ardalis.GuardClauses.Fluent
+namespace Ardalis.GuardClauses
 {
     public static class IValidateNullOrEmptyExtensions
     {

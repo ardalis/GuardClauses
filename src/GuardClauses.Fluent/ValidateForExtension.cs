@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Ardalis.GuardClauses.Fluent
+namespace Ardalis.GuardClauses
 {
     /// <summary>
     /// An entry point to a set of validation methods defined as extension methods on IValidate.

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Ardalis.GuardClauses.Fluent
+namespace Ardalis.GuardClauses
 {
     /// <summary>
     /// Default implementation of IValidate of <typeparamref name="T"/>.

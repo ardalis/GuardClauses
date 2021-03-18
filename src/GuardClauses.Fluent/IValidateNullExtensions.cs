@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using JetBrainsNotNullAttribute = JetBrains.Annotations.NotNullAttribute;
 
-namespace Ardalis.GuardClauses.Fluent
+namespace Ardalis.GuardClauses
 {
     /// <summary>
     /// A collection of common IValidate clauses, implented as extensions.
