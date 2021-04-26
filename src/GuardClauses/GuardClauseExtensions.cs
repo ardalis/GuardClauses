@@ -109,7 +109,6 @@ namespace Ardalis.GuardClauses
         /// <exception cref="ArgumentException"></exception>
         public static string NullOrWhiteSpace([JetBrainsNotNull] this IGuardClause guardClause, [NotNull, JetBrainsNotNull][ValidatedNotNull] string? input, [JetBrainsNotNull] string parameterName)
         {
-            Guard.Against.NullOrEmpty(input, parameterName);
             if (String.IsNullOrWhiteSpace(input))
             {
                 throw new ArgumentException($"Required input {parameterName} was empty.", parameterName);
