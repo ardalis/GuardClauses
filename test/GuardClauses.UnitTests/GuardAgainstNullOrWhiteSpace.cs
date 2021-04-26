@@ -21,7 +21,7 @@ namespace GuardClauses.UnitTests
         [Fact]
         public void ThrowsGivenNullValue()
         {
-            Assert.Throws<ArgumentNullException>(() => Guard.Against.NullOrWhiteSpace(null, "null"));
+            Assert.Throws<ArgumentException>(() => Guard.Against.NullOrWhiteSpace(null, "null"));
         }
 
         [Fact]
