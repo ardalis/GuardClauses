@@ -23,10 +23,10 @@ jobs:
         id: install_dependencies
         shell: pwsh
         run: |
-          dotnet restore
+         dotnet restore
 
       - name: Build solutin
         id: build_solution
         shell: pwsh
         run: |
-          dotnet build .\GuardClauses.sln --configuration Release --no-restore
+          dotnet build --configuration Release --no-restore
