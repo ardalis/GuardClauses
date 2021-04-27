@@ -19,6 +19,12 @@ jobs:
         with:
           dotnet-version: 3.1.402
 
+      - name: Install dependencies
+        id: install_dependencies
+        shell: pwsh
+        run: |
+          dotnet restore
+
       - name: Build solutin
         id: build_solution
         shell: pwsh
