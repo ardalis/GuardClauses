@@ -13,15 +13,24 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Install winetricks
-        id: install_winetricks
-        shell: bash
-        run: sudo apt-get purge winetricks
+      # - name: Install winetricks
+      #   id: install_winetricks
+      #   shell: bash
+      #   run: |
+      #     wget -q https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb
+      #     sudo dpkg -i packages-microsoft-prod.deb
 
-      - name: Setup .NET Framework manual
-        id: setup_dotnet_framework_manual
-        shell: bash
-        run: winetricks dotnet48
+      - name: Check dotnet dotnet-version
+        id: check_dotnet_version
+        shell: pwsh
+        run: |
+          dotnet --version
+          dotnet --list-sdks
+
+      # - name: Setup .NET Framework manual
+      #   id: setup_dotnet_framework_manual
+      #   shell: bash
+      #   run: winetricks dotnet48
         
       # - name: Setup .NET Core
       #   id: setup_dotnet_core
