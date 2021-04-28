@@ -17,10 +17,10 @@ jobs:
         id: setup_dotnet_core
         shell: bash
         run: |
-          apt-get update; \
-          apt-get install -y apt-transport-https && \
-          apt-get update && \
-          apt-get install -y dotnet-sdk-3.1
+          sudo apt-get update; \
+          sudo apt-get install -y apt-transport-https && \
+          sudo apt-get update && \
+          sudo apt-get install -y dotnet-sdk-3.1
 
       # - name: Setup .NET Core
       #   id: setup_dotnet_core
