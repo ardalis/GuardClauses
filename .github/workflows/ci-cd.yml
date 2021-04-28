@@ -7,21 +7,14 @@ jobs:
     name: Continuous Integration
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        id: checkout_repo
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - name: Setup .NET Core
-        id: setup_dotnet_core
-        shell: bash
-        run: |
-          curl -o [https://dotnet.microsoft.com/download/dotnet-framework/thank-you/net40-web-installer]
-
-
-      - name: Build solutin
-        id: build_solution
-        shell: pwsh
-        run: |
-          dotnet build --configuration Release
+    - uses: actions/checkout@v2
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.402
+    - name: Install dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+    - name: Test
+      run: dotnet test --no-restore --verbosity normal
