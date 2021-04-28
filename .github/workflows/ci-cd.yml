@@ -20,7 +20,7 @@ jobs:
           sudo apt-get update; \
           sudo apt-get install -y apt-transport-https && \
           sudo apt-get update && \
-          sudo apt-get install -y dotnet-sdk-4.0
+          sudo apt-get install -y dotnet-sdk-5.0
 
       # - name: Setup .NET Core
       #   id: setup_dotnet_core
