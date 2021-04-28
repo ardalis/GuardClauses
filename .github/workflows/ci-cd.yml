@@ -28,6 +28,6 @@ jobs:
 
       - name: Build solutin
         id: build_solution
-        shell: bash
+        shell: pwsh
         run: |
           dotnet build --configuration Release
