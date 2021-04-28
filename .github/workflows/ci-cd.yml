@@ -17,7 +17,7 @@ jobs:
         id: setup_dotnet_core
         uses: actions/setup-dotnet@v1
         with:
-          source-url: https://dotnet.microsoft.com/download/dotnet/thank-you/sdk-5.0.202-linux-x64-binaries
+          source-url: https://dotnet.microsoft.com/download/dotnet-framework/thank-you/net48-web-installer
         env:
           NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
