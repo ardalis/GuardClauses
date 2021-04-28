@@ -17,7 +17,7 @@ jobs:
         id: setup_dotnet_core
         shell: bash
         run: |
-          sudo snap install dotnet-sdk --classic --channel=3.1
+          snap install dotnet-sdk --classic --channel=3.1
 
       # - name: Setup .NET Core
       #   id: setup_dotnet_core
