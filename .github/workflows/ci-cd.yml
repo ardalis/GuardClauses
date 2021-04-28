@@ -23,6 +23,8 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           source-url: https://www.microsoft.com/en-us/download/confirmation.aspx?id=49978
+        env:
+          NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
       - name: Build solutin
         id: build_solution
