@@ -13,13 +13,15 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Install winetricks
+        id: install winetricks
+        shell: bash
+        run: sudo apt-get purge winetricks
+
       - name: Setup .NET Framework manual
         id: setup_dotnet_framework_manual
         shell: bash
-        run: |
-          sudo apt-get purge winetricks
-          winetricks dotnet48
-
+        run: winetricks dotnet48
         
       # - name: Setup .NET Core
       #   id: setup_dotnet_core
