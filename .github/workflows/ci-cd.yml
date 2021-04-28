@@ -18,6 +18,7 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           source-url: https://dotnet.microsoft.com/download/dotnet/thank-you/sdk-5.0.202-linux-x64-binaries
+        env:
           NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
       - name: Build solutin
