@@ -22,7 +22,7 @@ jobs:
       - name: Nuget restore
         id: nuget_restore
         shell: pwsh
-        run: nuget restore .\GuardClauses.sln
+        run: nuget restore GuardClauses.sln
 
       - name: Build solutin
         id: build_solution
