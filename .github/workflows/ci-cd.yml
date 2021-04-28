@@ -14,7 +14,7 @@ jobs:
           fetch-depth: 0
 
       - name: Install winetricks
-        id: install winetricks
+        id: install_winetricks
         shell: bash
         run: sudo apt-get purge winetricks
 
