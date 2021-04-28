@@ -5,7 +5,7 @@ on: [push, pull_request, workflow_dispatch]
 jobs:
   ci:
     name: Continuous Integration
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         id: checkout_repo
