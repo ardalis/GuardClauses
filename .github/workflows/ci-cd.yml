@@ -17,7 +17,7 @@ jobs:
         id: setup_dotnet_core
         shell: bash
         run: |
-          curl -o https://dotnet.microsoft.com/download/dotnet-framework/thank-you/net40-web-installer
+          curl -o [https://dotnet.microsoft.com/download/dotnet-framework/thank-you/net40-web-installer]
 
 
       - name: Build solutin
