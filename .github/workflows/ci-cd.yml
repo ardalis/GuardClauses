@@ -7,14 +7,21 @@ jobs:
     name: Continuous Integration
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 3.1.402
-    - name: Install dependencies
-      run: dotnet restore
-    - name: Build
-      run: dotnet build --configuration Release --no-restore
-    - name: Test
-      run: dotnet test --no-restore --verbosity normal
+
+      - name: Setup .NET Core
+        id: setup_dotnet_core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.402
+
+      - name: Checkout repository
+        id: checkout_repo
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Build solutin
+        id: build_solution
+        shell: pwsh
+        run: |
+          dotnet build .\GuardClauses.sln --configuration Release
