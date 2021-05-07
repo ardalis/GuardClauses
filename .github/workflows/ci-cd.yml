@@ -43,7 +43,7 @@ jobs:
 
 
       - name: Setup .NET Core
-        id: setup_dotnet_core 
+        id: setup_dotnet_core
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 3.1.402
@@ -76,14 +76,13 @@ jobs:
           uses: actions/setup-dotnet@v1
           with:
             dotnet-version: 5.0.202
-      
+
         - name: Checkout repository
           id: checkout_repo
           uses: actions/checkout@v2
           with:
             token: ${{ secrets.GITHUB_TOKEN }}
             fetch-depth: 0
-
 
         - name: Publish to NuGet
           id: publish_to_nuget
