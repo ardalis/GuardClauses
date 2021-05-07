@@ -37,6 +37,17 @@ namespace GuardClauses.UnitTests
             Assert.Equal(input, result);
         }
 
+        [Theory]
+        [ClassData(typeof(IncorrectRangeClassData))]
+        public void CustomErrorMessage(IEnumerable<short> input, short rangeFrom, short rangeTo)
+        {
+            var message = "Incorrect Range";
+            var exception = Assert.Throws<ArgumentException>(() => Guard.Against.OutOfRange(input, nameof(input), rangeFrom, rangeTo, message));
+            Assert.NotNull(exception);
+            Assert.NotEmpty(exception.Message);
+            Assert.Equal(message, exception.Message);
+        }
+
 
         public class CorrectClassData : IEnumerable<object[]>
         {

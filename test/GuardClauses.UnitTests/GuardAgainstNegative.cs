@@ -105,5 +105,16 @@ namespace GuardClauses.UnitTests
             Assert.Equal(TimeSpan.Zero, Guard.Against.Negative(TimeSpan.Zero, "timespanZero"));
             Assert.Equal(TimeSpan.FromSeconds(1), Guard.Against.Negative(TimeSpan.FromSeconds(1), "timespanOne"));
         }
+
+        [Theory]
+        [InlineData(null, "Required input parameterName cannot be negative.")]
+        [InlineData("Must be positive", "Must be positive")]
+        public void ErrorMessageMatchesExpected(string customMessage, string expectedMessage)
+        {
+            var exception = Assert.Throws<ArgumentException>(() => Guard.Against.Negative(-1, "parameterName", customMessage));
+            Assert.NotNull(exception);
+            Assert.NotNull(exception.Message);
+            Assert.Equal(expectedMessage + " (Parameter 'parameterName')", exception.Message);
+        }
     }
 }

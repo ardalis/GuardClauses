@@ -49,5 +49,16 @@ namespace GuardClauses.UnitTests
             Assert.Equal(expected, Guard.Against.NullOrWhiteSpace(nonEmptyString, "string"));
             Assert.Equal(expected, Guard.Against.NullOrWhiteSpace(nonEmptyString, "aNumericString"));
         }
+
+        [Theory]
+        [InlineData(null, "Required input parameterName was empty.")]
+        [InlineData("Value is empty", "Value is empty")]
+        public void ErrorMessageMatchesExpected(string customMessage, string expectedMessage)
+        {
+            var exception = Assert.Throws<ArgumentException>(() => Guard.Against.NullOrWhiteSpace(" ", "parameterName", customMessage));
+            Assert.NotNull(exception);
+            Assert.NotNull(exception.Message);
+            Assert.Equal(expectedMessage + " (Parameter 'parameterName')", exception.Message);
+        }
     }
 }

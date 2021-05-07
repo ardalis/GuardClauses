@@ -31,6 +31,17 @@ namespace GuardClauses.UnitTests
             Assert.Equal(input, result);
         }
 
+        [Theory]
+        [InlineData(null, "Input parameterName did not satisfy the options")]
+        [InlineData("Evaluation failed", "Evaluation failed")]
+        public void ErrorMessageMatchesExpected(string customMessage, string expectedMessage)
+        {
+            var exception = Assert.Throws<ArgumentException>(() => Guard.Against.InvalidInput(10, "parameterName", x => x > 20, customMessage));
+            Assert.NotNull(exception);
+            Assert.NotNull(exception.Message);
+            Assert.Equal(expectedMessage + " (Parameter 'parameterName')", exception.Message);
+        }
+
         // TODO: Test decimal types outside of ClassData
         // See: https://github.com/xunit/xunit/issues/2298
         public class CorrectClassData : IEnumerable<object[]>

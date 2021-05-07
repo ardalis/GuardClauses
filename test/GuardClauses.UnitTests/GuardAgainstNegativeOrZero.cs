@@ -108,5 +108,16 @@ namespace GuardClauses.UnitTests
             Assert.Equal(1.0, Guard.Against.NegativeOrZero(1.0, "doublePositive"));
             Assert.Equal(TimeSpan.FromSeconds(1), Guard.Against.NegativeOrZero(TimeSpan.FromSeconds(1), "timespanPositive"));
         }
+
+        [Theory]
+        [InlineData(null, "Required input parameterName cannot be zero or negative.")]
+        [InlineData("Value must exceed ZERO", "Value must exceed ZERO")]
+        public void ErrorMessageMatchesExpected(string customMessage, string expectedMessage)
+        {
+            var exception = Assert.Throws<ArgumentException>(() => Guard.Against.NegativeOrZero(0, "parameterName", customMessage));
+            Assert.NotNull(exception);
+            Assert.NotNull(exception.Message);
+            Assert.Equal(expectedMessage + " (Parameter 'parameterName')", exception.Message);
+        }
     }
 }

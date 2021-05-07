@@ -54,7 +54,22 @@ namespace GuardClauses.UnitTests
             Assert.Equal(inputTimeSpan, result);
         }
 
+        [Theory]
+        [ClassData(typeof(IncorrectRangeClassData))]
+        public void CustomErrorMessage(IEnumerable<int> input, int rangeFrom, int rangeTo)
+        {
+            var message = "Incorrect Range";
+            var inputTimeSpan = input.Select(i => TimeSpan.FromSeconds(i));
+            var rangeFromTimeSpan = TimeSpan.FromSeconds(rangeFrom);
+            var rangeToTimeSpan = TimeSpan.FromSeconds(rangeTo);
 
+            var exception = Assert.Throws<ArgumentException>(() => Guard.Against.OutOfRange(inputTimeSpan, nameof(inputTimeSpan), rangeFromTimeSpan, rangeToTimeSpan, message));
+
+            Assert.NotNull(exception);
+            Assert.NotEmpty(exception.Message);
+            Assert.Equal(message, exception.Message);
+        }
+        
         public class CorrectClassData : IEnumerable<object[]>
         {
             public IEnumerator<object[]> GetEnumerator()

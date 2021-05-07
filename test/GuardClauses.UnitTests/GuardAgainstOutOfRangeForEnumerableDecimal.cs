@@ -70,5 +70,16 @@ namespace GuardClauses.UnitTests
             }
             IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
         }
+
+        [Theory]
+        [ClassData(typeof(IncorrectRangeClassData))]
+        public void CustomErrorMessage(IEnumerable<decimal> input, decimal rangeFrom, decimal rangeTo)
+        {
+            var message = "Incorrect Range";
+            var exception = Assert.Throws<ArgumentException>(() => Guard.Against.OutOfRange(input, nameof(input), rangeFrom, rangeTo, message));
+            Assert.NotNull(exception);
+            Assert.NotEmpty(exception.Message);
+            Assert.Equal(message, exception.Message);
+        }
     }
 }
