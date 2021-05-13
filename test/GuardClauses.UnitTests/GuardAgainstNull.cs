@@ -40,7 +40,7 @@ namespace GuardClauses.UnitTests
         }
 
         [Theory]
-        [InlineData(null, "Exception of type 'System.ArgumentNullException' was thrown.")]
+        [InlineData(null, "Value cannot be null. (Parameter 'parameterName')")]
         [InlineData("Please provide value", "Please provide value")]
         public void ErrorMessageMatchesExpected(string customMessage, string expectedMessage)
         {
@@ -48,7 +48,7 @@ namespace GuardClauses.UnitTests
             var exception = Assert.Throws<ArgumentNullException>(() => Guard.Against.Null(nullString, "parameterName", customMessage));
             Assert.NotNull(exception);
             Assert.NotNull(exception.Message);
-            Assert.Equal(expectedMessage + " (Parameter 'parameterName')", exception.Message);
+            Assert.Equal(expectedMessage, exception.Message);
         }
     }
 }

@@ -45,14 +45,14 @@ namespace GuardClauses.UnitTests
         }
 
         [Theory]
-        [InlineData(null, "Input parameterName was out of range")]
+        [InlineData(null, "Input parameterName was out of range (Parameter 'parameterName')")]
         [InlineData("Decimal range", "Decimal range")]
         public void ErrorMessageMatchesExpected(string customMessage, string expectedMessage)
         {
             var exception = Assert.Throws<ArgumentOutOfRangeException>(() => Guard.Against.OutOfRange(3.0, "parameterName", 0.0, 1.0, customMessage));
             Assert.NotNull(exception);
             Assert.NotNull(exception.Message);
-            Assert.Equal(expectedMessage + " (Parameter 'parameterName')", exception.Message);
+            Assert.Equal(expectedMessage, exception.Message);
         }
     }
 }

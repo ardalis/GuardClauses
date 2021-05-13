@@ -29,7 +29,11 @@ namespace Ardalis.GuardClauses
         {
             if (input is null)
             {
-                throw new ArgumentNullException(parameterName, message);
+                if (string.IsNullOrEmpty(message))
+                {
+                    throw new ArgumentNullException(parameterName);
+                }
+                throw new ArgumentNullException(message, (Exception?) null);
             }
 
             return input;
@@ -277,7 +281,11 @@ namespace Ardalis.GuardClauses
 
             if (comparer.Compare(input, rangeFrom) < 0 || comparer.Compare(input, rangeTo) > 0)
             {
-                throw new ArgumentOutOfRangeException(parameterName, message ?? $"Input {parameterName} was out of range");
+                if (string.IsNullOrEmpty(message))
+                {
+                    throw new ArgumentOutOfRangeException(parameterName, $"Input {parameterName} was out of range");
+                }
+                throw new ArgumentOutOfRangeException(message, (Exception?) null);
             }
 
             return input;
@@ -592,13 +600,18 @@ namespace Ardalis.GuardClauses
         /// <param name="guardClause"></param>
         /// <param name="input"></param>
         /// <param name="parameterName"></param>
+        /// <param name="message">Optional. Custom error message</param>
         /// <returns><paramref name="input" /> if the value is not out of range.</returns>
         /// <exception cref="InvalidEnumArgumentException"></exception>
-        public static int OutOfRange<T>([JetBrainsNotNull] this IGuardClause guardClause, int input, [JetBrainsNotNull] string parameterName) where T : struct, Enum
+        public static int OutOfRange<T>([JetBrainsNotNull] this IGuardClause guardClause, int input, [JetBrainsNotNull] string parameterName, string? message = null) where T : struct, Enum
         {
             if (!Enum.IsDefined(typeof(T), input))
             {
-                throw new InvalidEnumArgumentException(parameterName, Convert.ToInt32(input), typeof(T));
+                if (string.IsNullOrEmpty(message))
+                {
+                    throw new InvalidEnumArgumentException(parameterName, Convert.ToInt32(input), typeof(T));
+                }
+                throw new InvalidEnumArgumentException(message);
             }
 
             return input;
@@ -611,13 +624,18 @@ namespace Ardalis.GuardClauses
         /// <param name="guardClause"></param>
         /// <param name="input"></param>
         /// <param name="parameterName"></param>
+        /// /// <param name="message">Optional. Custom error message</param>
         /// <returns><paramref name="input" /> if the value is not out of range.</returns>
         /// <exception cref="InvalidEnumArgumentException"></exception>
-        public static T OutOfRange<T>([JetBrainsNotNull] this IGuardClause guardClause, T input, [JetBrainsNotNull] string parameterName) where T : struct, Enum
+        public static T OutOfRange<T>([JetBrainsNotNull] this IGuardClause guardClause, T input, [JetBrainsNotNull] string parameterName, string? message = null) where T : struct, Enum
         {
             if (!Enum.IsDefined(typeof(T), input))
             {
-                throw new InvalidEnumArgumentException(parameterName, Convert.ToInt32(input), typeof(T));
+                if (string.IsNullOrEmpty(message))
+                {
+                    throw new InvalidEnumArgumentException(parameterName, Convert.ToInt32(input), typeof(T));
+                }
+                throw new InvalidEnumArgumentException(message);
             }
 
             return input;
@@ -707,7 +725,11 @@ namespace Ardalis.GuardClauses
 
             if (input.Any(x => comparer.Compare(x, rangeFrom) < 0 || comparer.Compare(x, rangeTo) > 0))
             {
-                throw new ArgumentOutOfRangeException(parameterName, message ?? $"Input {parameterName} had out of range item(s)");
+                if (string.IsNullOrEmpty(message))
+                {
+                    throw new ArgumentOutOfRangeException(parameterName, message ?? $"Input {parameterName} had out of range item(s)");
+                }
+                throw new ArgumentOutOfRangeException(message, (Exception?) null);
             }
 
             return input;

@@ -56,7 +56,7 @@ namespace GuardClauses.UnitTests
         }
 
         [Theory]
-        [InlineData(null, "Input parameterName was out of range")]
+        [InlineData(null, "Input parameterName was out of range (Parameter 'parameterName')")]
         [InlineData("DateTime range", "DateTime range")]
         public void ErrorMessageMatchesExpected(string customMessage, string expectedMessage)
         {
@@ -64,7 +64,7 @@ namespace GuardClauses.UnitTests
                 DateTime.Today, DateTime.Today.AddDays(1), customMessage));
             Assert.NotNull(exception);
             Assert.NotNull(exception.Message);
-            Assert.Equal(expectedMessage + " (Parameter 'parameterName')", exception.Message);
+            Assert.Equal(expectedMessage, exception.Message);
         }
     }
 }
