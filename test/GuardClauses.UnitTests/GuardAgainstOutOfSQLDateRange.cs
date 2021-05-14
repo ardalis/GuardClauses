@@ -68,7 +68,7 @@ namespace GuardClauses.UnitTests
         }
 
         [Theory]
-        [InlineData(null, "Input date was out of range (Parameter 'date'")]
+        [InlineData(null, "Input date was out of range (Parameter 'date')")]
         [InlineData("SQLDate range", "SQLDate range")]
         public void ErrorMessageMatchesExpected(string customMessage, string expectedMessage)
         {
