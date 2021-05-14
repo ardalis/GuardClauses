@@ -2,7 +2,7 @@ name: publish Ardalis.GuardClauses to nuget
 on:
   push:
     branches:
-      - master # Your default release branch
+      - main # Your default release branch
     paths:
       - 'src/GuardClauses/**'
 jobs:
