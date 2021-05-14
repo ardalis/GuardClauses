@@ -60,5 +60,20 @@ namespace GuardClauses.UnitTests
 
             Assert.Equal(expectedTimeSpan, Guard.Against.OutOfRange(inputTimeSpan, "index", rangeFromTimeSpan, rangeToTimeSpan));
         }
+
+        [Theory]
+        [InlineData(null, "rangeFrom should be less or equal than rangeTo")]
+        [InlineData("Timespan range", "Timespan range")]
+        public void ErrorMessageMatchesExpected(string customMessage, string expectedMessage)
+        {
+            var inputTimeSpan = TimeSpan.FromSeconds(-1);
+            var rangeFromTimeSpan = TimeSpan.FromSeconds(3);
+            var rangeToTimeSpan = TimeSpan.FromSeconds(1);
+
+            var exception = Assert.Throws<ArgumentException>(() => Guard.Against.OutOfRange(inputTimeSpan, "index", rangeFromTimeSpan, rangeToTimeSpan, customMessage));
+            Assert.NotNull(exception);
+            Assert.NotNull(exception.Message);
+            Assert.Equal(expectedMessage, exception.Message);
+        }
     }
 }

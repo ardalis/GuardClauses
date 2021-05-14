@@ -1,4 +1,4 @@
-using Ardalis.GuardClauses;
+﻿using Ardalis.GuardClauses;
 using System;
 using Xunit;
 
@@ -107,6 +107,17 @@ namespace GuardClauses.UnitTests
             Assert.Equal(float.MaxValue, Guard.Against.Zero(float.MaxValue, "float.MaxValue"));
             Assert.Equal(double.MinValue, Guard.Against.Zero(double.MinValue, "double.MinValue"));
             Assert.Equal(double.MaxValue, Guard.Against.Zero(double.MaxValue, "double.MaxValue"));
+        }
+
+        [Theory]
+        [InlineData(null, "Required input parameterName cannot be zero.")]
+        [InlineData("Value is ZERO", "Value is ZERO")]
+        public void ErrorMessageMatchesExpected(string customMessage, string expectedMessage)
+        {
+            var exception = Assert.Throws<ArgumentException>(() => Guard.Against.Zero(0, "parameterName", customMessage));
+            Assert.NotNull(exception);
+            Assert.NotNull(exception.Message);
+            Assert.Equal(expectedMessage + " (Parameter 'parameterName')", exception.Message);
         }
     }
 }

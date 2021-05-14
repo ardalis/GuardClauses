@@ -43,5 +43,16 @@ namespace GuardClauses.UnitTests
         {
             Assert.Equal(expected, Guard.Against.OutOfRange(input, "index", rangeFrom, rangeTo));
         }
+
+        [Theory]
+        [InlineData(null, "Input parameterName was out of range (Parameter 'parameterName')")]
+        [InlineData("Double range", "Double range")]
+        public void ErrorMessageMatchesExpected(string customMessage, string expectedMessage)
+        {
+            var exception = Assert.Throws<ArgumentOutOfRangeException>(() => Guard.Against.OutOfRange(3.0d, "parameterName", 0.0d, 1.0d, customMessage));
+            Assert.NotNull(exception);
+            Assert.NotNull(exception.Message);
+            Assert.Equal(expectedMessage, exception.Message);
+        }
     }
 }

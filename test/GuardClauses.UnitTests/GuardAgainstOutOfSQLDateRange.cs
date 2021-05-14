@@ -1,6 +1,5 @@
 ﻿using Ardalis.GuardClauses;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Data.SqlTypes;
 using Xunit;
@@ -66,6 +65,19 @@ namespace GuardClauses.UnitTests
         public void ReturnsExpectedValueWhenGivenValidSqlDateTime(DateTime input, string name, DateTime expected)
         {
             Assert.Equal(expected, Guard.Against.OutOfSQLDateRange(input, name));
+        }
+
+        [Theory]
+        [InlineData(null, "Input date was out of range (Parameter 'date'")]
+        [InlineData("SQLDate range", "SQLDate range")]
+        public void ErrorMessageMatchesExpected(string customMessage, string expectedMessage)
+        {
+            DateTime date = SqlDateTime.MinValue.Value.AddSeconds(-1);
+            var exception = Assert.Throws<ArgumentOutOfRangeException>(() => Guard.Against.OutOfSQLDateRange(date, nameof(date), customMessage));
+
+            Assert.NotNull(exception);
+            Assert.NotNull(exception.Message);
+            Assert.Equal(expectedMessage, exception.Message);
         }
 
         public static IEnumerable<object[]> GetSqlDateTimeTestVectors()

@@ -1,4 +1,4 @@
-using Ardalis.GuardClauses;
+﻿using Ardalis.GuardClauses;
 using System;
 using Xunit;
 
@@ -37,6 +37,18 @@ namespace GuardClauses.UnitTests
 
             var obj = new Object();
             Assert.Equal(obj, Guard.Against.Null(obj, "object"));
+        }
+
+        [Theory]
+        [InlineData(null, "Value cannot be null. (Parameter 'parameterName')")]
+        [InlineData("Please provide value", "Please provide value")]
+        public void ErrorMessageMatchesExpected(string customMessage, string expectedMessage)
+        {
+            string? nullString = null;
+            var exception = Assert.Throws<ArgumentNullException>(() => Guard.Against.Null(nullString, "parameterName", customMessage));
+            Assert.NotNull(exception);
+            Assert.NotNull(exception.Message);
+            Assert.Equal(expectedMessage, exception.Message);
         }
     }
 }
