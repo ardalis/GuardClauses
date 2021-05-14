@@ -12,8 +12,8 @@
     <Summary>A simple package with guard clause helper methods. See docs for how to extend using your own extension methods.</Summary>
     <RepositoryUrl>https://github.com/ardalis/guardclauses</RepositoryUrl>
     <PackageTags>guard clause clauses assert assertion</PackageTags>
-    <PackageReleaseNotes>Add suite of TimeSpan guard clauses.</PackageReleaseNotes>
-    <Version>3.1.0</Version>
+    <PackageReleaseNotes>Added a new guard for NotFound; added support for optional custom error messages</PackageReleaseNotes>
+    <Version>3.2.0</Version>
     <AssemblyName>Ardalis.GuardClauses</AssemblyName>
     <PackageIcon>icon.png</PackageIcon>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
