@@ -7,7 +7,7 @@ jobs:
     name: Continuous Integration
     runs-on: windows-latest
     outputs:
-      is_push_to_default_branch: ${{ steps.conditionals_handler.outputs.is_push_to_default_branch }}
+      latest_version: ${{ steps.tag_generator.outputs.new_version }}
     steps:
       - name: Data gatherer
         id: data_gatherer
@@ -41,7 +41,6 @@ jobs:
           Write-Output "::set-output name=is_push::$(echo $isPush)"
           Write-Output "::set-output name=is_push_to_default_branch::$(echo $isPushToDefaultBranch)"
 
-
       - name: Setup .NET Core
         id: setup_dotnet_core
         uses: actions/setup-dotnet@v1
@@ -54,42 +53,88 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Filter changes
+        id: filter_changes
+        uses: dorny/paths-filter@v2
+        with:
+          filters: |
+            is_change_in_project_source:
+              - 'src/GuardClauses/**'
+
+      - if: steps.conditionals_handler.outputs.is_push_to_default_branch == 'true' && steps.filter_changes.outputs.is_change_in_project_source == 'true'
+        name: Bump GH tag
+        id: tag_generator
+        uses: mathieudutour/github-tag-action@v5.4
+        with: 
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          default_bump: false
+          release_branches: ${{ steps.data_gatherer.outputs.default_branch }}
+
       - name: Build solution
         id: build_solution
         shell: pwsh
         run: |
-          dotnet build .\GuardClauses.sln --configuration Release
+          $gitNewVersion = if ("${{ steps.tag_generator.outputs.new_version }}") {"${{ steps.tag_generator.outputs.new_version }}"} else {$null}
+          $projectCurrentVersion = ([xml](Get-Content .\src\GuardClauses\GuardClauses.csproj)).Project.PropertyGroup.Version
+          $projectNewVersion = $gitNewVersion ?? $projectCurrentVersion
+          dotnet build .\GuardClauses.sln --configuration Release -property:Version=$projectNewVersion
 
       - name: Run Unit Tests
         id: run_unit_tests
         shell: pwsh
         run: |
-          dotnet test .\GuardClauses.sln --verbosity normal
+          dotnet test .\GuardClauses.sln --no-restore --verbosity normal
+
+      - if: steps.tag_generator.outputs.new_version != ''
+        name: Upload artifacts
+        id: upload_artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: GuardClauses v${{ steps.tag_generator.outputs.new_version }}
+          path: src\GuardClauses\bin\Release\
 
   cd:
-      if: needs.ci.outputs.is_push_to_default_branch == 'true'
-      name: Continuous Deployment
-      needs: ci
-      runs-on: windows-latest
-      steps:
-        - name: Setup dotnet
-          uses: actions/setup-dotnet@v1
-          with:
-            dotnet-version: 5.0.202
+    if: needs.ci.outputs.latest_version != ''
+    name: Continuous Deployment
+    needs: ci
+    runs-on: windows-latest
+    steps:
+      - name: Setup dotnet
+        id: setup_dotnet
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.402
 
-        - name: Checkout repository
-          id: checkout_repo
-          uses: actions/checkout@v2
-          with:
-            token: ${{ secrets.GITHUB_TOKEN }}
-            fetch-depth: 0
+      - name: Checkout repository
+        id: checkout_repo
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
 
-        - name: Publish to NuGet
-          id: publish_to_nuget
-          uses: rohith/publish-nuget@v2
-          with:
-            PROJECT_FILE_PATH: src/GuardClauses/GuardClauses.csproj
-            VERSION_REGEX: <Version>(.*)<\/Version>
-            TAG_COMMIT: true
-            TAG_FORMAT: GuardClauses-v*
-            NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+      - name: Download and extract Artifacts
+        id: dl_artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: GuardClauses v${{ needs.ci.outputs.latest_version }}
+          path: Artifacts\
+
+      - name: Publish to NuGet
+        id: publish_to_nuget
+        uses: rohith/publish-nuget@v2
+        with:
+          PROJECT_FILE_PATH: src/GuardClauses/GuardClauses.csproj
+          VERSION_REGEX: <Version>(.*)<\/Version>
+          TAG_COMMIT: true
+          TAG_FORMAT: GuardClauses-v*
+          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+
+      - name: Create and publish release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: ${{ needs.ci.outputs.latest_version }}
+          tag_name: ${{ needs.ci.outputs.latest_version }}
+          files: Artifacts\Ardalis.GuardClauses.${{ needs.ci.outputs.latest_version }}.nupkg
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
