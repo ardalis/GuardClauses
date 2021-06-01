@@ -52,8 +52,12 @@ namespace Ardalis.GuardClauses
         /// <exception cref="ArgumentException"></exception>
         public static string NullOrEmpty([JetBrainsNotNull] this IGuardClause guardClause, [NotNull, JetBrainsNotNull][ValidatedNotNull] string? input, [JetBrainsNotNull] string parameterName, string? message = null)
         {
-            Guard.Against.Null(input, parameterName);
-            if (input == string.Empty)
+            if(input == null)
+            {
+                throw new ArgumentNullException(parameterName, message ?? $"Required input {parameterName} was empty.");
+            }
+
+            if (string.IsNullOrEmpty(input))
             {
                 throw new ArgumentException(message ?? $"Required input {parameterName} was empty.", parameterName);
             }
@@ -74,8 +78,13 @@ namespace Ardalis.GuardClauses
         /// <exception cref="ArgumentException"></exception>
         public static Guid NullOrEmpty([JetBrainsNotNull] this IGuardClause guardClause, [NotNull, JetBrainsNotNull][ValidatedNotNull] Guid? input, [JetBrainsNotNull] string parameterName, string? message = null)
         {
-            Guard.Against.Null(input, parameterName);
-            if (input == Guid.Empty)
+
+            if (!input.HasValue)
+            {
+                throw new ArgumentNullException(parameterName, message ?? $"Required input {parameterName} was empty.");
+            }
+
+            if (input.Value == Guid.Empty)
             {
                 throw new ArgumentException(message ?? $"Required input {parameterName} was empty.", parameterName);
             }
@@ -96,7 +105,11 @@ namespace Ardalis.GuardClauses
         /// <exception cref="ArgumentException"></exception>
         public static IEnumerable<T> NullOrEmpty<T>([JetBrainsNotNull] this IGuardClause guardClause, [NotNull, JetBrainsNotNull][ValidatedNotNull] IEnumerable<T>? input, [JetBrainsNotNull] string parameterName, string? message = null)
         {
-            Guard.Against.Null(input, parameterName);
+            if(input == null)
+            {
+                throw new ArgumentNullException(parameterName, message ?? $"Required input {parameterName} was empty.");
+            }
+
             if (!input.Any())
             {
                 throw new ArgumentException(message ?? $"Required input {parameterName} was empty.", parameterName);
@@ -118,7 +131,11 @@ namespace Ardalis.GuardClauses
         /// <exception cref="ArgumentException"></exception>
         public static string NullOrWhiteSpace([JetBrainsNotNull] this IGuardClause guardClause, [NotNull, JetBrainsNotNull][ValidatedNotNull] string? input, [JetBrainsNotNull] string parameterName, string? message = null)
         {
-            Guard.Against.NullOrEmpty(input, parameterName);
+            if(input == null)
+            {
+                throw new ArgumentNullException(parameterName, message ?? $"Required input {parameterName} was empty.");
+            }
+
             if (String.IsNullOrWhiteSpace(input))
             {
                 throw new ArgumentException(message ?? $"Required input {parameterName} was empty.", parameterName);
