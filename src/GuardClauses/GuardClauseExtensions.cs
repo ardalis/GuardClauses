@@ -63,6 +63,28 @@ namespace Ardalis.GuardClauses
 
         /// <summary>
         /// Throws an <see cref="ArgumentNullException" /> if <paramref name="input" /> is null.
+        /// Throws an <see cref="ArgumentException" /> if <paramref name="input" /> is Default.
+        /// </summary>
+        /// <param name="guardClause"></param>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        /// <param name="message">Optional. Custom error message</param>
+        /// <returns><paramref name="input" /> if the value is not an deafult value or null.</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
+        public static T NullOrDefault<T>([JetBrainsNotNull] this IGuardClause guardClause, [NotNull, JetBrainsNotNull][ValidatedNotNull] T input, [JetBrainsNotNull] string parameterName, string? message = null)
+        {
+            Guard.Against.Null(input, parameterName, message);
+            if (EqualityComparer<T>.Default.Equals(input, default))
+            {
+                throw new ArgumentException(message ?? $"Required input {parameterName} was default value.", parameterName);
+            }
+
+            return input;
+        }
+
+        /// <summary>
+        /// Throws an <see cref="ArgumentNullException" /> if <paramref name="input" /> is null.
         /// Throws an <see cref="ArgumentException" /> if <paramref name="input" /> is an empty guid.
         /// </summary>
         /// <param name="guardClause"></param>
