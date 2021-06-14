@@ -69,7 +69,7 @@ namespace Ardalis.GuardClauses
         /// <param name="input"></param>
         /// <param name="parameterName"></param>
         /// <param name="message">Optional. Custom error message</param>
-        /// <returns><paramref name="input" /> if the value is not an deafult value or null.</returns>
+        /// <returns><paramref name="input" /> if the value is not an default value or null.</returns>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentException"></exception>
         public static T NullOrDefault<T>([JetBrainsNotNull] this IGuardClause guardClause, [NotNull, JetBrainsNotNull][ValidatedNotNull] T input, [JetBrainsNotNull] string parameterName, string? message = null)
