@@ -77,7 +77,7 @@ jobs:
           $gitNewVersion = if ("${{ steps.tag_generator.outputs.new_version }}") {"${{ steps.tag_generator.outputs.new_version }}"} else {$null}
           $projectCurrentVersion = ([xml](Get-Content .\src\GuardClauses\GuardClauses.csproj)).Project.PropertyGroup.Version
           $projectNewVersion = $gitNewVersion ?? $projectCurrentVersion
-          dotnet build .\GuardClauses.sln --configuration Release -property:Version=$projectNewVersion
+          dotnet build .\GuardClauses.sln --configuration Release -property:Version=$projectNewVersion --output Artifacts
 
       - name: Run Unit Tests
         id: run_unit_tests
@@ -90,8 +90,8 @@ jobs:
         id: upload_artifacts
         uses: actions/upload-artifact@v1
         with:
-          name: GuardClauses v${{ steps.tag_generator.outputs.new_version }}
-          path: src\GuardClauses\bin\Release\
+          name: Artifacts
+          path: Artifacts/
 
   cd:
     if: needs.ci.outputs.latest_version != ''
@@ -112,12 +112,12 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
 
-      - name: Download and extract Artifacts
-        id: dl_artifact
+      - name: Download artifacts
+        id: dl_artifacts
         uses: actions/download-artifact@v2
         with:
-          name: GuardClauses v${{ needs.ci.outputs.latest_version }}
-          path: Artifacts\
+          name: Artifacts
+          path: Artifacts/
 
       - name: Publish to NuGet
         id: publish_to_nuget
