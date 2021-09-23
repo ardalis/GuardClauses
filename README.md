@@ -79,6 +79,7 @@ To extend your own guards, you can do the following:
 
 ## References
 
+- [How to write clean validation clauses in .NET](https://www.youtube.com/watch?v=Tvx6DNarqDM) (Nick Chapas, YouTube, 9 minutes)
 - [Guard Clauses (podcast: 7 minutes)](http://www.weeklydevtips.com/004)
 - [Guard Clause](http://deviq.com/guard-clause/)
 
