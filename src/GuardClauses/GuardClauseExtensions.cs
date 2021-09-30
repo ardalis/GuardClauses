@@ -1,10 +1,11 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text.RegularExpressions;
 using JetBrainsNotNullAttribute = JetBrains.Annotations.NotNullAttribute;
+using JetBrainsNoEnumerationAttribute = JetBrains.Annotations.NoEnumerationAttribute;
 
 namespace Ardalis.GuardClauses
 {
@@ -25,7 +26,7 @@ namespace Ardalis.GuardClauses
         /// <param name="parameterName"></param>
         /// <param name="message">Optional. Custom error message</param>
         /// <returns><paramref name="input" /> if the value is not null.</returns>
-        public static T Null<T>([JetBrainsNotNull] this IGuardClause guardClause, [NotNull, JetBrainsNotNull][ValidatedNotNull] T input, [JetBrainsNotNull] string parameterName, string? message = null)
+        public static T Null<T>([JetBrainsNotNull] this IGuardClause guardClause, [NotNull, JetBrainsNotNull][ValidatedNotNull][JetBrainsNoEnumeration] T input, [JetBrainsNotNull] string parameterName, string? message = null)
         {
             if (input is null)
             {
@@ -650,7 +651,7 @@ namespace Ardalis.GuardClauses
         /// <param name="message">Optional. Custom error message</param>
         /// <returns><paramref name="input" /> if the value is not default for that type.</returns>
         /// <exception cref="ArgumentException"></exception>
-        public static T Default<T>([JetBrainsNotNull] this IGuardClause guardClause, [AllowNull, NotNull, JetBrainsNotNull] T input, [JetBrainsNotNull] string parameterName, string? message = null)
+        public static T Default<T>([JetBrainsNotNull] this IGuardClause guardClause, [AllowNull, NotNull, JetBrainsNotNull][JetBrainsNoEnumeration] T input, [JetBrainsNotNull] string parameterName, string? message = null)
         {
             if (EqualityComparer<T>.Default.Equals(input, default(T)!) || input is null)
             {
@@ -864,7 +865,7 @@ namespace Ardalis.GuardClauses
         /// <param name="parameterName"></param>
         /// <returns><paramref name="input" /> if the value is not null.</returns>
         /// <exception cref="NotFoundException"></exception>
-        public static T NotFound<T>([JetBrainsNotNull] this IGuardClause guardClause, [NotNull, JetBrainsNotNull][ValidatedNotNull] string key, [NotNull, JetBrainsNotNull][ValidatedNotNull] T input, [JetBrainsNotNull] string parameterName)
+        public static T NotFound<T>([JetBrainsNotNull] this IGuardClause guardClause, [NotNull, JetBrainsNotNull][ValidatedNotNull] string key, [NotNull, JetBrainsNotNull][ValidatedNotNull][JetBrainsNoEnumeration] T input, [JetBrainsNotNull] string parameterName)
         {
             guardClause.NullOrEmpty(key, nameof(key));
 
@@ -887,7 +888,7 @@ namespace Ardalis.GuardClauses
         /// <param name="parameterName"></param>
         /// <returns><paramref name="input" /> if the value is not null.</returns>
         /// <exception cref="NotFoundException"></exception>
-        public static T NotFound<TKey, T>([JetBrainsNotNull] this IGuardClause guardClause, [NotNull, JetBrainsNotNull][ValidatedNotNull] TKey key, [NotNull, JetBrainsNotNull][ValidatedNotNull] T input, [JetBrainsNotNull] string parameterName) where TKey : struct
+        public static T NotFound<TKey, T>([JetBrainsNotNull] this IGuardClause guardClause, [NotNull, JetBrainsNotNull][ValidatedNotNull] TKey key, [NotNull, JetBrainsNotNull][ValidatedNotNull][JetBrainsNoEnumeration] T input, [JetBrainsNotNull] string parameterName) where TKey : struct
         {
             guardClause.Null(key, nameof(key));
 
