@@ -45,7 +45,7 @@ namespace GuardClauses.UnitTests
 
         [Theory]
         [InlineData(null, "Input parameterName was out of range (Parameter 'parameterName')")]
-        [InlineData("Double range", "Double range")]
+        [InlineData("Uint range", "Uint range")]
         public void ErrorMessageMatchesExpected(string customMessage, string expectedMessage)
         {
             var exception = Assert.Throws<ArgumentOutOfRangeException>(() => Guard.Against.OutOfRange((uint)3.0d, "parameterName", (uint)0.0d, (uint)1.0d, customMessage));
