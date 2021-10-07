@@ -4,8 +4,8 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text.RegularExpressions;
-using JetBrainsNotNullAttribute = JetBrains.Annotations.NotNullAttribute;
 using JetBrainsNoEnumerationAttribute = JetBrains.Annotations.NoEnumerationAttribute;
+using JetBrainsNotNullAttribute = JetBrains.Annotations.NotNullAttribute;
 
 namespace Ardalis.GuardClauses
 {
@@ -34,7 +34,7 @@ namespace Ardalis.GuardClauses
                 {
                     throw new ArgumentNullException(parameterName);
                 }
-                throw new ArgumentNullException(message, (Exception?) null);
+                throw new ArgumentNullException(message, (Exception?)null);
             }
 
             return input;
@@ -129,40 +129,6 @@ namespace Ardalis.GuardClauses
         }
 
         /// <summary>
-        /// Throws an <see cref="ArgumentOutOfRangeException" /> if <paramref name="input" /> is less than <paramref name="rangeFrom" /> or greater than <paramref name="rangeTo" />.
-        /// </summary>
-        /// <param name="guardClause"></param>
-        /// <param name="input"></param>
-        /// <param name="parameterName"></param>
-        /// <param name="rangeFrom"></param>
-        /// <param name="rangeTo"></param>
-        /// <param name="message">Optional. Custom error message</param>
-        /// <returns><paramref name="input" /> if the value is inside the given range.</returns>
-        /// <exception cref="ArgumentException"></exception>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public static int OutOfRange([JetBrainsNotNull] this IGuardClause guardClause, int input, [JetBrainsNotNull] string parameterName, int rangeFrom, int rangeTo, string? message = null)
-        {
-            return OutOfRange<int>(guardClause, input, parameterName, rangeFrom, rangeTo, message);
-        }
-
-        /// <summary>
-        /// Throws an <see cref="ArgumentOutOfRangeException" /> if <paramref name="input" /> is less than <paramref name="rangeFrom" /> or greater than <paramref name="rangeTo" />.
-        /// </summary>
-        /// <param name="guardClause"></param>
-        /// <param name="input"></param>
-        /// <param name="parameterName"></param>
-        /// <param name="rangeFrom"></param>
-        /// <param name="rangeTo"></param>
-        /// <param name="message">Optional. Custom error message</param>
-        /// <returns><paramref name="input" /> if the value is inside the given range.</returns>
-        /// <exception cref="ArgumentException"></exception>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public static DateTime OutOfRange([JetBrainsNotNull] this IGuardClause guardClause, DateTime input, [JetBrainsNotNull] string parameterName, DateTime rangeFrom, DateTime rangeTo, string? message = null)
-        {
-            return OutOfRange<DateTime>(guardClause, input, parameterName, rangeFrom, rangeTo, message);
-        }
-
-        /// <summary>
         /// Throws an <see cref="ArgumentOutOfRangeException" /> if <paramref name="input" /> is not in the range of valid SqlDateTime values.
         /// </summary>
         /// <param name="guardClause"></param>
@@ -191,102 +157,20 @@ namespace Ardalis.GuardClauses
         /// <param name="message">Optional. Custom error message</param>
         /// <returns><paramref name="input" /> if the value is not out of range.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public static decimal OutOfRange(this IGuardClause guardClause, decimal input, string parameterName, decimal rangeFrom, decimal rangeTo, string? message = null)
+        public static T OutOfRange<T>(this IGuardClause guardClause, T input, string parameterName, T rangeFrom, T rangeTo, string? message = null) where T : IComparable, IComparable<T>
         {
-            return OutOfRange<decimal>(guardClause, input, parameterName, rangeFrom, rangeTo, message);
-        }
-
-        /// <summary>
-        /// Throws an <see cref="ArgumentOutOfRangeException" /> if <paramref name="input"/> is less than <paramref name="rangeFrom"/> or greater than <paramref name="rangeTo"/>.
-        /// </summary>
-        /// <param name="guardClause"></param>
-        /// <param name="input"></param>
-        /// <param name="parameterName"></param>
-        /// <param name="rangeFrom"></param>
-        /// <param name="rangeTo"></param>
-        /// <param name="message">Optional. Custom error message</param>
-        /// <returns><paramref name="input" /> if the value is not out of range.</returns>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public static short OutOfRange(this IGuardClause guardClause, short input, string parameterName, short rangeFrom, short rangeTo, string? message = null)
-        {
-            return OutOfRange<short>(guardClause, input, parameterName, rangeFrom, rangeTo, message);
-        }
-
-        /// <summary>
-        /// Throws an <see cref="ArgumentOutOfRangeException" /> if <paramref name="input"/> is less than <paramref name="rangeFrom"/> or greater than <paramref name="rangeTo"/>.
-        /// </summary>
-        /// <param name="guardClause"></param>
-        /// <param name="input"></param>
-        /// <param name="parameterName"></param>
-        /// <param name="rangeFrom"></param>
-        /// <param name="rangeTo"></param>
-        /// <param name="message">Optional. Custom error message</param>
-        /// <returns><paramref name="input" /> if the value is not out of range.</returns>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public static double OutOfRange(this IGuardClause guardClause, double input, string parameterName, double rangeFrom, double rangeTo, string? message = null)
-        {
-            return OutOfRange<double>(guardClause, input, parameterName, rangeFrom, rangeTo, message);
-        }
-
-        /// <summary>
-        /// Throws an <see cref="ArgumentOutOfRangeException" /> if <paramref name="input"/> is less than <paramref name="rangeFrom"/> or greater than <paramref name="rangeTo"/>.
-        /// </summary>
-        /// <param name="guardClause"></param>
-        /// <param name="input"></param>
-        /// <param name="parameterName"></param>
-        /// <param name="rangeFrom"></param>
-        /// <param name="rangeTo"></param>
-        /// <param name="message">Optional. Custom error message</param>
-        /// <returns><paramref name="input" /> if the value is not out of range.</returns>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public static float OutOfRange(this IGuardClause guardClause, float input, string parameterName, float rangeFrom, float rangeTo, string? message = null)
-        {
-            return OutOfRange<float>(guardClause, input, parameterName, rangeFrom, rangeTo, message);
-        }
-
-        /// <summary>
-        /// Throws an <see cref="ArgumentOutOfRangeException" /> if <paramref name="input"/> is less than <paramref name="rangeFrom"/> or greater than <paramref name="rangeTo"/>.
-        /// </summary>
-        /// <param name="guardClause"></param>
-        /// <param name="input"></param>
-        /// <param name="parameterName"></param>
-        /// <param name="rangeFrom"></param>
-        /// <param name="rangeTo"></param>
-        /// <param name="message">Optional. Custom error message</param>
-        /// <returns><paramref name="input" /> if the value is not out of range.</returns>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public static TimeSpan OutOfRange(this IGuardClause guardClause, TimeSpan input, string parameterName, TimeSpan rangeFrom, TimeSpan rangeTo, string? message = null)
-        {
-            return OutOfRange<TimeSpan>(guardClause, input, parameterName, rangeFrom, rangeTo, message);
-        }
-
-        /// <summary>
-        /// Throws an <see cref="ArgumentOutOfRangeException" /> if <paramref name="input"/> is less than <paramref name="rangeFrom"/> or greater than <paramref name="rangeTo"/>.
-        /// </summary>
-        /// <param name="guardClause"></param>
-        /// <param name="input"></param>
-        /// <param name="parameterName"></param>
-        /// <param name="rangeFrom"></param>
-        /// <param name="rangeTo"></param>
-        /// <param name="message">Optional. Custom error message</param>
-        /// <returns><paramref name="input" /> if the value is not out of range.</returns>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
-        private static T OutOfRange<T>(this IGuardClause guardClause, T input, string parameterName, T rangeFrom, T rangeTo, string? message = null)
-        {
-            Comparer<T> comparer = Comparer<T>.Default;
-
-            if (comparer.Compare(rangeFrom, rangeTo) > 0)
+            if (rangeFrom.CompareTo(rangeTo) > 0)
             {
                 throw new ArgumentException(message ?? $"{nameof(rangeFrom)} should be less or equal than {nameof(rangeTo)}");
             }
 
-            if (comparer.Compare(input, rangeFrom) < 0 || comparer.Compare(input, rangeTo) > 0)
+            if (input.CompareTo(rangeFrom) < 0 || input.CompareTo(rangeTo) > 0)
             {
                 if (string.IsNullOrEmpty(message))
                 {
                     throw new ArgumentOutOfRangeException(parameterName, $"Input {parameterName} was out of range");
                 }
-                throw new ArgumentOutOfRangeException(message, (Exception?) null);
+                throw new ArgumentOutOfRangeException(message, (Exception?)null);
             }
 
             return input;
@@ -610,7 +494,7 @@ namespace Ardalis.GuardClauses
             {
                 if (string.IsNullOrEmpty(message))
                 {
-                    throw new InvalidEnumArgumentException(parameterName, Convert.ToInt32(input), typeof(T));
+                    throw new InvalidEnumArgumentException(parameterName, input, typeof(T));
                 }
                 throw new InvalidEnumArgumentException(message);
             }
@@ -715,144 +599,23 @@ namespace Ardalis.GuardClauses
         /// <returns><paramref name="input" /> if any item is not out of range.</returns>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        private static IEnumerable<T> OutOfRange<T>(this IGuardClause guardClause, IEnumerable<T> input, string parameterName, T rangeFrom, T rangeTo, string? message = null) where T : IComparable
+        public static IEnumerable<T> OutOfRange<T>(this IGuardClause guardClause, IEnumerable<T> input, string parameterName, T rangeFrom, T rangeTo, string? message = null) where T : IComparable, IComparable<T>
         {
-            Comparer<T> comparer = Comparer<T>.Default;
-
-            if (comparer.Compare(rangeFrom, rangeTo) > 0)
+            if (rangeFrom.CompareTo(rangeTo) > 0)
             {
                 throw new ArgumentException(message ?? $"{nameof(rangeFrom)} should be less or equal than {nameof(rangeTo)}");
             }
 
-            if (input.Any(x => comparer.Compare(x, rangeFrom) < 0 || comparer.Compare(x, rangeTo) > 0))
+            if (input.Any(x => x.CompareTo(rangeFrom) < 0 || x.CompareTo(rangeTo) > 0))
             {
                 if (string.IsNullOrEmpty(message))
                 {
                     throw new ArgumentOutOfRangeException(parameterName, message ?? $"Input {parameterName} had out of range item(s)");
                 }
-                throw new ArgumentOutOfRangeException(message, (Exception?) null);
+                throw new ArgumentOutOfRangeException(message, (Exception?)null);
             }
 
             return input;
-        }
-
-        /// <summary>
-        /// Throws an <see cref="ArgumentOutOfRangeException" /> if  any <paramref name="input"/>'s item is less than <paramref name="rangeFrom"/> or greater than <paramref name="rangeTo"/>.
-        /// </summary>
-        /// <param name="guardClause"></param>
-        /// <param name="input"></param>
-        /// <param name="parameterName"></param>
-        /// <param name="rangeFrom"></param>
-        /// <param name="rangeTo"></param>
-        /// <param name="message">Optional. Custom error message</param>
-        /// <returns><paramref name="input" /> if any item is not out of range.</returns>
-        /// <exception cref="ArgumentException"></exception>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public static IEnumerable<int> OutOfRange([JetBrainsNotNull] this IGuardClause guardClause, IEnumerable<int> input, [JetBrainsNotNull] string parameterName, int rangeFrom, int rangeTo, string? message = null)
-        {
-            return OutOfRange<int>(guardClause, input, parameterName, rangeFrom, rangeTo, message);
-        }
-
-        /// <summary>
-        /// Throws an <see cref="ArgumentOutOfRangeException" /> if  any <paramref name="input"/>'s item is less than <paramref name="rangeFrom"/> or greater than <paramref name="rangeTo"/>.
-        /// </summary>
-        /// <param name="guardClause"></param>
-        /// <param name="input"></param>
-        /// <param name="parameterName"></param>
-        /// <param name="rangeFrom"></param>
-        /// <param name="rangeTo"></param>
-        /// <param name="message">Optional. Custom error message</param>
-        /// <returns><paramref name="input" /> if any item is not out of range.</returns>
-        /// <exception cref="ArgumentException"></exception>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public static IEnumerable<long> OutOfRange([JetBrainsNotNull] this IGuardClause guardClause, IEnumerable<long> input, [JetBrainsNotNull] string parameterName, long rangeFrom, long rangeTo, string? message = null)
-        {
-            return OutOfRange<long>(guardClause, input, parameterName, rangeFrom, rangeTo, message);
-        }
-
-        /// <summary>
-        /// Throws an <see cref="ArgumentOutOfRangeException" /> if  any <paramref name="input"/>'s item is less than <paramref name="rangeFrom"/> or greater than <paramref name="rangeTo"/>.
-        /// </summary>
-        /// <param name="guardClause"></param>
-        /// <param name="input"></param>
-        /// <param name="parameterName"></param>
-        /// <param name="rangeFrom"></param>
-        /// <param name="rangeTo"></param>
-        /// <param name="message">Optional. Custom error message</param>
-        /// <returns><paramref name="input" /> if any item is not out of range.</returns>
-        /// <exception cref="ArgumentException"></exception>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public static IEnumerable<decimal> OutOfRange([JetBrainsNotNull] this IGuardClause guardClause, IEnumerable<decimal> input, [JetBrainsNotNull] string parameterName, decimal rangeFrom, decimal rangeTo, string? message = null)
-        {
-            return OutOfRange<decimal>(guardClause, input, parameterName, rangeFrom, rangeTo, message);
-        }
-
-        /// <summary>
-        /// Throws an <see cref="ArgumentOutOfRangeException" /> if  any <paramref name="input"/>'s item is less than <paramref name="rangeFrom"/> or greater than <paramref name="rangeTo"/>.
-        /// </summary>
-        /// <param name="guardClause"></param>
-        /// <param name="input"></param>
-        /// <param name="parameterName"></param>
-        /// <param name="rangeFrom"></param>
-        /// <param name="rangeTo"></param>
-        /// <param name="message">Optional. Custom error message</param>
-        /// <returns><paramref name="input" /> if any item is not out of range.</returns>
-        /// <exception cref="ArgumentException"></exception>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public static IEnumerable<float> OutOfRange([JetBrainsNotNull] this IGuardClause guardClause, IEnumerable<float> input, [JetBrainsNotNull] string parameterName, float rangeFrom, float rangeTo, string? message = null)
-        {
-            return OutOfRange<float>(guardClause, input, parameterName, rangeFrom, rangeTo, message);
-        }
-
-        /// <summary>
-        /// Throws an <see cref="ArgumentOutOfRangeException" /> if  any <paramref name="input"/>'s item is less than <paramref name="rangeFrom"/> or greater than <paramref name="rangeTo"/>.
-        /// </summary>
-        /// <param name="guardClause"></param>
-        /// <param name="input"></param>
-        /// <param name="parameterName"></param>
-        /// <param name="rangeFrom"></param>
-        /// <param name="rangeTo"></param>
-        /// <param name="message">Optional. Custom error message</param>
-        /// <returns><paramref name="input" /> if any item is not out of range.</returns>
-        /// <exception cref="ArgumentException"></exception>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public static IEnumerable<double> OutOfRange([JetBrainsNotNull] this IGuardClause guardClause, IEnumerable<double> input, [JetBrainsNotNull] string parameterName, double rangeFrom, double rangeTo, string? message = null)
-        {
-            return OutOfRange<double>(guardClause, input, parameterName, rangeFrom, rangeTo, message);
-        }
-
-        /// <summary>
-        /// Throws an <see cref="ArgumentOutOfRangeException" /> if  any <paramref name="input"/>'s item is less than <paramref name="rangeFrom"/> or greater than <paramref name="rangeTo"/>.
-        /// </summary>
-        /// <param name="guardClause"></param>
-        /// <param name="input"></param>
-        /// <param name="parameterName"></param>
-        /// <param name="rangeFrom"></param>
-        /// <param name="rangeTo"></param>
-        /// <param name="message">Optional. Custom error message</param>
-        /// <returns><paramref name="input" /> if any item is not out of range.</returns>
-        /// <exception cref="ArgumentException"></exception>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public static IEnumerable<short> OutOfRange([JetBrainsNotNull] this IGuardClause guardClause, IEnumerable<short> input, [JetBrainsNotNull] string parameterName, short rangeFrom, short rangeTo, string? message = null)
-        {
-            return OutOfRange<short>(guardClause, input, parameterName, rangeFrom, rangeTo, message);
-        }
-
-        /// <summary>
-        /// Throws an <see cref="ArgumentOutOfRangeException" /> if  any <paramref name="input"/>'s item is less than <paramref name="rangeFrom"/> or greater than <paramref name="rangeTo"/>.
-        /// </summary>
-        /// <param name="guardClause"></param>
-        /// <param name="input"></param>
-        /// <param name="parameterName"></param>
-        /// <param name="rangeFrom"></param>
-        /// <param name="rangeTo"></param>
-        /// <param name="message">Optional. Custom error message</param>
-        /// <returns><paramref name="input" /> if any item is not out of range.</returns>
-        /// <exception cref="ArgumentException"></exception>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public static IEnumerable<TimeSpan> OutOfRange([JetBrainsNotNull] this IGuardClause guardClause, IEnumerable<TimeSpan> input, [JetBrainsNotNull] string parameterName, TimeSpan rangeFrom, TimeSpan rangeTo, string? message = null)
-        {
-            return OutOfRange<TimeSpan>(guardClause, input, parameterName, rangeFrom, rangeTo, message);
         }
 
         /// <summary>
