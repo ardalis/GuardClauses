@@ -93,7 +93,7 @@ public void SomeMethod(string something)
 - [Guard Clauses (podcast: 7 minutes)](http://www.weeklydevtips.com/004)
 - [Guard Clause](http://deviq.com/guard-clause/)
 
-## Build Notes
+## Build Notes (for maintainers)
 
 - Remember to update the PackageVersion in the csproj file and then a build on master should automatically publish the new package to nuget.org.
 - Add a release with form `1.3.2` to GitHub Releases in order for the package to actually be published to Nuget. Otherwise it will claim to have been successful but is lying to you.
