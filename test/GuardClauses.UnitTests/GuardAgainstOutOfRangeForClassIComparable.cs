@@ -11,7 +11,7 @@ namespace GuardClauses.UnitTests
     /// </summary>
     public class GuardAgainstOutOfRangeForClassIComparable
     {
-        private class TestObj : IComparable<TestObj>, IEquatable<TestObj>
+        private class TestObj : IComparable<TestObj?>, IEquatable<TestObj?>
         {
             private readonly int _internalValue;
 
