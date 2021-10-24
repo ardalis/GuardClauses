@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using JetBrainsNoEnumerationAttribute = JetBrains.Annotations.NoEnumerationAttribute;
 using JetBrainsNotNullAttribute = JetBrains.Annotations.NotNullAttribute;
+using JetBrainsCanBeNullAttribute = JetBrains.Annotations.CanBeNullAttribute;
 
 namespace Ardalis.GuardClauses
 {
@@ -157,8 +158,40 @@ namespace Ardalis.GuardClauses
         /// <param name="message">Optional. Custom error message</param>
         /// <returns><paramref name="input" /> if the value is not out of range.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public static T OutOfRange<T>(this IGuardClause guardClause, T input, string parameterName, T rangeFrom, T rangeTo, string? message = null) where T : IComparable, IComparable<T>
+        /// <exception cref="ArgumentException"></exception>
+        public static T OutOfRange<T>([JetBrainsNotNull] this IGuardClause guardClause, [NotNull, JetBrainsNotNull][ValidatedNotNull] T input, [JetBrainsNotNull] string parameterName, [NotNull, JetBrainsNotNull][ValidatedNotNull] T rangeFrom, [NotNull, JetBrainsNotNull][ValidatedNotNull] T rangeTo, string? message = null) where T : struct, IComparable<T> 
         {
+            return OutOfRangeInternal(guardClause, input, parameterName, rangeFrom, rangeTo, message);
+        }
+
+        /// <summary>
+        /// Throws an <see cref="ArgumentNullException" /> if <paramref name="input" /> is null.
+        /// Throws an <see cref="ArgumentOutOfRangeException" /> if <paramref name="input"/> is less than <paramref name="rangeFrom"/> or greater than <paramref name="rangeTo"/>.
+        /// </summary>
+        /// <param name="guardClause"></param>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        /// <param name="rangeFrom"></param>
+        /// <param name="rangeTo"></param>
+        /// <param name="message">Optional. Custom error message</param>
+        /// <returns><paramref name="input" /> if the value is not not null or out of range.</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        public static T NullOrOutOfRange<T>([JetBrainsNotNull] this IGuardClause guardClause, [NotNull, JetBrainsCanBeNull][ValidatedNotNull] T? input, [JetBrainsNotNull] string parameterName, [NotNull, JetBrainsNotNull][ValidatedNotNull] T rangeFrom, [NotNull, JetBrainsNotNull][ValidatedNotNull] T rangeTo, string? message = null) where T : class, IComparable<T>?
+        {
+            return OutOfRangeInternal(guardClause, input, parameterName, rangeFrom, rangeTo, message);
+        }
+        
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        private static T OutOfRangeInternal<T>([JetBrainsNotNull] this IGuardClause guardClause, [NotNull, JetBrainsCanBeNull][ValidatedNotNull] T? input, [JetBrainsNotNull] string parameterName, [NotNull, JetBrainsNotNull][ValidatedNotNull] T? rangeFrom, [NotNull, JetBrainsNotNull][ValidatedNotNull] T? rangeTo, string? message = null) where T : IComparable<T>?
+        {
+            guardClause.Null(input, nameof(input));
+            Guard.Against.Null(rangeFrom, nameof(rangeFrom));
+            Guard.Against.Null(rangeTo, nameof(rangeTo));
+
             if (rangeFrom.CompareTo(rangeTo) > 0)
             {
                 throw new ArgumentException(message ?? $"{nameof(rangeFrom)} should be less or equal than {nameof(rangeTo)}");
@@ -599,7 +632,7 @@ namespace Ardalis.GuardClauses
         /// <returns><paramref name="input" /> if any item is not out of range.</returns>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public static IEnumerable<T> OutOfRange<T>(this IGuardClause guardClause, IEnumerable<T> input, string parameterName, T rangeFrom, T rangeTo, string? message = null) where T : IComparable, IComparable<T>
+        public static IEnumerable<T> OutOfRange<T>([JetBrainsNotNull] this IGuardClause guardClause, IEnumerable<T> input, string parameterName, T rangeFrom, T rangeTo, string? message = null) where T : IComparable, IComparable<T>
         {
             if (rangeFrom.CompareTo(rangeTo) > 0)
             {
