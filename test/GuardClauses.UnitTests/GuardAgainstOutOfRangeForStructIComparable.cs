@@ -8,7 +8,7 @@ namespace GuardClauses.UnitTests
     /// Every type that implements IComparable and IComparable<T> can use OutOfRange.
     /// Here for example tuples are used.
     /// </summary>
-    public class GuardAgainstOutOfRangeForIComparable
+    public class GuardAgainstOutOfRangeForStructIComparable
     {
         [Theory]
         [InlineData(1, 1, 1, 1, 10, 10)]
