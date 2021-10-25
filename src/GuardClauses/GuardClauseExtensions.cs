@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using JetBrainsNoEnumerationAttribute = JetBrains.Annotations.NoEnumerationAttribute;
 using JetBrainsNotNullAttribute = JetBrains.Annotations.NotNullAttribute;
+using JetBrainsRegexPattern = JetBrains.Annotations.RegexPatternAttribute;
 
 namespace Ardalis.GuardClauses
 {
@@ -555,7 +556,7 @@ namespace Ardalis.GuardClauses
         /// <param name="message">Optional. Custom error message</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
-        public static string InvalidFormat([JetBrainsNotNull] this IGuardClause guardClause, [JetBrainsNotNull] string input, [JetBrainsNotNull] string parameterName, [JetBrainsNotNull] string regexPattern, string? message = null)
+        public static string InvalidFormat([JetBrainsNotNull] this IGuardClause guardClause, [JetBrainsNotNull] string input, [JetBrainsNotNull] string parameterName, [JetBrainsNotNull][JetBrainsRegexPattern﻿] string regexPattern, string? message = null)
         {
             if (input != Regex.Match(input, regexPattern).Value)
             {
