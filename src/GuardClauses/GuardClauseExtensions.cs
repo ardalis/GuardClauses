@@ -144,7 +144,7 @@ namespace Ardalis.GuardClauses
             const long sqlMinDateTicks = 552877920000000000;
             const long sqlMaxDateTicks = 3155378975999970000;
 
-            return OutOfRange<DateTime>(guardClause, input, parameterName, new DateTime(sqlMinDateTicks), new DateTime(sqlMaxDateTicks), message);
+            return NullOrOutOfRangeInternal<DateTime>(guardClause, input, parameterName, new DateTime(sqlMinDateTicks), new DateTime(sqlMaxDateTicks), message);
         }
 
         /// <summary>
@@ -161,7 +161,7 @@ namespace Ardalis.GuardClauses
         /// <exception cref="ArgumentException"></exception>
         public static T OutOfRange<T>([JetBrainsNotNull] this IGuardClause guardClause, [NotNull, JetBrainsNotNull][ValidatedNotNull] T input, [JetBrainsNotNull] string parameterName, [NotNull, JetBrainsNotNull][ValidatedNotNull] T rangeFrom, [NotNull, JetBrainsNotNull][ValidatedNotNull] T rangeTo, string? message = null) where T : struct, IComparable<T> 
         {
-            return OutOfRangeInternal(guardClause, input, parameterName, rangeFrom, rangeTo, message);
+            return NullOrOutOfRangeInternal(guardClause, input, parameterName, rangeFrom, rangeTo, message);
         }
 
         /// <summary>
@@ -178,9 +178,10 @@ namespace Ardalis.GuardClauses
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public static T NullOrOutOfRange<T>([JetBrainsNotNull] this IGuardClause guardClause, [NotNull, JetBrainsCanBeNull][ValidatedNotNull] T? input, [JetBrainsNotNull] string parameterName, [NotNull, JetBrainsNotNull][ValidatedNotNull] T rangeFrom, [NotNull, JetBrainsNotNull][ValidatedNotNull] T rangeTo, string? message = null) where T : IComparable<T?>?
+        public static T NullOrOutOfRange<T>([JetBrainsNotNull] this IGuardClause guardClause, [NotNull, JetBrainsCanBeNull][ValidatedNotNull] T? input, [JetBrainsNotNull] string parameterName, [NotNull, JetBrainsNotNull][ValidatedNotNull] T rangeFrom, [NotNull, JetBrainsNotNull][ValidatedNotNull] T rangeTo, string? message = null) where T : IComparable<T>
         {
-            return OutOfRangeInternal(guardClause, input, parameterName, rangeFrom, rangeTo, message);
+            guardClause.Null(input, nameof(input));
+            return NullOrOutOfRangeInternal(guardClause, input, parameterName, rangeFrom, rangeTo, message);
         }
 
         /// <summary>
@@ -197,19 +198,18 @@ namespace Ardalis.GuardClauses
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public static int NullOrOutOfRange([JetBrainsNotNull] this IGuardClause guardClause, [NotNull, JetBrainsCanBeNull][ValidatedNotNull] int? input, [JetBrainsNotNull] string parameterName, [NotNull, JetBrainsNotNull][ValidatedNotNull] int rangeFrom, [NotNull, JetBrainsNotNull][ValidatedNotNull] int rangeTo, string? message = null)
+        public static T NullOrOutOfRange<T>([JetBrainsNotNull] this IGuardClause guardClause, [NotNull, JetBrainsCanBeNull][ValidatedNotNull] T? input, [JetBrainsNotNull] string parameterName, [NotNull, JetBrainsNotNull][ValidatedNotNull] T rangeFrom, [NotNull, JetBrainsNotNull][ValidatedNotNull] T rangeTo, string? message = null) where T : struct, IComparable<T>
         {
             guardClause.Null(input, nameof(input));
-            
-            return OutOfRangeInternal<int>(guardClause, (int) input, parameterName, rangeFrom, rangeTo, message);
+            return NullOrOutOfRangeInternal<T>(guardClause, input.Value, parameterName, rangeFrom, rangeTo, message);
         }
 
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        private static T OutOfRangeInternal<T>([JetBrainsNotNull] this IGuardClause guardClause, [NotNull, JetBrainsCanBeNull][ValidatedNotNull] T? input, [JetBrainsNotNull] string parameterName, [NotNull, JetBrainsNotNull][ValidatedNotNull] T? rangeFrom, [NotNull, JetBrainsNotNull][ValidatedNotNull] T? rangeTo, string? message = null) where T : IComparable<T>?
+        private static T NullOrOutOfRangeInternal<T>([JetBrainsNotNull] this IGuardClause guardClause, [NotNull, JetBrainsNotNull][ValidatedNotNull] T? input, [JetBrainsNotNull] string parameterName, [NotNull, JetBrainsNotNull][ValidatedNotNull] T? rangeFrom, [NotNull, JetBrainsNotNull][ValidatedNotNull] T? rangeTo, string? message = null) where T : IComparable<T>?
         {
-            guardClause.Null(input, nameof(input));
+            Guard.Against.Null(input, nameof(input));
             Guard.Against.Null(rangeFrom, nameof(rangeFrom));
             Guard.Against.Null(rangeTo, nameof(rangeTo));
 
