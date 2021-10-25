@@ -130,6 +130,23 @@ namespace Ardalis.GuardClauses
         }
 
         /// <summary>
+        /// Throws an <see cref="ArgumentNullException" /> if <paramref name="input" /> is null.
+        /// Throws an <see cref="ArgumentOutOfRangeException" /> if <paramref name="input" /> is not in the range of valid SqlDateTime values.
+        /// </summary>
+        /// <param name="guardClause"></param>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        /// <param name="message">Optional. Custom error message</param>
+        /// <returns><paramref name="input" /> if the value is in the range of valid SqlDateTime values.</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
+        public static DateTime NullOrOutOfSQLDateRange([JetBrainsNotNull] this IGuardClause guardClause, DateTime? input, [JetBrainsNotNull] string parameterName, string? message = null)
+        {
+            guardClause.Null(input, nameof(input));
+            return OutOfSQLDateRange(guardClause, input.Value, parameterName, message);
+        }
+
+        /// <summary>
         /// Throws an <see cref="ArgumentOutOfRangeException" /> if <paramref name="input" /> is not in the range of valid SqlDateTime values.
         /// </summary>
         /// <param name="guardClause"></param>
