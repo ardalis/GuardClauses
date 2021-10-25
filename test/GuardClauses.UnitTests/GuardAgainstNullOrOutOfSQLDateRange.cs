@@ -6,7 +6,7 @@ using Xunit;
 
 namespace GuardClauses.UnitTests
 {
-    public class GuardAgainstOutOfSQLDateRange
+    public class GuardAgainstNullOrOutOfSQLDateRange
     {
         [Theory]
         [InlineData(1)]
@@ -19,15 +19,15 @@ namespace GuardClauses.UnitTests
         {
             DateTime date = SqlDateTime.MinValue.Value.AddSeconds(-offsetInSeconds);
 
-            Assert.Throws<ArgumentOutOfRangeException>(() => Guard.Against.OutOfSQLDateRange(date, nameof(date)));
+            Assert.Throws<ArgumentOutOfRangeException>(() => Guard.Against.NullOrOutOfSQLDateRange(date, nameof(date)));
         }
 
         [Fact]
         public void DoNothingGivenCurrentDate()
         {
-            Guard.Against.OutOfSQLDateRange(DateTime.Today, "Today");
-            Guard.Against.OutOfSQLDateRange(DateTime.Now, "Now");
-            Guard.Against.OutOfSQLDateRange(DateTime.UtcNow, "UTC Now");
+            Guard.Against.NullOrOutOfSQLDateRange(DateTime.Today, "Today");
+            Guard.Against.NullOrOutOfSQLDateRange(DateTime.Now, "Now");
+            Guard.Against.NullOrOutOfSQLDateRange(DateTime.UtcNow, "UTC Now");
         }
 
         [Theory]
@@ -42,7 +42,7 @@ namespace GuardClauses.UnitTests
         {
             DateTime date = SqlDateTime.MinValue.Value.AddSeconds(offsetInSeconds);
 
-            Guard.Against.OutOfSQLDateRange(date, nameof(date));
+            Guard.Against.NullOrOutOfSQLDateRange(date, nameof(date));
         }
 
         [Theory]
@@ -57,14 +57,14 @@ namespace GuardClauses.UnitTests
         {
             DateTime date = SqlDateTime.MaxValue.Value.AddSeconds(-offsetInSeconds);
 
-            Guard.Against.OutOfSQLDateRange(date, nameof(date));
+            Guard.Against.NullOrOutOfSQLDateRange(date, nameof(date));
         }
 
         [Theory]
         [MemberData(nameof(GetSqlDateTimeTestVectors))]
         public void ReturnsExpectedValueWhenGivenValidSqlDateTime(DateTime input, string name, DateTime expected)
         {
-            Assert.Equal(expected, Guard.Against.OutOfSQLDateRange(input, name));
+            Assert.Equal(expected, Guard.Against.NullOrOutOfSQLDateRange(input, name));
         }
 
         [Theory]
@@ -73,11 +73,17 @@ namespace GuardClauses.UnitTests
         public void ErrorMessageMatchesExpected(string customMessage, string expectedMessage)
         {
             DateTime date = SqlDateTime.MinValue.Value.AddSeconds(-1);
-            var exception = Assert.Throws<ArgumentOutOfRangeException>(() => Guard.Against.OutOfSQLDateRange(date, nameof(date), customMessage));
+            var exception = Assert.Throws<ArgumentOutOfRangeException>(() => Guard.Against.NullOrOutOfSQLDateRange(date, nameof(date), customMessage));
 
             Assert.NotNull(exception);
             Assert.NotNull(exception.Message);
             Assert.Equal(expectedMessage, exception.Message);
+        }
+
+        [Fact]
+        public void ThrowsGivenInvalidNullArgumentValue()
+        {
+            Assert.Throws<ArgumentNullException>(() => Guard.Against.NullOrOutOfSQLDateRange(null, "index"));
         }
 
         private static IEnumerable<object[]> GetSqlDateTimeTestVectors()

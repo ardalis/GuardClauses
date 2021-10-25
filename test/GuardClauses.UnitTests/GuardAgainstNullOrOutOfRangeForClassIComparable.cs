@@ -9,7 +9,7 @@ namespace GuardClauses.UnitTests
     /// Every type that implements IComparable and IComparable<T> can use OutOfRange.
     /// Here for example tuples are used.
     /// </summary>
-    public class GuardAgainstOutOfRangeForClassIComparable
+    public class GuardAgainstNullOrOutOfRangeForClassIComparable
     {
         private class TestObj : IComparable<TestObj?>, IEquatable<TestObj?>
         {
@@ -54,14 +54,12 @@ namespace GuardClauses.UnitTests
         [Fact]
         public void ThrowsGivenInvalidNullArgumentValue()
         {
-#pragma warning disable CS8634 // The type cannot be used as type parameter in the generic type or method. Nullability of type argument doesn't match 'class' constraint.
 #pragma warning disable CS8631 // The type cannot be used as type parameter in the generic type or method. Nullability of type argument doesn't match constraint type.
 
             Assert.Throws<ArgumentNullException>(() => Guard.Against.NullOrOutOfRange(null, "index", new TestObj(3), new TestObj(1)));
             Assert.Throws<ArgumentNullException>(() => Guard.Against.NullOrOutOfRange(new TestObj(0), "index", null, new TestObj(1)));
             Assert.Throws<ArgumentNullException>(() => Guard.Against.NullOrOutOfRange(new TestObj(4), "index", new TestObj(3), null));
 
-#pragma warning restore CS8634
 #pragma warning restore CS8631
         }
 
