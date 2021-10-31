@@ -8,12 +8,12 @@
     <Authors>Steve Smith (@ardalis)</Authors>
     <Company>Ardalis.com</Company>
     <PackageProjectUrl>https://github.com/ardalis/guardclauses</PackageProjectUrl>
-    <Description>A simple package with guard clause helper methods. See docs for how to extend using your own extension methods.</Description>
+    <Description>A simple package by @ardalis and @nimblepros with guard clause helper methods. See docs for how to extend using your own extension methods defined in your project.</Description>
     <Summary>A simple package with guard clause helper methods. See docs for how to extend using your own extension methods.</Summary>
     <RepositoryUrl>https://github.com/ardalis/guardclauses</RepositoryUrl>
     <PackageTags>guard clause clauses assert assertion</PackageTags>
-    <PackageReleaseNotes>Added a new guard for NotFound; added support for optional custom error messages</PackageReleaseNotes>
-    <Version>3.2.0</Version>
+    <PackageReleaseNotes>OutOfRange refactored to generic; custom expression-based guards added; NoEnumeration attribute applied</PackageReleaseNotes>
+    <Version>3.3.0</Version>
     <AssemblyName>Ardalis.GuardClauses</AssemblyName>
     <PackageIcon>icon.png</PackageIcon>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
