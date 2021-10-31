@@ -22,7 +22,15 @@ namespace GuardClauses.UnitTests
 
             public int CompareTo([AllowNull] TestObj? other) => _internalValue.CompareTo(other?._internalValue);
 
-            public bool Equals([AllowNull] TestObj? other) => _internalValue == other?._internalValue;
+
+            public override bool Equals(object? obj)
+            {
+                if (obj is null) return false;
+                if (ReferenceEquals(this, obj)) return true;
+                if (obj.GetType() != typeof(TestObj)) return false;
+                return Equals((TestObj)obj);
+            }
+            public bool Equals([AllowNull] TestObj? other) => ReferenceEquals(this, other) || _internalValue == other?._internalValue;
 
             public override int GetHashCode() => _internalValue.GetHashCode();
         }
