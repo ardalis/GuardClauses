@@ -1,5 +1,5 @@
-﻿using Ardalis.GuardClauses;
-using System;
+﻿using System;
+using Ardalis.GuardClauses;
 using Xunit;
 
 namespace GuardClauses.UnitTests
@@ -31,7 +31,7 @@ namespace GuardClauses.UnitTests
 
             var guid = Guid.Empty;
             Assert.Equal(guid, Guard.Against.Null(guid, "guid"));
-            
+
             var now = DateTime.Now;
             Assert.Equal(now, Guard.Against.Null(now, "datetime"));
 
@@ -49,6 +49,18 @@ namespace GuardClauses.UnitTests
             Assert.NotNull(exception);
             Assert.NotNull(exception.Message);
             Assert.Equal(expectedMessage, exception.Message);
+        }
+
+        [Fact]
+        public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvided()
+        {
+            string? xyz = null;
+
+            var exception = Assert.Throws<ArgumentNullException>(() => Guard.Against.Null(xyz));
+
+            Assert.NotNull(exception);
+            Assert.NotNull(exception.Message);
+            Assert.Contains($"Value cannot be null. (Parameter '{nameof(xyz)}')", exception.Message);
         }
     }
 }
