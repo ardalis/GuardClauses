@@ -75,12 +75,25 @@ namespace GuardClauses.UnitTests
         [Theory]
         [InlineData(null, "Required input parameterName was empty.")]
         [InlineData("Value is empty", "Value is empty")]
-        public void ErrorMessageMatchesExpected(string customMessage, string expectedMessage)
+        public void ErrorMessageMatchesExpectedWhenValueEmpty(string customMessage, string expectedMessage)
         {
             var exception = Assert.Throws<ArgumentException>(() => Guard.Against.NullOrEmpty(string.Empty, "parameterName", customMessage));
             Assert.NotNull(exception);
             Assert.NotNull(exception.Message);
             Assert.Equal(expectedMessage + " (Parameter 'parameterName')", exception.Message);
         }
+
+        [Theory]
+        [InlineData(null, "Value cannot be null. (Parameter 'parameterName')")]
+        [InlineData("Value is empty", "Value is empty")]
+        public void ErrorMessageMatchesExpectedWhenValueNull(string customMessage, string expectedMessage)
+        {
+            string? value = null;
+            var exception = Assert.Throws<ArgumentNullException>(() => Guard.Against.NullOrEmpty(value, "parameterName", customMessage));
+            Assert.NotNull(exception);
+            Assert.NotNull(exception.Message);
+            Assert.Equal(expectedMessage, exception.Message);
+        }
+
     }
 }
