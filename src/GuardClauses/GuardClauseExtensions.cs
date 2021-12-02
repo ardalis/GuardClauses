@@ -559,7 +559,8 @@ namespace Ardalis.GuardClauses
         /// <exception cref="ArgumentException"></exception>
         public static string InvalidFormat([JetBrainsNotNull] this IGuardClause guardClause, [JetBrainsNotNull] string input, [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, [JetBrainsNotNull][JetBrainsRegexPattern] string regexPattern, string? message = null)
         {
-            if (input != Regex.Match(input, regexPattern).Value)
+            var m = Regex.Match(input, regexPattern);
+            if (!m.Success || input != m.Value)
             {
                 throw new ArgumentException(message ?? $"Input {parameterName} was not in required format", parameterName);
             }
