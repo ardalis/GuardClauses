@@ -163,7 +163,7 @@ namespace Ardalis.GuardClauses
         {
             if (rangeFrom.CompareTo(rangeTo) > 0)
             {
-                throw new ArgumentException(message ?? $"{nameof(rangeFrom)} should be less or equal than {nameof(rangeTo)}");
+                throw new ArgumentException(message ?? $"{nameof(rangeFrom)} should be less or equal than {nameof(rangeTo)}", parameterName);
             }
 
             if (input.CompareTo(rangeFrom) < 0 || input.CompareTo(rangeTo) > 0)
