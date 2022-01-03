@@ -172,7 +172,7 @@ namespace Ardalis.GuardClauses
                 {
                     throw new ArgumentOutOfRangeException(parameterName, $"Input {parameterName} was out of range");
                 }
-                throw new ArgumentOutOfRangeException(message, (Exception?)null);
+                throw new ArgumentOutOfRangeException(parameterName, message);
             }
 
             return input;
