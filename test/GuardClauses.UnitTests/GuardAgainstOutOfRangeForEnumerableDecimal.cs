@@ -37,6 +37,67 @@ namespace GuardClauses.UnitTests
             Assert.Equal(input, result);
         }
 
+        [Theory]
+        [InlineData(null, "rangeFrom should be less or equal than rangeTo (Parameter 'parameterName')")]
+        [InlineData("Timespan range", "Timespan range (Parameter 'parameterName')")]
+        public void ErrorMessageMatchesExpectedWhenRangeIsInvalid(string customMessage, string expectedMessage)
+        {
+            var input = new[] { 0m, 1m, 99m };
+            decimal rangeFrom = 2m;
+            decimal rangeTo = 1m;
+
+            var exception = Assert.Throws<ArgumentException>(() => Guard.Against.OutOfRange(input, "parameterName", rangeFrom, rangeTo, customMessage));
+            Assert.NotNull(exception);
+            Assert.NotNull(exception.Message);
+            Assert.Equal(expectedMessage, exception.Message);
+        }
+
+        [Theory]
+        [InlineData(null, null)]
+        [InlineData(null, "Please provide correct value")]
+        [InlineData("SomeParameter", null)]
+        [InlineData("SomeOtherParameter", "Value must be correct")]
+        public void ExceptionParamNameMatchesExpectedRangeIsInvalid(string expectedParamName, string customMessage)
+        {
+            var input = new[] { 0m, 1m, 99m };
+            decimal rangeFrom = 2m;
+            decimal rangeTo = 1m;
+
+            var exception = Assert.Throws<ArgumentException>(() => Guard.Against.OutOfRange(input, expectedParamName, rangeFrom, rangeTo, customMessage));
+            Assert.NotNull(exception);
+            Assert.Equal(expectedParamName, exception.ParamName);
+        }
+
+        [Theory]
+        [InlineData(null, "Input parameterName had out of range item(s) (Parameter 'parameterName')")]
+        [InlineData("Timespan range", "Timespan range (Parameter 'parameterName')")]
+        public void ErrorMessageMatchesExpectedWhenInputIsInvalid(string customMessage, string expectedMessage)
+        {
+            var input = new[] { 0m, 1m, 99m };
+            decimal rangeFrom = 0m;
+            decimal rangeTo = 1m;
+
+            var exception = Assert.Throws<ArgumentOutOfRangeException>(() => Guard.Against.OutOfRange(input, "parameterName", rangeFrom, rangeTo, customMessage));
+            Assert.NotNull(exception);
+            Assert.NotNull(exception.Message);
+            Assert.Equal(expectedMessage, exception.Message);
+        }
+
+        [Theory]
+        [InlineData(null, null)]
+        [InlineData(null, "Please provide correct value")]
+        [InlineData("SomeParameter", null)]
+        [InlineData("SomeOtherParameter", "Value must be correct")]
+        public void ExceptionParamNameMatchesExpectedInputIsInvalid(string expectedParamName, string customMessage)
+        {
+            var input = new [] { 0m, 1m, 99m };
+            decimal rangeFrom = 0m;
+            decimal rangeTo = 1m;
+
+            var exception = Assert.Throws<ArgumentOutOfRangeException>(() => Guard.Against.OutOfRange(input, expectedParamName, rangeFrom, rangeTo, customMessage));
+            Assert.NotNull(exception);
+            Assert.Equal(expectedParamName, exception.ParamName);
+        }
 
         public class CorrectClassData : IEnumerable<object[]>
         {
@@ -69,17 +130,6 @@ namespace GuardClauses.UnitTests
                 yield return new object[] { new List<decimal> { 52000.0m, 86.0m, 2500000.0m }, 20000000.0, 100.0 };
             }
             IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-        }
-
-        [Theory]
-        [ClassData(typeof(IncorrectRangeClassData))]
-        public void CustomErrorMessage(IEnumerable<decimal> input, decimal rangeFrom, decimal rangeTo)
-        {
-            var message = "Incorrect Range";
-            var exception = Assert.Throws<ArgumentException>(() => Guard.Against.OutOfRange(input, nameof(input), rangeFrom, rangeTo, message));
-            Assert.NotNull(exception);
-            Assert.NotEmpty(exception.Message);
-            Assert.Equal(message, exception.Message);
         }
     }
 }
