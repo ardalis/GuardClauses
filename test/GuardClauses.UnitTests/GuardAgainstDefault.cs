@@ -37,7 +37,7 @@ namespace GuardClauses.UnitTests
 
         [Theory]
         [InlineData(null, "Parameter [parameterName] is default value for type String (Parameter 'parameterName')")]
-        [InlineData("Please provide value", "Please provide value (Parameter 'parameterName')")]
+        [InlineData("Please provide correct value", "Please provide correct value (Parameter 'parameterName')")]
         public void ErrorMessageMatchesExpected(string customMessage, string expectedMessage)
         {
             var exception = Assert.Throws<ArgumentException>(() => Guard.Against.Default(default(string), "parameterName", customMessage));
@@ -48,9 +48,9 @@ namespace GuardClauses.UnitTests
 
         [Theory]
         [InlineData(null, null)]
-        [InlineData(null, "Please provide value")]
+        [InlineData(null, "Please provide correct value")]
         [InlineData("SomeParameter", null)]
-        [InlineData("SomeOtherParameter", "Value must not be null")]
+        [InlineData("SomeOtherParameter", "Value must be correct")]
         public void ExceptionParamNameMatchesExpected(string expectedParamName, string customMessage)
         {
             var exception = Assert.Throws<ArgumentException>(() => Guard.Against.Default(default(string), expectedParamName, customMessage));

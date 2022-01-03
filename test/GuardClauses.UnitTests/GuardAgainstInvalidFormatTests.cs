@@ -42,9 +42,9 @@ namespace GuardClauses.UnitTests
 
         [Theory]
         [InlineData(null, null)]
-        [InlineData(null, "Please provide value")]
+        [InlineData(null, "Please provide correct value")]
         [InlineData("SomeParameter", null)]
-        [InlineData("SomeOtherParameter", "Value must not be null")]
+        [InlineData("SomeOtherParameter", "Value must be correct")]
         public void ExceptionParamNameMatchesExpected(string expectedParamName, string customMessage)
         {
             var exception = Assert.Throws<ArgumentException>(() => Guard.Against.InvalidFormat("aaa", expectedParamName, "^b", customMessage));
