@@ -1,5 +1,6 @@
 ﻿using Ardalis.GuardClauses;
 using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace GuardClauses.UnitTests
@@ -110,14 +111,51 @@ namespace GuardClauses.UnitTests
         }
 
         [Theory]
-        [InlineData(null, "Required input parameterName cannot be zero.")]
-        [InlineData("Value is ZERO", "Value is ZERO")]
+        [InlineData(null, "Required input parameterName cannot be zero. (Parameter 'parameterName')")]
+        [InlineData("Value is ZERO", "Value is ZERO (Parameter 'parameterName')")]
         public void ErrorMessageMatchesExpected(string customMessage, string expectedMessage)
+        { 
+            var clausesToEvaluate = new List<Action>
+            {
+                () => Guard.Against.Zero(0, "parameterName", customMessage),
+                () => Guard.Against.Zero(0L, "parameterName", customMessage),
+                () => Guard.Against.Zero(0.0M, "parameterName", customMessage),
+                () => Guard.Against.Zero(0.0f, "parameterName", customMessage),
+                () => Guard.Against.Zero(0.0, "parameterName", customMessage)
+            };
+
+            foreach (var clauseToEvaluate in clausesToEvaluate)
+            {
+                var exception = Assert.Throws<ArgumentException>(clauseToEvaluate);
+
+                Assert.NotNull(exception);
+                Assert.NotNull(exception.Message);
+                Assert.Equal(expectedMessage, exception.Message);
+            }
+        }
+
+        [Theory]
+        [InlineData(null, null)]
+        [InlineData(null, "Please provide correct value")]
+        [InlineData("SomeParameter", null)]
+        [InlineData("SomeOtherParameter", "Value must be correct")]
+        public void ExceptionParamNameMatchesExpected(string expectedParamName, string customMessage)
         {
-            var exception = Assert.Throws<ArgumentException>(() => Guard.Against.Zero(0, "parameterName", customMessage));
-            Assert.NotNull(exception);
-            Assert.NotNull(exception.Message);
-            Assert.Equal(expectedMessage + " (Parameter 'parameterName')", exception.Message);
+            var clausesToEvaluate = new List<Action>
+            {
+                () => Guard.Against.Zero(0, expectedParamName, customMessage),
+                () => Guard.Against.Zero(0L, expectedParamName, customMessage),
+                () => Guard.Against.Zero(0.0M, expectedParamName, customMessage),
+                () => Guard.Against.Zero(0.0f, expectedParamName, customMessage),
+                () => Guard.Against.Zero(0.0, expectedParamName, customMessage)
+            };
+
+            foreach (var clauseToEvaluate in clausesToEvaluate)
+            {
+                var exception = Assert.Throws<ArgumentException>(clauseToEvaluate);
+                Assert.NotNull(exception);
+                Assert.Equal(expectedParamName, exception.ParamName);
+            }
         }
     }
 }
