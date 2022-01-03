@@ -107,14 +107,26 @@ namespace GuardClauses.UnitTests
         }
 
         [Theory]
-        [InlineData(null, "Required input parameterName cannot be negative.")]
-        [InlineData("Must be positive", "Must be positive")]
+        [InlineData(null, "Required input parameterName cannot be negative. (Parameter 'parameterName')")]
+        [InlineData("Must be positive", "Must be positive (Parameter 'parameterName')")]
         public void ErrorMessageMatchesExpected(string customMessage, string expectedMessage)
         {
             var exception = Assert.Throws<ArgumentException>(() => Guard.Against.Negative(-1, "parameterName", customMessage));
             Assert.NotNull(exception);
             Assert.NotNull(exception.Message);
-            Assert.Equal(expectedMessage + " (Parameter 'parameterName')", exception.Message);
+            Assert.Equal(expectedMessage, exception.Message);
+        }
+
+        [Theory]
+        [InlineData(null, null)]
+        [InlineData(null, "Please provide value")]
+        [InlineData("SomeParameter", null)]
+        [InlineData("SomeOtherParameter", "Value must be correct")]
+        public void ExceptionParamNameMatchesExpected(string expectedParamName, string customMessage)
+        {
+            var exception = Assert.Throws<ArgumentException>(() => Guard.Against.Negative(-1, expectedParamName, customMessage));
+            Assert.NotNull(exception);
+            Assert.Equal(expectedParamName, exception.ParamName);
         }
     }
 }
