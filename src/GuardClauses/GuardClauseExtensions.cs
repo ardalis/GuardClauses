@@ -36,7 +36,7 @@ namespace Ardalis.GuardClauses
                 {
                     throw new ArgumentNullException(parameterName);
                 }
-                throw new ArgumentNullException(message, (Exception?)null);
+                throw new ArgumentNullException(parameterName, message);
             }
 
             return input;
