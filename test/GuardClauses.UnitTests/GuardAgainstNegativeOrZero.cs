@@ -110,14 +110,58 @@ namespace GuardClauses.UnitTests
         }
 
         [Theory]
-        [InlineData(null, "Required input parameterName cannot be zero or negative.")]
-        [InlineData("Value must exceed ZERO", "Value must exceed ZERO")]
-        public void ErrorMessageMatchesExpected(string customMessage, string expectedMessage)
+        [InlineData(-1, null, "Required input parameterName cannot be zero or negative. (Parameter 'parameterName')")]
+        [InlineData(-1, "Must be positive", "Must be positive (Parameter 'parameterName')")]
+        [InlineData(0, null, "Required input parameterName cannot be zero or negative. (Parameter 'parameterName')")]
+        [InlineData(0, "Must be positive", "Must be positive (Parameter 'parameterName')")]
+        public void ErrorMessageMatchesExpected(int input, string customMessage, string expectedMessage)
         {
-            var exception = Assert.Throws<ArgumentException>(() => Guard.Against.NegativeOrZero(0, "parameterName", customMessage));
-            Assert.NotNull(exception);
-            Assert.NotNull(exception.Message);
-            Assert.Equal(expectedMessage + " (Parameter 'parameterName')", exception.Message);
+            var clausesToEvaluate = new List<Action>
+            {
+                () => Guard.Against.NegativeOrZero(input, "parameterName", customMessage),
+                () => Guard.Against.NegativeOrZero((long)input, "parameterName", customMessage),
+                () => Guard.Against.NegativeOrZero((decimal)input, "parameterName", customMessage),
+                () => Guard.Against.NegativeOrZero((float)input, "parameterName", customMessage),
+                () => Guard.Against.NegativeOrZero((double)input, "parameterName", customMessage),
+                () => Guard.Against.NegativeOrZero(TimeSpan.FromSeconds(input), "parameterName", customMessage)
+            };
+
+            foreach (var clauseToEvaluate in clausesToEvaluate)
+            {
+                var exception = Assert.Throws<ArgumentException>(clauseToEvaluate);
+                Assert.NotNull(exception);
+                Assert.NotNull(exception.Message);
+                Assert.Equal(expectedMessage, exception.Message);
+            }
+        }
+
+        [Theory]
+        [InlineData(-1, null, null)]
+        [InlineData(-1, null, "Please provide correct value")]
+        [InlineData(-1, "SomeParameter", null)]
+        [InlineData(-1, "SomeOtherParameter", "Value must be correct")]
+        [InlineData(0, null, null)]
+        [InlineData(0, null, "Please provide correct value")]
+        [InlineData(0, "SomeParameter", null)]
+        [InlineData(0, "SomeOtherParameter", "Value must be correct")]
+        public void ExceptionParamNameMatchesExpected(int input, string expectedParamName, string customMessage)
+        {
+            var clausesToEvaluate = new List<Action>
+            {
+                () => Guard.Against.NegativeOrZero(input, expectedParamName, customMessage),
+                () => Guard.Against.NegativeOrZero((long)input, expectedParamName, customMessage),
+                () => Guard.Against.NegativeOrZero((decimal)input, expectedParamName, customMessage),
+                () => Guard.Against.NegativeOrZero((float)input, expectedParamName, customMessage),
+                () => Guard.Against.NegativeOrZero((double)input, expectedParamName, customMessage),
+                () => Guard.Against.NegativeOrZero(TimeSpan.FromSeconds(input), expectedParamName, customMessage)
+            };
+
+            foreach (var clauseToEvaluate in clausesToEvaluate)
+            {
+                var exception = Assert.Throws<ArgumentException>(clauseToEvaluate);
+                Assert.NotNull(exception);
+                Assert.Equal(expectedParamName, exception.ParamName);
+            }
         }
     }
 }

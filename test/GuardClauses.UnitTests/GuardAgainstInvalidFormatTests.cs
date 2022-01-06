@@ -29,5 +29,27 @@ namespace GuardClauses.UnitTests
             Assert.Throws<ArgumentException>(() => Guard.Against.InvalidFormat(input, nameof(input), regexPattern));
         }
 
+        [Theory]
+        [InlineData(null, "Input parameterName was not in required format (Parameter 'parameterName')")]
+        [InlineData("Please provide value in a correct format", "Please provide value in a correct format (Parameter 'parameterName')")]
+        public void ErrorMessageMatchesExpected(string customMessage, string expectedMessage)
+        {
+            var exception = Assert.Throws<ArgumentException>(() => Guard.Against.InvalidFormat("aaa", "parameterName", "^b", customMessage));
+            Assert.NotNull(exception);
+            Assert.NotNull(exception.Message);
+            Assert.Equal(expectedMessage, exception.Message);
+        }
+
+        [Theory]
+        [InlineData(null, null)]
+        [InlineData(null, "Please provide correct value")]
+        [InlineData("SomeParameter", null)]
+        [InlineData("SomeOtherParameter", "Value must be correct")]
+        public void ExceptionParamNameMatchesExpected(string expectedParamName, string customMessage)
+        {
+            var exception = Assert.Throws<ArgumentException>(() => Guard.Against.InvalidFormat("aaa", expectedParamName, "^b", customMessage));
+            Assert.NotNull(exception);
+            Assert.Equal(expectedParamName, exception.ParamName);
+        }
     }
 }

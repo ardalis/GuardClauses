@@ -69,7 +69,7 @@ namespace GuardClauses.UnitTests
 
         [Theory]
         [InlineData(null, "Input date was out of range (Parameter 'date')")]
-        [InlineData("SQLDate range", "SQLDate range")]
+        [InlineData("SQLDate range", "SQLDate range (Parameter 'date')")]
         public void ErrorMessageMatchesExpected(string customMessage, string expectedMessage)
         {
             DateTime date = SqlDateTime.MinValue.Value.AddSeconds(-1);
@@ -78,6 +78,19 @@ namespace GuardClauses.UnitTests
             Assert.NotNull(exception);
             Assert.NotNull(exception.Message);
             Assert.Equal(expectedMessage, exception.Message);
+        }
+
+        [Theory]
+        [InlineData(null, null)]
+        [InlineData(null, "Please provide correct value")]
+        [InlineData("SomeParameter", null)]
+        [InlineData("SomeOtherParameter", "Value must be correct")]
+        public void ExceptionParamNameMatchesExpected(string expectedParamName, string customMessage)
+        {
+            DateTime date = SqlDateTime.MinValue.Value.AddSeconds(-1);
+            var exception = Assert.Throws<ArgumentOutOfRangeException>(() => Guard.Against.OutOfSQLDateRange(date, expectedParamName, customMessage));
+            Assert.NotNull(exception);
+            Assert.Equal(expectedParamName, exception.ParamName);
         }
 
         public static IEnumerable<object[]> GetSqlDateTimeTestVectors()

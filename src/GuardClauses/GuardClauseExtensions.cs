@@ -36,7 +36,7 @@ namespace Ardalis.GuardClauses
                 {
                     throw new ArgumentNullException(parameterName);
                 }
-                throw new ArgumentNullException(message, (Exception?)null);
+                throw new ArgumentNullException(parameterName, message);
             }
 
             return input;
@@ -163,7 +163,7 @@ namespace Ardalis.GuardClauses
         {
             if (rangeFrom.CompareTo(rangeTo) > 0)
             {
-                throw new ArgumentException(message ?? $"{nameof(rangeFrom)} should be less or equal than {nameof(rangeTo)}");
+                throw new ArgumentException(message ?? $"{nameof(rangeFrom)} should be less or equal than {nameof(rangeTo)}", parameterName);
             }
 
             if (input.CompareTo(rangeFrom) < 0 || input.CompareTo(rangeTo) > 0)
@@ -172,7 +172,7 @@ namespace Ardalis.GuardClauses
                 {
                     throw new ArgumentOutOfRangeException(parameterName, $"Input {parameterName} was out of range");
                 }
-                throw new ArgumentOutOfRangeException(message, (Exception?)null);
+                throw new ArgumentOutOfRangeException(parameterName, message);
             }
 
             return input;
@@ -605,7 +605,7 @@ namespace Ardalis.GuardClauses
         {
             if (rangeFrom.CompareTo(rangeTo) > 0)
             {
-                throw new ArgumentException(message ?? $"{nameof(rangeFrom)} should be less or equal than {nameof(rangeTo)}");
+                throw new ArgumentException(message ?? $"{nameof(rangeFrom)} should be less or equal than {nameof(rangeTo)}", parameterName);
             }
 
             if (input.Any(x => x.CompareTo(rangeFrom) < 0 || x.CompareTo(rangeTo) > 0))
@@ -614,7 +614,7 @@ namespace Ardalis.GuardClauses
                 {
                     throw new ArgumentOutOfRangeException(parameterName, message ?? $"Input {parameterName} had out of range item(s)");
                 }
-                throw new ArgumentOutOfRangeException(message, (Exception?)null);
+                throw new ArgumentOutOfRangeException(parameterName, message);
             }
 
             return input;

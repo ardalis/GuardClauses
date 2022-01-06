@@ -1,5 +1,6 @@
 ﻿using Ardalis.GuardClauses;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
@@ -73,14 +74,105 @@ namespace GuardClauses.UnitTests
         }
 
         [Theory]
-        [InlineData(null, "Required input parameterName was empty.")]
-        [InlineData("Value is empty", "Value is empty")]
-        public void ErrorMessageMatchesExpected(string customMessage, string expectedMessage)
+        [InlineData(null, "Required input parameterName was empty. (Parameter 'parameterName')")]
+        [InlineData("Value is empty", "Value is empty (Parameter 'parameterName')")]
+        public void ErrorMessageMatchesExpectedWhenInputIsEmpty(string customMessage, string expectedMessage)
         {
-            var exception = Assert.Throws<ArgumentException>(() => Guard.Against.NullOrEmpty(string.Empty, "parameterName", customMessage));
-            Assert.NotNull(exception);
-            Assert.NotNull(exception.Message);
-            Assert.Equal(expectedMessage + " (Parameter 'parameterName')", exception.Message);
+            string emptyString = string.Empty;
+            Guid emptyGuid = Guid.Empty;
+            IEnumerable<string> emptyEnumerable = Enumerable.Empty<string>();
+
+            var clausesToEvaluate = new List<Action>
+            {
+                () => Guard.Against.NullOrEmpty(emptyString, "parameterName", customMessage),
+                () => Guard.Against.NullOrEmpty(emptyGuid, "parameterName", customMessage),
+                () => Guard.Against.NullOrEmpty(emptyEnumerable, "parameterName", customMessage)
+            };
+
+            foreach (var clauseToEvaluate in clausesToEvaluate)
+            {
+                var exception = Assert.Throws<ArgumentException>(clauseToEvaluate);
+                Assert.NotNull(exception);
+                Assert.NotNull(exception.Message);
+                Assert.Equal(expectedMessage, exception.Message);
+            }
+        }
+
+        [Theory]
+        [InlineData(null, "Value cannot be null. (Parameter 'parameterName')")]
+        [InlineData("Value must be correct", "Value cannot be null. (Parameter 'parameterName')")]
+        public void ErrorMessageMatchesExpectedWhenInputIsNull(string customMessage, string expectedMessage)
+        {
+            string? nullString = null;
+            Guid? nullGuid = null;
+            IEnumerable<string>? nullEnumerable = null;
+
+            var clausesToEvaluate = new List<Action>
+            {
+                () => Guard.Against.NullOrEmpty(nullString, "parameterName", customMessage),
+                () => Guard.Against.NullOrEmpty(nullGuid, "parameterName", customMessage),
+                () => Guard.Against.NullOrEmpty(nullEnumerable, "parameterName", customMessage)
+            };
+
+            foreach (var clauseToEvaluate in clausesToEvaluate)
+            {
+                var exception = Assert.Throws<ArgumentNullException>(clauseToEvaluate);
+                Assert.NotNull(exception);
+                Assert.NotNull(exception.Message);
+                Assert.Equal(expectedMessage, exception.Message);
+            }
+        }
+
+        [Theory]
+        [InlineData(null, null)]
+        [InlineData(null, "Please provide correct value")]
+        [InlineData("SomeParameter", null)]
+        [InlineData("SomeOtherParameter", "Value must be correct")]
+        public void ExceptionParamNameMatchesExpectedWhenInputIsEmpty(string expectedParamName, string customMessage)
+        {
+            string emptyString = string.Empty;
+            Guid emptyGuid = Guid.Empty;
+            IEnumerable<string> emptyEnumerable = Enumerable.Empty<string>();
+
+            var clausesToEvaluate = new List<Action>
+            {
+                () => Guard.Against.NullOrEmpty(emptyString, expectedParamName, customMessage),
+                () => Guard.Against.NullOrEmpty(emptyGuid, expectedParamName, customMessage),
+                () => Guard.Against.NullOrEmpty(emptyEnumerable, expectedParamName, customMessage)
+            };
+
+            foreach (var clauseToEvaluate in clausesToEvaluate)
+            {
+                var exception = Assert.Throws<ArgumentException>(clauseToEvaluate);
+                Assert.NotNull(exception);
+                Assert.Equal(expectedParamName, exception.ParamName);
+            }
+        }
+
+        [Theory]
+        [InlineData(null, null)]
+        [InlineData(null, "Please provide correct value")]
+        [InlineData("SomeParameter", null)]
+        [InlineData("SomeOtherParameter", "Value must be correct")]
+        public void ExceptionParamNameMatchesExpectedWhenInputIsNull(string expectedParamName, string customMessage)
+        {
+            string? nullString = null;
+            Guid? nullGuid = null;
+            IEnumerable<string>? nullEnumerable = null;
+
+            var clausesToEvaluate = new List<Action>
+            {
+                () => Guard.Against.NullOrEmpty(nullString, expectedParamName, customMessage),
+                () => Guard.Against.NullOrEmpty(nullGuid, expectedParamName, customMessage),
+                () => Guard.Against.NullOrEmpty(nullEnumerable, expectedParamName, customMessage)
+            };
+
+            foreach (var clauseToEvaluate in clausesToEvaluate)
+            {
+                var exception = Assert.Throws<ArgumentNullException>(clauseToEvaluate);
+                Assert.NotNull(exception);
+                Assert.Equal(expectedParamName, exception.ParamName);
+            }
         }
     }
 }

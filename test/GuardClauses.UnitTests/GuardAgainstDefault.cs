@@ -35,19 +35,42 @@ namespace GuardClauses.UnitTests
             Assert.Equal(expected, actual);
         }
 
+        [Theory]
+        [InlineData(null, "Parameter [parameterName] is default value for type String (Parameter 'parameterName')")]
+        [InlineData("Please provide correct value", "Please provide correct value (Parameter 'parameterName')")]
+        public void ErrorMessageMatchesExpected(string customMessage, string expectedMessage)
+        {
+            var exception = Assert.Throws<ArgumentException>(() => Guard.Against.Default(default(string), "parameterName", customMessage));
+            Assert.NotNull(exception);
+            Assert.NotNull(exception.Message);
+            Assert.Equal(expectedMessage, exception.Message);
+        }
+
+        [Theory]
+        [InlineData(null, null)]
+        [InlineData(null, "Please provide correct value")]
+        [InlineData("SomeParameter", null)]
+        [InlineData("SomeOtherParameter", "Value must be correct")]
+        public void ExceptionParamNameMatchesExpected(string expectedParamName, string customMessage)
+        {
+            var exception = Assert.Throws<ArgumentException>(() => Guard.Against.Default(default(string), expectedParamName, customMessage));
+            Assert.NotNull(exception);
+            Assert.Equal(expectedParamName, exception.ParamName);
+        }
+
         public static IEnumerable<object[]> GetNonDefaultTestVectors()
         {
-            yield return new object[] {"", "string", ""};
-            yield return new object[] {1, "int", 1};
-            
+            yield return new object[] { "", "string", "" };
+            yield return new object[] { 1, "int", 1 };
+
             var guid = Guid.NewGuid();
-            yield return new object[] {guid, "guid", guid};
+            yield return new object[] { guid, "guid", guid };
 
             var now = DateTime.Now;
-            yield return new object[] {now, "now", now};
+            yield return new object[] { now, "now", now };
 
             var obj = new Object();
-            yield return new object[] {obj, "obj", obj};
+            yield return new object[] { obj, "obj", obj };
         }
     }
 }

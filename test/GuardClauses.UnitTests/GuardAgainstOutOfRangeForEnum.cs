@@ -77,7 +77,56 @@ namespace GuardClauses.UnitTests
             var expected = enumValue;
             Assert.Equal(expected, Guard.Against.OutOfRange(enumValue, nameof(enumValue)));
         }
-        
+
+        [Theory]
+        [InlineData(null, "The value of argument 'parameterName' (99) is invalid for Enum type 'TestEnum'. (Parameter 'parameterName')")]
+        [InlineData("Invalid enum value", "Invalid enum value")]
+        public void ErrorMessageMatchesExpectedWhenInputIsEnum(string customMessage, string expectedMessage)
+        {
+            var exception = Assert.Throws<InvalidEnumArgumentException>(
+                () => Guard.Against.OutOfRange((TestEnum)99, "parameterName", customMessage));
+            Assert.NotNull(exception);
+            Assert.NotNull(exception.Message);
+            Assert.Equal(expectedMessage, exception.Message);
+        }
+
+        [Theory]
+        [InlineData(null, null)]
+        [InlineData(null, "Please provide correct value")]
+        [InlineData("SomeParameter", null)]
+        [InlineData(null, "Value must be correct")]
+        public void ExceptionParamNameMatchesExpectedWhenInputIsEnum(string expectedParamName, string customMessage)
+        {
+            var exception = Assert.Throws<InvalidEnumArgumentException>(
+                () => Guard.Against.OutOfRange((TestEnum)99, expectedParamName, customMessage));
+            Assert.NotNull(exception);
+            Assert.Equal(expectedParamName, exception.ParamName);
+        }
+
+        [Theory]
+        [InlineData(null, "The value of argument 'parameterName' (99) is invalid for Enum type 'TestEnum'. (Parameter 'parameterName')")]
+        [InlineData("Invalid enum value", "Invalid enum value")]
+        public void ErrorMessageMatchesExpectedWhenInputIsInt(string customMessage, string expectedMessage)
+        {
+            var exception = Assert.Throws<InvalidEnumArgumentException>(
+                () => Guard.Against.OutOfRange<TestEnum>(99, "parameterName", customMessage));
+            Assert.NotNull(exception);
+            Assert.NotNull(exception.Message);
+            Assert.Equal(expectedMessage, exception.Message);
+        }
+
+        [Theory]
+        [InlineData(null, null)]
+        [InlineData(null, "Please provide correct value")]
+        [InlineData("SomeParameter", null)]
+        [InlineData(null, "Value must be correct")]
+        public void ExceptionParamNameMatchesExpectedWhenInputIsInt(string expectedParamName, string customMessage)
+        {
+            var exception = Assert.Throws<InvalidEnumArgumentException>(
+                () => Guard.Against.OutOfRange<TestEnum>(99, expectedParamName, customMessage));
+            Assert.NotNull(exception);
+            Assert.Equal(expectedParamName, exception.ParamName);
+        }
     }
 
 
