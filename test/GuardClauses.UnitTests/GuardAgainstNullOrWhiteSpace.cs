@@ -63,7 +63,7 @@ namespace GuardClauses.UnitTests
 
         [Theory]
         [InlineData(null, "Value cannot be null. (Parameter 'parameterName')")]
-        [InlineData("Value is null", "Value cannot be null. (Parameter 'parameterName')")]
+        [InlineData("Value is null", "Value is null (Parameter 'parameterName')")]
         public void ErrorMessageMatchesExpectedWhenInputIsNull(string customMessage, string expectedMessage)
         {
             string? nullString = null;
