@@ -12,7 +12,12 @@
     <Summary>A simple package with guard clause helper methods. See docs for how to extend using your own extension methods.</Summary>
     <RepositoryUrl>https://github.com/ardalis/guardclauses</RepositoryUrl>
     <PackageTags>guard clause clauses assert assertion</PackageTags>
-    <PackageReleaseNotes>OutOfRange refactored to generic; custom expression-based guards added; NoEnumeration attribute applied</PackageReleaseNotes>
+    <PackageReleaseNotes>
+    Rename Enum's `OutOfRange` to `EnumOutOfRange`.
+    Add support for CallerArgumentExpression.
+    Reorganize source files.
+    Improve support for custom error messages.
+    </PackageReleaseNotes>
     <Version>3.3.0</Version>
     <AssemblyName>Ardalis.GuardClauses</AssemblyName>
     <PackageIcon>icon.png</PackageIcon>
