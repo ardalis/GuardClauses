@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
+using JetBrainsInvokerParameterNameAttribute = JetBrains.Annotations.InvokerParameterNameAttribute;
 using JetBrainsNoEnumerationAttribute = JetBrains.Annotations.NoEnumerationAttribute;
 using JetBrainsNotNullAttribute = JetBrains.Annotations.NotNullAttribute;
 using JetBrainsRegexPattern = JetBrains.Annotations.RegexPatternAttribute;
-using JetBrainsInvokerParameterNameAttribute = JetBrains.Annotations.InvokerParameterNameAttribute;
 
 namespace Ardalis.GuardClauses
 {
@@ -28,7 +29,11 @@ namespace Ardalis.GuardClauses
         /// <param name="parameterName"></param>
         /// <param name="message">Optional. Custom error message</param>
         /// <returns><paramref name="input" /> if the value is not null.</returns>
+#if NETSTANDARD || NETFRAMEWORK
         public static T Null<T>([JetBrainsNotNull] this IGuardClause guardClause, [NotNull, JetBrainsNotNull][ValidatedNotNull][JetBrainsNoEnumeration] T input, [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, string? message = null)
+#else
+        public static T Null<T>([JetBrainsNotNull] this IGuardClause guardClause, [NotNull, JetBrainsNotNull][ValidatedNotNull][JetBrainsNoEnumeration] T input, [JetBrainsNotNull][CallerArgumentExpression("input")] string? parameterName = null, string? message = null)
+#endif
         {
             if (input is null)
             {
