@@ -96,7 +96,10 @@ namespace Ardalis.GuardClauses
         /// <param name="message">Optional. Custom error message</param>
         /// <returns><paramref name="input" /> if the value is in the range of valid SqlDateTime values.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public static DateTime OutOfSQLDateRange([JetBrainsNotNull] this IGuardClause guardClause, DateTime input, [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, string? message = null)
+        public static DateTime OutOfSQLDateRange([JetBrainsNotNull] this IGuardClause guardClause,
+            DateTime input,
+            [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName,
+            string? message = null)
         {
             // System.Data is unavailable in .NET Standard so we can't use SqlDateTime.
             const long sqlMinDateTicks = 552877920000000000;
@@ -116,11 +119,15 @@ namespace Ardalis.GuardClauses
         /// <param name="message">Optional. Custom error message</param>
         /// <returns><paramref name="input" /> if the value is not out of range.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public static T OutOfRange<T>(this IGuardClause guardClause, T input, [JetBrainsInvokerParameterName] string parameterName, T rangeFrom, T rangeTo, string? message = null) where T : IComparable, IComparable<T>
+        public static T OutOfRange<T>(this IGuardClause guardClause, T input,
+            [JetBrainsInvokerParameterName] string parameterName,
+            T rangeFrom,
+            T rangeTo,
+            string? message = null) where T : IComparable, IComparable<T>
         {
             if (rangeFrom.CompareTo(rangeTo) > 0)
             {
-                throw new ArgumentException(message ?? $"{nameof(rangeFrom)} should be less or equal than {nameof(rangeTo)}");
+                throw new ArgumentException(message ?? $"{nameof(rangeFrom)} should be less or equal than {nameof(rangeTo)}", parameterName);
             }
 
             if (input.CompareTo(rangeFrom) < 0 || input.CompareTo(rangeTo) > 0)
@@ -129,7 +136,7 @@ namespace Ardalis.GuardClauses
                 {
                     throw new ArgumentOutOfRangeException(parameterName, $"Input {parameterName} was out of range");
                 }
-                throw new ArgumentOutOfRangeException(message, (Exception?)null);
+                throw new ArgumentOutOfRangeException(parameterName, message);
             }
 
             return input;
