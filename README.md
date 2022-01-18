@@ -88,6 +88,11 @@ public void SomeMethod(string something)
 }
 ```
 
+## Breaking Changes in v4
+
+- OutOfRange for Enums now uses `EnumOutOfRange`
+- Custom error messages now work more consistently, which may break some unit tests
+
 ## References
 
 - [How to write clean validation clauses in .NET](https://www.youtube.com/watch?v=Tvx6DNarqDM) (Nick Chapsas, YouTube, 9 minutes)
