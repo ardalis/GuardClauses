@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net40;net60</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net451;net60</TargetFrameworks>
     <PackageId>Ardalis.GuardClauses</PackageId>
     <Title>Ardalis.GuardClauses</Title>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -17,6 +17,7 @@
     Add support for CallerArgumentExpression.
     Reorganize source files.
     Improve support for custom error messages.
+    Ensure InvalidFormat doesn't succeed given an empty string and a RegEx requiring at least one character. #161
     </PackageReleaseNotes>
     <Version>3.3.0</Version>
     <AssemblyName>Ardalis.GuardClauses</AssemblyName>

@@ -24,6 +24,7 @@ namespace GuardClauses.UnitTests
         [InlineData("2GudhUtG", @"[a-fA-F]+")]
         [InlineData("sDHSTRY", @"[A-Z]+")]
         [InlineData("3F498792", @"\d+")]
+        [InlineData("", @"\d+")]
         public void ThrowsGivenGivenIncorrectFormat(string input, string regexPattern)
         {
             Assert.Throws<ArgumentException>(() => Guard.Against.InvalidFormat(input, nameof(input), regexPattern));
