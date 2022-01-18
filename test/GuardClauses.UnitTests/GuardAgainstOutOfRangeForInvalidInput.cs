@@ -32,14 +32,26 @@ namespace GuardClauses.UnitTests
         }
 
         [Theory]
-        [InlineData(null, "Input parameterName did not satisfy the options")]
-        [InlineData("Evaluation failed", "Evaluation failed")]
+        [InlineData(null, "Input parameterName did not satisfy the options (Parameter 'parameterName')")]
+        [InlineData("Evaluation failed", "Evaluation failed (Parameter 'parameterName')")]
         public void ErrorMessageMatchesExpected(string customMessage, string expectedMessage)
         {
             var exception = Assert.Throws<ArgumentException>(() => Guard.Against.InvalidInput(10, "parameterName", x => x > 20, customMessage));
             Assert.NotNull(exception);
             Assert.NotNull(exception.Message);
-            Assert.Equal(expectedMessage + " (Parameter 'parameterName')", exception.Message);
+            Assert.Equal(expectedMessage, exception.Message);
+        }
+
+        [Theory]
+        [InlineData(null, null)]
+        [InlineData(null, "Please provide correct value")]
+        [InlineData("SomeParameter", null)]
+        [InlineData("SomeOtherParameter", "Value must be correct")]
+        public void ExceptionParamNameMatchesExpected(string expectedParamName, string customMessage)
+        {
+            var exception = Assert.Throws<ArgumentException>(() => Guard.Against.InvalidInput(10, expectedParamName, x => x > 20, customMessage));
+            Assert.NotNull(exception);
+            Assert.Equal(expectedParamName, exception.ParamName);
         }
 
         // TODO: Test decimal types outside of ClassData

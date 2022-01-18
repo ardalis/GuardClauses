@@ -55,21 +55,67 @@ namespace GuardClauses.UnitTests
         }
 
         [Theory]
-        [ClassData(typeof(IncorrectRangeClassData))]
-        public void CustomErrorMessage(IEnumerable<int> input, int rangeFrom, int rangeTo)
+        [InlineData(null, "rangeFrom should be less or equal than rangeTo (Parameter 'parameterName')")]
+        [InlineData("Timespan range", "Timespan range (Parameter 'parameterName')")]
+        public void ErrorMessageMatchesExpectedWhenRangeIsInvalid(string customMessage, string expectedMessage)
         {
-            var message = "Incorrect Range";
-            var inputTimeSpan = input.Select(i => TimeSpan.FromSeconds(i));
-            var rangeFromTimeSpan = TimeSpan.FromSeconds(rangeFrom);
-            var rangeToTimeSpan = TimeSpan.FromSeconds(rangeTo);
+            var input = Enumerable.Range(0, 3).Select(i => TimeSpan.FromSeconds(i));
+            var rangeFrom = TimeSpan.FromSeconds(2);
+            var rangeTo = TimeSpan.FromSeconds(1);
 
-            var exception = Assert.Throws<ArgumentException>(() => Guard.Against.OutOfRange(inputTimeSpan, nameof(inputTimeSpan), rangeFromTimeSpan, rangeToTimeSpan, message));
-
+            var exception = Assert.Throws<ArgumentException>(() => Guard.Against.OutOfRange(input, "parameterName", rangeFrom, rangeTo, customMessage));
             Assert.NotNull(exception);
-            Assert.NotEmpty(exception.Message);
-            Assert.Equal(message, exception.Message);
+            Assert.NotNull(exception.Message);
+            Assert.Equal(expectedMessage, exception.Message);
         }
-        
+
+        [Theory]
+        [InlineData(null, null)]
+        [InlineData(null, "Please provide correct value")]
+        [InlineData("SomeParameter", null)]
+        [InlineData("SomeOtherParameter", "Value must be correct")]
+        public void ExceptionParamNameMatchesExpectedRangeIsInvalid(string expectedParamName, string customMessage)
+        {
+            var input = Enumerable.Range(0, 3).Select(i => TimeSpan.FromSeconds(i));
+            var rangeFrom = TimeSpan.FromSeconds(2);
+            var rangeTo = TimeSpan.FromSeconds(1);
+
+            var exception = Assert.Throws<ArgumentException>(() => Guard.Against.OutOfRange(input, expectedParamName, rangeFrom, rangeTo, customMessage));
+            Assert.NotNull(exception);
+            Assert.Equal(expectedParamName, exception.ParamName);
+        }
+
+        [Theory]
+        [InlineData(null, "Input parameterName had out of range item(s) (Parameter 'parameterName')")]
+        [InlineData("Timespan range", "Timespan range (Parameter 'parameterName')")]
+        public void ErrorMessageMatchesExpectedWhenInputIsInvalid(string customMessage, string expectedMessage)
+        {
+            var input = Enumerable.Range(0, 3).Select(i => TimeSpan.FromSeconds(i));
+            var rangeFrom = TimeSpan.FromSeconds(0);
+            var rangeTo = TimeSpan.FromSeconds(1);
+
+            var exception = Assert.Throws<ArgumentOutOfRangeException>(() => Guard.Against.OutOfRange(input, "parameterName", rangeFrom, rangeTo, customMessage));
+            Assert.NotNull(exception);
+            Assert.NotNull(exception.Message);
+            Assert.Equal(expectedMessage, exception.Message);
+        }
+
+        [Theory]
+        [InlineData(null, null)]
+        [InlineData(null, "Please provide correct value")]
+        [InlineData("SomeParameter", null)]
+        [InlineData("SomeOtherParameter", "Value must be correct")]
+        public void ExceptionParamNameMatchesExpectedInputIsInvalid(string expectedParamName, string customMessage)
+        {
+            var input = Enumerable.Range(0, 3).Select(i => TimeSpan.FromSeconds(i));
+            var rangeFrom = TimeSpan.FromSeconds(0);
+            var rangeTo = TimeSpan.FromSeconds(1);
+
+            var exception = Assert.Throws<ArgumentOutOfRangeException>(() => Guard.Against.OutOfRange(input, expectedParamName, rangeFrom, rangeTo, customMessage));
+            Assert.NotNull(exception);
+            Assert.Equal(expectedParamName, exception.ParamName);
+        }
+
         public class CorrectClassData : IEnumerable<object[]>
         {
             public IEnumerator<object[]> GetEnumerator()

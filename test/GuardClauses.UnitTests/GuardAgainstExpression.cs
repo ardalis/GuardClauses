@@ -63,5 +63,16 @@ namespace GuardClauses.UnitTests
         {
             Assert.Throws<ArgumentException>(() => Guard.Against.AgainstExpression((x) => x.FieldName == "FailThis", test, "FieldValue is not matching"));
         }
+
+        [Theory]
+        [InlineData(null, "Value does not fall within the expected range.")]
+        [InlineData("Please provide correct value", "Please provide correct value")]
+        public void ErrorMessageMatchesExpected(string customMessage, string expectedMessage)
+        {
+            var exception = Assert.Throws<ArgumentException>(() => Guard.Against.AgainstExpression(x => x == 1, 2, customMessage));
+            Assert.NotNull(exception);
+            Assert.NotNull(exception.Message);
+            Assert.Equal(expectedMessage, exception.Message);
+        }
     }
 }

@@ -41,7 +41,7 @@ namespace Ardalis.GuardClauses
                 {
                     throw new ArgumentNullException(parameterName);
                 }
-                throw new ArgumentNullException(message, (Exception?)null);
+                throw new ArgumentNullException(parameterName, message);
             }
 
             return input;
@@ -60,7 +60,7 @@ namespace Ardalis.GuardClauses
         /// <exception cref="ArgumentException"></exception>
         public static string NullOrEmpty([JetBrainsNotNull] this IGuardClause guardClause, [NotNull, JetBrainsNotNull][ValidatedNotNull] string? input, [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, string? message = null)
         {
-            Guard.Against.Null(input, parameterName);
+            Guard.Against.Null(input, parameterName, message);
             if (input == string.Empty)
             {
                 throw new ArgumentException(message ?? $"Required input {parameterName} was empty.", parameterName);
@@ -82,7 +82,7 @@ namespace Ardalis.GuardClauses
         /// <exception cref="ArgumentException"></exception>
         public static Guid NullOrEmpty([JetBrainsNotNull] this IGuardClause guardClause, [NotNull, JetBrainsNotNull][ValidatedNotNull] Guid? input, [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, string? message = null)
         {
-            Guard.Against.Null(input, parameterName);
+            Guard.Against.Null(input, parameterName, message);
             if (input == Guid.Empty)
             {
                 throw new ArgumentException(message ?? $"Required input {parameterName} was empty.", parameterName);
@@ -104,7 +104,7 @@ namespace Ardalis.GuardClauses
         /// <exception cref="ArgumentException"></exception>
         public static IEnumerable<T> NullOrEmpty<T>([JetBrainsNotNull] this IGuardClause guardClause, [NotNull, JetBrainsNotNull][ValidatedNotNull] IEnumerable<T>? input, [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, string? message = null)
         {
-            Guard.Against.Null(input, parameterName);
+            Guard.Against.Null(input, parameterName, message);
             if (!input.Any())
             {
                 throw new ArgumentException(message ?? $"Required input {parameterName} was empty.", parameterName);
@@ -126,7 +126,7 @@ namespace Ardalis.GuardClauses
         /// <exception cref="ArgumentException"></exception>
         public static string NullOrWhiteSpace([JetBrainsNotNull] this IGuardClause guardClause, [NotNull, JetBrainsNotNull][ValidatedNotNull] string? input, [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, string? message = null)
         {
-            Guard.Against.NullOrEmpty(input, parameterName);
+            Guard.Against.NullOrEmpty(input, parameterName, message);
             if (String.IsNullOrWhiteSpace(input))
             {
                 throw new ArgumentException(message ?? $"Required input {parameterName} was empty.", parameterName);
@@ -168,7 +168,7 @@ namespace Ardalis.GuardClauses
         {
             if (rangeFrom.CompareTo(rangeTo) > 0)
             {
-                throw new ArgumentException(message ?? $"{nameof(rangeFrom)} should be less or equal than {nameof(rangeTo)}");
+                throw new ArgumentException(message ?? $"{nameof(rangeFrom)} should be less or equal than {nameof(rangeTo)}", parameterName);
             }
 
             if (input.CompareTo(rangeFrom) < 0 || input.CompareTo(rangeTo) > 0)
@@ -177,7 +177,7 @@ namespace Ardalis.GuardClauses
                 {
                     throw new ArgumentOutOfRangeException(parameterName, $"Input {parameterName} was out of range");
                 }
-                throw new ArgumentOutOfRangeException(message, (Exception?)null);
+                throw new ArgumentOutOfRangeException(parameterName, message);
             }
 
             return input;
@@ -610,7 +610,7 @@ namespace Ardalis.GuardClauses
         {
             if (rangeFrom.CompareTo(rangeTo) > 0)
             {
-                throw new ArgumentException(message ?? $"{nameof(rangeFrom)} should be less or equal than {nameof(rangeTo)}");
+                throw new ArgumentException(message ?? $"{nameof(rangeFrom)} should be less or equal than {nameof(rangeTo)}", parameterName);
             }
 
             if (input.Any(x => x.CompareTo(rangeFrom) < 0 || x.CompareTo(rangeTo) > 0))
@@ -619,7 +619,7 @@ namespace Ardalis.GuardClauses
                 {
                     throw new ArgumentOutOfRangeException(parameterName, message ?? $"Input {parameterName} had out of range item(s)");
                 }
-                throw new ArgumentOutOfRangeException(message, (Exception?)null);
+                throw new ArgumentOutOfRangeException(parameterName, message);
             }
 
             return input;
