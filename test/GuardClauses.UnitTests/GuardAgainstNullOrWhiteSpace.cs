@@ -1,5 +1,5 @@
-﻿using Ardalis.GuardClauses;
-using System;
+﻿using System;
+using Ardalis.GuardClauses;
 using Xunit;
 
 namespace GuardClauses.UnitTests
@@ -68,6 +68,18 @@ namespace GuardClauses.UnitTests
         {
             string? nullString = null;
             var exception = Assert.Throws<ArgumentNullException>(() => Guard.Against.NullOrWhiteSpace(nullString, "parameterName", customMessage));
+            Assert.NotNull(exception);
+            Assert.NotNull(exception.Message);
+            Assert.Equal(expectedMessage, exception.Message);
+        }
+
+        [Theory]
+        [InlineData(null, "Value cannot be null. (Parameter 'xyz')")]
+        [InlineData("Value is null", "Value is null (Parameter 'xyz')")]
+        public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvided(string customMessage, string expectedMessage)
+        {
+            string? xyz = null;
+            var exception = Assert.Throws<ArgumentNullException>(() => Guard.Against.NullOrWhiteSpace(xyz, message: customMessage));
             Assert.NotNull(exception);
             Assert.NotNull(exception.Message);
             Assert.Equal(expectedMessage, exception.Message);

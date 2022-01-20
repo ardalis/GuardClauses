@@ -1,6 +1,6 @@
-﻿using Ardalis.GuardClauses;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Ardalis.GuardClauses;
 using Xunit;
 
 namespace GuardClauses.UnitTests
@@ -114,7 +114,7 @@ namespace GuardClauses.UnitTests
         [InlineData(null, "Required input parameterName cannot be zero. (Parameter 'parameterName')")]
         [InlineData("Value is ZERO", "Value is ZERO (Parameter 'parameterName')")]
         public void ErrorMessageMatchesExpected(string customMessage, string expectedMessage)
-        { 
+        {
             var clausesToEvaluate = new List<Action>
             {
                 () => Guard.Against.Zero(0, "parameterName", customMessage),
@@ -132,6 +132,71 @@ namespace GuardClauses.UnitTests
                 Assert.NotNull(exception.Message);
                 Assert.Equal(expectedMessage, exception.Message);
             }
+        }
+
+        [Theory]
+        [InlineData(null, "Required input xyz cannot be zero. (Parameter 'xyz')")]
+        [InlineData("Value is ZERO", "Value is ZERO (Parameter 'xyz')")]
+        public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvidedGivenIntValue(string customMessage, string expectedMessage)
+        {
+            var xyz = 0;
+            var exception = Assert.Throws<ArgumentException>(() => Guard.Against.Zero(xyz, message: customMessage));
+
+            Assert.NotNull(exception);
+            Assert.NotNull(exception.Message);
+            Assert.Equal(expectedMessage, exception.Message);
+        }
+
+        [Theory]
+        [InlineData(null, "Required input xyz cannot be zero. (Parameter 'xyz')")]
+        [InlineData("Value is ZERO", "Value is ZERO (Parameter 'xyz')")]
+        public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvidedGivenLongValue(string customMessage, string expectedMessage)
+        {
+            var xyz = 0L;
+            var exception = Assert.Throws<ArgumentException>(() => Guard.Against.Zero(xyz, message: customMessage));
+
+            Assert.NotNull(exception);
+            Assert.NotNull(exception.Message);
+            Assert.Equal(expectedMessage, exception.Message);
+        }
+
+        [Theory]
+        [InlineData(null, "Required input xyz cannot be zero. (Parameter 'xyz')")]
+        [InlineData("Value is ZERO", "Value is ZERO (Parameter 'xyz')")]
+        public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvidedGivenDecimalValue(string customMessage, string expectedMessage)
+        {
+            var xyz = 0.0M;
+            var exception = Assert.Throws<ArgumentException>(() => Guard.Against.Zero(xyz, message: customMessage));
+
+            Assert.NotNull(exception);
+            Assert.NotNull(exception.Message);
+            Assert.Equal(expectedMessage, exception.Message);
+        }
+
+        [Theory]
+        [InlineData(null, "Required input xyz cannot be zero. (Parameter 'xyz')")]
+        [InlineData("Value is ZERO", "Value is ZERO (Parameter 'xyz')")]
+        public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvidedGivenFloatValue(string customMessage, string expectedMessage)
+        {
+            var xyz = 0.0f;
+            var exception = Assert.Throws<ArgumentException>(() => Guard.Against.Zero(xyz, message: customMessage));
+
+            Assert.NotNull(exception);
+            Assert.NotNull(exception.Message);
+            Assert.Equal(expectedMessage, exception.Message);
+        }
+
+        [Theory]
+        [InlineData(null, "Required input xyz cannot be zero. (Parameter 'xyz')")]
+        [InlineData("Value is ZERO", "Value is ZERO (Parameter 'xyz')")]
+        public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvidedGivenDoubleValue(string customMessage, string expectedMessage)
+        {
+            var xyz = 0.0;
+            var exception = Assert.Throws<ArgumentException>(() => Guard.Against.Zero(xyz, message: customMessage));
+
+            Assert.NotNull(exception);
+            Assert.NotNull(exception.Message);
+            Assert.Equal(expectedMessage, exception.Message);
         }
 
         [Theory]

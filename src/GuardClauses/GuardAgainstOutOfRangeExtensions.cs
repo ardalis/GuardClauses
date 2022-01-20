@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using JetBrainsNotNullAttribute = JetBrains.Annotations.NotNullAttribute;
+using System.Runtime.CompilerServices;
 using JetBrainsInvokerParameterNameAttribute = JetBrains.Annotations.InvokerParameterNameAttribute;
+using JetBrainsNotNullAttribute = JetBrains.Annotations.NotNullAttribute;
 
 namespace Ardalis.GuardClauses
 {
@@ -19,7 +20,17 @@ namespace Ardalis.GuardClauses
         /// <param name="message">Optional. Custom error message</param>
         /// <returns><paramref name="input" /> if the value is not out of range.</returns>
         /// <exception cref="InvalidEnumArgumentException"></exception>
-        public static int EnumOutOfRange<T>([JetBrainsNotNull] this IGuardClause guardClause, int input, [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, string? message = null) where T : struct, Enum
+#if NETSTANDARD || NETFRAMEWORK
+        public static int EnumOutOfRange<T>([JetBrainsNotNull] this IGuardClause guardClause, 
+            int input, 
+            [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, 
+            string? message = null) where T : struct, Enum
+#else
+        public static int EnumOutOfRange<T>([JetBrainsNotNull] this IGuardClause guardClause,
+            int input,
+            [JetBrainsNotNull][JetBrainsInvokerParameterName][CallerArgumentExpression("input")] string? parameterName = null,
+            string? message = null) where T : struct, Enum
+#endif
         {
             if (!Enum.IsDefined(typeof(T), input))
             {
@@ -43,7 +54,17 @@ namespace Ardalis.GuardClauses
         /// /// <param name="message">Optional. Custom error message</param>
         /// <returns><paramref name="input" /> if the value is not out of range.</returns>
         /// <exception cref="InvalidEnumArgumentException"></exception>
-        public static T EnumOutOfRange<T>([JetBrainsNotNull] this IGuardClause guardClause, T input, [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, string? message = null) where T : struct, Enum
+#if NETSTANDARD || NETFRAMEWORK
+        public static T EnumOutOfRange<T>([JetBrainsNotNull] this IGuardClause guardClause, 
+            T input, 
+            [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, 
+            string? message = null) where T : struct, Enum
+#else
+        public static T EnumOutOfRange<T>([JetBrainsNotNull] this IGuardClause guardClause,
+            T input,
+            [JetBrainsNotNull][JetBrainsInvokerParameterName][CallerArgumentExpression("input")] string? parameterName = null,
+            string? message = null) where T : struct, Enum
+#endif
         {
             if (!Enum.IsDefined(typeof(T), input))
             {
@@ -96,16 +117,23 @@ namespace Ardalis.GuardClauses
         /// <param name="message">Optional. Custom error message</param>
         /// <returns><paramref name="input" /> if the value is in the range of valid SqlDateTime values.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
+#if NETSTANDARD || NETFRAMEWORK
         public static DateTime OutOfSQLDateRange([JetBrainsNotNull] this IGuardClause guardClause,
             DateTime input,
             [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName,
             string? message = null)
+#else
+        public static DateTime OutOfSQLDateRange([JetBrainsNotNull] this IGuardClause guardClause,
+            DateTime input,
+            [JetBrainsNotNull][JetBrainsInvokerParameterName][CallerArgumentExpression("input")] string? parameterName = null,
+            string? message = null)
+#endif
         {
             // System.Data is unavailable in .NET Standard so we can't use SqlDateTime.
             const long sqlMinDateTicks = 552877920000000000;
             const long sqlMaxDateTicks = 3155378975999970000;
 
-            return OutOfRange<DateTime>(guardClause, input, parameterName, new DateTime(sqlMinDateTicks), new DateTime(sqlMaxDateTicks), message);
+            return OutOfRange<DateTime>(guardClause, input, parameterName!, new DateTime(sqlMinDateTicks), new DateTime(sqlMaxDateTicks), message);
         }
 
         /// <summary>

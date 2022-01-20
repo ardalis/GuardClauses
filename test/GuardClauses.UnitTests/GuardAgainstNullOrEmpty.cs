@@ -1,7 +1,7 @@
-﻿using Ardalis.GuardClauses;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Ardalis.GuardClauses;
 using Xunit;
 
 namespace GuardClauses.UnitTests
@@ -24,8 +24,8 @@ namespace GuardClauses.UnitTests
         [Fact]
         public void DoesNothingGivenNonEmptyEnumerable()
         {
-            Guard.Against.NullOrEmpty(new [] { "foo", "bar" }, "stringArray");
-            Guard.Against.NullOrEmpty(new [] { 1, 2 }, "intArray");
+            Guard.Against.NullOrEmpty(new[] { "foo", "bar" }, "stringArray");
+            Guard.Against.NullOrEmpty(new[] { 1, 2 }, "intArray");
         }
 
         [Fact]
@@ -66,11 +66,53 @@ namespace GuardClauses.UnitTests
             Assert.Equal("a", Guard.Against.NullOrEmpty("a", "string"));
             Assert.Equal("1", Guard.Against.NullOrEmpty("1", "aNumericString"));
 
-            var collection1 = new[] {"foo", "bar"};
+            var collection1 = new[] { "foo", "bar" };
             Assert.Equal(collection1, Guard.Against.NullOrEmpty(collection1, "stringArray"));
 
-            var collection2 = new[] {1, 2};
+            var collection2 = new[] { 1, 2 };
             Assert.Equal(collection2, Guard.Against.NullOrEmpty(collection2, "intArray"));
+        }
+
+        [Theory]
+        [InlineData(null, "Required input xyz was empty. (Parameter 'xyz')")]
+        [InlineData("Value is empty", "Value is empty (Parameter 'xyz')")]
+        public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvidedGivenStringValue(string customMessage, string expectedMessage)
+        {
+            string xyz = string.Empty;
+
+            var exception = Assert.Throws<ArgumentException>(() => Guard.Against.NullOrEmpty(xyz, message: customMessage));
+
+            Assert.NotNull(exception);
+            Assert.NotNull(exception.Message);
+            Assert.Contains(expectedMessage, exception.Message);
+        }
+
+        [Theory]
+        [InlineData(null, "Required input xyz was empty. (Parameter 'xyz')")]
+        [InlineData("Value is empty", "Value is empty (Parameter 'xyz')")]
+        public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvidedGivenGuidValue(string customMessage, string expectedMessage)
+        {
+            Guid xyz = Guid.Empty;
+
+            var exception = Assert.Throws<ArgumentException>(() => Guard.Against.NullOrEmpty(xyz, message: customMessage));
+
+            Assert.NotNull(exception);
+            Assert.NotNull(exception.Message);
+            Assert.Contains(expectedMessage, exception.Message);
+        }
+
+        [Theory]
+        [InlineData(null, "Required input xyz was empty. (Parameter 'xyz')")]
+        [InlineData("Value is empty", "Value is empty (Parameter 'xyz')")]
+        public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvidedGivenIEnumerableValue(string customMessage, string expectedMessage)
+        {
+            IEnumerable<string> xyz = Enumerable.Empty<string>();
+
+            var exception = Assert.Throws<ArgumentException>(() => Guard.Against.NullOrEmpty(xyz, message: customMessage));
+
+            Assert.NotNull(exception);
+            Assert.NotNull(exception.Message);
+            Assert.Contains(expectedMessage, exception.Message);
         }
 
         [Theory]
