@@ -1,5 +1,5 @@
-﻿using Ardalis.GuardClauses;
-using System.ComponentModel;
+﻿using System.ComponentModel;
+using Ardalis.GuardClauses;
 using Xunit;
 
 namespace GuardClauses.UnitTests
@@ -17,7 +17,7 @@ namespace GuardClauses.UnitTests
         {
             Guard.Against.EnumOutOfRange<TestEnum>(enumValue, nameof(enumValue));
         }
-        
+
 
         [Theory]
         [InlineData(-1)]
@@ -43,9 +43,9 @@ namespace GuardClauses.UnitTests
 
 
         [Theory]
-        [InlineData((TestEnum) (-1))]
-        [InlineData((TestEnum) 6)]
-        [InlineData((TestEnum) 10)]
+        [InlineData((TestEnum)(-1))]
+        [InlineData((TestEnum)6)]
+        [InlineData((TestEnum)10)]
         public void ThrowsGivenOutOfRangeEnum(TestEnum enumValue)
         {
             var exception = Assert.Throws<InvalidEnumArgumentException>(() => Guard.Against.EnumOutOfRange(enumValue, nameof(enumValue)));
@@ -85,6 +85,20 @@ namespace GuardClauses.UnitTests
         {
             var exception = Assert.Throws<InvalidEnumArgumentException>(
                 () => Guard.Against.EnumOutOfRange((TestEnum)99, "parameterName", customMessage));
+            Assert.NotNull(exception);
+            Assert.NotNull(exception.Message);
+            Assert.Equal(expectedMessage, exception.Message);
+        }
+
+        [Theory]
+        [InlineData(null, "The value of argument 'xyz' (99) is invalid for Enum type 'TestEnum'. (Parameter 'xyz')")]
+        [InlineData("Invalid enum value", "Invalid enum value")]
+        public void ErrorMessageMatchesExpectedWhenInputIsEnumAndParamNameNotExplicitlyProvided(string customMessage, string expectedMessage)
+        {
+            var xyz = (TestEnum)99;
+            var exception = Assert.Throws<InvalidEnumArgumentException>(
+                () => Guard.Against.EnumOutOfRange(xyz, message: customMessage));
+
             Assert.NotNull(exception);
             Assert.NotNull(exception.Message);
             Assert.Equal(expectedMessage, exception.Message);

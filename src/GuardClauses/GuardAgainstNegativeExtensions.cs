@@ -1,6 +1,7 @@
 ﻿using System;
-using JetBrainsNotNullAttribute = JetBrains.Annotations.NotNullAttribute;
+using System.Runtime.CompilerServices;
 using JetBrainsInvokerParameterNameAttribute = JetBrains.Annotations.InvokerParameterNameAttribute;
+using JetBrainsNotNullAttribute = JetBrains.Annotations.NotNullAttribute;
 
 namespace Ardalis.GuardClauses
 {
@@ -15,7 +16,17 @@ namespace Ardalis.GuardClauses
         /// <param name="message">Optional. Custom error message</param>
         /// <returns><paramref name="input" /> if the value is not negative.</returns>
         /// <exception cref="ArgumentException"></exception>
-        public static int Negative([JetBrainsNotNull] this IGuardClause guardClause, int input, [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, string? message = null)
+#if NETSTANDARD || NETFRAMEWORK
+        public static int Negative([JetBrainsNotNull] this IGuardClause guardClause, 
+            int input, 
+            [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, 
+            string? message = null)
+#else
+        public static int Negative([JetBrainsNotNull] this IGuardClause guardClause,
+            int input,
+            [JetBrainsNotNull][JetBrainsInvokerParameterName][CallerArgumentExpression("input")] string? parameterName = null,
+            string? message = null)
+#endif
         {
             return Negative<int>(guardClause, input, parameterName, message);
         }
@@ -29,7 +40,17 @@ namespace Ardalis.GuardClauses
         /// <param name="message">Optional. Custom error message</param>
         /// <returns><paramref name="input" /> if the value is not negative.</returns>
         /// <exception cref="ArgumentException"></exception>
-        public static long Negative([JetBrainsNotNull] this IGuardClause guardClause, long input, [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, string? message = null)
+#if NETSTANDARD || NETFRAMEWORK
+        public static long Negative([JetBrainsNotNull] this IGuardClause guardClause, 
+            long input, 
+            [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, 
+            string? message = null)
+#else
+        public static long Negative([JetBrainsNotNull] this IGuardClause guardClause,
+            long input,
+            [JetBrainsNotNull][JetBrainsInvokerParameterName][CallerArgumentExpression("input")] string? parameterName = null,
+            string? message = null)
+#endif
         {
             return Negative<long>(guardClause, input, parameterName, message);
         }
@@ -43,7 +64,17 @@ namespace Ardalis.GuardClauses
         /// <param name="message">Optional. Custom error message</param>
         /// <returns><paramref name="input" /> if the value is not negative.</returns>
         /// <exception cref="ArgumentException"></exception>
-        public static decimal Negative([JetBrainsNotNull] this IGuardClause guardClause, decimal input, [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, string? message = null)
+#if NETSTANDARD || NETFRAMEWORK
+        public static decimal Negative([JetBrainsNotNull] this IGuardClause guardClause, 
+            decimal input, 
+            [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, 
+            string? message = null)
+#else
+        public static decimal Negative([JetBrainsNotNull] this IGuardClause guardClause,
+            decimal input,
+            [JetBrainsNotNull][JetBrainsInvokerParameterName][CallerArgumentExpression("input")] string? parameterName = null,
+            string? message = null)
+#endif
         {
             return Negative<decimal>(guardClause, input, parameterName, message);
         }
@@ -57,7 +88,17 @@ namespace Ardalis.GuardClauses
         /// <param name="message">Optional. Custom error message</param>
         /// <returns><paramref name="input" /> if the value is not negative.</returns>
         /// <exception cref="ArgumentException"></exception>
-        public static float Negative([JetBrainsNotNull] this IGuardClause guardClause, float input, [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, string? message = null)
+#if NETSTANDARD || NETFRAMEWORK
+        public static float Negative([JetBrainsNotNull] this IGuardClause guardClause, 
+            float input, 
+            [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, 
+            string? message = null)
+#else
+        public static float Negative([JetBrainsNotNull] this IGuardClause guardClause,
+            float input,
+            [JetBrainsNotNull][JetBrainsInvokerParameterName][CallerArgumentExpression("input")] string? parameterName = null,
+            string? message = null)
+#endif
         {
             return Negative<float>(guardClause, input, parameterName, message);
         }
@@ -71,7 +112,17 @@ namespace Ardalis.GuardClauses
         /// <param name="message">Optional. Custom error message</param>
         /// <returns><paramref name="input" /> if the value is not negative.</returns>
         /// <exception cref="ArgumentException"></exception>
-        public static double Negative([JetBrainsNotNull] this IGuardClause guardClause, double input, [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, string? message = null)
+#if NETSTANDARD || NETFRAMEWORK
+        public static double Negative([JetBrainsNotNull] this IGuardClause guardClause, 
+            double input, 
+            [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, 
+            string? message = null)
+#else
+        public static double Negative([JetBrainsNotNull] this IGuardClause guardClause,
+            double input,
+            [JetBrainsNotNull][JetBrainsInvokerParameterName][CallerArgumentExpression("input")] string? parameterName = null,
+            string? message = null)
+#endif
         {
             return Negative<double>(guardClause, input, parameterName, message);
         }
@@ -85,7 +136,17 @@ namespace Ardalis.GuardClauses
         /// <param name="message">Optional. Custom error message</param>
         /// <returns><paramref name="input" /> if the value is not negative.</returns>
         /// <exception cref="ArgumentException"></exception>
-        public static TimeSpan Negative([JetBrainsNotNull] this IGuardClause guardClause, TimeSpan input, [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, string? message = null)
+#if NETSTANDARD || NETFRAMEWORK
+        public static TimeSpan Negative([JetBrainsNotNull] this IGuardClause guardClause, 
+            TimeSpan input, 
+            [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, 
+            string? message = null)
+#else
+        public static TimeSpan Negative([JetBrainsNotNull] this IGuardClause guardClause,
+            TimeSpan input,
+            [JetBrainsNotNull][JetBrainsInvokerParameterName][CallerArgumentExpression("input")] string? parameterName = null,
+            string? message = null)
+#endif
         {
             return Negative<TimeSpan>(guardClause, input, parameterName, message);
         }
@@ -99,7 +160,17 @@ namespace Ardalis.GuardClauses
         /// <param name="message">Optional. Custom error message</param>
         /// <returns><paramref name="input" /> if the value is not negative.</returns>
         /// <exception cref="ArgumentException"></exception>
-        private static T Negative<T>([JetBrainsNotNull] this IGuardClause guardClause, T input, [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, string? message = null) where T : struct, IComparable
+#if NETSTANDARD || NETFRAMEWORK
+        private static T Negative<T>([JetBrainsNotNull] this IGuardClause guardClause, 
+            T input, 
+            [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, 
+            string? message = null) where T : struct, IComparable
+#else
+        private static T Negative<T>([JetBrainsNotNull] this IGuardClause guardClause,
+            T input,
+            [JetBrainsNotNull][JetBrainsInvokerParameterName][CallerArgumentExpression("input")] string? parameterName = null,
+            string? message = null) where T : struct, IComparable
+#endif
         {
             if (input.CompareTo(default(T)) < 0)
             {
@@ -117,7 +188,17 @@ namespace Ardalis.GuardClauses
         /// <param name="parameterName"></param>
         /// <param name="message">Optional. Custom error message</param>
         /// <returns><paramref name="input" /> if the value is not negative or zero.</returns>
-        public static int NegativeOrZero([JetBrainsNotNull] this IGuardClause guardClause, int input, [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, string? message = null)
+#if NETSTANDARD || NETFRAMEWORK
+        public static int NegativeOrZero([JetBrainsNotNull] this IGuardClause guardClause, 
+            int input, 
+            [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, 
+            string? message = null)
+#else
+        public static int NegativeOrZero([JetBrainsNotNull] this IGuardClause guardClause,
+            int input,
+            [JetBrainsNotNull][JetBrainsInvokerParameterName][CallerArgumentExpression("input")] string? parameterName = null,
+            string? message = null)
+#endif
         {
             return NegativeOrZero<int>(guardClause, input, parameterName, message);
         }
@@ -130,7 +211,17 @@ namespace Ardalis.GuardClauses
         /// <param name="parameterName"></param>
         /// <param name="message">Optional. Custom error message</param>
         /// <returns><paramref name="input" /> if the value is not negative or zero.</returns>
-        public static long NegativeOrZero([JetBrainsNotNull] this IGuardClause guardClause, long input, [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, string? message = null)
+#if NETSTANDARD || NETFRAMEWORK
+        public static long NegativeOrZero([JetBrainsNotNull] this IGuardClause guardClause, 
+            long input, 
+            [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, 
+            string? message = null)
+#else
+        public static long NegativeOrZero([JetBrainsNotNull] this IGuardClause guardClause,
+            long input,
+            [JetBrainsNotNull][JetBrainsInvokerParameterName][CallerArgumentExpression("input")] string? parameterName = null,
+            string? message = null)
+#endif
         {
             return NegativeOrZero<long>(guardClause, input, parameterName, message);
         }
@@ -143,7 +234,17 @@ namespace Ardalis.GuardClauses
         /// <param name="parameterName"></param>
         /// <param name="message">Optional. Custom error message</param>
         /// <returns><paramref name="input" /> if the value is not negative or zero.</returns>
-        public static decimal NegativeOrZero([JetBrainsNotNull] this IGuardClause guardClause, decimal input, [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, string? message = null)
+#if NETSTANDARD || NETFRAMEWORK
+        public static decimal NegativeOrZero([JetBrainsNotNull] this IGuardClause guardClause, 
+            decimal input, 
+            [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, 
+            string? message = null)
+#else
+        public static decimal NegativeOrZero([JetBrainsNotNull] this IGuardClause guardClause,
+            decimal input,
+            [JetBrainsNotNull][JetBrainsInvokerParameterName][CallerArgumentExpression("input")] string? parameterName = null,
+            string? message = null)
+#endif
         {
             return NegativeOrZero<decimal>(guardClause, input, parameterName, message);
         }
@@ -156,7 +257,17 @@ namespace Ardalis.GuardClauses
         /// <param name="parameterName"></param>
         /// <param name="message">Optional. Custom error message</param>
         /// <returns><paramref name="input" /> if the value is not negative or zero.</returns>
-        public static float NegativeOrZero([JetBrainsNotNull] this IGuardClause guardClause, float input, [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, string? message = null)
+#if NETSTANDARD || NETFRAMEWORK
+        public static float NegativeOrZero([JetBrainsNotNull] this IGuardClause guardClause, 
+            float input, 
+            [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, 
+            string? message = null)
+#else
+        public static float NegativeOrZero([JetBrainsNotNull] this IGuardClause guardClause,
+            float input,
+            [JetBrainsNotNull][JetBrainsInvokerParameterName][CallerArgumentExpression("input")] string? parameterName = null,
+            string? message = null)
+#endif
         {
             return NegativeOrZero<float>(guardClause, input, parameterName, message);
         }
@@ -169,7 +280,17 @@ namespace Ardalis.GuardClauses
         /// <param name="parameterName"></param>
         /// <param name="message">Optional. Custom error message</param>
         /// <returns><paramref name="input" /> if the value is not negative or zero.</returns>
-        public static double NegativeOrZero([JetBrainsNotNull] this IGuardClause guardClause, double input, [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, string? message = null)
+#if NETSTANDARD || NETFRAMEWORK
+        public static double NegativeOrZero([JetBrainsNotNull] this IGuardClause guardClause,
+            double input, 
+            [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, 
+            string? message = null)
+#else
+        public static double NegativeOrZero([JetBrainsNotNull] this IGuardClause guardClause,
+            double input,
+            [JetBrainsNotNull][JetBrainsInvokerParameterName][CallerArgumentExpression("input")] string? parameterName = null,
+            string? message = null)
+#endif
         {
             return NegativeOrZero<double>(guardClause, input, parameterName, message);
         }
@@ -182,7 +303,17 @@ namespace Ardalis.GuardClauses
         /// <param name="parameterName"></param>
         /// <param name="message">Optional. Custom error message</param>
         /// <returns><paramref name="input" /> if the value is not negative or zero.</returns>
-        public static TimeSpan NegativeOrZero([JetBrainsNotNull] this IGuardClause guardClause, TimeSpan input, [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, string? message = null)
+#if NETSTANDARD || NETFRAMEWORK
+        public static TimeSpan NegativeOrZero([JetBrainsNotNull] this IGuardClause guardClause, 
+            TimeSpan input, 
+            [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, 
+            string? message = null)
+#else
+        public static TimeSpan NegativeOrZero([JetBrainsNotNull] this IGuardClause guardClause,
+            TimeSpan input,
+            [JetBrainsNotNull][JetBrainsInvokerParameterName][CallerArgumentExpression("input")] string? parameterName = null,
+            string? message = null)
+#endif
         {
             return NegativeOrZero<TimeSpan>(guardClause, input, parameterName, message);
         }
@@ -196,7 +327,17 @@ namespace Ardalis.GuardClauses
         /// <param name="parameterName"></param>
         /// <param name="message">Optional. Custom error message</param>
         /// <returns><paramref name="input" /> if the value is not negative or zero.</returns>
-        private static T NegativeOrZero<T>([JetBrainsNotNull] this IGuardClause guardClause, T input, [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, string? message = null) where T : struct, IComparable
+#if NETSTANDARD || NETFRAMEWORK
+        private static T NegativeOrZero<T>([JetBrainsNotNull] this IGuardClause guardClause, 
+            T input, 
+            [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, 
+            string? message = null) where T : struct, IComparable
+#else
+        private static T NegativeOrZero<T>([JetBrainsNotNull] this IGuardClause guardClause,
+            T input,
+            [JetBrainsNotNull][JetBrainsInvokerParameterName][CallerArgumentExpression("input")] string? parameterName = null,
+            string? message = null) where T : struct, IComparable
+#endif
         {
             if (input.CompareTo(default(T)) <= 0)
             {

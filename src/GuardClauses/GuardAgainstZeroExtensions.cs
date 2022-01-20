@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using JetBrainsNotNullAttribute = JetBrains.Annotations.NotNullAttribute;
+using System.Runtime.CompilerServices;
 using JetBrainsInvokerParameterNameAttribute = JetBrains.Annotations.InvokerParameterNameAttribute;
+using JetBrainsNotNullAttribute = JetBrains.Annotations.NotNullAttribute;
 
 namespace Ardalis.GuardClauses
 {
@@ -16,9 +17,19 @@ namespace Ardalis.GuardClauses
         /// <param name="message">Optional. Custom error message</param>
         /// <returns><paramref name="input" /> if the value is not zero.</returns>
         /// <exception cref="ArgumentException"></exception>
-        public static int Zero([JetBrainsNotNull] this IGuardClause guardClause, int input, [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, string? message = null)
+#if NETSTANDARD || NETFRAMEWORK
+        public static int Zero([JetBrainsNotNull] this IGuardClause guardClause, 
+            int input, 
+            [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, 
+            string? message = null)
+#else
+        public static int Zero([JetBrainsNotNull] this IGuardClause guardClause,
+            int input,
+            [JetBrainsNotNull][JetBrainsInvokerParameterName][CallerArgumentExpression("input")] string? parameterName = null,
+            string? message = null)
+#endif
         {
-            return Zero<int>(guardClause, input, parameterName, message);
+            return Zero<int>(guardClause, input, parameterName!, message);
         }
 
         /// <summary>
@@ -30,9 +41,19 @@ namespace Ardalis.GuardClauses
         /// <param name="message">Optional. Custom error message</param>
         /// <returns><paramref name="input" /> if the value is not zero.</returns>
         /// <exception cref="ArgumentException"></exception>
-        public static long Zero([JetBrainsNotNull] this IGuardClause guardClause, long input, [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, string? message = null)
+#if NETSTANDARD || NETFRAMEWORK
+        public static long Zero([JetBrainsNotNull] this IGuardClause guardClause, 
+            long input, 
+            [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, 
+            string? message = null)
+#else
+        public static long Zero([JetBrainsNotNull] this IGuardClause guardClause,
+            long input,
+            [JetBrainsNotNull][JetBrainsInvokerParameterName][CallerArgumentExpression("input")] string? parameterName = null,
+            string? message = null)
+#endif
         {
-            return Zero<long>(guardClause, input, parameterName, message);
+            return Zero<long>(guardClause, input, parameterName!, message);
         }
 
         /// <summary>
@@ -44,9 +65,19 @@ namespace Ardalis.GuardClauses
         /// <param name="message">Optional. Custom error message</param>
         /// <returns><paramref name="input" /> if the value is not zero.</returns>
         /// <exception cref="ArgumentException"></exception>
-        public static decimal Zero([JetBrainsNotNull] this IGuardClause guardClause, decimal input, [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, string? message = null)
+#if NETSTANDARD || NETFRAMEWORK
+        public static decimal Zero([JetBrainsNotNull] this IGuardClause guardClause, 
+            decimal input, 
+            [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, 
+            string? message = null)
+#else
+        public static decimal Zero([JetBrainsNotNull] this IGuardClause guardClause,
+            decimal input,
+            [JetBrainsNotNull][JetBrainsInvokerParameterName][CallerArgumentExpression("input")] string? parameterName = null,
+            string? message = null)
+#endif
         {
-            return Zero<decimal>(guardClause, input, parameterName, message);
+            return Zero<decimal>(guardClause, input, parameterName!, message);
         }
 
         /// <summary>
@@ -58,9 +89,19 @@ namespace Ardalis.GuardClauses
         /// <param name="message">Optional. Custom error message</param>
         /// <returns><paramref name="input" /> if the value is not zero.</returns>
         /// <exception cref="ArgumentException"></exception>
-        public static float Zero([JetBrainsNotNull] this IGuardClause guardClause, float input, [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, string? message = null)
+#if NETSTANDARD || NETFRAMEWORK
+        public static float Zero([JetBrainsNotNull] this IGuardClause guardClause, 
+            float input, 
+            [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, 
+            string? message = null)
+#else
+        public static float Zero([JetBrainsNotNull] this IGuardClause guardClause,
+            float input,
+            [JetBrainsNotNull][JetBrainsInvokerParameterName][CallerArgumentExpression("input")] string? parameterName = null,
+            string? message = null)
+#endif
         {
-            return Zero<float>(guardClause, input, parameterName, message);
+            return Zero<float>(guardClause, input, parameterName!, message);
         }
 
         /// <summary>
@@ -72,9 +113,19 @@ namespace Ardalis.GuardClauses
         /// <param name="message">Optional. Custom error message</param>
         /// <returns><paramref name="input" /> if the value is not zero.</returns>
         /// <exception cref="ArgumentException"></exception>
-        public static double Zero([JetBrainsNotNull] this IGuardClause guardClause, double input, [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, string? message = null)
+#if NETSTANDARD || NETFRAMEWORK
+        public static double Zero([JetBrainsNotNull] this IGuardClause guardClause, 
+            double input, 
+            [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, 
+            string? message = null)
+#else
+        public static double Zero([JetBrainsNotNull] this IGuardClause guardClause,
+            double input,
+            [JetBrainsNotNull][JetBrainsInvokerParameterName][CallerArgumentExpression("input")] string? parameterName = null,
+            string? message = null)
+#endif
         {
-            return Zero<double>(guardClause, input, parameterName, message);
+            return Zero<double>(guardClause, input, parameterName!, message);
         }
 
         /// <summary>
@@ -85,9 +136,17 @@ namespace Ardalis.GuardClauses
         /// <param name="parameterName"></param>
         /// <returns><paramref name="input" /> if the value is not zero.</returns>
         /// <exception cref="ArgumentException"></exception>
-        public static TimeSpan Zero([JetBrainsNotNull] this IGuardClause guardClause, TimeSpan input, [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName)
+#if NETSTANDARD || NETFRAMEWORK
+        public static TimeSpan Zero([JetBrainsNotNull] this IGuardClause guardClause, 
+            TimeSpan input, 
+            [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName)
+#else
+        public static TimeSpan Zero([JetBrainsNotNull] this IGuardClause guardClause,
+            TimeSpan input,
+            [JetBrainsNotNull][JetBrainsInvokerParameterName][CallerArgumentExpression("input")] string? parameterName = null)
+#endif
         {
-            return Zero<TimeSpan>(guardClause, input, parameterName);
+            return Zero<TimeSpan>(guardClause, input, parameterName!);
         }
 
         /// <summary>

@@ -1,6 +1,6 @@
-﻿using Ardalis.GuardClauses;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Ardalis.GuardClauses;
 using Xunit;
 
 namespace GuardClauses.UnitTests
@@ -41,6 +41,18 @@ namespace GuardClauses.UnitTests
         public void ErrorMessageMatchesExpected(string customMessage, string expectedMessage)
         {
             var exception = Assert.Throws<ArgumentException>(() => Guard.Against.Default(default(string), "parameterName", customMessage));
+            Assert.NotNull(exception);
+            Assert.NotNull(exception.Message);
+            Assert.Equal(expectedMessage, exception.Message);
+        }
+
+        [Theory]
+        [InlineData(null, "Parameter [xyz] is default value for type String (Parameter 'xyz')")]
+        [InlineData("Please provide correct value", "Please provide correct value (Parameter 'xyz')")]
+        public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvided(string customMessage, string expectedMessage)
+        {
+            var xyz = default(string);
+            var exception = Assert.Throws<ArgumentException>(() => Guard.Against.Default(xyz, message: customMessage));
             Assert.NotNull(exception);
             Assert.NotNull(exception.Message);
             Assert.Equal(expectedMessage, exception.Message);

@@ -1,7 +1,7 @@
-﻿using Ardalis.GuardClauses;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlTypes;
+using Ardalis.GuardClauses;
 using Xunit;
 
 namespace GuardClauses.UnitTests
@@ -81,6 +81,19 @@ namespace GuardClauses.UnitTests
         }
 
         [Theory]
+        [InlineData(null, "Input date was out of range (Parameter 'date')")]
+        [InlineData("SQLDate range", "SQLDate range (Parameter 'date')")]
+        public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvided(string customMessage, string expectedMessage)
+        {
+            DateTime date = SqlDateTime.MinValue.Value.AddSeconds(-1);
+            var exception = Assert.Throws<ArgumentOutOfRangeException>(() => Guard.Against.OutOfSQLDateRange(date, message: customMessage));
+
+            Assert.NotNull(exception);
+            Assert.NotNull(exception.Message);
+            Assert.Equal(expectedMessage, exception.Message);
+        }
+
+        [Theory]
         [InlineData(null, null)]
         [InlineData(null, "Please provide correct value")]
         [InlineData("SomeParameter", null)]
@@ -101,11 +114,11 @@ namespace GuardClauses.UnitTests
             var min = SqlDateTime.MinValue.Value;
             var max = SqlDateTime.MaxValue.Value;
 
-            yield return new object[] {now, "now", now};
-            yield return new object[] {utc, "utc", utc};
-            yield return new object[] {yesterday, "yesterday", yesterday};
-            yield return new object[] {min, "min", min};
-            yield return new object[] {max, "max", max};
+            yield return new object[] { now, "now", now };
+            yield return new object[] { utc, "utc", utc };
+            yield return new object[] { yesterday, "yesterday", yesterday };
+            yield return new object[] { min, "min", min };
+            yield return new object[] { max, "max", max };
         }
     }
 }
