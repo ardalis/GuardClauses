@@ -34,7 +34,7 @@ namespace Ardalis.GuardClauses
 #else
         public static T Null<T>([JetBrainsNotNull] this IGuardClause guardClause,
             [NotNull, JetBrainsNotNull][ValidatedNotNull][JetBrainsNoEnumeration] T input,
-            [JetBrainsNotNull][CallerArgumentExpression("input")] string? parameterName = null,
+            [JetBrainsNotNull][JetBrainsInvokerParameterName][CallerArgumentExpression("input")] string? parameterName = null,
             string? message = null)
 #endif
         {
@@ -205,6 +205,39 @@ namespace Ardalis.GuardClauses
             }
 
             return input;
+        }
+
+
+        /// <summary>
+        /// Throws an <see cref="ArgumentNullException"/> if <paramref name="input"/> is null
+        /// Throws an <see cref="ArgumentException" /> if <paramref name="input"/> doesn't satisfy the <paramref name="predicate"/> function.
+        /// </summary>
+        /// <param name="guardClause"></param>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        /// <param name="predicate"></param>
+        /// <param name="message">Optional. Custom error message</param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="ArgumentNullException"></exception>
+#if NETSTANDARD || NETFRAMEWORK
+        public static T NullOrInvalidInput<T>([JetBrainsNotNull] this IGuardClause guardClause, 
+            [JetBrainsNotNull] T input, 
+            [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, 
+            Func<T, bool> predicate, 
+            string? message = null)
+#else
+        public static T NullOrInvalidInput<T>([JetBrainsNotNull] this IGuardClause guardClause, 
+            [JetBrainsNotNull] T input, 
+            [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, 
+            Func<T, bool> predicate, 
+            string? message = null)
+#endif
+        {
+            Guard.Against.Null(input, parameterName, message);
+
+            return Guard.Against.InvalidInput(input, parameterName, predicate, message);
         }
     }
 }
