@@ -1,8 +1,9 @@
 name: CodeQL Analysis
 
 on:
-  push:
-  pull_request:
+#  push:
+#  pull_request:
+# 1st of the month only
   schedule:
     - cron: '0 8 1 * *'
 
