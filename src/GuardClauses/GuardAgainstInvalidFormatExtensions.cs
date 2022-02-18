@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using JetBrainsInvokerParameterNameAttribute = JetBrains.Annotations.InvokerParameterNameAttribute;
 using JetBrainsNotNullAttribute = JetBrains.Annotations.NotNullAttribute;
 using JetBrainsRegexPattern = JetBrains.Annotations.RegexPatternAttribute;
-using JetBrainsInvokerParameterNameAttribute = JetBrains.Annotations.InvokerParameterNameAttribute;
 
 namespace Ardalis.GuardClauses
 {

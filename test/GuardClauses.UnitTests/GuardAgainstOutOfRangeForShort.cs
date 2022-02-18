@@ -1,5 +1,5 @@
-﻿using Ardalis.GuardClauses;
-using System;
+﻿using System;
+using Ardalis.GuardClauses;
 using Xunit;
 
 namespace GuardClauses.UnitTests
