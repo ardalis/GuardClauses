@@ -1,7 +1,7 @@
-﻿using Ardalis.GuardClauses;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Ardalis.GuardClauses;
 using Xunit;
 
 namespace GuardClauses.UnitTests
