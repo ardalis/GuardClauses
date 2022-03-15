@@ -238,12 +238,13 @@ namespace Ardalis.GuardClauses
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         private static T NullOrOutOfRangeInternal<T>([JetBrainsNotNull] this IGuardClause guardClause, 
             [NotNull, JetBrainsNotNull][ValidatedNotNull] T? input, 
-            [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, 
+            [JetBrainsNotNull][JetBrainsInvokerParameterName] string? parameterName, 
             [NotNull, JetBrainsNotNull][ValidatedNotNull] T? rangeFrom, 
             [NotNull, JetBrainsNotNull][ValidatedNotNull] T? rangeTo, 
             string? message = null) where T : IComparable<T>?
         {
             Guard.Against.Null(input, nameof(input));
+            Guard.Against.Null(parameterName, nameof(parameterName));
             Guard.Against.Null(rangeFrom, nameof(rangeFrom));
             Guard.Against.Null(rangeTo, nameof(rangeTo));
 
