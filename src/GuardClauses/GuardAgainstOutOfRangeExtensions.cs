@@ -155,21 +155,7 @@ namespace Ardalis.GuardClauses
             T rangeTo,
             string? message = null) where T : IComparable, IComparable<T>
         {
-            if (rangeFrom.CompareTo(rangeTo) > 0)
-            {
-                throw new ArgumentException(message ?? $"{nameof(rangeFrom)} should be less or equal than {nameof(rangeTo)}", parameterName);
-            }
-
-            if (input.CompareTo(rangeFrom) < 0 || input.CompareTo(rangeTo) > 0)
-            {
-                if (string.IsNullOrEmpty(message))
-                {
-                    throw new ArgumentOutOfRangeException(parameterName, $"Input {parameterName} was out of range");
-                }
-                throw new ArgumentOutOfRangeException(parameterName, message);
-            }
-
-            return input;
+            return NullOrOutOfRangeInternal<T>(guardClause, input, parameterName, rangeFrom, rangeTo, message);
         }
 
         /// <summary>
@@ -203,7 +189,7 @@ namespace Ardalis.GuardClauses
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public static T NullOrOutOfRange<T>([JetBrainsNotNull] this IGuardClause guardClause, [NotNull, JetBrainsCanBeNull][ValidatedNotNull] T? input, [JetBrainsNotNull] string parameterName, [NotNull, JetBrainsNotNull][ValidatedNotNull] T rangeFrom, [NotNull, JetBrainsNotNull][ValidatedNotNull] T rangeTo, string? message = null) where T : IComparable<T>
+        public static T NullOrOutOfRange<T>([JetBrainsNotNull] this IGuardClause guardClause, [NotNull, JetBrainsCanBeNull][ValidatedNotNull] T? input, [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, [NotNull, JetBrainsNotNull][ValidatedNotNull] T rangeFrom, [NotNull, JetBrainsNotNull][ValidatedNotNull] T rangeTo, string? message = null) where T : IComparable<T>
         {
             guardClause.Null(input, nameof(input));
             return NullOrOutOfRangeInternal(guardClause, input, parameterName, rangeFrom, rangeTo, message);
