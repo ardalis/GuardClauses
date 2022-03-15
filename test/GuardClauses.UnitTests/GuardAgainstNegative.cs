@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Ardalis.GuardClauses;
 using Xunit;
 
@@ -16,7 +17,7 @@ namespace GuardClauses.UnitTests
             Guard.Against.Negative(0.0, "doubleZero");
             Guard.Against.Negative(TimeSpan.Zero, "timespanZero");
         }
-        
+
         [Fact]
         public void DoesNothingGivenPositiveValue()
         {
@@ -27,7 +28,7 @@ namespace GuardClauses.UnitTests
             Guard.Against.Negative(1.0, "doubleZero");
             Guard.Against.Negative(TimeSpan.FromSeconds(1), "timespanZero");
         }
-        
+
         [Fact]
         public void ThrowsGivenNegativeIntValue()
         {
@@ -107,14 +108,136 @@ namespace GuardClauses.UnitTests
         }
 
         [Theory]
-        [InlineData(null, "Required input parameterName cannot be negative.")]
-        [InlineData("Must be positive", "Must be positive")]
-        public void ErrorMessageMatchesExpected(string customMessage, string expectedMessage)
+        [InlineData(null, "Required input xyz cannot be negative. (Parameter 'xyz')")]
+        [InlineData("Must be positive", "Must be positive (Parameter 'xyz')")]
+        public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvidedGivenIntValue(string customMessage, string expectedMessage)
         {
-            var exception = Assert.Throws<ArgumentException>(() => Guard.Against.Negative(-1, "parameterName", customMessage));
+            var xyz = -1;
+
+            var exception = Assert.Throws<ArgumentException>(() => Guard.Against.Negative(xyz, message: customMessage));
+
             Assert.NotNull(exception);
             Assert.NotNull(exception.Message);
-            Assert.Equal(expectedMessage + " (Parameter 'parameterName')", exception.Message);
+            Assert.Equal(expectedMessage, exception.Message);
+        }
+
+        [Theory]
+        [InlineData(null, "Required input xyz cannot be negative. (Parameter 'xyz')")]
+        [InlineData("Must be positive", "Must be positive (Parameter 'xyz')")]
+        public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvidedGivenLongValue(string customMessage, string expectedMessage)
+        {
+            var xyz = -1L;
+
+            var exception = Assert.Throws<ArgumentException>(() => Guard.Against.Negative(xyz, message: customMessage));
+
+            Assert.NotNull(exception);
+            Assert.NotNull(exception.Message);
+            Assert.Equal(expectedMessage, exception.Message);
+        }
+
+        [Theory]
+        [InlineData(null, "Required input xyz cannot be negative. (Parameter 'xyz')")]
+        [InlineData("Must be positive", "Must be positive (Parameter 'xyz')")]
+        public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvidedGivenDecimalValue(string customMessage, string expectedMessage)
+        {
+            var xyz = -1.0M;
+
+            var exception = Assert.Throws<ArgumentException>(() => Guard.Against.Negative(xyz, message: customMessage));
+
+            Assert.NotNull(exception);
+            Assert.NotNull(exception.Message);
+            Assert.Equal(expectedMessage, exception.Message);
+        }
+
+        [Theory]
+        [InlineData(null, "Required input xyz cannot be negative. (Parameter 'xyz')")]
+        [InlineData("Must be positive", "Must be positive (Parameter 'xyz')")]
+        public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvidedGivenFloatValue(string customMessage, string expectedMessage)
+        {
+            var xyz = -1.0f;
+
+            var exception = Assert.Throws<ArgumentException>(() => Guard.Against.Negative(xyz, message: customMessage));
+
+            Assert.NotNull(exception);
+            Assert.NotNull(exception.Message);
+            Assert.Equal(expectedMessage, exception.Message);
+        }
+
+        [Theory]
+        [InlineData(null, "Required input xyz cannot be negative. (Parameter 'xyz')")]
+        [InlineData("Must be positive", "Must be positive (Parameter 'xyz')")]
+        public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvidedGivenDoubleValue(string customMessage, string expectedMessage)
+        {
+            var xyz = -1.0;
+
+            var exception = Assert.Throws<ArgumentException>(() => Guard.Against.Negative(xyz, message: customMessage));
+
+            Assert.NotNull(exception);
+            Assert.NotNull(exception.Message);
+            Assert.Equal(expectedMessage, exception.Message);
+        }
+
+        [Theory]
+        [InlineData(null, "Required input xyz cannot be negative. (Parameter 'xyz')")]
+        [InlineData("Must be positive", "Must be positive (Parameter 'xyz')")]
+        public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvidedGivenTimeSpanValue(string customMessage, string expectedMessage)
+        {
+            var xyz = TimeSpan.FromSeconds(-1);
+
+            var exception = Assert.Throws<ArgumentException>(() => Guard.Against.Negative(xyz, message: customMessage));
+
+            Assert.NotNull(exception);
+            Assert.NotNull(exception.Message);
+            Assert.Equal(expectedMessage, exception.Message);
+        }
+
+        [Theory]
+        [InlineData(null, "Required input parameterName cannot be negative. (Parameter 'parameterName')")]
+        [InlineData("Must be positive", "Must be positive (Parameter 'parameterName')")]
+        public void ErrorMessageMatchesExpected(string customMessage, string expectedMessage)
+        {
+            var clausesToEvaluate = new List<Action>
+            {
+                () => Guard.Against.Negative(-1, "parameterName", customMessage),
+                () => Guard.Against.Negative(-1L, "parameterName", customMessage),
+                () => Guard.Against.Negative(-1.0M, "parameterName", customMessage),
+                () => Guard.Against.Negative(-1.0f, "parameterName", customMessage),
+                () => Guard.Against.Negative(-1.0, "parameterName", customMessage),
+                () => Guard.Against.Negative(TimeSpan.FromSeconds(-1), "parameterName", customMessage)
+            };
+
+            foreach (var clauseToEvaluate in clausesToEvaluate)
+            {
+                var exception = Assert.Throws<ArgumentException>(clauseToEvaluate);
+                Assert.NotNull(exception);
+                Assert.NotNull(exception.Message);
+                Assert.Equal(expectedMessage, exception.Message);
+            }
+        }
+
+        [Theory]
+        [InlineData(null, null)]
+        [InlineData(null, "Please provide correct value")]
+        [InlineData("SomeParameter", null)]
+        [InlineData("SomeOtherParameter", "Value must be correct")]
+        public void ExceptionParamNameMatchesExpected(string expectedParamName, string customMessage)
+        {
+            var clausesToEvaluate = new List<Action>
+            {
+                () => Guard.Against.Negative(-1, expectedParamName, customMessage),
+                () => Guard.Against.Negative(-1L, expectedParamName, customMessage),
+                () => Guard.Against.Negative(-1.0M, expectedParamName, customMessage),
+                () => Guard.Against.Negative(-1.0f, expectedParamName, customMessage),
+                () => Guard.Against.Negative(-1.0, expectedParamName, customMessage),
+                () => Guard.Against.Negative(TimeSpan.FromSeconds(-1), expectedParamName, customMessage)
+            };
+
+            foreach (var clauseToEvaluate in clausesToEvaluate)
+            {
+                var exception = Assert.Throws<ArgumentException>(clauseToEvaluate);
+                Assert.NotNull(exception);
+                Assert.Equal(expectedParamName, exception.ParamName);
+            }
         }
     }
 }

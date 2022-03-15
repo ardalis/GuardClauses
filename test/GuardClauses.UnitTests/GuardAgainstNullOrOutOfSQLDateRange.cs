@@ -69,7 +69,7 @@ namespace GuardClauses.UnitTests
 
         [Theory]
         [InlineData(null, "Input date was out of range (Parameter 'date')")]
-        [InlineData("SQLDate range", "SQLDate range")]
+        [InlineData("SQLDate range", "SQLDate range (Parameter 'date')")]
         public void ErrorMessageMatchesExpected(string customMessage, string expectedMessage)
         {
             DateTime date = SqlDateTime.MinValue.Value.AddSeconds(-1);

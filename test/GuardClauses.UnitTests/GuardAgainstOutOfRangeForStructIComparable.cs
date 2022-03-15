@@ -52,13 +52,25 @@ namespace GuardClauses.UnitTests
 
         [Theory]
         [InlineData(null, "Input parameterName was out of range (Parameter 'parameterName')")]
-        [InlineData("Tuple range", "Tuple range")]
+        [InlineData("Tuple range", "Tuple range (Parameter 'parameterName')")]
         public void ErrorMessageMatchesExpected(string customMessage, string expectedMessage)
         {
             var exception = Assert.Throws<ArgumentOutOfRangeException>(() => Guard.Against.OutOfRange((1,2), "parameterName", (3,3), (9,9), customMessage));
             Assert.NotNull(exception);
             Assert.NotNull(exception.Message);
             Assert.Equal(expectedMessage, exception.Message);
+        }
+
+        [Theory]
+        [InlineData(null, null)]
+        [InlineData(null, "Please provide correct value")]
+        [InlineData("SomeParameter", null)]
+        [InlineData("SomeOtherParameter", "Value must be correct")]
+        public void ExceptionParamNameMatchesExpected(string expectedParamName, string customMessage)
+        {
+            var exception = Assert.Throws<ArgumentOutOfRangeException>(() => Guard.Against.OutOfRange((1, 2), expectedParamName, (3, 3), (9, 9), customMessage));
+            Assert.NotNull(exception);
+            Assert.Equal(expectedParamName, exception.ParamName);
         }
     }
 }
