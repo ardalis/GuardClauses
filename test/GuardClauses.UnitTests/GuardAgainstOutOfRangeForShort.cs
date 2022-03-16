@@ -56,8 +56,6 @@ namespace GuardClauses.UnitTests
         }
 
         [Theory]
-        [InlineData(null, null)]
-        [InlineData(null, "Please provide correct value")]
         [InlineData("SomeParameter", null)]
         [InlineData("SomeOtherParameter", "Value must be correct")]
         public void ExceptionParamNameMatchesExpected(string expectedParamName, string customMessage)
@@ -65,6 +63,16 @@ namespace GuardClauses.UnitTests
             var exception = Assert.Throws<ArgumentOutOfRangeException>(() => Guard.Against.OutOfRange((short)3, expectedParamName, (short)0, (short)1, customMessage));
             Assert.NotNull(exception);
             Assert.Equal(expectedParamName, exception.ParamName);
+        }
+
+        [Theory]
+        [InlineData(null, null)]
+        [InlineData(null, "Please provide correct value")]
+        public void ExceptionParamNameNull(string? expectedParamName, string? customMessage)
+        {
+            var exception = Assert.Throws<ArgumentNullException>(() => Guard.Against.OutOfRange((short)3, expectedParamName, (short)0, (short)1, customMessage));
+            Assert.NotNull(exception);
+            Assert.Equal("parameterName", exception.ParamName);
         }
     }
 }
