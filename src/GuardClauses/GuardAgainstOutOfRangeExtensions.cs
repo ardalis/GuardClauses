@@ -91,10 +91,17 @@ namespace Ardalis.GuardClauses
         /// <returns><paramref name="input" /> if the value is in the range of valid SqlDateTime values.</returns>
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public static DateTime NullOrOutOfSQLDateRange([JetBrainsNotNull] this IGuardClause guardClause, 
-            DateTime? input, 
+#if NETSTANDARD || NETFRAMEWORK
+        public static DateTime NullOrOutOfSQLDateRange([JetBrainsNotNull] this IGuardClause guardClause,
+            [NotNull][ValidatedNotNull] DateTime? input, 
             [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, 
             string? message = null)
+#else
+       public static DateTime NullOrOutOfSQLDateRange([JetBrainsNotNull] this IGuardClause guardClause, 
+            [NotNull, JetBrainsCanBeNull][ValidatedNotNull] DateTime? input, 
+            [JetBrainsNotNull][JetBrainsInvokerParameterName][CallerArgumentExpression("input")] string parameterName = null, 
+            string? message = null)
+#endif
         {
             guardClause.Null(input, nameof(input));
             return OutOfSQLDateRange(guardClause, input.Value, parameterName, message);
@@ -191,9 +198,9 @@ namespace Ardalis.GuardClauses
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public static T OutOfRange<T>(this IGuardClause guardClause, 
             T input,
-            [JetBrainsInvokerParameterName] string parameterName,
-            T rangeFrom,
-            T rangeTo,
+            [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName,
+            [NotNull, JetBrainsNotNull][ValidatedNotNull] T rangeFrom,
+            [NotNull, JetBrainsNotNull][ValidatedNotNull] T rangeTo,
             string? message = null) where T : IComparable, IComparable<T>
         {
             return NullOrOutOfRangeInternal<T>(guardClause, input, parameterName, rangeFrom, rangeTo, message);
@@ -211,8 +218,9 @@ namespace Ardalis.GuardClauses
         /// <returns><paramref name="input" /> if any item is not out of range.</returns>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
-        public static IEnumerable<T> OutOfRange<T>(this IGuardClause guardClause, IEnumerable<T> input, 
-            string parameterName, 
+        public static IEnumerable<T> OutOfRange<T>(this IGuardClause guardClause,
+            [JetBrainsNotNull] IEnumerable<T> input,
+            [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, 
             T rangeFrom, T rangeTo, 
             string? message = null) where T : IComparable, IComparable<T>
         {
