@@ -13,13 +13,9 @@
     <RepositoryUrl>https://github.com/ardalis/guardclauses</RepositoryUrl>
     <PackageTags>guard clause clauses assert assertion</PackageTags>
     <PackageReleaseNotes>
-    Rename Enum's `OutOfRange` to `EnumOutOfRange`.
-    Add support for CallerArgumentExpression.
-    Reorganize source files.
-    Improve support for custom error messages.
-    Ensure InvalidFormat doesn't succeed given an empty string and a RegEx requiring at least one character. #161
+    Add more support for CallerArgumentExpression.
     </PackageReleaseNotes>
-    <Version>4.0.0</Version>
+    <Version>4.0.1</Version>
     <AssemblyName>Ardalis.GuardClauses</AssemblyName>
     <PackageIcon>icon.png</PackageIcon>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
