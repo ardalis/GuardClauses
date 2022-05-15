@@ -1,5 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
+  <PropertyGroup>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="..\..\LICENSE" Pack="true" PackagePath=""/>
+</ItemGroup>
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net451;net60</TargetFrameworks>
     <PackageId>Ardalis.GuardClauses</PackageId>
