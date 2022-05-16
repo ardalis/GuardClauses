@@ -32,7 +32,7 @@ jobs:
       run: cp coverage/*/coverage.cobertura.xml coverage/coverage.cobertura.xml
       
     - name: Code Coverage Summary Report
-      uses: irongut/CodeCoverageSummary@v1.0.2
+      uses: irongut/CodeCoverageSummary@v1.2.0
       # uses: joshjohanning/CodeCoverageSummary@v1.0.2
       with:
         filename: coverage/coverage.cobertura.xml
