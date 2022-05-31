@@ -1,5 +1,4 @@
-﻿using System;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 
 // By using the same namespace, the required using for Ardalis.GuardClauses will include custom guards regardless of location.
 namespace Ardalis.GuardClauses;

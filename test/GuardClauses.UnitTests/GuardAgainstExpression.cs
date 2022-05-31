@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Ardalis.GuardClauses;
-using Xunit;
-
-namespace GuardClauses.UnitTests
+﻿namespace GuardClauses.UnitTests
 {
     public class GuardAgainstExpression
     {

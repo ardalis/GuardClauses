@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using Ardalis.GuardClauses;
-using Xunit;
-
-namespace GuardClauses.UnitTests
+﻿namespace GuardClauses.UnitTests
 {
     public class GuardAgainstOutOfRangeForEnumerableTimeSpan
     {

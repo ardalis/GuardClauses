@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlTypes;
-using Ardalis.GuardClauses;
-using Xunit;
-
-namespace GuardClauses.UnitTests
+﻿namespace GuardClauses.UnitTests
 {
     public class GuardAgainstOutOfSQLDateRange
     {

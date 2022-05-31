@@ -1,8 +1,4 @@
-﻿using System.ComponentModel;
-using Ardalis.GuardClauses;
-using Xunit;
-
-namespace GuardClauses.UnitTests
+﻿namespace GuardClauses.UnitTests
 {
     public class GuardAgainstOutOfRangeForEnum
     {

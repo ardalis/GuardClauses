@@ -1,8 +1,4 @@
-﻿using System;
-using Ardalis.GuardClauses;
-using Xunit;
-
-namespace GuardClauses.UnitTests
+﻿namespace GuardClauses.UnitTests
 {
     /// <summary>
     /// Every type that implements IComparable and IComparable<T> can use OutOfRange.
