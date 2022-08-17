@@ -59,6 +59,7 @@ public class Order
 - **Guard.Against.NullOrWhiteSpace** (throws if string input is null, empty or whitespace)
 - **Guard.Against.OutOfRange** (throws if integer/DateTime/enum input is outside a provided range)
 - **Guard.Against.EnumOutOfRange** (throws if a enum value is outside a provided Enum range)
+- **Guard.Against.NonUtcDateTime** (throws if DateTime kind is not Utc)
 - **Guard.Against.OutOfSQLDateRange** (throws if DateTime input is outside the valid range of SQL Server DateTime values)
 - **Guard.Against.Zero** (throws if number input is zero)
 
