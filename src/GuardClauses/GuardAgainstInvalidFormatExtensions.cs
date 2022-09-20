@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using JetBrainsInvokerParameterNameAttribute = JetBrains.Annotations.InvokerParameterNameAttribute;
 using JetBrainsNotNullAttribute = JetBrains.Annotations.NotNullAttribute;
 using JetBrainsRegexPattern = JetBrains.Annotations.RegexPatternAttribute;
@@ -47,6 +48,27 @@ namespace Ardalis.GuardClauses
         public static T InvalidInput<T>([JetBrainsNotNull] this IGuardClause guardClause, [JetBrainsNotNull] T input, [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, Func<T, bool> predicate, string? message = null)
         {
             if (!predicate(input))
+            {
+                throw new ArgumentException(message ?? $"Input {parameterName} did not satisfy the options", parameterName);
+            }
+
+            return input;
+        }
+
+        /// <summary>
+        /// Throws an <see cref="ArgumentException" /> if  <paramref name="input"/> doesn't satisfy the <paramref name="predicate"/> function.
+        /// </summary>
+        /// <param name="guardClause"></param>
+        /// <param name="input"></param>
+        /// <param name="parameterName"></param>
+        /// <param name="predicate"></param>
+        /// <param name="message">Optional. Custom error message</param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
+        public static async Task<T> InvalidInputAsync<T>([JetBrainsNotNull] this IGuardClause guardClause, [JetBrainsNotNull] T input, [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, Func<T, Task<bool>> predicate, string? message = null)
+        {
+            if (!await predicate(input))
             {
                 throw new ArgumentException(message ?? $"Input {parameterName} did not satisfy the options", parameterName);
             }
