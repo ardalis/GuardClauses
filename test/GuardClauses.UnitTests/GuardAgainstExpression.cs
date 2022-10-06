@@ -12,7 +12,7 @@ namespace GuardClauses.UnitTests
             public string FieldName { get; set; }
         }
 
-        private static IEnumerable<object[]> GetCustomStruct()
+        public static IEnumerable<object[]> GetCustomStruct()
         {
             yield return new object[] {
                 new CustomStruct
