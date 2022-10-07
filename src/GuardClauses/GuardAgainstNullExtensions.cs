@@ -25,7 +25,7 @@ namespace Ardalis.GuardClauses
         /// <returns><paramref name="input" /> if the value is not null.</returns>
 #if NETSTANDARD || NETFRAMEWORK
         public static T Null<T>(this IGuardClause guardClause,
-            [NotNull][ValidatedNotNull]T input,
+            [NotNull][ValidatedNotNull] T input,
             string parameterName,
             string? message = null)
 #else
@@ -185,9 +185,9 @@ namespace Ardalis.GuardClauses
         /// <returns><paramref name="input" /> if the value is not default for that type.</returns>
         /// <exception cref="ArgumentException"></exception>
 #if NETSTANDARD || NETFRAMEWORK
-        public static T Default<T>(this IGuardClause guardClause, 
-            [AllowNull, NotNull]T input, 
-            string parameterName, 
+        public static T Default<T>(this IGuardClause guardClause,
+            [AllowNull, NotNull] T input,
+            string parameterName,
             string? message = null)
 #else
         public static T Default<T>(this IGuardClause guardClause,
@@ -220,7 +220,7 @@ namespace Ardalis.GuardClauses
         /// <exception cref="ArgumentNullException"></exception>
 #if NETSTANDARD || NETFRAMEWORK
         public static T NullOrInvalidInput<T>(this IGuardClause guardClause,
-            T input, 
+            T input,
             string parameterName,
             Func<T, bool> predicate,
             string? message = null)

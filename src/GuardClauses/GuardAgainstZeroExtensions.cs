@@ -16,9 +16,9 @@ namespace Ardalis.GuardClauses
         /// <returns><paramref name="input" /> if the value is not zero.</returns>
         /// <exception cref="ArgumentException"></exception>
 #if NETSTANDARD || NETFRAMEWORK
-        public static int Zero(this IGuardClause guardClause, 
-            int input, 
-            string parameterName, 
+        public static int Zero(this IGuardClause guardClause,
+            int input,
+            string parameterName,
             string? message = null)
 #else
         public static int Zero(this IGuardClause guardClause,
@@ -40,9 +40,9 @@ namespace Ardalis.GuardClauses
         /// <returns><paramref name="input" /> if the value is not zero.</returns>
         /// <exception cref="ArgumentException"></exception>
 #if NETSTANDARD || NETFRAMEWORK
-        public static long Zero(this IGuardClause guardClause, 
-            long input, 
-            string parameterName, 
+        public static long Zero(this IGuardClause guardClause,
+            long input,
+            string parameterName,
             string? message = null)
 #else
         public static long Zero(this IGuardClause guardClause,
@@ -88,9 +88,9 @@ namespace Ardalis.GuardClauses
         /// <returns><paramref name="input" /> if the value is not zero.</returns>
         /// <exception cref="ArgumentException"></exception>
 #if NETSTANDARD || NETFRAMEWORK
-        public static float Zero(this IGuardClause guardClause, 
-            float input, 
-            string parameterName, 
+        public static float Zero(this IGuardClause guardClause,
+            float input,
+            string parameterName,
             string? message = null)
 #else
         public static float Zero(this IGuardClause guardClause,
@@ -135,8 +135,8 @@ namespace Ardalis.GuardClauses
         /// <returns><paramref name="input" /> if the value is not zero.</returns>
         /// <exception cref="ArgumentException"></exception>
 #if NETSTANDARD || NETFRAMEWORK
-        public static TimeSpan Zero(this IGuardClause guardClause, 
-            TimeSpan input, 
+        public static TimeSpan Zero(this IGuardClause guardClause,
+            TimeSpan input,
             string parameterName)
 #else
         public static TimeSpan Zero(this IGuardClause guardClause,

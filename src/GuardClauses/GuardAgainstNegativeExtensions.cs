@@ -15,9 +15,9 @@ namespace Ardalis.GuardClauses
         /// <returns><paramref name="input" /> if the value is not negative.</returns>
         /// <exception cref="ArgumentException"></exception>
 #if NETSTANDARD || NETFRAMEWORK
-        public static int Negative(this IGuardClause guardClause, 
-            int input, 
-            string parameterName, 
+        public static int Negative(this IGuardClause guardClause,
+            int input,
+            string parameterName,
             string? message = null)
 #else
         public static int Negative(this IGuardClause guardClause,
@@ -63,9 +63,9 @@ namespace Ardalis.GuardClauses
         /// <returns><paramref name="input" /> if the value is not negative.</returns>
         /// <exception cref="ArgumentException"></exception>
 #if NETSTANDARD || NETFRAMEWORK
-        public static decimal Negative(this IGuardClause guardClause, 
-            decimal input, 
-            string parameterName, 
+        public static decimal Negative(this IGuardClause guardClause,
+            decimal input,
+            string parameterName,
             string? message = null)
 #else
         public static decimal Negative(this IGuardClause guardClause,
@@ -87,9 +87,9 @@ namespace Ardalis.GuardClauses
         /// <returns><paramref name="input" /> if the value is not negative.</returns>
         /// <exception cref="ArgumentException"></exception>
 #if NETSTANDARD || NETFRAMEWORK
-        public static float Negative(IGuardClause guardClause, 
-            float input, 
-            string parameterName, 
+        public static float Negative(IGuardClause guardClause,
+            float input,
+            string parameterName,
             string? message = null)
 #else
         public static float Negative(this IGuardClause guardClause,
@@ -111,9 +111,9 @@ namespace Ardalis.GuardClauses
         /// <returns><paramref name="input" /> if the value is not negative.</returns>
         /// <exception cref="ArgumentException"></exception>
 #if NETSTANDARD || NETFRAMEWORK
-        public static double Negative(this IGuardClause guardClause, 
-            double input, 
-            string parameterName, 
+        public static double Negative(this IGuardClause guardClause,
+            double input,
+            string parameterName,
             string? message = null)
 #else
         public static double Negative(this IGuardClause guardClause,
@@ -135,9 +135,9 @@ namespace Ardalis.GuardClauses
         /// <returns><paramref name="input" /> if the value is not negative.</returns>
         /// <exception cref="ArgumentException"></exception>
 #if NETSTANDARD || NETFRAMEWORK
-        public static TimeSpan Negative(this IGuardClause guardClause, 
-            TimeSpan input, 
-            string parameterName, 
+        public static TimeSpan Negative(this IGuardClause guardClause,
+            TimeSpan input,
+            string parameterName,
             string? message = null)
 #else
         public static TimeSpan Negative(this IGuardClause guardClause,
@@ -159,9 +159,9 @@ namespace Ardalis.GuardClauses
         /// <returns><paramref name="input" /> if the value is not negative.</returns>
         /// <exception cref="ArgumentException"></exception>
 #if NETSTANDARD || NETFRAMEWORK
-        private static T Negative<T>(this IGuardClause guardClause, 
-            T input, 
-            string parameterName, 
+        private static T Negative<T>(this IGuardClause guardClause,
+            T input,
+            string parameterName,
             string? message = null) where T : struct, IComparable
 #else
         private static T Negative<T>(this IGuardClause guardClause,
@@ -187,9 +187,9 @@ namespace Ardalis.GuardClauses
         /// <param name="message">Optional. Custom error message</param>
         /// <returns><paramref name="input" /> if the value is not negative or zero.</returns>
 #if NETSTANDARD || NETFRAMEWORK
-        public static int NegativeOrZero(this IGuardClause guardClause, 
-            int input, 
-            string parameterName, 
+        public static int NegativeOrZero(this IGuardClause guardClause,
+            int input,
+            string parameterName,
             string? message = null)
 #else
         public static int NegativeOrZero(this IGuardClause guardClause,
@@ -210,9 +210,9 @@ namespace Ardalis.GuardClauses
         /// <param name="message">Optional. Custom error message</param>
         /// <returns><paramref name="input" /> if the value is not negative or zero.</returns>
 #if NETSTANDARD || NETFRAMEWORK
-        public static long NegativeOrZero(this IGuardClause guardClause, 
-            long input, 
-            string parameterName, 
+        public static long NegativeOrZero(this IGuardClause guardClause,
+            long input,
+            string parameterName,
             string? message = null)
 #else
         public static long NegativeOrZero(this IGuardClause guardClause,
@@ -233,9 +233,9 @@ namespace Ardalis.GuardClauses
         /// <param name="message">Optional. Custom error message</param>
         /// <returns><paramref name="input" /> if the value is not negative or zero.</returns>
 #if NETSTANDARD || NETFRAMEWORK
-        public static decimal NegativeOrZero(this IGuardClause guardClause, 
-            decimal input, 
-            string parameterName, 
+        public static decimal NegativeOrZero(this IGuardClause guardClause,
+            decimal input,
+            string parameterName,
             string? message = null)
 #else
         public static decimal NegativeOrZero(this IGuardClause guardClause,
@@ -256,9 +256,9 @@ namespace Ardalis.GuardClauses
         /// <param name="message">Optional. Custom error message</param>
         /// <returns><paramref name="input" /> if the value is not negative or zero.</returns>
 #if NETSTANDARD || NETFRAMEWORK
-        public static float NegativeOrZero(this IGuardClause guardClause, 
-            float input, 
-            string parameterName, 
+        public static float NegativeOrZero(this IGuardClause guardClause,
+            float input,
+            string parameterName,
             string? message = null)
 #else
         public static float NegativeOrZero(this IGuardClause guardClause,
@@ -280,8 +280,8 @@ namespace Ardalis.GuardClauses
         /// <returns><paramref name="input" /> if the value is not negative or zero.</returns>
 #if NETSTANDARD || NETFRAMEWORK
         public static double NegativeOrZero(this IGuardClause guardClause,
-            double input, 
-            string parameterName, 
+            double input,
+            string parameterName,
             string? message = null)
 #else
         public static double NegativeOrZero(this IGuardClause guardClause,
@@ -302,9 +302,9 @@ namespace Ardalis.GuardClauses
         /// <param name="message">Optional. Custom error message</param>
         /// <returns><paramref name="input" /> if the value is not negative or zero.</returns>
 #if NETSTANDARD || NETFRAMEWORK
-        public static TimeSpan NegativeOrZero(this IGuardClause guardClause, 
-            TimeSpan input, 
-            string parameterName, 
+        public static TimeSpan NegativeOrZero(this IGuardClause guardClause,
+            TimeSpan input,
+            string parameterName,
             string? message = null)
 #else
         public static TimeSpan NegativeOrZero(this IGuardClause guardClause,
@@ -326,9 +326,9 @@ namespace Ardalis.GuardClauses
         /// <param name="message">Optional. Custom error message</param>
         /// <returns><paramref name="input" /> if the value is not negative or zero.</returns>
 #if NETSTANDARD || NETFRAMEWORK
-        private static T NegativeOrZero<T>(this IGuardClause guardClause, 
-            T input, 
-            string parameterName, 
+        private static T NegativeOrZero<T>(this IGuardClause guardClause,
+            T input,
+            string parameterName,
             string? message = null) where T : struct, IComparable
 #else
         private static T NegativeOrZero<T>(this IGuardClause guardClause,

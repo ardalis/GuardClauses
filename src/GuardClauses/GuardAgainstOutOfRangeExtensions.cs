@@ -19,7 +19,7 @@ namespace Ardalis.GuardClauses
         /// <returns><paramref name="input" /> if the value is not out of range.</returns>
         /// <exception cref="InvalidEnumArgumentException"></exception>
 #if NETSTANDARD || NETFRAMEWORK
-        public static int EnumOutOfRange<T>(this IGuardClause guardClause, 
+        public static int EnumOutOfRange<T>(this IGuardClause guardClause,
             int input,
             string parameterName,
             string? message = null) where T : struct, Enum
@@ -53,9 +53,9 @@ namespace Ardalis.GuardClauses
         /// <returns><paramref name="input" /> if the value is not out of range.</returns>
         /// <exception cref="InvalidEnumArgumentException"></exception>
 #if NETSTANDARD || NETFRAMEWORK
-        public static T EnumOutOfRange<T>(this IGuardClause guardClause, 
+        public static T EnumOutOfRange<T>(this IGuardClause guardClause,
             T input,
-            string parameterName, 
+            string parameterName,
             string? message = null) where T : struct, Enum
 #else
         public static T EnumOutOfRange<T>(this IGuardClause guardClause,
