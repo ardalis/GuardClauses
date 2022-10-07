@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using JetBrainsInvokerParameterNameAttribute = JetBrains.Annotations.InvokerParameterNameAttribute;
-using JetBrainsNoEnumerationAttribute = JetBrains.Annotations.NoEnumerationAttribute;
-using JetBrainsNotNullAttribute = JetBrains.Annotations.NotNullAttribute;
 
 namespace Ardalis.GuardClauses
 {
@@ -27,14 +24,14 @@ namespace Ardalis.GuardClauses
         /// <param name="message">Optional. Custom error message</param>
         /// <returns><paramref name="input" /> if the value is not null.</returns>
 #if NETSTANDARD || NETFRAMEWORK
-        public static T Null<T>([JetBrainsNotNull] this IGuardClause guardClause,
-            [NotNull, JetBrainsNotNull][ValidatedNotNull][JetBrainsNoEnumeration] T input,
-            [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName,
+        public static T Null<T>(this IGuardClause guardClause,
+            [NotNull][ValidatedNotNull]T input,
+            string parameterName,
             string? message = null)
 #else
-        public static T Null<T>([JetBrainsNotNull] this IGuardClause guardClause,
-            [NotNull, JetBrainsNotNull][ValidatedNotNull][JetBrainsNoEnumeration] T input,
-            [JetBrainsNotNull][JetBrainsInvokerParameterName][CallerArgumentExpression("input")] string? parameterName = null,
+        public static T Null<T>(this IGuardClause guardClause,
+            [NotNull][ValidatedNotNull]T input,
+            [CallerArgumentExpression("input")] string? parameterName = null,
             string? message = null)
 #endif
         {
@@ -62,14 +59,14 @@ namespace Ardalis.GuardClauses
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentException"></exception>
 #if NETSTANDARD || NETFRAMEWORK
-        public static string NullOrEmpty([JetBrainsNotNull] this IGuardClause guardClause,
-            [NotNull, JetBrainsNotNull][ValidatedNotNull] string? input,
-            [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName,
+        public static string NullOrEmpty(this IGuardClause guardClause,
+            [NotNull][ValidatedNotNull] string? input,
+            string parameterName,
             string? message = null)
 #else
-        public static string NullOrEmpty([JetBrainsNotNull] this IGuardClause guardClause,
-            [NotNull, JetBrainsNotNull][ValidatedNotNull] string? input,
-            [JetBrainsNotNull][JetBrainsInvokerParameterName][CallerArgumentExpression("input")] string? parameterName = null,
+        public static string NullOrEmpty(this IGuardClause guardClause,
+            [NotNull][ValidatedNotNull] string? input,
+            [CallerArgumentExpression("input")] string? parameterName = null,
             string? message = null)
 #endif
         {
@@ -94,14 +91,14 @@ namespace Ardalis.GuardClauses
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentException"></exception>
 #if NETSTANDARD || NETFRAMEWORK
-        public static Guid NullOrEmpty([JetBrainsNotNull] this IGuardClause guardClause,
-            [NotNull, JetBrainsNotNull][ValidatedNotNull] Guid? input,
-            [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName,
+        public static Guid NullOrEmpty(this IGuardClause guardClause,
+            [NotNull][ValidatedNotNull] Guid? input,
+            string parameterName,
             string? message = null)
 #else
-        public static Guid NullOrEmpty([JetBrainsNotNull] this IGuardClause guardClause,
-            [NotNull, JetBrainsNotNull][ValidatedNotNull] Guid? input,
-            [JetBrainsNotNull][JetBrainsInvokerParameterName][CallerArgumentExpression("input")] string? parameterName = null,
+        public static Guid NullOrEmpty(this IGuardClause guardClause,
+            [NotNull][ValidatedNotNull] Guid? input,
+            [CallerArgumentExpression("input")] string? parameterName = null,
             string? message = null)
 #endif
         {
@@ -126,14 +123,14 @@ namespace Ardalis.GuardClauses
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentException"></exception>
 #if NETSTANDARD || NETFRAMEWORK
-        public static IEnumerable<T> NullOrEmpty<T>([JetBrainsNotNull] this IGuardClause guardClause,
-            [NotNull, JetBrainsNotNull][ValidatedNotNull] IEnumerable<T>? input,
-            [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName,
+        public static IEnumerable<T> NullOrEmpty<T>(this IGuardClause guardClause,
+            [NotNull][ValidatedNotNull] IEnumerable<T>? input,
+            string parameterName,
             string? message = null)
 #else
-        public static IEnumerable<T> NullOrEmpty<T>([JetBrainsNotNull] this IGuardClause guardClause,
-            [NotNull, JetBrainsNotNull][ValidatedNotNull] IEnumerable<T>? input,
-            [JetBrainsNotNull][JetBrainsInvokerParameterName][CallerArgumentExpression("input")] string? parameterName = null,
+        public static IEnumerable<T> NullOrEmpty<T>(this IGuardClause guardClause,
+            [NotNull][ValidatedNotNull] IEnumerable<T>? input,
+            [CallerArgumentExpression("input")] string? parameterName = null,
             string? message = null)
 #endif
         {
@@ -158,14 +155,14 @@ namespace Ardalis.GuardClauses
         /// <exception cref="ArgumentNullException"></exception>
         /// <exception cref="ArgumentException"></exception>
 #if NETSTANDARD || NETFRAMEWORK
-        public static string NullOrWhiteSpace([JetBrainsNotNull] this IGuardClause guardClause,
-            [NotNull, JetBrainsNotNull][ValidatedNotNull] string? input,
-            [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName,
+        public static string NullOrWhiteSpace(this IGuardClause guardClause,
+            [NotNull][ValidatedNotNull] string? input,
+            string parameterName,
             string? message = null)
 #else
-        public static string NullOrWhiteSpace([JetBrainsNotNull] this IGuardClause guardClause,
-            [NotNull, JetBrainsNotNull][ValidatedNotNull] string? input,
-            [JetBrainsNotNull][JetBrainsInvokerParameterName][CallerArgumentExpression("input")] string? parameterName = null,
+        public static string NullOrWhiteSpace(this IGuardClause guardClause,
+            [NotNull][ValidatedNotNull] string? input,
+            [CallerArgumentExpression("input")] string? parameterName = null,
             string? message = null)
 #endif
         {
@@ -188,14 +185,14 @@ namespace Ardalis.GuardClauses
         /// <returns><paramref name="input" /> if the value is not default for that type.</returns>
         /// <exception cref="ArgumentException"></exception>
 #if NETSTANDARD || NETFRAMEWORK
-        public static T Default<T>([JetBrainsNotNull] this IGuardClause guardClause, 
-            [AllowNull, NotNull, JetBrainsNotNull][JetBrainsNoEnumeration] T input, 
-            [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, 
+        public static T Default<T>(this IGuardClause guardClause, 
+            [AllowNull, NotNull]T input, 
+            string parameterName, 
             string? message = null)
 #else
-        public static T Default<T>([JetBrainsNotNull] this IGuardClause guardClause,
-            [AllowNull, NotNull, JetBrainsNotNull][JetBrainsNoEnumeration] T input,
-            [JetBrainsNotNull][JetBrainsInvokerParameterName][CallerArgumentExpression("input")] string? parameterName = null,
+        public static T Default<T>(this IGuardClause guardClause,
+            [AllowNull, NotNull]T input,
+            [CallerArgumentExpression("input")] string? parameterName = null,
             string? message = null)
 #endif
         {
@@ -222,16 +219,16 @@ namespace Ardalis.GuardClauses
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ArgumentNullException"></exception>
 #if NETSTANDARD || NETFRAMEWORK
-        public static T NullOrInvalidInput<T>([JetBrainsNotNull] this IGuardClause guardClause, 
-            [JetBrainsNotNull] T input, 
-            [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, 
-            Func<T, bool> predicate, 
+        public static T NullOrInvalidInput<T>(this IGuardClause guardClause,
+            T input, 
+            string parameterName,
+            Func<T, bool> predicate,
             string? message = null)
 #else
-        public static T NullOrInvalidInput<T>([JetBrainsNotNull] this IGuardClause guardClause, 
-            [JetBrainsNotNull] T input, 
-            [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, 
-            Func<T, bool> predicate, 
+        public static T NullOrInvalidInput<T>(this IGuardClause guardClause,
+            T input,
+            string parameterName,
+            Func<T, bool> predicate,
             string? message = null)
 #endif
         {
