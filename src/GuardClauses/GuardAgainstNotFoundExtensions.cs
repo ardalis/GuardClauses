@@ -1,8 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
-using JetBrainsInvokerParameterNameAttribute = JetBrains.Annotations.InvokerParameterNameAttribute;
-using JetBrainsNoEnumerationAttribute = JetBrains.Annotations.NoEnumerationAttribute;
-using JetBrainsNotNullAttribute = JetBrains.Annotations.NotNullAttribute;
 
 namespace Ardalis.GuardClauses
 {
@@ -19,15 +16,15 @@ namespace Ardalis.GuardClauses
         /// <returns><paramref name="input" /> if the value is not null.</returns>
         /// <exception cref="NotFoundException"></exception>
 #if NETSTANDARD || NETFRAMEWORK
-        public static T NotFound<T>([JetBrainsNotNull] this IGuardClause guardClause, 
-            [NotNull, JetBrainsNotNull][ValidatedNotNull] string key, 
-            [NotNull, JetBrainsNotNull][ValidatedNotNull][JetBrainsNoEnumeration] T input, 
-            [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName)
+        public static T NotFound<T>(this IGuardClause guardClause,
+            [NotNull][ValidatedNotNull] string key,
+            [NotNull][ValidatedNotNull] T input,
+            string parameterName)
 #else
-        public static T NotFound<T>([JetBrainsNotNull] this IGuardClause guardClause,
-            [NotNull, JetBrainsNotNull][ValidatedNotNull] string key,
-            [NotNull, JetBrainsNotNull][ValidatedNotNull][JetBrainsNoEnumeration] T input,
-            [JetBrainsNotNull][CallerArgumentExpression("input")] string? parameterName = null)
+        public static T NotFound<T>(this IGuardClause guardClause,
+            [NotNull][ValidatedNotNull] string key,
+            [NotNull][ValidatedNotNull] T input,
+            [CallerArgumentExpression("input")] string? parameterName = null)
 #endif
         {
             guardClause.NullOrEmpty(key, nameof(key));
@@ -52,15 +49,15 @@ namespace Ardalis.GuardClauses
         /// <returns><paramref name="input" /> if the value is not null.</returns>
         /// <exception cref="NotFoundException"></exception>
 #if NETSTANDARD || NETFRAMEWORK
-        public static T NotFound<TKey, T>([JetBrainsNotNull] this IGuardClause guardClause, 
-            [NotNull, JetBrainsNotNull][ValidatedNotNull] TKey key, 
-            [NotNull, JetBrainsNotNull][ValidatedNotNull][JetBrainsNoEnumeration] T input, 
-            [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName) where TKey : struct
+        public static T NotFound<TKey, T>(this IGuardClause guardClause,
+            [NotNull][ValidatedNotNull] TKey key,
+            [NotNull][ValidatedNotNull] T input,
+            string parameterName) where TKey : struct
 #else
-        public static T NotFound<TKey, T>([JetBrainsNotNull] this IGuardClause guardClause,
-            [NotNull, JetBrainsNotNull][ValidatedNotNull] TKey key,
-            [NotNull, JetBrainsNotNull][ValidatedNotNull][JetBrainsNoEnumeration] T input,
-            [JetBrainsNotNull][JetBrainsInvokerParameterName][CallerArgumentExpression("input")] string? parameterName = null) where TKey : struct
+        public static T NotFound<TKey, T>(this IGuardClause guardClause,
+            [NotNull][ValidatedNotNull] TKey key,
+            [NotNull][ValidatedNotNull]T input,
+            [CallerArgumentExpression("input")] string? parameterName = null) where TKey : struct
 #endif
         {
             guardClause.Null(key, nameof(key));
