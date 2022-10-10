@@ -12,7 +12,7 @@ public class GuardAgainstNullOrEmpty
     public void DoesNothingGivenNonEmptyStringValue()
     {
         Guard.Against.NullOrEmpty("a", "string");
-        Guard.Against.NullOrEmpty("a".AsSpan(), "stringSpan");
+        Guard.Against.Empty("a".AsSpan(), "stringSpan");
         Guard.Against.NullOrEmpty("1", "aNumericString");
     }
 
@@ -45,7 +45,7 @@ public class GuardAgainstNullOrEmpty
     [Fact]
     public void ThrowsGivenEmptyStringSpan()
     {
-        Assert.Throws<ArgumentException>(() => Guard.Against.NullOrEmpty("".AsSpan(), "emptyStringSpan"));
+        Assert.Throws<ArgumentException>(() => Guard.Against.Empty("".AsSpan(), "emptyStringSpan"));
     }
 
     [Fact]

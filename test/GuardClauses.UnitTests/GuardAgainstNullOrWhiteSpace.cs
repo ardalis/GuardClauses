@@ -15,7 +15,7 @@ public class GuardAgainstNullOrWhiteSpace
     public void DoesNothingGivenNonEmptyStringValue(string nonEmptyString)
     {
         Guard.Against.NullOrWhiteSpace(nonEmptyString, "string");
-        Guard.Against.NullOrWhiteSpace(nonEmptyString.AsSpan(), "stringSpan");
+        Guard.Against.WhiteSpace(nonEmptyString.AsSpan(), "stringSpan");
         Guard.Against.NullOrWhiteSpace(nonEmptyString, "aNumericString");
     }
 
@@ -34,7 +34,7 @@ public class GuardAgainstNullOrWhiteSpace
     [Fact]
     public void ThrowsGivenEmptyStringSpan()
     {
-        Assert.Throws<ArgumentException>(() => Guard.Against.NullOrWhiteSpace("".AsSpan(), "emptyStringSpan"));
+        Assert.Throws<ArgumentException>(() => Guard.Against.WhiteSpace("".AsSpan(), "emptyStringSpan"));
     }
 
     [Theory]
@@ -43,7 +43,7 @@ public class GuardAgainstNullOrWhiteSpace
     public void ThrowsGivenWhiteSpaceString(string whiteSpaceString)
     {
         Assert.Throws<ArgumentException>(() => Guard.Against.NullOrWhiteSpace(whiteSpaceString, "whitespacestring"));
-        Assert.Throws<ArgumentException>(() => Guard.Against.NullOrWhiteSpace(whiteSpaceString.AsSpan(), "whiteSpaceStringSpan"));
+        Assert.Throws<ArgumentException>(() => Guard.Against.WhiteSpace(whiteSpaceString.AsSpan(), "whiteSpaceStringSpan"));
     }
 
     [Theory]
@@ -55,7 +55,7 @@ public class GuardAgainstNullOrWhiteSpace
     public void ReturnsExpectedValueGivenNonEmptyStringValue(string nonEmptyString, string expected)
     {
         Assert.Equal(expected, Guard.Against.NullOrWhiteSpace(nonEmptyString, "string"));
-        Assert.Equal(expected, Guard.Against.NullOrWhiteSpace(nonEmptyString.AsSpan(), "stringSpan").ToString());
+        Assert.Equal(expected, Guard.Against.WhiteSpace(nonEmptyString.AsSpan(), "stringSpan").ToString());
         Assert.Equal(expected, Guard.Against.NullOrWhiteSpace(nonEmptyString, "aNumericString"));
     }
 

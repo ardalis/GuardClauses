@@ -89,7 +89,7 @@ namespace Ardalis.GuardClauses
         /// <param name="message">Optional. Custom error message</param>
         /// <returns><paramref name="input" /> if the value is not an empty string.</returns>
         /// <exception cref="ArgumentException"></exception>
-        public static ReadOnlySpan<char> NullOrEmpty(this IGuardClause guardClause,
+        public static ReadOnlySpan<char> Empty(this IGuardClause guardClause,
             ReadOnlySpan<char> input,
             string parameterName,
             string? message = null)
@@ -208,7 +208,7 @@ namespace Ardalis.GuardClauses
         /// <param name="message">Optional. Custom error message</param>
         /// <returns><paramref name="input" /> if the value is not an empty or whitespace string.</returns>
         /// <exception cref="ArgumentException"></exception>
-        public static ReadOnlySpan<char> NullOrWhiteSpace(this IGuardClause guardClause,
+        public static ReadOnlySpan<char> WhiteSpace(this IGuardClause guardClause,
             ReadOnlySpan<char> input,
             string parameterName,
             string? message = null)
