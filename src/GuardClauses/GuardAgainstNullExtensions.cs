@@ -213,7 +213,7 @@ namespace Ardalis.GuardClauses
             string parameterName,
             string? message = null)
         {
-            if (input.IsWhiteSpace())
+            if (MemoryExtensions.IsWhiteSpace(input))
             {
                 throw new ArgumentException(message ?? $"Required input {parameterName} was empty.", parameterName);
             }
