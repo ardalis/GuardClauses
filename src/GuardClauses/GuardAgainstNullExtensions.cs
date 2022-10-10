@@ -94,7 +94,7 @@ namespace Ardalis.GuardClauses
             string parameterName,
             string? message = null)
         {
-            if (input == string.Empty)
+            if (input.Length == 0 || input == string.Empty)
             {
                 throw new ArgumentException(message ?? $"Required input {parameterName} was empty.", parameterName);
             }
