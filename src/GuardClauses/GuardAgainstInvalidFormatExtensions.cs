@@ -63,7 +63,11 @@ namespace Ardalis.GuardClauses
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
-        public static async Task<T> InvalidInputAsync<T>([JetBrainsNotNull] this IGuardClause guardClause, [JetBrainsNotNull] T input, [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, Func<T, Task<bool>> predicate, string? message = null)
+        public static async Task<T> InvalidInputAsync<T>(this IGuardClause guardClause,
+            T input,
+            string parameterName,
+            Func<T, Task<bool>> predicate,
+            string? message = null)
         {
             if (!await predicate(input))
             {

@@ -15,7 +15,10 @@ namespace Ardalis.GuardClauses
         /// <param name="message"></param>
         /// <returns><paramref name="input"/> if the <paramref name="func"/> evaluates to true </returns>
         /// <exception cref="ArgumentException"></exception>
-        public static T AgainstExpression<T>(this IGuardClause guardClause, Func<T, bool> func, T input, string message) where T : struct
+        public static T AgainstExpression<T>(this IGuardClause guardClause,
+            Func<T, bool> func,
+            T input,
+            string message) where T : struct
         {
             if (!func(input))
             {
@@ -35,7 +38,10 @@ namespace Ardalis.GuardClauses
         /// <param name="message"></param>
         /// <returns><paramref name="input"/> if the <paramref name="func"/> evaluates to true </returns>
         /// <exception cref="ArgumentException"></exception>
-        public static async Task<T> AgainstExpressionAsync<T>([JetBrainsNotNull] this IGuardClause guardClause, [JetBrainsNotNull] Func<T, Task<bool>> func, T input, string message) where T : struct
+        public static async Task<T> AgainstExpressionAsync<T>(this IGuardClause guardClause,
+            Func<T, Task<bool>> func,
+            T input,
+            string message) where T : struct
         {
             if (!await func(input))
             {
