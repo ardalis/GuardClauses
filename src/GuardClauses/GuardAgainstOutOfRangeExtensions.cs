@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using JetBrainsInvokerParameterNameAttribute = JetBrains.Annotations.InvokerParameterNameAttribute;
-using JetBrainsNotNullAttribute = JetBrains.Annotations.NotNullAttribute;
 
 namespace Ardalis.GuardClauses
 {
@@ -21,14 +19,14 @@ namespace Ardalis.GuardClauses
         /// <returns><paramref name="input" /> if the value is not out of range.</returns>
         /// <exception cref="InvalidEnumArgumentException"></exception>
 #if NETSTANDARD || NETFRAMEWORK
-        public static int EnumOutOfRange<T>([JetBrainsNotNull] this IGuardClause guardClause, 
-            int input, 
-            [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, 
+        public static int EnumOutOfRange<T>(this IGuardClause guardClause,
+            int input,
+            string parameterName,
             string? message = null) where T : struct, Enum
 #else
-        public static int EnumOutOfRange<T>([JetBrainsNotNull] this IGuardClause guardClause,
+        public static int EnumOutOfRange<T>(this IGuardClause guardClause,
             int input,
-            [JetBrainsNotNull][JetBrainsInvokerParameterName][CallerArgumentExpression("input")] string? parameterName = null,
+            [CallerArgumentExpression("input")] string? parameterName = null,
             string? message = null) where T : struct, Enum
 #endif
         {
@@ -55,14 +53,14 @@ namespace Ardalis.GuardClauses
         /// <returns><paramref name="input" /> if the value is not out of range.</returns>
         /// <exception cref="InvalidEnumArgumentException"></exception>
 #if NETSTANDARD || NETFRAMEWORK
-        public static T EnumOutOfRange<T>([JetBrainsNotNull] this IGuardClause guardClause, 
-            T input, 
-            [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, 
+        public static T EnumOutOfRange<T>(this IGuardClause guardClause,
+            T input,
+            string parameterName,
             string? message = null) where T : struct, Enum
 #else
-        public static T EnumOutOfRange<T>([JetBrainsNotNull] this IGuardClause guardClause,
+        public static T EnumOutOfRange<T>(this IGuardClause guardClause,
             T input,
-            [JetBrainsNotNull][JetBrainsInvokerParameterName][CallerArgumentExpression("input")] string? parameterName = null,
+            [CallerArgumentExpression("input")] string? parameterName = null,
             string? message = null) where T : struct, Enum
 #endif
         {
@@ -118,14 +116,14 @@ namespace Ardalis.GuardClauses
         /// <returns><paramref name="input" /> if the value is in the range of valid SqlDateTime values.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
 #if NETSTANDARD || NETFRAMEWORK
-        public static DateTime OutOfSQLDateRange([JetBrainsNotNull] this IGuardClause guardClause,
+        public static DateTime OutOfSQLDateRange(this IGuardClause guardClause,
             DateTime input,
-            [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName,
+            string parameterName,
             string? message = null)
 #else
-        public static DateTime OutOfSQLDateRange([JetBrainsNotNull] this IGuardClause guardClause,
+        public static DateTime OutOfSQLDateRange(this IGuardClause guardClause,
             DateTime input,
-            [JetBrainsNotNull][JetBrainsInvokerParameterName][CallerArgumentExpression("input")] string? parameterName = null,
+            [CallerArgumentExpression("input")] string? parameterName = null,
             string? message = null)
 #endif
         {
@@ -148,7 +146,7 @@ namespace Ardalis.GuardClauses
         /// <returns><paramref name="input" /> if the value is not out of range.</returns>
         /// <exception cref="ArgumentOutOfRangeException"></exception>
         public static T OutOfRange<T>(this IGuardClause guardClause, T input,
-            [JetBrainsInvokerParameterName] string parameterName,
+            string parameterName,
             T rangeFrom,
             T rangeTo,
             string? message = null) where T : IComparable, IComparable<T>

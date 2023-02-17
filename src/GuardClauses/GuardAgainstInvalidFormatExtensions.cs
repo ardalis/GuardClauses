@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using JetBrainsInvokerParameterNameAttribute = JetBrains.Annotations.InvokerParameterNameAttribute;
-using JetBrainsNotNullAttribute = JetBrains.Annotations.NotNullAttribute;
-using JetBrainsRegexPattern = JetBrains.Annotations.RegexPatternAttribute;
 
 namespace Ardalis.GuardClauses
 {
@@ -19,10 +16,10 @@ namespace Ardalis.GuardClauses
         /// <param name="message">Optional. Custom error message</param>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
-        public static string InvalidFormat([JetBrainsNotNull] this IGuardClause guardClause,
-            [JetBrainsNotNull] string input,
-            [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName,
-            [JetBrainsNotNull][JetBrainsRegexPattern] string regexPattern,
+        public static string InvalidFormat(this IGuardClause guardClause,
+            string input,
+            string parameterName,
+            string regexPattern,
             string? message = null)
         {
             var m = Regex.Match(input, regexPattern);
@@ -45,7 +42,7 @@ namespace Ardalis.GuardClauses
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         /// <exception cref="ArgumentException"></exception>
-        public static T InvalidInput<T>([JetBrainsNotNull] this IGuardClause guardClause, [JetBrainsNotNull] T input, [JetBrainsNotNull][JetBrainsInvokerParameterName] string parameterName, Func<T, bool> predicate, string? message = null)
+        public static T InvalidInput<T>(this IGuardClause guardClause, T input, string parameterName, Func<T, bool> predicate, string? message = null)
         {
             if (!predicate(input))
             {

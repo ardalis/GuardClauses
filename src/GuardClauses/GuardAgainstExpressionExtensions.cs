@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using JetBrainsNotNullAttribute = JetBrains.Annotations.NotNullAttribute;
 
 namespace Ardalis.GuardClauses
 {
@@ -16,7 +15,7 @@ namespace Ardalis.GuardClauses
         /// <param name="message"></param>
         /// <returns><paramref name="input"/> if the <paramref name="func"/> evaluates to true </returns>
         /// <exception cref="ArgumentException"></exception>
-        public static T AgainstExpression<T>([JetBrainsNotNull] this IGuardClause guardClause, [JetBrainsNotNull] Func<T, bool> func, T input, string message) where T : struct
+        public static T AgainstExpression<T>(this IGuardClause guardClause, Func<T, bool> func, T input, string message) where T : struct
         {
             if (!func(input))
             {

@@ -1,6 +1,4 @@
-﻿using JetBrainsNotNullAttribute = JetBrains.Annotations.NotNullAttribute;
-
-namespace Ardalis.GuardClauses
+﻿namespace Ardalis.GuardClauses
 {
     /// <summary>
     /// Simple interface to provide a generic mechanism to build guard clause extension methods from.
@@ -18,7 +16,7 @@ namespace Ardalis.GuardClauses
         /// <summary>
         /// An entry point to a set of Guard Clauses.
         /// </summary>
-        [JetBrainsNotNull] public static IGuardClause Against { get; } = new Guard();
+        public static IGuardClause Against { get; } = new Guard();
 
         private Guard() { }
     }
