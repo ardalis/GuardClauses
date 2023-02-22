@@ -13,9 +13,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v3
       with:
           dotnet-version: '6.0.x'
     - name: Install dependencies
@@ -32,7 +32,7 @@ jobs:
       run: cp coverage/*/coverage.cobertura.xml coverage/coverage.cobertura.xml
       
     - name: Code Coverage Summary Report
-      uses: irongut/CodeCoverageSummary@v1.0.2
+      uses: irongut/CodeCoverageSummary@v1.3.0
       # uses: joshjohanning/CodeCoverageSummary@v1.0.2
       with:
         filename: coverage/coverage.cobertura.xml

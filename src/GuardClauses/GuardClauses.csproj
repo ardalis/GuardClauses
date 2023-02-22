@@ -1,10 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net451;net60</TargetFrameworks>
-      <LangVersion>10</LangVersion>
-
-      <PackageId>Ardalis.GuardClauses</PackageId>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="..\..\LICENSE" Pack="true" PackagePath="" />
+</ItemGroup>
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net60</TargetFrameworks>
+    <PackageId>Ardalis.GuardClauses</PackageId>
     <Title>Ardalis.GuardClauses</Title>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Steve Smith (@ardalis)</Authors>
@@ -28,8 +31,7 @@
     <DocumentationFile>bin\$(Configuration)\Ardalis.GuardClauses.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="JetBrains.Annotations" Version="2021.3.0" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1-*" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
   </ItemGroup>
   <ItemGroup>
     <None Include="icon.png" Pack="true" Visible="false" PackagePath="" />

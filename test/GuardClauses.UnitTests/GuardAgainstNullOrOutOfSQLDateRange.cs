@@ -86,7 +86,7 @@ namespace GuardClauses.UnitTests
             Assert.Throws<ArgumentNullException>(() => Guard.Against.NullOrOutOfSQLDateRange(null, "index"));
         }
 
-        private static IEnumerable<object[]> GetSqlDateTimeTestVectors()
+        public static IEnumerable<object[]> GetSqlDateTimeTestVectors()
         {
             var now = DateTime.Now;
             var utc = DateTime.UtcNow;
