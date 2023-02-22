@@ -183,7 +183,7 @@ public static partial class GuardClauseExtensions
         string parameterName,
         [NotNull][ValidatedNotNull] T rangeFrom,
         [NotNull][ValidatedNotNull] T rangeTo,
-        string? message = null) where T : struct, IComparable<T>
+        string? message = null) where T : IComparable, IComparable<T>
     {
         return NullOrOutOfRangeInternal<T>(guardClause, input, parameterName, rangeFrom, rangeTo, message);
     }
@@ -238,7 +238,6 @@ public static partial class GuardClauseExtensions
         guardClause.Null(input, nameof(input));
         return NullOrOutOfRangeInternal<T>(guardClause, input.Value, parameterName, rangeFrom, rangeTo, message);
     }
-
 
     /// <exception cref="ArgumentNullException"></exception>
     /// <exception cref="ArgumentException"></exception>
