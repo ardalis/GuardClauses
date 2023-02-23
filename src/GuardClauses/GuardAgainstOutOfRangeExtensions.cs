@@ -20,9 +20,9 @@ public static partial class GuardClauseExtensions
     /// <returns><paramref name="input" /> if the value is not out of range.</returns>
     /// <exception cref="InvalidEnumArgumentException"></exception>
 #if NETSTANDARD || NETFRAMEWORK
-    public static int EnumOutOfRange<T>(this IGuardClause guardClause, 
-        int input, 
-        string parameterName, 
+    public static int EnumOutOfRange<T>(this IGuardClause guardClause,
+        int input,
+        string parameterName,
         string? message = null) where T : struct, Enum
 #else
     public static int EnumOutOfRange<T>(this IGuardClause guardClause,
@@ -54,9 +54,9 @@ public static partial class GuardClauseExtensions
     /// <returns><paramref name="input" /> if the value is not out of range.</returns>
     /// <exception cref="InvalidEnumArgumentException"></exception>
 #if NETSTANDARD || NETFRAMEWORK
-    public static T EnumOutOfRange<T>(this IGuardClause guardClause, 
-        T input, 
-        string parameterName, 
+    public static T EnumOutOfRange<T>(this IGuardClause guardClause,
+        T input,
+        string parameterName,
         string? message = null) where T : struct, Enum
 #else
     public static T EnumOutOfRange<T>(this IGuardClause guardClause,
@@ -125,8 +125,8 @@ public static partial class GuardClauseExtensions
     /// <exception cref="ArgumentOutOfRangeException"></exception>
 #if NETSTANDARD || NETFRAMEWORK
     public static DateTime NullOrOutOfSQLDateRange(this IGuardClause guardClause,
-        [NotNull][ValidatedNotNull] DateTime? input, 
-        string parameterName, 
+        [NotNull][ValidatedNotNull] DateTime? input,
+        string parameterName,
         string? message = null)
 #else
     public static DateTime NullOrOutOfSQLDateRange(this IGuardClause guardClause,
