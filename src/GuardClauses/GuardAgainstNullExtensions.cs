@@ -49,6 +49,39 @@ public static partial class GuardClauseExtensions
 
     /// <summary>
     /// Throws an <see cref="ArgumentNullException" /> if <paramref name="input" /> is null.
+    /// </summary>
+    /// <typeparam name="T">Must be a value type.</typeparam>
+    /// <param name="guardClause"></param>
+    /// <param name="input"></param>
+    /// <param name="parameterName"></param>
+    /// <param name="message">Optional. Custom error message</param>
+    /// <returns><paramref name="input" /> if the value is not null.</returns>
+#if NETSTANDARD || NETFRAMEWORK
+    public static T Null<T>(this IGuardClause guardClause,
+        [NotNull][ValidatedNotNull] T? input,
+        string parameterName,
+        string? message = null) where T : struct
+#else
+    public static T Null<T>(this IGuardClause guardClause,
+        [NotNull][ValidatedNotNull]T? input,
+        [CallerArgumentExpression("input")] string? parameterName = null,
+        string? message = null) where T : struct
+#endif
+    {
+        if (input is null)
+        {
+            if (string.IsNullOrEmpty(message))
+            {
+                throw new ArgumentNullException(parameterName);
+            }
+            throw new ArgumentNullException(parameterName, message);
+        }
+
+        return input.Value;
+    }
+
+    /// <summary>
+    /// Throws an <see cref="ArgumentNullException" /> if <paramref name="input" /> is null.
     /// Throws an <see cref="ArgumentException" /> if <paramref name="input" /> is an empty string.
     /// </summary>
     /// <param name="guardClause"></param>
