@@ -25,12 +25,12 @@ public static partial class GuardClauseExtensions
     /// <returns><paramref name="input" /> if the value is not null.</returns>
 #if NETSTANDARD || NETFRAMEWORK
     public static T Null<T>(this IGuardClause guardClause,
-        [NotNull][ValidatedNotNull] T input,
+        [NotNull][ValidatedNotNull] T? input,
         string parameterName,
         string? message = null)
 #else
     public static T Null<T>(this IGuardClause guardClause,
-        [NotNull][ValidatedNotNull]T input,
+        [NotNull][ValidatedNotNull]T? input,
         [CallerArgumentExpression("input")] string? parameterName = null,
         string? message = null)
 #endif
@@ -220,13 +220,13 @@ public static partial class GuardClauseExtensions
     /// <exception cref="ArgumentNullException"></exception>
 #if NETSTANDARD || NETFRAMEWORK
     public static T NullOrInvalidInput<T>(this IGuardClause guardClause,
-        T input,
+        [NotNull] T? input,
         string parameterName,
         Func<T, bool> predicate,
         string? message = null)
 #else
     public static T NullOrInvalidInput<T>(this IGuardClause guardClause,
-        T input,
+        [NotNull] T? input,
         string parameterName,
         Func<T, bool> predicate,
         string? message = null)
