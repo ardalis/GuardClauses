@@ -70,12 +70,7 @@ namespace GuardClauses.UnitTests
 
 #pragma warning restore CS8631
         }
-
-        //[Theory]
-        //[InlineData(1, 1, 1, 1)]
-        //[InlineData(1, 1, 3, 1)]
-        //[InlineData(2, 1, 3, 2)]
-        //[InlineData(3, 1, 3, 3)]
+        
         [Fact]
         public void ReturnsExpectedValueGivenInRangeValue()
         {
