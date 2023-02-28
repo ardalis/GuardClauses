@@ -7,15 +7,10 @@ on:
   pull_request:
     branches: [ main ]
 
-permissions: write-all
-#    pull-requests: write-all
-
 jobs:
   build:
 
     runs-on: ubuntu-latest
-    
-
 
     steps:
     - uses: actions/checkout@v3
@@ -45,9 +40,8 @@ jobs:
         format: 'markdown'
         output: 'both'
 
-    - name: Add Coverage PR Comment
-      uses: marocchino/sticky-pull-request-comment@v2
-      if: github.event_name == 'pull_request'
+    - name: Save code coverage results
+      uses: actions/upload-artifact@v3
       with:
-        recreate: true
         path: code-coverage-results.md
+

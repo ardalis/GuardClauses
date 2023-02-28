@@ -1,0 +1,24 @@
+name: Comment on the Pull Request
+
+# read-write repo token
+# See: https://securitylab.github.com/research/github-actions-preventing-pwn-requests/
+on:
+  workflow_run:
+    workflows: [".NET Core"]
+    types:
+      - completed
+
+jobs:
+  comment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download code coverage results artifact
+        uses: actions/download-artifact@v3
+        with:
+          path: code-coverage-results.md
+      - name: Add Coverage PR Comment
+        uses: marocchino/sticky-pull-request-comment@v2
+        if: github.event_name == 'pull_request'
+        with:
+          recreate: true
+          path: code-coverage-results.md
