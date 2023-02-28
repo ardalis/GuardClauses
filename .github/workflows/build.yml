@@ -7,13 +7,15 @@ on:
   pull_request:
     branches: [ main ]
 
+permissions:
+    pull-requests: write 
+
 jobs:
   build:
 
     runs-on: ubuntu-latest
     
-    permissions:
-      pull-requests: write 
+
 
     steps:
     - uses: actions/checkout@v3
