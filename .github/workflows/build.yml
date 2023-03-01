@@ -46,6 +46,7 @@ jobs:
       with:
         name: code-coverage-results
         path: code-coverage-results.md
+        retention-days: 1
     
     - name: Save the PR number in an artifact
       if: github.event_name == 'pull_request' && (success() || failure()) 
@@ -60,3 +61,4 @@ jobs:
       with:
         name: pr-number
         path: ./pr-number.txt
+        retention-days: 1
