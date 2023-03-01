@@ -1,0 +1,40 @@
+name: Comment on the Pull Request
+
+# read-write repo token
+# See: https://securitylab.github.com/research/github-actions-preventing-pwn-requests/
+on:
+  workflow_run:
+    workflows: [".NET Core"]
+    types:
+      - completed
+
+jobs:
+  comment:
+    runs-on: ubuntu-latest
+
+    # Only comment on the PR if this is a PR event
+    if: github.event.workflow_run.event == 'pull_request'
+
+    steps:
+    - name: Get the PR Number artifact
+      uses: dawidd6/action-download-artifact@v2
+      with:
+        workflow: ${{ github.event.workflow_run.workflow_id }}
+        workflow_conclusion: ""
+        name: pr-number
+    - name: Read PR Number into GitHub environment variables
+      run: echo "PR_NUMBER=$(cat pr-number.txt)" >> $GITHUB_ENV
+    - name: Confirm the PR Number (Debugging)
+      run: echo $PR_NUMBER
+    - name: Get the code coverage results file
+      uses: dawidd6/action-download-artifact@v2
+      with:
+        workflow: ${{ github.event.workflow_run.workflow_id }}
+        workflow_conclusion: ""
+        name: code-coverage-results
+    - name: Add Coverage PR Comment
+      uses: marocchino/sticky-pull-request-comment@v2
+      with:
+        number: ${{ env.PR_NUMBER }}
+        recreate: true
+        path: code-coverage-results.md
