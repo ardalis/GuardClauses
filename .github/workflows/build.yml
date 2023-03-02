@@ -7,16 +7,11 @@ on:
   pull_request:
     branches: [ main ]
 
-permissions: write-all
-#    pull-requests: write-all
-
 jobs:
   build:
 
     runs-on: ubuntu-latest
     
-
-
     steps:
     - uses: actions/checkout@v3
     - name: Setup .NET Core
@@ -45,9 +40,23 @@ jobs:
         format: 'markdown'
         output: 'both'
 
-    - name: Add Coverage PR Comment
-      uses: marocchino/sticky-pull-request-comment@v2
-      if: github.event_name == 'pull_request'
+    - name: Upload code coverage results artifact
+      uses: actions/upload-artifact@v3
+      if: success() || failure()
       with:
-        recreate: true
+        name: code-coverage-results
         path: code-coverage-results.md
+    
+    - name: Save the PR number in an artifact
+      if: github.event_name == 'pull_request' && (success() || failure()) 
+      shell: bash
+      env:
+        PR_NUMBER: ${{ github.event.number }}
+      run: echo $PR_NUMBER > pr-number.txt
+  
+    - name: Upload the PR number
+      uses: actions/upload-artifact@v3
+      if: github.event_name == 'pull_request' &&  (success() || failure())
+      with:
+        name: pr-number
+        path: ./pr-number.txt
