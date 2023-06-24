@@ -93,6 +93,12 @@ public void SomeMethod(string something)
 - OutOfRange for Enums now uses `EnumOutOfRange`
 - Custom error messages now work more consistently, which may break some unit tests
 
+## Nice Visualization of Refactoring to use Guard Clauses
+
+https://user-images.githubusercontent.com/782127/234028498-96e206b0-9a70-4aa0-9c36-a62477ea0aa9.mp4
+
+via [Nicolas Carlo](https://toot.legacycode.rocks/@nicoespeon/110226815487285845)
+
 ## References
 
 - [Getting Started with Guard Clauses](https://blog.nimblepros.com/blogs/getting-started-with-guard-clauses/)
