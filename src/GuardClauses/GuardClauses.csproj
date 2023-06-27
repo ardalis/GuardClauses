@@ -6,7 +6,7 @@
     <None Include="..\..\LICENSE" Pack="true" PackagePath="" />
 </ItemGroup>
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net70</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net60</TargetFrameworks>
     <PackageId>Ardalis.GuardClauses</PackageId>
     <Title>Ardalis.GuardClauses</Title>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
