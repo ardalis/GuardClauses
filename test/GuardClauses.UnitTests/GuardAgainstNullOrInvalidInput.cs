@@ -71,14 +71,14 @@ public class GuardAgainstNullOrInvalidInput
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 
-    public class ArgumentNullExceptionClassData : IEnumerable<object[]>
-    {
-        public IEnumerator<object[]> GetEnumerator()
+        public class ArgumentNullExceptionClassData : IEnumerable<object?[]>
         {
-            yield return new object[] { null!, (Func<string, bool>)(x => x.Length > 10) };
+            public IEnumerator<object?[]> GetEnumerator()
+            {
+                yield return new object?[] { null, (Func<string, bool>)(x => x.Length > 10) };
+            }
+            IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
         }
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
-    }
 
     public class ArgumentExceptionClassData : IEnumerable<object[]>
     {

@@ -77,8 +77,6 @@ public class GuardAgainstOutOfRangeForTimeSpan
     }
 
     [Theory]
-    [InlineData(null, null)]
-    [InlineData(null, "Please provide correct value")]
     [InlineData("SomeParameter", null)]
     [InlineData("SomeOtherParameter", "Value must be correct")]
     public void ExceptionParamNameMatchesExpectedRangeIsInvalid(string expectedParamName, string customMessage)
@@ -90,6 +88,20 @@ public class GuardAgainstOutOfRangeForTimeSpan
         var exception = Assert.Throws<ArgumentException>(() => Guard.Against.OutOfRange(inputTimeSpan, expectedParamName, rangeFromTimeSpan, rangeToTimeSpan, customMessage));
         Assert.NotNull(exception);
         Assert.Equal(expectedParamName, exception.ParamName);
+    }
+
+    [Theory]
+    [InlineData(null, null)]
+    [InlineData(null, "Please provide correct value")]
+    public void ExceptionParamNameNull(string? expectedParamName, string? customMessage)
+    {
+        var inputTimeSpan = TimeSpan.FromSeconds(-1);
+        var rangeFromTimeSpan = TimeSpan.FromSeconds(3);
+        var rangeToTimeSpan = TimeSpan.FromSeconds(1);
+
+        var exception = Assert.Throws<ArgumentNullException>(() => Guard.Against.OutOfRange(inputTimeSpan, expectedParamName, rangeFromTimeSpan, rangeToTimeSpan, customMessage));
+        Assert.NotNull(exception);
+        Assert.Equal("parameterName", exception.ParamName);
     }
 
     [Theory]
@@ -108,8 +120,6 @@ public class GuardAgainstOutOfRangeForTimeSpan
     }
 
     [Theory]
-    [InlineData(null, null)]
-    [InlineData(null, "Please provide correct value")]
     [InlineData("SomeParameter", null)]
     [InlineData("SomeOtherParameter", "Value must be correct")]
     public void ExceptionParamNameMatchesExpectedInputIsInvalid(string expectedParamName, string customMessage)
@@ -121,5 +131,19 @@ public class GuardAgainstOutOfRangeForTimeSpan
         var exception = Assert.Throws<ArgumentOutOfRangeException>(() => Guard.Against.OutOfRange(inputTimeSpan, expectedParamName, rangeFromTimeSpan, rangeToTimeSpan, customMessage));
         Assert.NotNull(exception);
         Assert.Equal(expectedParamName, exception.ParamName);
+    }
+
+    [Theory]
+    [InlineData(null, null)]
+    [InlineData(null, "Please provide correct value")]
+    public void ExceptionParamNameNull2(string? expectedParamName, string? customMessage)
+    {
+        var inputTimeSpan = TimeSpan.FromSeconds(-1);
+        var rangeFromTimeSpan = TimeSpan.FromSeconds(0);
+        var rangeToTimeSpan = TimeSpan.FromSeconds(1);
+
+        var exception = Assert.Throws<ArgumentNullException>(() => Guard.Against.OutOfRange(inputTimeSpan, expectedParamName, rangeFromTimeSpan, rangeToTimeSpan, customMessage));
+        Assert.NotNull(exception);
+        Assert.Equal("parameterName", exception.ParamName);
     }
 }

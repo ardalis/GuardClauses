@@ -3,12 +3,11 @@ using Ardalis.GuardClauses;
 using Xunit;
 
 namespace GuardClauses.UnitTests;
-
 /// <summary>
 /// Every type that implements IComparable and IComparable<T> can use OutOfRange.
 /// Here for example tuples are used.
 /// </summary>
-public class GuardAgainstOutOfRangeForIComparable
+public class GuardAgainstOutOfRangeForStructIComparable
 {
     [Theory]
     [InlineData(1, 1, 1, 1, 10, 10)]
@@ -62,8 +61,6 @@ public class GuardAgainstOutOfRangeForIComparable
     }
 
     [Theory]
-    [InlineData(null, null)]
-    [InlineData(null, "Please provide correct value")]
     [InlineData("SomeParameter", null)]
     [InlineData("SomeOtherParameter", "Value must be correct")]
     public void ExceptionParamNameMatchesExpected(string expectedParamName, string customMessage)
@@ -71,5 +68,15 @@ public class GuardAgainstOutOfRangeForIComparable
         var exception = Assert.Throws<ArgumentOutOfRangeException>(() => Guard.Against.OutOfRange((1, 2), expectedParamName, (3, 3), (9, 9), customMessage));
         Assert.NotNull(exception);
         Assert.Equal(expectedParamName, exception.ParamName);
+    }
+
+    [Theory]
+    [InlineData(null, null)]
+    [InlineData(null, "Please provide correct value")]
+    public void ExceptionParamNameNull(string? expectedParamName, string? customMessage)
+    {
+        var exception = Assert.Throws<ArgumentNullException>(() => Guard.Against.OutOfRange((1, 2), expectedParamName, (3, 3), (9, 9), customMessage));
+        Assert.NotNull(exception);
+        Assert.Equal("parameterName", exception.ParamName);
     }
 }

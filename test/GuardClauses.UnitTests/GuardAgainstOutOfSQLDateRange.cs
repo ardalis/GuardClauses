@@ -93,26 +93,35 @@ public class GuardAgainstOutOfSQLDateRange
         Assert.Equal(expectedMessage, exception.Message);
     }
 
-    [Theory]
-    [InlineData(null, null)]
-    [InlineData(null, "Please provide correct value")]
-    [InlineData("SomeParameter", null)]
-    [InlineData("SomeOtherParameter", "Value must be correct")]
-    public void ExceptionParamNameMatchesExpected(string expectedParamName, string customMessage)
-    {
-        DateTime date = SqlDateTime.MinValue.Value.AddSeconds(-1);
-        var exception = Assert.Throws<ArgumentOutOfRangeException>(() => Guard.Against.OutOfSQLDateRange(date, expectedParamName, customMessage));
-        Assert.NotNull(exception);
-        Assert.Equal(expectedParamName, exception.ParamName);
-    }
+        [Theory]
+        [InlineData("SomeParameter", null)]
+        [InlineData("SomeOtherParameter", "Value must be correct")]
+        public void ExceptionParamNameMatchesExpected(string expectedParamName, string customMessage)
+        {
+            DateTime date = SqlDateTime.MinValue.Value.AddSeconds(-1);
+            var exception = Assert.Throws<ArgumentOutOfRangeException>(() => Guard.Against.OutOfSQLDateRange(date, expectedParamName, customMessage));
+            Assert.NotNull(exception);
+            Assert.Equal(expectedParamName, exception.ParamName);
+        }
 
-    public static IEnumerable<object[]> GetSqlDateTimeTestVectors()
-    {
-        var now = DateTime.Now;
-        var utc = DateTime.UtcNow;
-        var yesterday = DateTime.Now.AddDays(-1);
-        var min = SqlDateTime.MinValue.Value;
-        var max = SqlDateTime.MaxValue.Value;
+        [Theory]
+        [InlineData(null, null)]
+        [InlineData(null, "Please provide correct value")]
+        public void ExceptionParamNameNull(string? expectedParamName, string? customMessage)
+        {
+            DateTime date = SqlDateTime.MinValue.Value.AddSeconds(-1);
+            var exception = Assert.Throws<ArgumentNullException>(() => Guard.Against.OutOfSQLDateRange(date, expectedParamName, customMessage));
+            Assert.NotNull(exception);
+            Assert.Equal("parameterName", exception.ParamName);
+        }
+
+        public static IEnumerable<object[]> GetSqlDateTimeTestVectors()
+        {
+            var now = DateTime.Now;
+            var utc = DateTime.UtcNow;
+            var yesterday = DateTime.Now.AddDays(-1);
+            var min = SqlDateTime.MinValue.Value;
+            var max = SqlDateTime.MaxValue.Value;
 
         yield return new object[] { now, "now", now };
         yield return new object[] { utc, "utc", utc };
