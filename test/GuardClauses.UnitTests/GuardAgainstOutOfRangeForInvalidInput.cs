@@ -100,8 +100,6 @@ public class GuardAgainstOutOfRangeForInvalidInput
         Assert.Equal(expectedParamName, exception.ParamName);
     }
 
-    // TODO: Test decimal types outside of ClassData
-    // See: https://github.com/xunit/xunit/issues/2298
     public class CorrectClassData : IEnumerable<object[]>
     {
         public IEnumerator<object[]> GetEnumerator()
@@ -109,7 +107,7 @@ public class GuardAgainstOutOfRangeForInvalidInput
             yield return new object[] { 20, (Func<int, bool>)((x) => x > 10) };
             yield return new object[] { DateAndTime.Now, (Func<DateTime, bool>)((x) => x > DateTime.MinValue) };
             yield return new object[] { 20.0f, (Func<float, bool>)((x) => x > 10.0f) };
-            //yield return new object[] { 20.0m, (Func<decimal, bool>)((x) => x > 10.0m) };
+            yield return new object[] { 20.0m, (Func<decimal, bool>)((x) => x > 10.0m) };
             yield return new object[] { 20.0, (Func<double, bool>)((x) => x > 10.0) };
             yield return new object[] { long.MaxValue, (Func<long, bool>)((x) => x > 1) };
             yield return new object[] { short.MaxValue, (Func<short, bool>)((x) => x > 1) };
@@ -125,7 +123,7 @@ public class GuardAgainstOutOfRangeForInvalidInput
             yield return new object[] { 20, (Func<int, Task<bool>>)((x) => Task.FromResult(x > 10)) };
             yield return new object[] { DateAndTime.Now, (Func<DateTime, Task<bool>>)((x) => Task.FromResult(x > DateTime.MinValue)) };
             yield return new object[] { 20.0f, (Func<float, Task<bool>>)((x) => Task.FromResult(x > 10.0f)) };
-            //yield return new object[] { 20.0m, (Func<decimal, Task<bool>>)((x) => Task.FromResult(x > 10.0m)) };
+            yield return new object[] { 20.0m, (Func<decimal, Task<bool>>)((x) => Task.FromResult(x > 10.0m)) };
             yield return new object[] { 20.0, (Func<double, Task<bool>>)((x) => Task.FromResult(x > 10.0)) };
             yield return new object[] { long.MaxValue, (Func<long, Task<bool>>)((x) => Task.FromResult(x > 1)) };
             yield return new object[] { short.MaxValue, (Func<short, Task<bool>>)((x) => Task.FromResult(x > 1)) };
@@ -141,7 +139,7 @@ public class GuardAgainstOutOfRangeForInvalidInput
             yield return new object[] { 20, (Func<int, bool>)((x) => x < 10) };
             yield return new object[] { DateAndTime.Now, (Func<DateTime, bool>)((x) => x > DateTime.MaxValue) };
             yield return new object[] { 20.0f, (Func<float, bool>)((x) => x > 30.0f) };
-            //yield return new object[] { 20.0m, (Func<decimal, bool>)((x) => x > 30.0m) };
+            yield return new object[] { 20.0m, (Func<decimal, bool>)((x) => x > 30.0m) };
             yield return new object[] { 20.0, (Func<double, bool>)((x) => x > 30.0) };
             yield return new object[] { long.MaxValue, (Func<long, bool>)((x) => x < 1) };
             yield return new object[] { short.MaxValue, (Func<short, bool>)((x) => x < 1) };
@@ -158,7 +156,7 @@ public class GuardAgainstOutOfRangeForInvalidInput
             yield return new object[] { 20, (Func<int, Task<bool>>)((x) => Task.FromResult(x < 10)) };
             yield return new object[] { DateAndTime.Now, (Func<DateTime, Task<bool>>)((x) => Task.FromResult(x > DateTime.MaxValue)) };
             yield return new object[] { 20.0f, (Func<float, Task<bool>>)((x) => Task.FromResult(x > 30.0f)) };
-            //yield return new object[] { 20.0m, (Func<decimal, bool>)((x) => x > 30.0m)) };
+            yield return new object[] { 20.0m, (Func<decimal, Task<bool>>)((x) => Task.FromResult(x > 30.0m)) };
             yield return new object[] { 20.0, (Func<double, Task<bool>>)((x) => Task.FromResult(x > 30.0)) };
             yield return new object[] { long.MaxValue, (Func<long, Task<bool>>)((x) => Task.FromResult(x < 1)) };
             yield return new object[] { short.MaxValue, (Func<short, Task<bool>>)((x) => Task.FromResult(x < 1)) };

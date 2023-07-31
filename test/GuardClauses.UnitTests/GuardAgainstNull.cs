@@ -39,6 +39,41 @@ public class GuardAgainstNull
         Assert.Equal(obj, Guard.Against.Null(obj, "object"));
     }
 
+    [Fact]
+    public void ReturnsNonNullableValueTypeWhenGivenNullableValueTypeIsNotNull()
+    {
+        int? @int = 4;
+        Assert.False(IsNullableType(Guard.Against.Null(@int, "int")));
+
+        double? @double = 11.11;
+        Assert.False(IsNullableType(Guard.Against.Null(@double, "@double")));
+
+        DateTime? now = DateTime.Now;
+        Assert.False(IsNullableType(Guard.Against.Null(now, "now")));
+
+        Guid? guid = Guid.Empty;
+        Assert.False(IsNullableType(Guard.Against.Null(guid, "guid")));
+        
+        static bool IsNullableType<T>(T value)
+        {
+            if (value is null)
+            { 
+                return false; 
+            }
+            Type type = typeof(T);
+            if (!type.IsValueType)
+            {
+                return true;
+            }
+            if (Nullable.GetUnderlyingType(type) != null)
+            {
+                return true;
+            }
+            return false;
+
+        }
+    }
+
     [Theory]
     [InlineData(null, "Value cannot be null. (Parameter 'parameterName')")]
     [InlineData("Please provide correct value", "Please provide correct value (Parameter 'parameterName')")]
