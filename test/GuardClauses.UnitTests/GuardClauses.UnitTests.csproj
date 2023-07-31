@@ -1,25 +1,27 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
+        <TargetFramework>net7.0</TargetFramework>
         <IsPackable>false</IsPackable>
-        <LangVersion>10</LangVersion>
+        <LangVersion>11</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="altcover" Version="8.6.14" />
-        <PackageReference Include="coverlet.msbuild" Version="3.2.0">
+        <PackageReference Include="altcover" Version="8.6.68" />
+        <PackageReference Include="coverlet.msbuild" Version="6.0.0">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
-        <PackageReference Include="coverlet.collector" Version="3.2.0">
+        <PackageReference Include="coverlet.collector" Version="6.0.0">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
-        <PackageReference Include="ReportGenerator" Version="5.1.18" />
-        <PackageReference Include="xunit" Version="2.4.2" />
-        <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5" />
+      
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.3" />
+        <PackageReference Include="ReportGenerator" Version="5.1.23" />
+        <PackageReference Include="xunit" Version="2.5.0" />
+        <PackageReference Include="xunit.runner.visualstudio" Version="2.5.0" />
+
     </ItemGroup>
 
     <ItemGroup>

@@ -58,7 +58,7 @@ public class Order
 - **Guard.Against.NullOrEmpty** (throws if string, guid or array input is null or empty)
 - **Guard.Against.NullOrWhiteSpace** (throws if string input is null, empty or whitespace)
 - **Guard.Against.OutOfRange** (throws if integer/DateTime/enum input is outside a provided range)
-- **Guard.Against.EnumOutOfRange** (throws if a enum value is outside a provided Enum range)
+- **Guard.Against.EnumOutOfRange** (throws if an enum value is outside a provided Enum range)
 - **Guard.Against.OutOfSQLDateRange** (throws if DateTime input is outside the valid range of SQL Server DateTime values)
 - **Guard.Against.Zero** (throws if number input is zero)
 
@@ -92,6 +92,12 @@ public void SomeMethod(string something)
 
 - OutOfRange for Enums now uses `EnumOutOfRange`
 - Custom error messages now work more consistently, which may break some unit tests
+
+## Nice Visualization of Refactoring to use Guard Clauses
+
+https://user-images.githubusercontent.com/782127/234028498-96e206b0-9a70-4aa0-9c36-a62477ea0aa9.mp4
+
+via [Nicolas Carlo](https://toot.legacycode.rocks/@nicoespeon/110226815487285845)
 
 ## References
 
