@@ -26,7 +26,7 @@ If you like or are using this project please give it a star. Thanks!
 ```c#
 public void ProcessOrder(Order order)
 {
-    Guard.Against.Null(order, nameof(order));
+    Guard.Against.Null(order);
 
     // process order here
 }
@@ -43,11 +43,11 @@ public class Order
 
     public Order(string name, int quantity, long max, decimal unitPrice, DateTime dateCreated)
     {
-        _name = Guard.Against.NullOrWhiteSpace(name, nameof(name));
-        _quantity = Guard.Against.NegativeOrZero(quantity, nameof(quantity));
-        _max = Guard.Against.Zero(max, nameof(max));
-        _unitPrice = Guard.Against.Negative(unitPrice, nameof(unitPrice));
-        _dateCreated = Guard.Against.OutOfSQLDateRange(dateCreated, nameof(dateCreated));
+        _name = Guard.Against.NullOrWhiteSpace(name);
+        _quantity = Guard.Against.NegativeOrZero(quantity);
+        _max = Guard.Against.Zero(max);
+        _unitPrice = Guard.Against.Negative(unitPrice);
+        _dateCreated = Guard.Against.OutOfSQLDateRange(dateCreated, dateCreated);
     }
 }
 ```
@@ -61,6 +61,9 @@ public class Order
 - **Guard.Against.EnumOutOfRange** (throws if an enum value is outside a provided Enum range)
 - **Guard.Against.OutOfSQLDateRange** (throws if DateTime input is outside the valid range of SQL Server DateTime values)
 - **Guard.Against.Zero** (throws if number input is zero)
+- **Guard.Against.Expression** (use any expression you define)
+- **Guard.Against.InvalidFormat** (define allowed format with a regular expression or func)
+- **Guard.Against.NotFound** (similar to Null but for use with an id/key lookup; throws a `NotFoundException`)
 
 ## Extending with your own Guard Clauses
 
@@ -73,7 +76,9 @@ namespace Ardalis.GuardClauses
 {
     public static class FooGuard
     {
-        public static void Foo(this IGuardClause guardClause, string input, string parameterName)
+        public static void Foo(this IGuardClause guardClause,
+            string input, 
+            [CallerArgumentExpression("input")] string? parameterName = null)
         {
             if (input?.ToLower() == "foo")
                 throw new ArgumentException("Should not have been foo!", parameterName);
@@ -84,7 +89,8 @@ namespace Ardalis.GuardClauses
 // Usage
 public void SomeMethod(string something)
 {
-    Guard.Against.Foo(something, nameof(something));
+    Guard.Against.Foo(something);
+    Guard.Against.Foo(something, nameof(something)); // optional - provide parameter name
 }
 ```
 
@@ -106,9 +112,13 @@ via [Nicolas Carlo](https://toot.legacycode.rocks/@nicoespeon/110226815487285845
 - [Guard Clauses (podcast: 7 minutes)](http://www.weeklydevtips.com/004)
 - [Guard Clause](http://deviq.com/guard-clause/)
 
+## Commercial Support
+
+If you require commercial support to include this library in your applications, contact [NimblePros](https://nimblepros.com/talk-to-us-1)
+
 ## Build Notes (for maintainers)
 
-- Remember to update the PackageVersion in the csproj file and then a build on master should automatically publish the new package to nuget.org.
+- Remember to update the PackageVersion in the csproj file and then a build on main should automatically publish the new package to nuget.org.
 - Add a release with form `1.3.2` to GitHub Releases in order for the package to actually be published to Nuget. Otherwise it will claim to have been successful but is lying to you.
 
 

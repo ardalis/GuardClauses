@@ -1,39 +1,44 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
-  </PropertyGroup>
-  <ItemGroup>
-    <None Include="..\..\LICENSE" Pack="true" PackagePath="" />
-</ItemGroup>
-  <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net7.0</TargetFrameworks>
-    <PackageId>Ardalis.GuardClauses</PackageId>
-    <Title>Ardalis.GuardClauses</Title>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Authors>Steve Smith (@ardalis)</Authors>
-    <Company>Ardalis.com</Company>
-    <PackageProjectUrl>https://github.com/ardalis/guardclauses</PackageProjectUrl>
-    <Description>A simple package by @ardalis and @nimblepros with guard clause helper methods. See docs for how to extend using your own extension methods defined in your project.</Description>
-    <Summary>A simple package with guard clause helper methods. See docs for how to extend using your own extension methods.</Summary>
-    <RepositoryUrl>https://github.com/ardalis/guardclauses</RepositoryUrl>
-    <PackageTags>guard clause clauses assert assertion</PackageTags>
-    <PackageReleaseNotes>
-    Add more support for CallerArgumentExpression.
-    </PackageReleaseNotes>
-    <Version>4.0.1</Version>
-    <AssemblyName>Ardalis.GuardClauses</AssemblyName>
-    <PackageIcon>icon.png</PackageIcon>
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <EmbedUntrackedSources>true</EmbedUntrackedSources>
-    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
-  </PropertyGroup>
-  <PropertyGroup>
-    <DocumentationFile>bin\$(Configuration)\Ardalis.GuardClauses.xml</DocumentationFile>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
-  </ItemGroup>
+    <PropertyGroup>
+        <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    </PropertyGroup>
+    <ItemGroup>
+        <None Include="..\..\LICENSE" Pack="true" PackagePath="" />
+    </ItemGroup>
+    <PropertyGroup>
+        <TargetFrameworks>netstandard2.0;net7.0</TargetFrameworks>
+        <PackageId>Ardalis.GuardClauses</PackageId>
+        <Title>Ardalis.GuardClauses</Title>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Authors>Steve Smith (@ardalis)</Authors>
+        <Company>Ardalis.com</Company>
+        <PackageProjectUrl>https://github.com/ardalis/guardclauses</PackageProjectUrl>
+        <Description>A simple package by @ardalis and @nimblepros with guard clause helper methods. See docs for how to extend using your own extension methods defined in your project.</Description>
+        <Summary>A simple package with guard clause helper methods. See docs for how to extend using your own extension methods.</Summary>
+        <RepositoryUrl>https://github.com/ardalis/guardclauses</RepositoryUrl>
+        <PackageTags>guard clause clauses assert assertion</PackageTags>
+        <PackageReleaseNotes>
+            Add more support for CallerArgumentExpression.
+        </PackageReleaseNotes>
+        <Version>4.0.1</Version>
+        <AssemblyName>Ardalis.GuardClauses</AssemblyName>
+        <PackageIcon>icon.png</PackageIcon>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <EmbedUntrackedSources>true</EmbedUntrackedSources>
+        <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    </PropertyGroup>
+    <PropertyGroup>
+        <DocumentationFile>bin\$(Configuration)\Ardalis.GuardClauses.xml</DocumentationFile>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+    </ItemGroup>
+    <ItemGroup>
+        <None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
+        <!-- IMPORTANT: adding the Readme as a link -->
+        <None Include="..\..\README.md" Pack="true" PackagePath="">
+            <Link>Properties\README.md</Link>
+        </None>
+
+    </ItemGroup>
 </Project>
