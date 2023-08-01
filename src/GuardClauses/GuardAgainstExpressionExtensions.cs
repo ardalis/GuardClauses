@@ -50,4 +50,26 @@ public static partial class GuardClauseExtensions
 
         return input;
     }
+
+    /// <summary>
+    /// Throws an <see cref="ArgumentException" /> if <paramref name="func"/> evaluates to false for given <paramref name="input"/> 
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="func"></param>
+    /// <param name="guardClause"></param>
+    /// <param name="input"></param>
+    /// <param name="message"></param>
+    /// <param name="paramName">The name of the parameter that is invalid</param>
+    /// <returns><paramref name="input"/> if the <paramref name="func"/> evaluates to true </returns>
+    /// <exception cref="ArgumentException"></exception>
+    public static T AgainstExpression<T>(this IGuardClause guardClause, Func<T, bool> func,
+        T input, string message, string paramName) where T : struct
+    {
+        if (!func(input))
+        {
+            throw new ArgumentException(message, paramName);
+        }
+
+        return input;
+    }
 }

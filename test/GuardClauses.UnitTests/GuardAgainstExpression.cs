@@ -74,4 +74,14 @@ public class GuardAgainstExpression
         Assert.NotNull(exception.Message);
         Assert.Equal(expectedMessage, exception.Message);
     }
+
+    [Fact]
+    public void ErrorIncludesParamNameIfProvided()
+    {
+        string paramName = "testParamName";
+        var exception = Assert.Throws<ArgumentException>(() => Guard.Against.AgainstExpression(x => x == 1, 2, "custom message", paramName));
+        Assert.NotNull(exception);
+        Assert.NotNull(exception.Message);
+        Assert.Equal(paramName, exception.ParamName);
+    }
 }
