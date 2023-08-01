@@ -18,12 +18,12 @@ public static partial class GuardClauseExtensions
 #if NETSTANDARD || NETFRAMEWORK
     public static T NotFound<T>(this IGuardClause guardClause,
         [NotNull][ValidatedNotNull] string key,
-        [NotNull][ValidatedNotNull] T input,
+        [NotNull][ValidatedNotNull] T? input,
         string parameterName)
 #else
     public static T NotFound<T>(this IGuardClause guardClause,
         [NotNull][ValidatedNotNull] string key,
-        [NotNull][ValidatedNotNull] T input,
+        [NotNull][ValidatedNotNull] T? input,
         [CallerArgumentExpression("input")] string? parameterName = null)
 #endif
     {
@@ -51,12 +51,12 @@ public static partial class GuardClauseExtensions
 #if NETSTANDARD || NETFRAMEWORK
     public static T NotFound<TKey, T>(this IGuardClause guardClause,
         [NotNull][ValidatedNotNull] TKey key,
-        [NotNull][ValidatedNotNull] T input,
+        [NotNull][ValidatedNotNull] T? input,
         string parameterName) where TKey : struct
 #else
     public static T NotFound<TKey, T>(this IGuardClause guardClause,
         [NotNull][ValidatedNotNull] TKey key,
-        [NotNull][ValidatedNotNull]T input,
+        [NotNull][ValidatedNotNull]T? input,
         [CallerArgumentExpression("input")] string? parameterName = null) where TKey : struct
 #endif
     {

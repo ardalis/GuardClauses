@@ -50,17 +50,5 @@ public class GuardAgainstNotFound
         Assert.NotNull(exception);
         Assert.NotNull(exception.Message);
         Assert.Contains($"Queried object {nameof(xyz)} was not found, Key: {key}", exception.Message);
-
-        //Assert.Equal("", Guard.Against.NotFound("mykey", "", "string"));
-        //Assert.Equal(1, Guard.Against.NotFound(1, 1, "int"));
-
-        //var guid = Guid.Empty;
-        //Assert.Equal(guid, Guard.Against.NotFound(1, guid, "guid"));
-
-        //var now = DateTime.Now;
-        //Assert.Equal(now, Guard.Against.NotFound(1, now, "datetime"));
-
-        //var obj = new Object();
-        //Assert.Equal(obj, Guard.Against.NotFound(1, obj, "object"));
     }
 }
