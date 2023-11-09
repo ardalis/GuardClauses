@@ -6,7 +6,7 @@
         <None Include="..\..\LICENSE" Pack="true" PackagePath="" />
     </ItemGroup>
     <PropertyGroup>
-        <TargetFrameworks>netstandard2.0;net7.0</TargetFrameworks>
+        <TargetFrameworks>net7.0;netstandard2.1;netstandard2.0</TargetFrameworks>
         <PackageId>Ardalis.GuardClauses</PackageId>
         <Title>Ardalis.GuardClauses</Title>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -18,18 +18,10 @@
         <RepositoryUrl>https://github.com/ardalis/guardclauses</RepositoryUrl>
         <PackageTags>guard clause clauses assert assertion</PackageTags>
         <PackageReleaseNotes>
-            * Implemented NullOrInvalidInput method by @tiagojsrios in https://github.com/ardalis/GuardClauses/pull/178
-            * Embed license in nuget package  by @jafin in https://github.com/ardalis/GuardClauses/pull/208
-            * Remove JetBrains Annotations by @Coop56 in https://github.com/ardalis/GuardClauses/pull/236
-            * Add NullOrEmpty and NullOrWhiteSpace overloads for ReadOnlySpan by @KonH in https://github.com/ardalis/GuardClauses/pull/237
-            * Created async overload for clausules that use a predicate by @danny-bos-developer in https://github.com/ardalis/GuardClauses/pull/228
-            * Working through build issues for new contributors by @sadukie in https://github.com/ardalis/GuardClauses/pull/265
-            * Make type parameter T of the Null() method nullable and add overload for value types. by @amal-stack in https://github.com/ardalis/GuardClauses/pull/261
-            * Upgrade to dotnet 7.0 by @amal-stack in https://github.com/ardalis/GuardClauses/pull/282
-            * Adds `NullOrOutOfRange` clauses, adding support for nullable classes/structs to `OutOfRange` by @rafaelsc in https://github.com/ardalis/GuardClauses/pull/143
-            * Add README file to package
+* Add JetBrains.Annotations source code (#304)
+* Added backwards compatibility (#291)
         </PackageReleaseNotes>
-        <Version>4.1.1</Version>
+        <Version>4.2.0</Version>
         <AssemblyName>Ardalis.GuardClauses</AssemblyName>
         <PackageIcon>icon.png</PackageIcon>
         <PublishRepositoryUrl>true</PublishRepositoryUrl>

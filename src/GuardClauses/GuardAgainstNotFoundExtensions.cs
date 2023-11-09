@@ -15,7 +15,7 @@ public static partial class GuardClauseExtensions
     /// <param name="parameterName"></param>
     /// <returns><paramref name="input" /> if the value is not null.</returns>
     /// <exception cref="NotFoundException"></exception>
-#if NETSTANDARD || NETFRAMEWORK
+#if NETFRAMEWORK || NETSTANDARD2_0
     public static T NotFound<T>(this IGuardClause guardClause,
         [NotNull][ValidatedNotNull] string key,
         [NotNull][ValidatedNotNull] T? input,
@@ -48,7 +48,7 @@ public static partial class GuardClauseExtensions
     /// <param name="parameterName"></param>
     /// <returns><paramref name="input" /> if the value is not null.</returns>
     /// <exception cref="NotFoundException"></exception>
-#if NETSTANDARD || NETFRAMEWORK
+#if NETFRAMEWORK || NETSTANDARD2_0
     public static T NotFound<TKey, T>(this IGuardClause guardClause,
         [NotNull][ValidatedNotNull] TKey key,
         [NotNull][ValidatedNotNull] T? input,
