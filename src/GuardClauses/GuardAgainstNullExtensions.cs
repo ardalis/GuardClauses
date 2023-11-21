@@ -23,7 +23,7 @@ public static partial class GuardClauseExtensions
     /// <param name="parameterName"></param>
     /// <param name="message">Optional. Custom error message</param>
     /// <returns><paramref name="input" /> if the value is not null.</returns>
-#if NETSTANDARD || NETFRAMEWORK
+#if NETFRAMEWORK || NETSTANDARD2_0
     public static T Null<T>(this IGuardClause guardClause,
         [NotNull][ValidatedNotNull] T? input,
         string parameterName,
@@ -56,7 +56,7 @@ public static partial class GuardClauseExtensions
     /// <param name="parameterName"></param>
     /// <param name="message">Optional. Custom error message</param>
     /// <returns><paramref name="input" /> if the value is not null.</returns>
-#if NETSTANDARD || NETFRAMEWORK
+#if NETFRAMEWORK || NETSTANDARD2_0
     public static T Null<T>(this IGuardClause guardClause,
         [NotNull][ValidatedNotNull] T? input,
         string parameterName,
@@ -91,7 +91,7 @@ public static partial class GuardClauseExtensions
     /// <returns><paramref name="input" /> if the value is not an empty string or null.</returns>
     /// <exception cref="ArgumentNullException"></exception>
     /// <exception cref="ArgumentException"></exception>
-#if NETSTANDARD || NETFRAMEWORK
+#if NETFRAMEWORK || NETSTANDARD2_0
     public static string NullOrEmpty(this IGuardClause guardClause,
         [NotNull][ValidatedNotNull] string? input,
         string parameterName,
@@ -123,7 +123,7 @@ public static partial class GuardClauseExtensions
     /// <returns><paramref name="input" /> if the value is not an empty guid or null.</returns>
     /// <exception cref="ArgumentNullException"></exception>
     /// <exception cref="ArgumentException"></exception>
-#if NETSTANDARD || NETFRAMEWORK
+#if NETFRAMEWORK || NETSTANDARD2_0
     public static Guid NullOrEmpty(this IGuardClause guardClause,
         [NotNull][ValidatedNotNull] Guid? input,
         string parameterName,
@@ -155,7 +155,7 @@ public static partial class GuardClauseExtensions
     /// <returns><paramref name="input" /> if the value is not an empty enumerable or null.</returns>
     /// <exception cref="ArgumentNullException"></exception>
     /// <exception cref="ArgumentException"></exception>
-#if NETSTANDARD || NETFRAMEWORK
+#if NETFRAMEWORK || NETSTANDARD2_0
     public static IEnumerable<T> NullOrEmpty<T>(this IGuardClause guardClause,
         [NotNull][ValidatedNotNull] IEnumerable<T>? input,
         string parameterName,
@@ -187,7 +187,7 @@ public static partial class GuardClauseExtensions
     /// <returns><paramref name="input" /> if the value is not an empty or whitespace string.</returns>
     /// <exception cref="ArgumentNullException"></exception>
     /// <exception cref="ArgumentException"></exception>
-#if NETSTANDARD || NETFRAMEWORK
+#if NETFRAMEWORK || NETSTANDARD2_0
     public static string NullOrWhiteSpace(this IGuardClause guardClause,
         [NotNull][ValidatedNotNull] string? input,
         string parameterName,
@@ -217,7 +217,7 @@ public static partial class GuardClauseExtensions
     /// <param name="message">Optional. Custom error message</param>
     /// <returns><paramref name="input" /> if the value is not default for that type.</returns>
     /// <exception cref="ArgumentException"></exception>
-#if NETSTANDARD || NETFRAMEWORK
+#if NETFRAMEWORK || NETSTANDARD2_0
     public static T Default<T>(this IGuardClause guardClause,
         [AllowNull, NotNull] T input,
         string parameterName,
@@ -251,7 +251,7 @@ public static partial class GuardClauseExtensions
     /// <returns></returns>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="ArgumentNullException"></exception>
-#if NETSTANDARD || NETFRAMEWORK
+#if NETFRAMEWORK || NETSTANDARD2_0
     public static T NullOrInvalidInput<T>(this IGuardClause guardClause,
         [NotNull] T? input,
         string parameterName,
