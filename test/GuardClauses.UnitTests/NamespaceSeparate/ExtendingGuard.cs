@@ -9,7 +9,7 @@ namespace Ardalis.GuardClauses;
 /// </summary>
 public static class FooGuard
 {
-#if NETSTANDARD || NETFRAMEWORK
+#if NETFRAMEWORK || NETSTANDARD2_0
         public static void Foo(this IGuardClause guardClause, string input, string parameterName)
 #else
     public static void Foo(this IGuardClause guardClause, string input, [CallerArgumentExpression("input")] string? parameterName = null)
