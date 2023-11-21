@@ -14,7 +14,7 @@ public static partial class GuardClauseExtensions
     /// <param name="message">Optional. Custom error message</param>
     /// <returns><paramref name="input" /> if the value is not negative.</returns>
     /// <exception cref="ArgumentException"></exception>
-#if NETSTANDARD || NETFRAMEWORK
+#if NETFRAMEWORK || NETSTANDARD2_0
     public static int Negative(this IGuardClause guardClause,
         int input,
         string parameterName,
@@ -38,7 +38,7 @@ public static partial class GuardClauseExtensions
     /// <param name="message">Optional. Custom error message</param>
     /// <returns><paramref name="input" /> if the value is not negative.</returns>
     /// <exception cref="ArgumentException"></exception>
-#if NETSTANDARD || NETFRAMEWORK
+#if NETFRAMEWORK || NETSTANDARD2_0
     public static long Negative(this IGuardClause guardClause,
         long input,
         string parameterName,
@@ -62,7 +62,7 @@ public static partial class GuardClauseExtensions
     /// <param name="message">Optional. Custom error message</param>
     /// <returns><paramref name="input" /> if the value is not negative.</returns>
     /// <exception cref="ArgumentException"></exception>
-#if NETSTANDARD || NETFRAMEWORK
+#if NETFRAMEWORK || NETSTANDARD2_0
     public static decimal Negative(this IGuardClause guardClause,
         decimal input,
         string parameterName,
@@ -86,7 +86,7 @@ public static partial class GuardClauseExtensions
     /// <param name="message">Optional. Custom error message</param>
     /// <returns><paramref name="input" /> if the value is not negative.</returns>
     /// <exception cref="ArgumentException"></exception>
-#if NETSTANDARD || NETFRAMEWORK
+#if NETFRAMEWORK || NETSTANDARD2_0
     public static float Negative(IGuardClause guardClause,
         float input,
         string parameterName,
@@ -110,7 +110,7 @@ public static partial class GuardClauseExtensions
     /// <param name="message">Optional. Custom error message</param>
     /// <returns><paramref name="input" /> if the value is not negative.</returns>
     /// <exception cref="ArgumentException"></exception>
-#if NETSTANDARD || NETFRAMEWORK
+#if NETFRAMEWORK || NETSTANDARD2_0
     public static double Negative(this IGuardClause guardClause,
         double input,
         string parameterName,
@@ -134,7 +134,7 @@ public static partial class GuardClauseExtensions
     /// <param name="message">Optional. Custom error message</param>
     /// <returns><paramref name="input" /> if the value is not negative.</returns>
     /// <exception cref="ArgumentException"></exception>
-#if NETSTANDARD || NETFRAMEWORK
+#if NETFRAMEWORK || NETSTANDARD2_0
     public static TimeSpan Negative(this IGuardClause guardClause,
         TimeSpan input,
         string parameterName,
@@ -158,7 +158,7 @@ public static partial class GuardClauseExtensions
     /// <param name="message">Optional. Custom error message</param>
     /// <returns><paramref name="input" /> if the value is not negative.</returns>
     /// <exception cref="ArgumentException"></exception>
-#if NETSTANDARD || NETFRAMEWORK
+#if NETFRAMEWORK || NETSTANDARD2_0
     private static T Negative<T>(this IGuardClause guardClause,
         T input,
         string parameterName,
@@ -186,7 +186,7 @@ public static partial class GuardClauseExtensions
     /// <param name="parameterName"></param>
     /// <param name="message">Optional. Custom error message</param>
     /// <returns><paramref name="input" /> if the value is not negative or zero.</returns>
-#if NETSTANDARD || NETFRAMEWORK
+#if NETFRAMEWORK || NETSTANDARD2_0
     public static int NegativeOrZero(this IGuardClause guardClause,
         int input,
         string parameterName,
@@ -209,7 +209,7 @@ public static partial class GuardClauseExtensions
     /// <param name="parameterName"></param>
     /// <param name="message">Optional. Custom error message</param>
     /// <returns><paramref name="input" /> if the value is not negative or zero.</returns>
-#if NETSTANDARD || NETFRAMEWORK
+#if NETFRAMEWORK || NETSTANDARD2_0
     public static long NegativeOrZero(this IGuardClause guardClause,
         long input,
         string parameterName,
@@ -232,7 +232,7 @@ public static partial class GuardClauseExtensions
     /// <param name="parameterName"></param>
     /// <param name="message">Optional. Custom error message</param>
     /// <returns><paramref name="input" /> if the value is not negative or zero.</returns>
-#if NETSTANDARD || NETFRAMEWORK
+#if NETFRAMEWORK || NETSTANDARD2_0
     public static decimal NegativeOrZero(this IGuardClause guardClause,
         decimal input,
         string parameterName,
@@ -255,7 +255,7 @@ public static partial class GuardClauseExtensions
     /// <param name="parameterName"></param>
     /// <param name="message">Optional. Custom error message</param>
     /// <returns><paramref name="input" /> if the value is not negative or zero.</returns>
-#if NETSTANDARD || NETFRAMEWORK
+#if NETFRAMEWORK || NETSTANDARD2_0
     public static float NegativeOrZero(this IGuardClause guardClause,
         float input,
         string parameterName,
@@ -278,7 +278,7 @@ public static partial class GuardClauseExtensions
     /// <param name="parameterName"></param>
     /// <param name="message">Optional. Custom error message</param>
     /// <returns><paramref name="input" /> if the value is not negative or zero.</returns>
-#if NETSTANDARD || NETFRAMEWORK
+#if NETFRAMEWORK || NETSTANDARD2_0
     public static double NegativeOrZero(this IGuardClause guardClause,
         double input,
         string parameterName,
@@ -301,7 +301,7 @@ public static partial class GuardClauseExtensions
     /// <param name="parameterName"></param>
     /// <param name="message">Optional. Custom error message</param>
     /// <returns><paramref name="input" /> if the value is not negative or zero.</returns>
-#if NETSTANDARD || NETFRAMEWORK
+#if NETFRAMEWORK || NETSTANDARD2_0
     public static TimeSpan NegativeOrZero(this IGuardClause guardClause,
         TimeSpan input,
         string parameterName,
@@ -325,7 +325,7 @@ public static partial class GuardClauseExtensions
     /// <param name="parameterName"></param>
     /// <param name="message">Optional. Custom error message</param>
     /// <returns><paramref name="input" /> if the value is not negative or zero.</returns>
-#if NETSTANDARD || NETFRAMEWORK
+#if NETFRAMEWORK || NETSTANDARD2_0
     private static T NegativeOrZero<T>(this IGuardClause guardClause,
         T input,
         string parameterName,

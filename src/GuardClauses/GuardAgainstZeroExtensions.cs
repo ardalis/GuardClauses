@@ -15,7 +15,7 @@ public static partial class GuardClauseExtensions
     /// <param name="message">Optional. Custom error message</param>
     /// <returns><paramref name="input" /> if the value is not zero.</returns>
     /// <exception cref="ArgumentException"></exception>
-#if NETSTANDARD || NETFRAMEWORK
+#if NETFRAMEWORK || NETSTANDARD2_0
     public static int Zero(this IGuardClause guardClause,
         int input,
         string parameterName,
@@ -39,7 +39,7 @@ public static partial class GuardClauseExtensions
     /// <param name="message">Optional. Custom error message</param>
     /// <returns><paramref name="input" /> if the value is not zero.</returns>
     /// <exception cref="ArgumentException"></exception>
-#if NETSTANDARD || NETFRAMEWORK
+#if NETFRAMEWORK || NETSTANDARD2_0
     public static long Zero(this IGuardClause guardClause,
         long input,
         string parameterName,
@@ -63,7 +63,7 @@ public static partial class GuardClauseExtensions
     /// <param name="message">Optional. Custom error message</param>
     /// <returns><paramref name="input" /> if the value is not zero.</returns>
     /// <exception cref="ArgumentException"></exception>
-#if NETSTANDARD || NETFRAMEWORK
+#if NETFRAMEWORK || NETSTANDARD2_0
     public static decimal Zero(this IGuardClause guardClause,
         decimal input,
         string parameterName,
@@ -87,7 +87,7 @@ public static partial class GuardClauseExtensions
     /// <param name="message">Optional. Custom error message</param>
     /// <returns><paramref name="input" /> if the value is not zero.</returns>
     /// <exception cref="ArgumentException"></exception>
-#if NETSTANDARD || NETFRAMEWORK
+#if NETFRAMEWORK || NETSTANDARD2_0
     public static float Zero(this IGuardClause guardClause,
         float input,
         string parameterName,
@@ -111,7 +111,7 @@ public static partial class GuardClauseExtensions
     /// <param name="message">Optional. Custom error message</param>
     /// <returns><paramref name="input" /> if the value is not zero.</returns>
     /// <exception cref="ArgumentException"></exception>
-#if NETSTANDARD || NETFRAMEWORK
+#if NETFRAMEWORK || NETSTANDARD2_0
     public static double Zero(this IGuardClause guardClause,
         double input,
         string parameterName,
@@ -134,7 +134,7 @@ public static partial class GuardClauseExtensions
     /// <param name="parameterName"></param>
     /// <returns><paramref name="input" /> if the value is not zero.</returns>
     /// <exception cref="ArgumentException"></exception>
-#if NETSTANDARD || NETFRAMEWORK
+#if NETFRAMEWORK || NETSTANDARD2_0
     public static TimeSpan Zero(this IGuardClause guardClause,
         TimeSpan input,
         string parameterName)
