@@ -19,7 +19,7 @@ public static partial class GuardClauseExtensions
     /// <param name="message">Optional. Custom error message</param>
     /// <returns><paramref name="input" /> if the value is not out of range.</returns>
     /// <exception cref="InvalidEnumArgumentException"></exception>
-#if NETSTANDARD || NETFRAMEWORK
+#if NETFRAMEWORK || NETSTANDARD2_0
     public static int EnumOutOfRange<T>(this IGuardClause guardClause,
         int input,
         string parameterName,
@@ -53,7 +53,7 @@ public static partial class GuardClauseExtensions
     /// /// <param name="message">Optional. Custom error message</param>
     /// <returns><paramref name="input" /> if the value is not out of range.</returns>
     /// <exception cref="InvalidEnumArgumentException"></exception>
-#if NETSTANDARD || NETFRAMEWORK
+#if NETFRAMEWORK || NETSTANDARD2_0
     public static T EnumOutOfRange<T>(this IGuardClause guardClause,
         T input,
         string parameterName,
@@ -123,7 +123,7 @@ public static partial class GuardClauseExtensions
     /// <returns><paramref name="input" /> if the value is in the range of valid SqlDateTime values.</returns>
     /// <exception cref="ArgumentNullException"></exception>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
-#if NETSTANDARD || NETFRAMEWORK
+#if NETFRAMEWORK || NETSTANDARD2_0
     public static DateTime NullOrOutOfSQLDateRange(this IGuardClause guardClause,
         [NotNull][ValidatedNotNull] DateTime? input,
         string parameterName,
@@ -148,7 +148,7 @@ public static partial class GuardClauseExtensions
     /// <param name="message">Optional. Custom error message</param>
     /// <returns><paramref name="input" /> if the value is in the range of valid SqlDateTime values.</returns>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
-#if NETSTANDARD || NETFRAMEWORK
+#if NETFRAMEWORK || NETSTANDARD2_0
     public static DateTime OutOfSQLDateRange(this IGuardClause guardClause,
         DateTime input,
         string parameterName,
