@@ -94,6 +94,10 @@ public void SomeMethod(string something)
 }
 ```
 
+## YouTube Overview
+
+[![Ardalis.GuardClauses on YouTube](http://img.youtube.com/vi/OkE2VeRM4mE/0.jpg)](http://www.youtube.com/watch?v=OkE2VeRM4mE "Improve Your Code with Ardalis.GuardClauses")
+
 ## Breaking Changes in v4
 
 - OutOfRange for Enums now uses `EnumOutOfRange`
