@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="altcover" Version="8.6.68" />
+        <PackageReference Include="altcover" Version="8.6.95" />
         <PackageReference Include="coverlet.msbuild" Version="6.0.0">
             <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
             <PrivateAssets>all</PrivateAssets>
