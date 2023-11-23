@@ -15,7 +15,7 @@ public static partial class GuardClauseExtensions
     /// <param name="message"></param>
     /// <returns><paramref name="input"/> if the <paramref name="func"/> evaluates to true </returns>
     /// <exception cref="ArgumentException"></exception>
-    [Obsolete("This method is obsolete. Please use the Expression version instead.")]
+    [Obsolete("Deprecated: Switch to Expression for validation.")]
     public static T AgainstExpression<T>(this IGuardClause guardClause,
         Func<T, bool> func,
         T input,
@@ -39,7 +39,7 @@ public static partial class GuardClauseExtensions
     /// <param name="message"></param>
     /// <returns><paramref name="input"/> if the <paramref name="func"/> evaluates to true </returns>
     /// <exception cref="ArgumentException"></exception>
-    [Obsolete("This method is obsolete. Please use the Expression version instead.")]
+    [Obsolete("Deprecated: Switch to ExpressionAsync for asynchronous validation.")]
     public static async Task<T> AgainstExpressionAsync<T>(this IGuardClause guardClause,
         Func<T, Task<bool>> func,
         T input,
@@ -64,7 +64,7 @@ public static partial class GuardClauseExtensions
     /// <param name="paramName">The name of the parameter that is invalid</param>
     /// <returns><paramref name="input"/> if the <paramref name="func"/> evaluates to true </returns>
     /// <exception cref="ArgumentException"></exception>
-    [Obsolete("This method is obsolete. Please use the Expression version instead.")]
+    [Obsolete("Deprecated: Switch to Expression for validation.")]
     public static T AgainstExpression<T>(this IGuardClause guardClause, Func<T, bool> func,
         T input, string message, string paramName) where T : struct
     {
