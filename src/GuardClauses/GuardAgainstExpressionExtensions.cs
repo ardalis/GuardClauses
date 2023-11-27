@@ -25,7 +25,7 @@ public static partial class GuardClauseExtensions
         string message,
         [CallerArgumentExpression("input")] string? parameterName = null) where T : struct
     {
-        if (!func(input))
+        if (func(input))
         {
             throw new ArgumentException(message, parameterName!);
         }
@@ -52,7 +52,7 @@ public static partial class GuardClauseExtensions
         string message,
         [CallerArgumentExpression("input")] string? parameterName = null) where T : struct
     {
-        if (!await func(input))
+        if (await func(input))
         {
             throw new ArgumentException(message, parameterName!);
         }
