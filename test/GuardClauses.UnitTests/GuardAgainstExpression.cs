@@ -22,66 +22,56 @@ public class GuardAgainstExpression
         };
     }
 
-    [Theory]
-    [InlineData(10)]
-    public void GivenIntegerWhenTheExpressionEvaluatesToTrueDoesNothing(int test)
+    [Fact]
+    public void GivenIntegerWhenTheExpressionEvaluatesToTrueThrowsException()
     {
-        Guard.Against.AgainstExpression((x) => x == 10, test, "Value is not equal to 10");
+        int testCase = 10;
+        Assert.Throws<ArgumentException>(() => Guard.Against.Expression((x) => x == 10, testCase, "Value cannot be 10"));
     }
 
-    [Theory]
-    [InlineData(10)]
-    public void GivenIntegerWhenTheExpressionEvaluatesToFalseThrowsException(int test)
+    [Fact]
+    public void GivenIntegerWhenTheExpressionEvaluatesToFalseDoesNothing()
     {
-        Assert.Throws<ArgumentException>(() => Guard.Against.AgainstExpression((x) => x == 5, test, "Value is not equal to 10"));
+        int testCase = 10;
+        Guard.Against.Expression((x) => x == 5, testCase, "Value cannot be 5");
     }
 
-    [Theory]
-    [InlineData(1.1)]
-    public void GivenDoubleWhenTheExpressionEvaluatesToTrueDoesNothing(double test)
+    [Fact]
+    public void GivenDoubleWhenTheExpressionEvaluatesToTrueThrowsException()
     {
-        Guard.Against.AgainstExpression((x) => x == 1.1, test, "Value is not equal to 1.1");
+        double testCase = 1.1;
+        Assert.Throws<ArgumentException>(() => Guard.Against.Expression((x) => x == 1.1, testCase, "Value cannot be 1.1"));
     }
 
-    [Theory]
-    [InlineData(1.1)]
-    public void GivenDoubleWhenTheExpressionEvaluatesToFalseThrowsException(int test)
+    [Fact]
+    public void GivenDoubleWhenTheExpressionEvaluatesToFalseDoesNothing()
     {
-        Assert.Throws<ArgumentException>(() => Guard.Against.AgainstExpression((x) => x == 5.0, test, "Value is not equal to 1.1"));
-    }
-
-    [Theory]
-    [MemberData(nameof(GetCustomStruct))]
-    public void GivenCustomStructWhenTheExpressionEvaluatesToTrueDoesNothing(CustomStruct test)
-    {
-        Guard.Against.AgainstExpression((x) => x.FieldName == "FieldValue", test, "FieldValue is not matching");
+        double testCase = 1.1;
+        Guard.Against.Expression((x) => x == 5.0, testCase, "Value cannot be 5.0");
     }
 
     [Theory]
     [MemberData(nameof(GetCustomStruct))]
-    public void GivenCustomStructWhenTheExpressionEvaluatesToFalseThrowsException(CustomStruct test)
+    public void GivenCustomStructWhenTheExpressionEvaluatesToTrueThrowsException(CustomStruct test)
     {
-        Assert.Throws<ArgumentException>(() => Guard.Against.AgainstExpression((x) => x.FieldName == "FailThis", test, "FieldValue is not matching"));
+        Assert.Throws<ArgumentException>(() => Guard.Against.Expression((x) => x.FieldName == "FieldValue", test, "FieldValue is not matching"));
     }
 
     [Theory]
-    [InlineData(null, "Value does not fall within the expected range.")]
-    [InlineData("Please provide correct value", "Please provide correct value")]
-    public void ErrorMessageMatchesExpected(string customMessage, string expectedMessage)
+    [MemberData(nameof(GetCustomStruct))]
+    public void GivenCustomStructWhenTheExpressionEvaluatesToFalseDoesNothing(CustomStruct test)
     {
-        var exception = Assert.Throws<ArgumentException>(() => Guard.Against.AgainstExpression(x => x == 1, 2, customMessage));
-        Assert.NotNull(exception);
-        Assert.NotNull(exception.Message);
-        Assert.Equal(expectedMessage, exception.Message);
+        Guard.Against.Expression((x) => x.FieldName == "FailThis", test, "FieldValue is not matching");
     }
 
     [Fact]
     public void ErrorIncludesParamNameIfProvided()
     {
         string paramName = "testParamName";
-        var exception = Assert.Throws<ArgumentException>(() => Guard.Against.AgainstExpression(x => x == 1, 2, "custom message", paramName));
+        var exception = Assert.Throws<ArgumentException>(() => Guard.Against.Expression(x => x == 2, 2, "custom message", paramName));
         Assert.NotNull(exception);
         Assert.NotNull(exception.Message);
         Assert.Equal(paramName, exception.ParamName);
     }
+
 }
