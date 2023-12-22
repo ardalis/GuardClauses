@@ -14,7 +14,7 @@ namespace Ardalis.GuardClauses;
 public static partial class GuardClauseExtensions
 {  
     /// <summary>
-    /// Throws <seealso cref="NullReferenceException"/>, if delegate's invocation list is empty
+    /// Throws <seealso cref="ArgumentNullException"/>, if delegate's invocation list is empty
     /// </summary>
     /// <param name="type"></param>
     /// <returns></returns>
