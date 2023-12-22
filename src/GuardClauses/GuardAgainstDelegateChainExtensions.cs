@@ -30,4 +30,31 @@ public static partial class GuardClauseExtensions
     }
 
 
+ /// <summary>
+ /// Throws <seealso cref="ArgumentNullException"/> if delegate's type is null
+ /// <br/> Param id : index
+ /// </summary>
+ /// <param name="guard"></param>
+ /// <param name="id">index</param>
+ /// <param name="type"></param>
+ /// <returns></returns>
+ public static Delegate AgainstChainSelection(
+     this IGuardClause guard,
+     [NotNull][ValidatedNotNull]Delegate? type,
+     int id = 0)
+ {
+
+     guard.Null(type, "Delegate", "Provided delegate is null");
+
+     try
+     {
+         return guard.Null(type.GetInvocationList()[id]);
+     }
+     catch(Exception)
+     {
+         throw new NotFoundException("id", "delegate");
+     }
+ }
+
+
 }
