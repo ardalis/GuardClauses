@@ -23,7 +23,7 @@ public static partial class GuardClauseExtensions
         this IGuardClause _,
         [ValidatedNotNull][NotNull]Delegate? type)
     {
-        Guard.Against.Null(type,"Delegate","Type of delegate is null");
+        Guard.Against.Null(type,"Delegate","Provided delegate is null");
 
         Delegate[] list = type.GetInvocationList();
         return list;    
@@ -31,7 +31,8 @@ public static partial class GuardClauseExtensions
 
 
  /// <summary>
- /// Throws <seealso cref="ArgumentNullException"/> if delegate's type is null
+ /// Throws <seealso cref="ArgumentNullException"/> if delegate's type is null or chain could not be found
+ /// Throws <seealso cref="NotFoundException"/> if index is out of range invocation list
  /// <br/> Param id : index
  /// </summary>
  /// <param name="guard"></param>
