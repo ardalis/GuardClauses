@@ -23,7 +23,10 @@ public static partial class GuardClauseExtensions
         Func<T, bool> func,
         T input,
         string message,
-        [CallerArgumentExpression("input")] string? parameterName = null) where T : struct
+#if NET7_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+        [CallerArgumentExpression("input")]
+#endif
+    string? parameterName = null) where T : struct
     {
         if (func(input))
         {
@@ -50,7 +53,10 @@ public static partial class GuardClauseExtensions
         Func<T, Task<bool>> func,
         T input,
         string message,
-        [CallerArgumentExpression("input")] string? parameterName = null) where T : struct
+#if NET7_0_OR_GREATER || NETSTANDARD2_1_OR_GREATER
+        [CallerArgumentExpression("input")]
+#endif
+    string? parameterName = null) where T : struct
     {
         if (await func(input))
         {

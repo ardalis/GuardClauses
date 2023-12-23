@@ -131,7 +131,7 @@ public static partial class GuardClauseExtensions
 #else
     public static DateTime NullOrOutOfSQLDateRange(this IGuardClause guardClause,
          [NotNull][ValidatedNotNull] DateTime? input,
-         [CallerArgumentExpression("input")] string parameterName = null,
+         [CallerArgumentExpression("input")] string? parameterName = null,
          string? message = null)
 #endif
     {
