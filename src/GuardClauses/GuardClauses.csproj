@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
     </PropertyGroup>
@@ -18,10 +18,9 @@
         <RepositoryUrl>https://github.com/ardalis/guardclauses</RepositoryUrl>
         <PackageTags>guard clause clauses assert assertion</PackageTags>
         <PackageReleaseNotes>
-* Add JetBrains.Annotations source code (#304)
-* Added backwards compatibility (#291)
+            * Refactor AgainstExpression to Expression for Clarity and Consistency by @SimonNyvall in https://github.com/ardalis/GuardClauses/pull/317
         </PackageReleaseNotes>
-        <Version>4.2.0</Version>
+        <Version>4.3.0</Version>
         <AssemblyName>Ardalis.GuardClauses</AssemblyName>
         <PackageIcon>icon.png</PackageIcon>
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -33,7 +32,7 @@
         <DocumentationFile>bin\$(Configuration)\Ardalis.GuardClauses.xml</DocumentationFile>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
     </ItemGroup>
     <ItemGroup>
         <None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
