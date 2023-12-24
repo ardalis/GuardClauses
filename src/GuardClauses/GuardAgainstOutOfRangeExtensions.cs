@@ -36,6 +36,14 @@ public static partial class GuardClauseExtensions
         string? message = null)
 #endif
     {
+        if (maxLength < minLength)
+        {
+            throw new ArgumentException(
+                message ??
+                $"Min length must be equal or less than max length.",
+                parameterName);
+        }
+        
         Guard.Against.NegativeOrZero(minLength, nameof(minLength));
         if (input.Length < minLength)
         {

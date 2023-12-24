@@ -4,7 +4,7 @@ using Xunit;
 
 namespace GuardClauses.UnitTests;
 
-public class GuardAgainstStringOutOfRange
+public class GuardAgainstStringLengthOutOfRange
 {
     [Fact]
     public void DoesNothingGivenNonEmptyString()
@@ -39,6 +39,12 @@ public class GuardAgainstStringOutOfRange
     public void ThrowsGivenStringLongerThanMaxLength()
     {
         Assert.Throws<ArgumentException>(() => Guard.Against.LengthOutOfRange("abcd", 2, 2, "string"));
+    }
+
+    [Fact]
+    public void ThrowsWhenMinIsBiggerThanMax()
+    {
+        Assert.Throws<ArgumentException>(() => Guard.Against.LengthOutOfRange("asd", 4, 2, "string"));
     }
 
     [Fact]
