@@ -36,4 +36,36 @@ public static partial class GuardClauseExtensions
         }
         return input;
     }
+
+    /// <summary>
+    /// Throws an <see cref="ArgumentException" /> if string <paramref name="input"/> is too long.
+    /// </summary>
+    /// <param name="guardClause"></param>
+    /// <param name="input"></param>
+    /// <param name="maxLength"></param>
+    /// <param name="parameterName"></param>
+    /// <param name="message">Optional. Custom error message</param>
+    /// <returns><paramref name="input" /> if the value is not negative.</returns>
+    /// <exception cref="ArgumentException"></exception>
+#if NETFRAMEWORK || NETSTANDARD2_0
+    public static string StringTooLong(this IGuardClause guardClause,
+        string input,
+        int maxLength,
+        string parameterName,
+        string? message = null)
+#else
+    public static string StringTooLong(this IGuardClause guardClause,
+        string input,
+        int maxLength,
+        [CallerArgumentExpression("input")] string? parameterName = null,
+        string? message = null)
+#endif
+    {
+        Guard.Against.NegativeOrZero(maxLength, nameof(maxLength));
+        if (input.Length > maxLength)
+        {
+            throw new ArgumentException(message ?? $"Input {parameterName} with length {input.Length} is too long. Maxmimum length is {maxLength}.", parameterName);
+        }
+        return input;
+    }
 }
