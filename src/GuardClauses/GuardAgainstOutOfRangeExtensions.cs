@@ -10,6 +10,54 @@ namespace Ardalis.GuardClauses;
 public static partial class GuardClauseExtensions
 {
     /// <summary>
+    /// Throws an <see cref="ArgumentException" /> if string <paramref name="input"/> length is out of range.
+    /// </summary>
+    /// <param name="guardClause"></param>
+    /// <param name="input"></param>
+    /// <param name="minLength"></param>
+    /// <param name="maxLength"></param>
+    /// <param name="parameterName"></param>
+    /// <param name="message">Optional. Custom error message</param>
+    /// <returns><paramref name="input" /> if the value is not negative.</returns>
+    /// <exception cref="ArgumentException"></exception>
+#if NETFRAMEWORK || NETSTANDARD2_0
+    public static string LengthOutOfRange(this IGuardClause guardClause,
+        string input,
+        int minLength,
+        int maxLength,
+        string parameterName,
+        string? message = null)
+#else
+    public static string LengthOutOfRange(this IGuardClause guardClause,
+        string input,
+        int minLength,
+        int maxLength,
+        [CallerArgumentExpression("input")] string? parameterName = null,
+        string? message = null)
+#endif
+    {
+        Guard.Against.NegativeOrZero(minLength, nameof(minLength));
+        if (input.Length < minLength)
+        {
+            throw new ArgumentException(
+                message ??
+                $"Input {parameterName} with length {input.Length} is too short. Minimum length is {minLength}.",
+                parameterName);
+        }
+
+        Guard.Against.NegativeOrZero(maxLength, nameof(maxLength));
+        if (input.Length > maxLength)
+        {
+            throw new ArgumentException(
+                message ??
+                $"Input {parameterName} with length {input.Length} is too long. Maxmimum length is {maxLength}.",
+                parameterName);
+        }
+
+        return input;
+    }
+    
+    /// <summary>
     /// Throws an <see cref="InvalidEnumArgumentException" /> if <paramref name="input"/> is not a valid enum value.
     /// </summary>
     /// <typeparam name="T"></typeparam>
