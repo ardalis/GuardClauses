@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 using FluentValidation;
 
 namespace GuardClauses.FluentValidations;
+/// <summary>
+/// ONLY FOR TESTING PERPOSE ! </>
+/// </summary>
+
 public class Command
 {
     public int Id { get; set; }
