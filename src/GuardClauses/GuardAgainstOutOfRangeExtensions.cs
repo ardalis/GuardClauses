@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
+using GuardClauses;
 
 namespace Ardalis.GuardClauses;
 
@@ -36,31 +37,10 @@ public static partial class GuardClauseExtensions
         string? message = null)
 #endif
     {
-        if (maxLength < minLength)
-        {
-            throw new ArgumentException(
-                message ??
-                $"Min length must be equal or less than max length.",
-                parameterName);
-        }
-        
-        Guard.Against.NegativeOrZero(minLength, nameof(minLength));
-        if (input.Length < minLength)
-        {
-            throw new ArgumentException(
-                message ??
-                $"Input {parameterName} with length {input.Length} is too short. Minimum length is {minLength}.",
-                parameterName);
-        }
-
-        Guard.Against.NegativeOrZero(maxLength, nameof(maxLength));
-        if (input.Length > maxLength)
-        {
-            throw new ArgumentException(
-                message ??
-                $"Input {parameterName} with length {input.Length} is too long. Maxmimum length is {maxLength}.",
-                parameterName);
-        }
+        Guard.Against.Negative<int>(maxLength - minLength, parameterName: "min or max length",
+            message: "Min length must be equal or less than max length.");
+        Guard.Against.StringTooShort(input, minLength, nameof(minLength));
+        Guard.Against.StringTooLong(input, maxLength, nameof(maxLength));
 
         return input;
     }
