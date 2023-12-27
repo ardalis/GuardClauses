@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\GuardClauses\GuardClauses.csproj" />
+    <ProjectReference Include="..\GuardClauses\GuardClauses.csproj" />
   </ItemGroup>
 
 </Project>
