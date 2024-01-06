@@ -4,11 +4,47 @@ using System.ComponentModel;
 using System.Linq;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
+using GuardClauses;
 
 namespace Ardalis.GuardClauses;
 
 public static partial class GuardClauseExtensions
 {
+    /// <summary>
+    /// Throws an <see cref="ArgumentException" /> if string <paramref name="input"/> length is out of range.
+    /// </summary>
+    /// <param name="guardClause"></param>
+    /// <param name="input"></param>
+    /// <param name="minLength"></param>
+    /// <param name="maxLength"></param>
+    /// <param name="parameterName"></param>
+    /// <param name="message">Optional. Custom error message</param>
+    /// <returns><paramref name="input" /> if the value is not negative.</returns>
+    /// <exception cref="ArgumentException"></exception>
+#if NETFRAMEWORK || NETSTANDARD2_0
+    public static string LengthOutOfRange(this IGuardClause guardClause,
+        string input,
+        int minLength,
+        int maxLength,
+        string parameterName,
+        string? message = null)
+#else
+    public static string LengthOutOfRange(this IGuardClause guardClause,
+        string input,
+        int minLength,
+        int maxLength,
+        [CallerArgumentExpression("input")] string? parameterName = null,
+        string? message = null)
+#endif
+    {
+        Guard.Against.Negative<int>(maxLength - minLength, parameterName: "min or max length",
+            message: "Min length must be equal or less than max length.");
+        Guard.Against.StringTooShort(input, minLength, nameof(minLength));
+        Guard.Against.StringTooLong(input, maxLength, nameof(maxLength));
+
+        return input;
+    }
+    
     /// <summary>
     /// Throws an <see cref="InvalidEnumArgumentException" /> if <paramref name="input"/> is not a valid enum value.
     /// </summary>
