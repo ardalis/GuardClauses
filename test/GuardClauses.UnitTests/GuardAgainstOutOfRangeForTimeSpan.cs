@@ -64,7 +64,7 @@ public class GuardAgainstOutOfRangeForTimeSpan
     [Theory]
     [InlineData(null, "rangeFrom should be less or equal than rangeTo (Parameter 'parameterName')")]
     [InlineData("Timespan range", "Timespan range (Parameter 'parameterName')")]
-    public void ErrorMessageMatchesExpectedWhenRangeIsInvalid(string customMessage, string expectedMessage)
+    public void ErrorMessageMatchesExpectedWhenRangeIsInvalid(string? customMessage, string expectedMessage)
     {
         var inputTimeSpan = TimeSpan.FromSeconds(-1);
         var rangeFromTimeSpan = TimeSpan.FromSeconds(3);
@@ -79,7 +79,7 @@ public class GuardAgainstOutOfRangeForTimeSpan
     [Theory]
     [InlineData("SomeParameter", null)]
     [InlineData("SomeOtherParameter", "Value must be correct")]
-    public void ExceptionParamNameMatchesExpectedRangeIsInvalid(string expectedParamName, string customMessage)
+    public void ExceptionParamNameMatchesExpectedRangeIsInvalid(string expectedParamName, string? customMessage)
     {
         var inputTimeSpan = TimeSpan.FromSeconds(-1);
         var rangeFromTimeSpan = TimeSpan.FromSeconds(3);
@@ -99,7 +99,9 @@ public class GuardAgainstOutOfRangeForTimeSpan
         var rangeFromTimeSpan = TimeSpan.FromSeconds(3);
         var rangeToTimeSpan = TimeSpan.FromSeconds(1);
 
-        var exception = Assert.Throws<ArgumentNullException>(() => Guard.Against.OutOfRange(inputTimeSpan, expectedParamName, rangeFromTimeSpan, rangeToTimeSpan, customMessage));
+        var exception = Assert.Throws<ArgumentNullException>(() => 
+            Guard.Against.OutOfRange(inputTimeSpan, expectedParamName!, 
+                rangeFromTimeSpan, rangeToTimeSpan, customMessage));
         Assert.NotNull(exception);
         Assert.Equal("parameterName", exception.ParamName);
     }
@@ -107,7 +109,7 @@ public class GuardAgainstOutOfRangeForTimeSpan
     [Theory]
     [InlineData(null, "Input parameterName was out of range (Parameter 'parameterName')")]
     [InlineData("Timespan range", "Timespan range (Parameter 'parameterName')")]
-    public void ErrorMessageMatchesExpectedWhenInputIsInvalid(string customMessage, string expectedMessage)
+    public void ErrorMessageMatchesExpectedWhenInputIsInvalid(string? customMessage, string expectedMessage)
     {
         var inputTimeSpan = TimeSpan.FromSeconds(-1);
         var rangeFromTimeSpan = TimeSpan.FromSeconds(0);
@@ -122,7 +124,7 @@ public class GuardAgainstOutOfRangeForTimeSpan
     [Theory]
     [InlineData("SomeParameter", null)]
     [InlineData("SomeOtherParameter", "Value must be correct")]
-    public void ExceptionParamNameMatchesExpectedInputIsInvalid(string expectedParamName, string customMessage)
+    public void ExceptionParamNameMatchesExpectedInputIsInvalid(string expectedParamName, string? customMessage)
     {
         var inputTimeSpan = TimeSpan.FromSeconds(-1);
         var rangeFromTimeSpan = TimeSpan.FromSeconds(0);
@@ -142,7 +144,8 @@ public class GuardAgainstOutOfRangeForTimeSpan
         var rangeFromTimeSpan = TimeSpan.FromSeconds(0);
         var rangeToTimeSpan = TimeSpan.FromSeconds(1);
 
-        var exception = Assert.Throws<ArgumentNullException>(() => Guard.Against.OutOfRange(inputTimeSpan, expectedParamName, rangeFromTimeSpan, rangeToTimeSpan, customMessage));
+        var exception = Assert.Throws<ArgumentNullException>(() => 
+            Guard.Against.OutOfRange(inputTimeSpan, expectedParamName!, rangeFromTimeSpan, rangeToTimeSpan, customMessage));
         Assert.NotNull(exception);
         Assert.Equal("parameterName", exception.ParamName);
     }

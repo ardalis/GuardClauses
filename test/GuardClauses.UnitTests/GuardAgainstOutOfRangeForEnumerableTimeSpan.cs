@@ -57,7 +57,7 @@ public class GuardAgainstOutOfRangeForEnumerableTimeSpan
     [Theory]
     [InlineData(null, "rangeFrom should be less or equal than rangeTo (Parameter 'parameterName')")]
     [InlineData("Timespan range", "Timespan range (Parameter 'parameterName')")]
-    public void ErrorMessageMatchesExpectedWhenRangeIsInvalid(string customMessage, string expectedMessage)
+    public void ErrorMessageMatchesExpectedWhenRangeIsInvalid(string? customMessage, string? expectedMessage)
     {
         var input = Enumerable.Range(0, 3).Select(i => TimeSpan.FromSeconds(i));
         var rangeFrom = TimeSpan.FromSeconds(2);
@@ -74,13 +74,14 @@ public class GuardAgainstOutOfRangeForEnumerableTimeSpan
     [InlineData(null, "Please provide correct value")]
     [InlineData("SomeParameter", null)]
     [InlineData("SomeOtherParameter", "Value must be correct")]
-    public void ExceptionParamNameMatchesExpectedRangeIsInvalid(string expectedParamName, string customMessage)
+    public void ExceptionParamNameMatchesExpectedRangeIsInvalid(string? expectedParamName, string? customMessage)
     {
         var input = Enumerable.Range(0, 3).Select(i => TimeSpan.FromSeconds(i));
         var rangeFrom = TimeSpan.FromSeconds(2);
         var rangeTo = TimeSpan.FromSeconds(1);
 
-        var exception = Assert.Throws<ArgumentException>(() => Guard.Against.OutOfRange(input, expectedParamName, rangeFrom, rangeTo, customMessage));
+        var exception = Assert.Throws<ArgumentException>(() => 
+            Guard.Against.OutOfRange(input, expectedParamName!, rangeFrom, rangeTo, customMessage));
         Assert.NotNull(exception);
         Assert.Equal(expectedParamName, exception.ParamName);
     }
@@ -88,7 +89,7 @@ public class GuardAgainstOutOfRangeForEnumerableTimeSpan
     [Theory]
     [InlineData(null, "Input parameterName had out of range item(s) (Parameter 'parameterName')")]
     [InlineData("Timespan range", "Timespan range (Parameter 'parameterName')")]
-    public void ErrorMessageMatchesExpectedWhenInputIsInvalid(string customMessage, string expectedMessage)
+    public void ErrorMessageMatchesExpectedWhenInputIsInvalid(string? customMessage, string? expectedMessage)
     {
         var input = Enumerable.Range(0, 3).Select(i => TimeSpan.FromSeconds(i));
         var rangeFrom = TimeSpan.FromSeconds(0);
@@ -105,13 +106,14 @@ public class GuardAgainstOutOfRangeForEnumerableTimeSpan
     [InlineData(null, "Please provide correct value")]
     [InlineData("SomeParameter", null)]
     [InlineData("SomeOtherParameter", "Value must be correct")]
-    public void ExceptionParamNameMatchesExpectedInputIsInvalid(string expectedParamName, string customMessage)
+    public void ExceptionParamNameMatchesExpectedInputIsInvalid(string? expectedParamName, string? customMessage)
     {
         var input = Enumerable.Range(0, 3).Select(i => TimeSpan.FromSeconds(i));
         var rangeFrom = TimeSpan.FromSeconds(0);
         var rangeTo = TimeSpan.FromSeconds(1);
 
-        var exception = Assert.Throws<ArgumentOutOfRangeException>(() => Guard.Against.OutOfRange(input, expectedParamName, rangeFrom, rangeTo, customMessage));
+        var exception = Assert.Throws<ArgumentOutOfRangeException>(() => 
+            Guard.Against.OutOfRange(input, expectedParamName!, rangeFrom, rangeTo, customMessage));
         Assert.NotNull(exception);
         Assert.Equal(expectedParamName, exception.ParamName);
     }

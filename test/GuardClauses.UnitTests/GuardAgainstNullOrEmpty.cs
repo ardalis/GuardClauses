@@ -83,7 +83,7 @@ public class GuardAgainstNullOrEmpty
     [Theory]
     [InlineData(null, "Required input xyz was empty. (Parameter 'xyz')")]
     [InlineData("Value is empty", "Value is empty (Parameter 'xyz')")]
-    public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvidedGivenStringValue(string customMessage, string expectedMessage)
+    public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvidedGivenStringValue(string? customMessage, string expectedMessage)
     {
         string xyz = string.Empty;
 
@@ -97,7 +97,7 @@ public class GuardAgainstNullOrEmpty
     [Theory]
     [InlineData(null, "Required input xyz was empty. (Parameter 'xyz')")]
     [InlineData("Value is empty", "Value is empty (Parameter 'xyz')")]
-    public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvidedGivenGuidValue(string customMessage, string expectedMessage)
+    public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvidedGivenGuidValue(string? customMessage, string expectedMessage)
     {
         Guid xyz = Guid.Empty;
 
@@ -111,7 +111,7 @@ public class GuardAgainstNullOrEmpty
     [Theory]
     [InlineData(null, "Required input xyz was empty. (Parameter 'xyz')")]
     [InlineData("Value is empty", "Value is empty (Parameter 'xyz')")]
-    public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvidedGivenIEnumerableValue(string customMessage, string expectedMessage)
+    public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvidedGivenIEnumerableValue(string? customMessage, string expectedMessage)
     {
         IEnumerable<string> xyz = Enumerable.Empty<string>();
 
@@ -125,7 +125,7 @@ public class GuardAgainstNullOrEmpty
     [Theory]
     [InlineData(null, "Required input parameterName was empty. (Parameter 'parameterName')")]
     [InlineData("Value is empty", "Value is empty (Parameter 'parameterName')")]
-    public void ErrorMessageMatchesExpectedWhenInputIsEmpty(string customMessage, string expectedMessage)
+    public void ErrorMessageMatchesExpectedWhenInputIsEmpty(string? customMessage, string? expectedMessage)
     {
         string emptyString = string.Empty;
         Guid emptyGuid = Guid.Empty;
@@ -150,7 +150,7 @@ public class GuardAgainstNullOrEmpty
     [Theory]
     [InlineData(null, "Value cannot be null. (Parameter 'parameterName')")]
     [InlineData("Value must be correct", "Value must be correct (Parameter 'parameterName')")]
-    public void ErrorMessageMatchesExpectedWhenInputIsNull(string customMessage, string expectedMessage)
+    public void ErrorMessageMatchesExpectedWhenInputIsNull(string? customMessage, string? expectedMessage)
     {
         string? nullString = null;
         Guid? nullGuid = null;
@@ -177,7 +177,7 @@ public class GuardAgainstNullOrEmpty
     [InlineData(null, "Please provide correct value")]
     [InlineData("SomeParameter", null)]
     [InlineData("SomeOtherParameter", "Value must be correct")]
-    public void ExceptionParamNameMatchesExpectedWhenInputIsEmpty(string expectedParamName, string customMessage)
+    public void ExceptionParamNameMatchesExpectedWhenInputIsEmpty(string? expectedParamName, string? customMessage)
     {
         string emptyString = string.Empty;
         Guid emptyGuid = Guid.Empty;
@@ -203,7 +203,7 @@ public class GuardAgainstNullOrEmpty
     [InlineData(null, "Please provide correct value")]
     [InlineData("SomeParameter", null)]
     [InlineData("SomeOtherParameter", "Value must be correct")]
-    public void ExceptionParamNameMatchesExpectedWhenInputIsNull(string expectedParamName, string customMessage)
+    public void ExceptionParamNameMatchesExpectedWhenInputIsNull(string? expectedParamName, string? customMessage)
     {
         string? nullString = null;
         Guid? nullGuid = null;

@@ -47,7 +47,7 @@ public class GuardAgainstOutOfRangeForInt
     [Theory]
     [InlineData(null, "Input parameterName was out of range (Parameter 'parameterName')")]
     [InlineData("Int range", "Int range (Parameter 'parameterName')")]
-    public void ErrorMessageMatchesExpected(string customMessage, string expectedMessage)
+    public void ErrorMessageMatchesExpected(string? customMessage, string? expectedMessage)
     {
         var exception = Assert.Throws<ArgumentOutOfRangeException>(() => Guard.Against.OutOfRange(3, "parameterName", 0, 1, customMessage));
         Assert.NotNull(exception);
@@ -58,7 +58,7 @@ public class GuardAgainstOutOfRangeForInt
     [Theory]
     [InlineData("SomeParameter", null)]
     [InlineData("SomeOtherParameter", "Value must be correct")]
-    public void ExceptionParamNameMatchesExpected(string expectedParamName, string customMessage)
+    public void ExceptionParamNameMatchesExpected(string expectedParamName, string? customMessage)
     {
         var exception = Assert.Throws<ArgumentOutOfRangeException>(() => Guard.Against.OutOfRange(3, expectedParamName, 0, 1, customMessage));
         Assert.NotNull(exception);
@@ -70,7 +70,8 @@ public class GuardAgainstOutOfRangeForInt
     [InlineData(null, "Please provide correct value")]
     public void ExceptionParamNameNull(string? expectedParamName, string? customMessage)
     {
-        var exception = Assert.Throws<ArgumentNullException>(() => Guard.Against.OutOfRange(3, expectedParamName, 0, 1, customMessage));
+        var exception = Assert.Throws<ArgumentNullException>(() => 
+            Guard.Against.OutOfRange(3, expectedParamName!, 0, 1, customMessage));
         Assert.NotNull(exception);
         Assert.Equal("parameterName", exception.ParamName);
     }

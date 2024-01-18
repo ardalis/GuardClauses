@@ -10,7 +10,7 @@ public class GuardAgainstNullOrInvalidInput
 {
     [Theory]
     [ClassData(typeof(ArgumentNullExceptionClassData))]
-    public void ThrowsArgumentNullExceptionWhenInputIsNull(string input, Func<string, bool> func)
+    public void ThrowsArgumentNullExceptionWhenInputIsNull(string? input, Func<string, bool> func)
     {
         Assert.Throws<ArgumentNullException>("string",
             () => Guard.Against.NullOrInvalidInput(input, "string", func));
@@ -18,7 +18,7 @@ public class GuardAgainstNullOrInvalidInput
 
     [Theory]
     [ClassData(typeof(ArgumentExceptionClassData))]
-    public void ThrowsArgumentExceptionWhenInputIsInvalid(string input, Func<string, bool> func)
+    public void ThrowsArgumentExceptionWhenInputIsInvalid(string? input, Func<string, bool> func)
     {
         Assert.Throws<ArgumentException>("string",
             () => Guard.Against.NullOrInvalidInput(input, "string", func));
@@ -37,7 +37,7 @@ public class GuardAgainstNullOrInvalidInput
     [InlineData("Evaluation failed", "Evaluation failed (Parameter 'parameterName')", typeof(ArgumentException), 10)]
     [InlineData(null, "Value cannot be null. (Parameter 'parameterName')", typeof(ArgumentNullException))]
     [InlineData("Please provide correct value", "Please provide correct value (Parameter 'parameterName')", typeof(ArgumentNullException))]
-    public void ErrorMessageMatchesExpected(string customMessage, string expectedMessage, Type exceptionType, int? input = null)
+    public void ErrorMessageMatchesExpected(string? customMessage, string? expectedMessage, Type exceptionType, int? input = null)
     {
         var exception = Assert.Throws(exceptionType,
             () => Guard.Against.NullOrInvalidInput(input, "parameterName", x => x > 20, customMessage));
@@ -52,10 +52,10 @@ public class GuardAgainstNullOrInvalidInput
     [InlineData(null, "Please provide correct value", typeof(ArgumentException), 10)]
     [InlineData("SomeParameter", null, typeof(ArgumentNullException))]
     [InlineData("SomeOtherParameter", "Value must be correct", typeof(ArgumentNullException))]
-    public void ExceptionParamNameMatchesExpected(string expectedParamName, string customMessage, Type exceptionType, int? input = null)
+    public void ExceptionParamNameMatchesExpected(string? expectedParamName, string? customMessage, Type exceptionType, int? input = null)
     {
         var exception = Assert.Throws(exceptionType,
-            () => Guard.Against.NullOrInvalidInput(input, expectedParamName, x => x > 20, customMessage));
+            () => Guard.Against.NullOrInvalidInput(input, expectedParamName!, x => x > 20, customMessage));
 
         Assert.IsAssignableFrom<ArgumentException>(exception);
         Assert.NotNull(exception);
