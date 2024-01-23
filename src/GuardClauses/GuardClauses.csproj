@@ -18,9 +18,13 @@
         <RepositoryUrl>https://github.com/ardalis/guardclauses</RepositoryUrl>
         <PackageTags>guard clause clauses assert assertion</PackageTags>
         <PackageReleaseNotes>
-            * Refactor AgainstExpression to Expression for Clarity and Consistency by @SimonNyvall in https://github.com/ardalis/GuardClauses/pull/317
+            * Perf Improvements #328 by mjebrahimi
+            * StringTooShort #330
+            * StringTooLong #332
+            * StringLengthOutOfRange #333
+            * Compiler Warning Fixes #335
         </PackageReleaseNotes>
-        <Version>4.3.0</Version>
+        <Version>4.4.0</Version>
         <AssemblyName>Ardalis.GuardClauses</AssemblyName>
         <PackageIcon>icon.png</PackageIcon>
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
