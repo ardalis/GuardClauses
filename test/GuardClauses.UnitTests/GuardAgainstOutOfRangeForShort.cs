@@ -47,7 +47,7 @@ public class GuardAgainstOutOfRangeForShort
     [Theory]
     [InlineData(null, "Input parameterName was out of range (Parameter 'parameterName')")]
     [InlineData("Short range", "Short range (Parameter 'parameterName')")]
-    public void ErrorMessageMatchesExpected(string customMessage, string expectedMessage)
+    public void ErrorMessageMatchesExpected(string? customMessage, string expectedMessage)
     {
         var exception = Assert.Throws<ArgumentOutOfRangeException>(() => Guard.Against.OutOfRange((short)3, "parameterName", (short)0, (short)1, customMessage));
         Assert.NotNull(exception);
@@ -58,9 +58,10 @@ public class GuardAgainstOutOfRangeForShort
     [Theory]
     [InlineData("SomeParameter", null)]
     [InlineData("SomeOtherParameter", "Value must be correct")]
-    public void ExceptionParamNameMatchesExpected(string expectedParamName, string customMessage)
+    public void ExceptionParamNameMatchesExpected(string expectedParamName, string? customMessage)
     {
-        var exception = Assert.Throws<ArgumentOutOfRangeException>(() => Guard.Against.OutOfRange((short)3, expectedParamName, (short)0, (short)1, customMessage));
+        var exception = Assert.Throws<ArgumentOutOfRangeException>(() => 
+            Guard.Against.OutOfRange((short)3, expectedParamName, (short)0, (short)1, customMessage));
         Assert.NotNull(exception);
         Assert.Equal(expectedParamName, exception.ParamName);
     }
@@ -70,7 +71,8 @@ public class GuardAgainstOutOfRangeForShort
     [InlineData(null, "Please provide correct value")]
     public void ExceptionParamNameNull(string? expectedParamName, string? customMessage)
     {
-        var exception = Assert.Throws<ArgumentNullException>(() => Guard.Against.OutOfRange((short)3, expectedParamName, (short)0, (short)1, customMessage));
+        var exception = Assert.Throws<ArgumentNullException>(() => 
+            Guard.Against.OutOfRange((short)3, expectedParamName!, (short)0, (short)1, customMessage));
         Assert.NotNull(exception);
         Assert.Equal("parameterName", exception.ParamName);
     }

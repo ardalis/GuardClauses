@@ -57,7 +57,7 @@ public class GuardAgainstOutOfRangeForInvalidInput
     [Theory]
     [InlineData(null, "Input parameterName did not satisfy the options (Parameter 'parameterName')")]
     [InlineData("Evaluation failed", "Evaluation failed (Parameter 'parameterName')")]
-    public void ErrorMessageMatchesExpected(string customMessage, string expectedMessage)
+    public void ErrorMessageMatchesExpected(string? customMessage, string? expectedMessage)
     {
         var exception = Assert.Throws<ArgumentException>(() => Guard.Against.InvalidInput(10, "parameterName", x => x > 20, customMessage));
         Assert.NotNull(exception);
@@ -68,7 +68,7 @@ public class GuardAgainstOutOfRangeForInvalidInput
     [Theory]
     [InlineData(null, "Input parameterName did not satisfy the options (Parameter 'parameterName')")]
     [InlineData("Evaluation failed", "Evaluation failed (Parameter 'parameterName')")]
-    public async Task ErrorMessageMatchesExpectedAsync(string customMessage, string expectedMessage)
+    public async Task ErrorMessageMatchesExpectedAsync(string? customMessage, string? expectedMessage)
     {
         var exception = await Assert.ThrowsAsync<ArgumentException>(async () => await Guard.Against.InvalidInputAsync(10, "parameterName", x => Task.FromResult(x > 20), customMessage));
         Assert.NotNull(exception);
@@ -81,9 +81,10 @@ public class GuardAgainstOutOfRangeForInvalidInput
     [InlineData(null, "Please provide correct value")]
     [InlineData("SomeParameter", null)]
     [InlineData("SomeOtherParameter", "Value must be correct")]
-    public void ExceptionParamNameMatchesExpected(string expectedParamName, string customMessage)
+    public void ExceptionParamNameMatchesExpected(string? expectedParamName, string? customMessage)
     {
-        var exception = Assert.Throws<ArgumentException>(() => Guard.Against.InvalidInput(10, expectedParamName, x => x > 20, customMessage));
+        var exception = Assert.Throws<ArgumentException>(() => 
+            Guard.Against.InvalidInput(10, expectedParamName!, x => x > 20, customMessage));
         Assert.NotNull(exception);
         Assert.Equal(expectedParamName, exception.ParamName);
     }
@@ -93,9 +94,10 @@ public class GuardAgainstOutOfRangeForInvalidInput
     [InlineData(null, "Please provide correct value")]
     [InlineData("SomeParameter", null)]
     [InlineData("SomeOtherParameter", "Value must be correct")]
-    public async Task ExceptionParamNameMatchesExpectedAsync(string expectedParamName, string customMessage)
+    public async Task ExceptionParamNameMatchesExpectedAsync(string? expectedParamName, string? customMessage)
     {
-        var exception = await Assert.ThrowsAsync<ArgumentException>(async () => await Guard.Against.InvalidInputAsync(10, expectedParamName, x => Task.FromResult(x > 20), customMessage));
+        var exception = await Assert.ThrowsAsync<ArgumentException>(async () => 
+            await Guard.Against.InvalidInputAsync(10, expectedParamName!, x => Task.FromResult(x > 20), customMessage));
         Assert.NotNull(exception);
         Assert.Equal(expectedParamName, exception.ParamName);
     }

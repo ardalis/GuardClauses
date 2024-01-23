@@ -38,7 +38,7 @@ public class GuardAgainstDefault
     [Theory]
     [InlineData(null, "Parameter [parameterName] is default value for type String (Parameter 'parameterName')")]
     [InlineData("Please provide correct value", "Please provide correct value (Parameter 'parameterName')")]
-    public void ErrorMessageMatchesExpected(string customMessage, string expectedMessage)
+    public void ErrorMessageMatchesExpected(string? customMessage, string expectedMessage)
     {
         var exception = Assert.Throws<ArgumentException>(() => Guard.Against.Default(default(string), "parameterName", customMessage));
         Assert.NotNull(exception);
@@ -49,7 +49,7 @@ public class GuardAgainstDefault
     [Theory]
     [InlineData(null, "Parameter [xyz] is default value for type String (Parameter 'xyz')")]
     [InlineData("Please provide correct value", "Please provide correct value (Parameter 'xyz')")]
-    public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvided(string customMessage, string expectedMessage)
+    public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvided(string? customMessage, string expectedMessage)
     {
         var xyz = default(string);
         var exception = Assert.Throws<ArgumentException>(() => Guard.Against.Default(xyz, message: customMessage));
@@ -63,7 +63,7 @@ public class GuardAgainstDefault
     [InlineData(null, "Please provide correct value")]
     [InlineData("SomeParameter", null)]
     [InlineData("SomeOtherParameter", "Value must be correct")]
-    public void ExceptionParamNameMatchesExpected(string expectedParamName, string customMessage)
+    public void ExceptionParamNameMatchesExpected(string? expectedParamName, string? customMessage)
     {
         var exception = Assert.Throws<ArgumentException>(() => Guard.Against.Default(default(string), expectedParamName, customMessage));
         Assert.NotNull(exception);

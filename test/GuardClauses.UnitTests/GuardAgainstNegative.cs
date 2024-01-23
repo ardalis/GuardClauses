@@ -110,7 +110,7 @@ public class GuardAgainstNegative
     [Theory]
     [InlineData(null, "Required input xyz cannot be negative. (Parameter 'xyz')")]
     [InlineData("Must be positive", "Must be positive (Parameter 'xyz')")]
-    public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvidedGivenIntValue(string customMessage, string expectedMessage)
+    public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvidedGivenIntValue(string? customMessage, string? expectedMessage)
     {
         var xyz = -1;
 
@@ -124,7 +124,7 @@ public class GuardAgainstNegative
     [Theory]
     [InlineData(null, "Required input xyz cannot be negative. (Parameter 'xyz')")]
     [InlineData("Must be positive", "Must be positive (Parameter 'xyz')")]
-    public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvidedGivenLongValue(string customMessage, string expectedMessage)
+    public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvidedGivenLongValue(string? customMessage, string? expectedMessage)
     {
         var xyz = -1L;
 
@@ -138,7 +138,7 @@ public class GuardAgainstNegative
     [Theory]
     [InlineData(null, "Required input xyz cannot be negative. (Parameter 'xyz')")]
     [InlineData("Must be positive", "Must be positive (Parameter 'xyz')")]
-    public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvidedGivenDecimalValue(string customMessage, string expectedMessage)
+    public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvidedGivenDecimalValue(string? customMessage, string? expectedMessage)
     {
         var xyz = -1.0M;
 
@@ -152,7 +152,7 @@ public class GuardAgainstNegative
     [Theory]
     [InlineData(null, "Required input xyz cannot be negative. (Parameter 'xyz')")]
     [InlineData("Must be positive", "Must be positive (Parameter 'xyz')")]
-    public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvidedGivenFloatValue(string customMessage, string expectedMessage)
+    public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvidedGivenFloatValue(string? customMessage, string? expectedMessage)
     {
         var xyz = -1.0f;
 
@@ -166,7 +166,7 @@ public class GuardAgainstNegative
     [Theory]
     [InlineData(null, "Required input xyz cannot be negative. (Parameter 'xyz')")]
     [InlineData("Must be positive", "Must be positive (Parameter 'xyz')")]
-    public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvidedGivenDoubleValue(string customMessage, string expectedMessage)
+    public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvidedGivenDoubleValue(string? customMessage, string? expectedMessage)
     {
         var xyz = -1.0;
 
@@ -180,7 +180,7 @@ public class GuardAgainstNegative
     [Theory]
     [InlineData(null, "Required input xyz cannot be negative. (Parameter 'xyz')")]
     [InlineData("Must be positive", "Must be positive (Parameter 'xyz')")]
-    public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvidedGivenTimeSpanValue(string customMessage, string expectedMessage)
+    public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvidedGivenTimeSpanValue(string? customMessage, string? expectedMessage)
     {
         var xyz = TimeSpan.FromSeconds(-1);
 
@@ -194,7 +194,7 @@ public class GuardAgainstNegative
     [Theory]
     [InlineData(null, "Required input parameterName cannot be negative. (Parameter 'parameterName')")]
     [InlineData("Must be positive", "Must be positive (Parameter 'parameterName')")]
-    public void ErrorMessageMatchesExpected(string customMessage, string expectedMessage)
+    public void ErrorMessageMatchesExpected(string? customMessage, string? expectedMessage)
     {
         var clausesToEvaluate = new List<Action>
         {
@@ -220,7 +220,7 @@ public class GuardAgainstNegative
     [InlineData(null, "Please provide correct value")]
     [InlineData("SomeParameter", null)]
     [InlineData("SomeOtherParameter", "Value must be correct")]
-    public void ExceptionParamNameMatchesExpected(string expectedParamName, string customMessage)
+    public void ExceptionParamNameMatchesExpected(string? expectedParamName, string? customMessage)
     {
         var clausesToEvaluate = new List<Action>
         {

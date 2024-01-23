@@ -81,7 +81,7 @@ public class GuardAgainstOutOfRangeForEnum
     [Theory]
     [InlineData(null, "The value of argument 'parameterName' (99) is invalid for Enum type 'TestEnum'. (Parameter 'parameterName')")]
     [InlineData("Invalid enum value", "Invalid enum value")]
-    public void ErrorMessageMatchesExpectedWhenInputIsEnum(string customMessage, string expectedMessage)
+    public void ErrorMessageMatchesExpectedWhenInputIsEnum(string? customMessage, string? expectedMessage)
     {
         var exception = Assert.Throws<InvalidEnumArgumentException>(
             () => Guard.Against.EnumOutOfRange((TestEnum)99, "parameterName", customMessage));
@@ -93,7 +93,7 @@ public class GuardAgainstOutOfRangeForEnum
     [Theory]
     [InlineData(null, "The value of argument 'xyz' (99) is invalid for Enum type 'TestEnum'. (Parameter 'xyz')")]
     [InlineData("Invalid enum value", "Invalid enum value")]
-    public void ErrorMessageMatchesExpectedWhenInputIsEnumAndParamNameNotExplicitlyProvided(string customMessage, string expectedMessage)
+    public void ErrorMessageMatchesExpectedWhenInputIsEnumAndParamNameNotExplicitlyProvided(string? customMessage, string? expectedMessage)
     {
         var xyz = (TestEnum)99;
         var exception = Assert.Throws<InvalidEnumArgumentException>(
@@ -109,7 +109,7 @@ public class GuardAgainstOutOfRangeForEnum
     [InlineData(null, "Please provide correct value")]
     [InlineData("SomeParameter", null)]
     [InlineData(null, "Value must be correct")]
-    public void ExceptionParamNameMatchesExpectedWhenInputIsEnum(string expectedParamName, string customMessage)
+    public void ExceptionParamNameMatchesExpectedWhenInputIsEnum(string? expectedParamName, string? customMessage)
     {
         var exception = Assert.Throws<InvalidEnumArgumentException>(
             () => Guard.Against.EnumOutOfRange((TestEnum)99, expectedParamName, customMessage));
@@ -120,7 +120,7 @@ public class GuardAgainstOutOfRangeForEnum
     [Theory]
     [InlineData(null, "The value of argument 'parameterName' (99) is invalid for Enum type 'TestEnum'. (Parameter 'parameterName')")]
     [InlineData("Invalid enum value", "Invalid enum value")]
-    public void ErrorMessageMatchesExpectedWhenInputIsInt(string customMessage, string expectedMessage)
+    public void ErrorMessageMatchesExpectedWhenInputIsInt(string? customMessage, string? expectedMessage)
     {
         var exception = Assert.Throws<InvalidEnumArgumentException>(
             () => Guard.Against.EnumOutOfRange<TestEnum>(99, "parameterName", customMessage));
@@ -134,7 +134,7 @@ public class GuardAgainstOutOfRangeForEnum
     [InlineData(null, "Please provide correct value")]
     [InlineData("SomeParameter", null)]
     [InlineData(null, "Value must be correct")]
-    public void ExceptionParamNameMatchesExpectedWhenInputIsInt(string expectedParamName, string customMessage)
+    public void ExceptionParamNameMatchesExpectedWhenInputIsInt(string? expectedParamName, string? customMessage)
     {
         var exception = Assert.Throws<InvalidEnumArgumentException>(
             () => Guard.Against.EnumOutOfRange<TestEnum>(99, expectedParamName, customMessage));

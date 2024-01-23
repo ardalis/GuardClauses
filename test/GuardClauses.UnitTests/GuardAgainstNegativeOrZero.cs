@@ -113,7 +113,7 @@ public class GuardAgainstNegativeOrZero
     [InlineData(-1, "Must be positive", "Must be positive (Parameter 'xyz')")]
     [InlineData(0, null, "Required input xyz cannot be zero or negative. (Parameter 'xyz')")]
     [InlineData(0, "Must be positive", "Must be positive (Parameter 'xyz')")]
-    public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvidedGivenIntValue(int xyz, string customMessage, string expectedMessage)
+    public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvidedGivenIntValue(int xyz, string? customMessage, string? expectedMessage)
     {
         var exception = Assert.Throws<ArgumentException>(() => Guard.Against.NegativeOrZero(xyz, message: customMessage));
 
@@ -127,7 +127,7 @@ public class GuardAgainstNegativeOrZero
     [InlineData(-1L, "Must be positive", "Must be positive (Parameter 'xyz')")]
     [InlineData(0L, null, "Required input xyz cannot be zero or negative. (Parameter 'xyz')")]
     [InlineData(0L, "Must be positive", "Must be positive (Parameter 'xyz')")]
-    public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvidedGivenLongValue(long xyz, string customMessage, string expectedMessage)
+    public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvidedGivenLongValue(long xyz, string? customMessage, string? expectedMessage)
     {
         var exception = Assert.Throws<ArgumentException>(() => Guard.Against.NegativeOrZero(xyz, message: customMessage));
 
@@ -141,7 +141,7 @@ public class GuardAgainstNegativeOrZero
     [InlineData(-1.0, "Must be positive", "Must be positive (Parameter 'xyz')")]
     [InlineData(0.0, null, "Required input xyz cannot be zero or negative. (Parameter 'xyz')")]
     [InlineData(0.0, "Must be positive", "Must be positive (Parameter 'xyz')")]
-    public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvidedGivenDecimalValue(decimal xyz, string customMessage, string expectedMessage)
+    public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvidedGivenDecimalValue(decimal xyz, string? customMessage, string? expectedMessage)
     {
         var exception = Assert.Throws<ArgumentException>(() => Guard.Against.NegativeOrZero(xyz, message: customMessage));
 
@@ -155,7 +155,7 @@ public class GuardAgainstNegativeOrZero
     [InlineData(-1.0, "Must be positive", "Must be positive (Parameter 'xyz')")]
     [InlineData(0.0, null, "Required input xyz cannot be zero or negative. (Parameter 'xyz')")]
     [InlineData(0.0, "Must be positive", "Must be positive (Parameter 'xyz')")]
-    public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvidedGivenFloatValue(float xyz, string customMessage, string expectedMessage)
+    public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvidedGivenFloatValue(float xyz, string? customMessage, string? expectedMessage)
     {
         var exception = Assert.Throws<ArgumentException>(() => Guard.Against.NegativeOrZero(xyz, message: customMessage));
 
@@ -169,7 +169,8 @@ public class GuardAgainstNegativeOrZero
     [InlineData(-1.0, "Must be positive", "Must be positive (Parameter 'xyz')")]
     [InlineData(0.0, null, "Required input xyz cannot be zero or negative. (Parameter 'xyz')")]
     [InlineData(0.0, "Must be positive", "Must be positive (Parameter 'xyz')")]
-    public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvidedGivenDoubleValue(double xyz, string customMessage, string expectedMessage)
+    public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvidedGivenDoubleValue(double xyz, 
+        string? customMessage, string? expectedMessage)
     {
         var exception = Assert.Throws<ArgumentException>(() => Guard.Against.NegativeOrZero(xyz, message: customMessage));
 
@@ -183,7 +184,8 @@ public class GuardAgainstNegativeOrZero
     [InlineData(-1.0, "Must be positive", "Must be positive (Parameter 'xyz')")]
     [InlineData(0.0, null, "Required input xyz cannot be zero or negative. (Parameter 'xyz')")]
     [InlineData(0.0, "Must be positive", "Must be positive (Parameter 'xyz')")]
-    public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvidedGivenTimeSpanValue(double change, string customMessage, string expectedMessage)
+    public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvidedGivenTimeSpanValue(double change, 
+        string? customMessage, string? expectedMessage)
     {
         var xyz = TimeSpan.FromSeconds(change);
 
@@ -199,7 +201,7 @@ public class GuardAgainstNegativeOrZero
     [InlineData(-1, "Must be positive", "Must be positive (Parameter 'parameterName')")]
     [InlineData(0, null, "Required input parameterName cannot be zero or negative. (Parameter 'parameterName')")]
     [InlineData(0, "Must be positive", "Must be positive (Parameter 'parameterName')")]
-    public void ErrorMessageMatchesExpected(int input, string customMessage, string expectedMessage)
+    public void ErrorMessageMatchesExpected(int input, string? customMessage, string? expectedMessage)
     {
         var clausesToEvaluate = new List<Action>
         {
@@ -229,7 +231,7 @@ public class GuardAgainstNegativeOrZero
     [InlineData(0, null, "Please provide correct value")]
     [InlineData(0, "SomeParameter", null)]
     [InlineData(0, "SomeOtherParameter", "Value must be correct")]
-    public void ExceptionParamNameMatchesExpected(int input, string expectedParamName, string customMessage)
+    public void ExceptionParamNameMatchesExpected(int input, string? expectedParamName, string? customMessage)
     {
         var clausesToEvaluate = new List<Action>
         {
