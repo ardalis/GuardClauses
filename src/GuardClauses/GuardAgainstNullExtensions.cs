@@ -168,7 +168,12 @@ public static partial class GuardClauseExtensions
 #endif
     {
         Guard.Against.Null(input, parameterName, message);
-        if (!input.Any())
+        
+        if (input is Array and { Length: 0 } //Try checking first with pattern matching because it's faster than TryGetNonEnumeratedCount on Array
+#if NET6_0_OR_GREATER
+            || (input.TryGetNonEnumeratedCount(out var count) && count == 0)
+#endif
+            || !input.Any())
         {
             throw new ArgumentException(message ?? $"Required input {parameterName} was empty.", parameterName);
         }
