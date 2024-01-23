@@ -77,7 +77,7 @@ public class GuardAgainstNull
     [Theory]
     [InlineData(null, "Value cannot be null. (Parameter 'parameterName')")]
     [InlineData("Please provide correct value", "Please provide correct value (Parameter 'parameterName')")]
-    public void ErrorMessageMatchesExpected(string customMessage, string expectedMessage)
+    public void ErrorMessageMatchesExpected(string? customMessage, string? expectedMessage)
     {
         string? nullString = null;
         var exception = Assert.Throws<ArgumentNullException>(() => Guard.Against.Null(nullString, "parameterName", customMessage));
@@ -103,7 +103,7 @@ public class GuardAgainstNull
     [InlineData(null, "Please provide correct value")]
     [InlineData("SomeParameter", null)]
     [InlineData("SomeOtherParameter", "Value must be correct")]
-    public void ExceptionParamNameMatchesExpected(string expectedParamName, string customMessage)
+    public void ExceptionParamNameMatchesExpected(string? expectedParamName, string? customMessage)
     {
         string? nullString = null;
         var exception = Assert.Throws<ArgumentNullException>(() => Guard.Against.Null(nullString, expectedParamName, customMessage));

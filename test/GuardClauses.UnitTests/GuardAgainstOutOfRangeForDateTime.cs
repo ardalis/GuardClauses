@@ -58,9 +58,10 @@ public class GuardAgainstOutOfRangeForDateTime
     [Theory]
     [InlineData(null, "Input parameterName was out of range (Parameter 'parameterName')")]
     [InlineData("DateTime range", "DateTime range (Parameter 'parameterName')")]
-    public void ErrorMessageMatchesExpected(string customMessage, string expectedMessage)
+    public void ErrorMessageMatchesExpected(string? customMessage, string? expectedMessage)
     {
-        var exception = Assert.Throws<ArgumentOutOfRangeException>(() => Guard.Against.OutOfRange(DateTime.Today.AddDays(-1), "parameterName",
+        var exception = Assert.Throws<ArgumentOutOfRangeException>(() => 
+            Guard.Against.OutOfRange(DateTime.Today.AddDays(-1), "parameterName",
             DateTime.Today, DateTime.Today.AddDays(1), customMessage));
         Assert.NotNull(exception);
         Assert.NotNull(exception.Message);
@@ -70,7 +71,7 @@ public class GuardAgainstOutOfRangeForDateTime
     [Theory]
     [InlineData("SomeParameter", null)]
     [InlineData("SomeOtherParameter", "Value must be correct")]
-    public void ExceptionParamNameMatchesExpected(string expectedParamName, string customMessage)
+    public void ExceptionParamNameMatchesExpected(string expectedParamName, string? customMessage)
     {
         var exception = Assert.Throws<ArgumentOutOfRangeException>(() => Guard.Against.OutOfRange(DateTime.Today.AddDays(-1), expectedParamName,
             DateTime.Today, DateTime.Today.AddDays(1), customMessage));
@@ -84,7 +85,8 @@ public class GuardAgainstOutOfRangeForDateTime
     [InlineData(null, "Please provide correct value")]
     public void ExceptionParamNameNull(string? expectedParamName, string? customMessage)
     {
-        var exception = Assert.Throws<ArgumentNullException>(() => Guard.Against.OutOfRange(DateTime.Today.AddDays(-1), expectedParamName,
+        var exception = Assert.Throws<ArgumentNullException>(() => 
+            Guard.Against.OutOfRange(DateTime.Today.AddDays(-1), expectedParamName!,
             DateTime.Today, DateTime.Today.AddDays(1), customMessage));
         Assert.NotNull(exception);
         Assert.Equal("parameterName", exception.ParamName);

@@ -62,7 +62,7 @@ public class GuardAgainstOutOfSQLDateRange
 
     [Theory]
     [MemberData(nameof(GetSqlDateTimeTestVectors))]
-    public void ReturnsExpectedValueWhenGivenValidSqlDateTime(DateTime input, string name, DateTime expected)
+    public void ReturnsExpectedValueWhenGivenValidSqlDateTime(DateTime input, string? name, DateTime expected)
     {
         Assert.Equal(expected, Guard.Against.OutOfSQLDateRange(input, name));
     }
@@ -70,7 +70,7 @@ public class GuardAgainstOutOfSQLDateRange
     [Theory]
     [InlineData(null, "Input date was out of range (Parameter 'date')")]
     [InlineData("SQLDate range", "SQLDate range (Parameter 'date')")]
-    public void ErrorMessageMatchesExpected(string customMessage, string expectedMessage)
+    public void ErrorMessageMatchesExpected(string? customMessage, string? expectedMessage)
     {
         DateTime date = SqlDateTime.MinValue.Value.AddSeconds(-1);
         var exception = Assert.Throws<ArgumentOutOfRangeException>(() => Guard.Against.OutOfSQLDateRange(date, nameof(date), customMessage));
@@ -83,7 +83,7 @@ public class GuardAgainstOutOfSQLDateRange
     [Theory]
     [InlineData(null, "Input date was out of range (Parameter 'date')")]
     [InlineData("SQLDate range", "SQLDate range (Parameter 'date')")]
-    public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvided(string customMessage, string expectedMessage)
+    public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvided(string? customMessage, string? expectedMessage)
     {
         DateTime date = SqlDateTime.MinValue.Value.AddSeconds(-1);
         var exception = Assert.Throws<ArgumentOutOfRangeException>(() => Guard.Against.OutOfSQLDateRange(date, message: customMessage));
@@ -96,7 +96,7 @@ public class GuardAgainstOutOfSQLDateRange
         [Theory]
         [InlineData("SomeParameter", null)]
         [InlineData("SomeOtherParameter", "Value must be correct")]
-        public void ExceptionParamNameMatchesExpected(string expectedParamName, string customMessage)
+        public void ExceptionParamNameMatchesExpected(string? expectedParamName, string? customMessage)
         {
             DateTime date = SqlDateTime.MinValue.Value.AddSeconds(-1);
             var exception = Assert.Throws<ArgumentOutOfRangeException>(() => Guard.Against.OutOfSQLDateRange(date, expectedParamName, customMessage));

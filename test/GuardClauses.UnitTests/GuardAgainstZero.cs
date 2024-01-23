@@ -113,7 +113,7 @@ public class GuardAgainstZero
     [Theory]
     [InlineData(null, "Required input parameterName cannot be zero. (Parameter 'parameterName')")]
     [InlineData("Value is ZERO", "Value is ZERO (Parameter 'parameterName')")]
-    public void ErrorMessageMatchesExpected(string customMessage, string expectedMessage)
+    public void ErrorMessageMatchesExpected(string? customMessage, string expectedMessage)
     {
         var clausesToEvaluate = new List<Action>
         {
@@ -137,7 +137,7 @@ public class GuardAgainstZero
     [Theory]
     [InlineData(null, "Required input xyz cannot be zero. (Parameter 'xyz')")]
     [InlineData("Value is ZERO", "Value is ZERO (Parameter 'xyz')")]
-    public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvidedGivenIntValue(string customMessage, string expectedMessage)
+    public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvidedGivenIntValue(string? customMessage, string expectedMessage)
     {
         var xyz = 0;
         var exception = Assert.Throws<ArgumentException>(() => Guard.Against.Zero(xyz, message: customMessage));
@@ -150,7 +150,7 @@ public class GuardAgainstZero
     [Theory]
     [InlineData(null, "Required input xyz cannot be zero. (Parameter 'xyz')")]
     [InlineData("Value is ZERO", "Value is ZERO (Parameter 'xyz')")]
-    public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvidedGivenLongValue(string customMessage, string expectedMessage)
+    public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvidedGivenLongValue(string? customMessage, string expectedMessage)
     {
         var xyz = 0L;
         var exception = Assert.Throws<ArgumentException>(() => Guard.Against.Zero(xyz, message: customMessage));
@@ -163,7 +163,7 @@ public class GuardAgainstZero
     [Theory]
     [InlineData(null, "Required input xyz cannot be zero. (Parameter 'xyz')")]
     [InlineData("Value is ZERO", "Value is ZERO (Parameter 'xyz')")]
-    public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvidedGivenDecimalValue(string customMessage, string expectedMessage)
+    public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvidedGivenDecimalValue(string? customMessage, string expectedMessage)
     {
         var xyz = 0.0M;
         var exception = Assert.Throws<ArgumentException>(() => Guard.Against.Zero(xyz, message: customMessage));
@@ -176,7 +176,7 @@ public class GuardAgainstZero
     [Theory]
     [InlineData(null, "Required input xyz cannot be zero. (Parameter 'xyz')")]
     [InlineData("Value is ZERO", "Value is ZERO (Parameter 'xyz')")]
-    public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvidedGivenFloatValue(string customMessage, string expectedMessage)
+    public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvidedGivenFloatValue(string? customMessage, string expectedMessage)
     {
         var xyz = 0.0f;
         var exception = Assert.Throws<ArgumentException>(() => Guard.Against.Zero(xyz, message: customMessage));
@@ -189,7 +189,7 @@ public class GuardAgainstZero
     [Theory]
     [InlineData(null, "Required input xyz cannot be zero. (Parameter 'xyz')")]
     [InlineData("Value is ZERO", "Value is ZERO (Parameter 'xyz')")]
-    public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvidedGivenDoubleValue(string customMessage, string expectedMessage)
+    public void ErrorMessageMatchesExpectedWhenNameNotExplicitlyProvidedGivenDoubleValue(string? customMessage, string expectedMessage)
     {
         var xyz = 0.0;
         var exception = Assert.Throws<ArgumentException>(() => Guard.Against.Zero(xyz, message: customMessage));
@@ -204,7 +204,7 @@ public class GuardAgainstZero
     [InlineData(null, "Please provide correct value")]
     [InlineData("SomeParameter", null)]
     [InlineData("SomeOtherParameter", "Value must be correct")]
-    public void ExceptionParamNameMatchesExpected(string expectedParamName, string customMessage)
+    public void ExceptionParamNameMatchesExpected(string? expectedParamName, string? customMessage)
     {
         var clausesToEvaluate = new List<Action>
         {

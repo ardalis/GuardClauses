@@ -3,6 +3,11 @@ using System.Runtime.CompilerServices;
 using Ardalis.GuardClauses;
 
 namespace GuardClauses;
+
+/// <summary>
+/// The class containing extension methods for <see cref="IGuardClause"/> 
+/// for <see cref="string"/> and <see cref="System.Text.StringBuilder"/> types.
+/// </summary>
 public static partial class GuardClauseExtensions
 {
     /// <summary>
