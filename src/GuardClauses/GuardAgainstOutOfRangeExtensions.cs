@@ -21,21 +21,12 @@ public static partial class GuardClauseExtensions
     /// <param name="message">Optional. Custom error message</param>
     /// <returns><paramref name="input" /> if the value is not negative.</returns>
     /// <exception cref="ArgumentException"></exception>
-#if NETFRAMEWORK || NETSTANDARD2_0
-    public static string LengthOutOfRange(this IGuardClause guardClause,
-        string input,
-        int minLength,
-        int maxLength,
-        string parameterName,
-        string? message = null)
-#else
     public static string LengthOutOfRange(this IGuardClause guardClause,
         string input,
         int minLength,
         int maxLength,
         [CallerArgumentExpression("input")] string? parameterName = null,
         string? message = null)
-#endif
     {
         Guard.Against.Negative<int>(maxLength - minLength, parameterName: "min or max length",
             message: "Min length must be equal or less than max length.");
@@ -55,17 +46,10 @@ public static partial class GuardClauseExtensions
     /// <param name="message">Optional. Custom error message</param>
     /// <returns><paramref name="input" /> if the value is not out of range.</returns>
     /// <exception cref="InvalidEnumArgumentException"></exception>
-#if NETFRAMEWORK || NETSTANDARD2_0
-    public static int EnumOutOfRange<T>(this IGuardClause guardClause,
-        int input,
-        string parameterName,
-        string? message = null) where T : struct, Enum
-#else
     public static int EnumOutOfRange<T>(this IGuardClause guardClause,
         int input,
         [CallerArgumentExpression("input")] string? parameterName = null,
         string? message = null) where T : struct, Enum
-#endif
     {
         if (!Enum.IsDefined(typeof(T), input))
         {
@@ -89,17 +73,10 @@ public static partial class GuardClauseExtensions
     /// /// <param name="message">Optional. Custom error message</param>
     /// <returns><paramref name="input" /> if the value is not out of range.</returns>
     /// <exception cref="InvalidEnumArgumentException"></exception>
-#if NETFRAMEWORK || NETSTANDARD2_0
-    public static T EnumOutOfRange<T>(this IGuardClause guardClause,
-        T input,
-        string parameterName,
-        string? message = null) where T : struct, Enum
-#else
     public static T EnumOutOfRange<T>(this IGuardClause guardClause,
         T input,
         [CallerArgumentExpression("input")] string? parameterName = null,
         string? message = null) where T : struct, Enum
-#endif
     {
         if (!Enum.IsDefined(typeof(T), input))
         {
@@ -159,17 +136,10 @@ public static partial class GuardClauseExtensions
     /// <returns><paramref name="input" /> if the value is in the range of valid SqlDateTime values.</returns>
     /// <exception cref="ArgumentNullException"></exception>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
-#if NETFRAMEWORK || NETSTANDARD2_0
-    public static DateTime NullOrOutOfSQLDateRange(this IGuardClause guardClause,
-        [NotNull][ValidatedNotNull] DateTime? input,
-        string parameterName,
-        string? message = null)
-#else
     public static DateTime NullOrOutOfSQLDateRange(this IGuardClause guardClause,
          [NotNull][ValidatedNotNull] DateTime? input,
          [CallerArgumentExpression("input")] string? parameterName = null,
          string? message = null)
-#endif
     {
         guardClause.Null(input, nameof(input));
         return OutOfSQLDateRange(guardClause, input.Value, parameterName, message);
@@ -184,17 +154,10 @@ public static partial class GuardClauseExtensions
     /// <param name="message">Optional. Custom error message</param>
     /// <returns><paramref name="input" /> if the value is in the range of valid SqlDateTime values.</returns>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
-#if NETFRAMEWORK || NETSTANDARD2_0
-    public static DateTime OutOfSQLDateRange(this IGuardClause guardClause,
-        DateTime input,
-        string parameterName,
-        string? message = null)
-#else
     public static DateTime OutOfSQLDateRange(this IGuardClause guardClause,
         DateTime input,
         [CallerArgumentExpression("input")] string? parameterName = null,
         string? message = null)
-#endif
     {
         // System.Data is unavailable in .NET Standard so we can't use SqlDateTime.
         const long sqlMinDateTicks = 552877920000000000;

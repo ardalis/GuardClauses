@@ -20,19 +20,11 @@ public static partial class GuardClauseExtensions
     /// <param name="message">Optional. Custom error message</param>
     /// <returns><paramref name="input" /> if the value is not negative.</returns>
     /// <exception cref="ArgumentException"></exception>
-#if NETFRAMEWORK || NETSTANDARD2_0
-    public static string StringTooShort(this IGuardClause guardClause,
-        string input,
-        int minLength,
-        string parameterName,
-        string? message = null)
-#else
     public static string StringTooShort(this IGuardClause guardClause,
         string input,
         int minLength,
         [CallerArgumentExpression("input")] string? parameterName = null,
         string? message = null)
-#endif
     {
         Guard.Against.NegativeOrZero(minLength, nameof(minLength));
         if (input.Length < minLength)
@@ -52,19 +44,11 @@ public static partial class GuardClauseExtensions
     /// <param name="message">Optional. Custom error message</param>
     /// <returns><paramref name="input" /> if the value is not negative.</returns>
     /// <exception cref="ArgumentException"></exception>
-#if NETFRAMEWORK || NETSTANDARD2_0
-    public static string StringTooLong(this IGuardClause guardClause,
-        string input,
-        int maxLength,
-        string parameterName,
-        string? message = null)
-#else
     public static string StringTooLong(this IGuardClause guardClause,
         string input,
         int maxLength,
         [CallerArgumentExpression("input")] string? parameterName = null,
         string? message = null)
-#endif
     {
         Guard.Against.NegativeOrZero(maxLength, nameof(maxLength));
         if (input.Length > maxLength)
