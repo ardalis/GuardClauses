@@ -15,17 +15,10 @@ public static partial class GuardClauseExtensions
     /// <param name="message">Optional. Custom error message</param>
     /// <returns><paramref name="input" /> if the value is not zero.</returns>
     /// <exception cref="ArgumentException"></exception>
-#if NETFRAMEWORK || NETSTANDARD2_0
-    public static int Zero(this IGuardClause guardClause,
-        int input,
-        string parameterName,
-        string? message = null)
-#else
     public static int Zero(this IGuardClause guardClause,
         int input,
         [CallerArgumentExpression("input")] string? parameterName = null,
         string? message = null)
-#endif
     {
         return Zero<int>(guardClause, input, parameterName!, message);
     }
@@ -39,17 +32,10 @@ public static partial class GuardClauseExtensions
     /// <param name="message">Optional. Custom error message</param>
     /// <returns><paramref name="input" /> if the value is not zero.</returns>
     /// <exception cref="ArgumentException"></exception>
-#if NETFRAMEWORK || NETSTANDARD2_0
-    public static long Zero(this IGuardClause guardClause,
-        long input,
-        string parameterName,
-        string? message = null)
-#else
     public static long Zero(this IGuardClause guardClause,
         long input,
         [CallerArgumentExpression("input")] string? parameterName = null,
         string? message = null)
-#endif
     {
         return Zero<long>(guardClause, input, parameterName!, message);
     }
@@ -63,17 +49,10 @@ public static partial class GuardClauseExtensions
     /// <param name="message">Optional. Custom error message</param>
     /// <returns><paramref name="input" /> if the value is not zero.</returns>
     /// <exception cref="ArgumentException"></exception>
-#if NETFRAMEWORK || NETSTANDARD2_0
-    public static decimal Zero(this IGuardClause guardClause,
-        decimal input,
-        string parameterName,
-        string? message = null)
-#else
     public static decimal Zero(this IGuardClause guardClause,
         decimal input,
         [CallerArgumentExpression("input")] string? parameterName = null,
         string? message = null)
-#endif
     {
         return Zero<decimal>(guardClause, input, parameterName!, message);
     }
@@ -87,17 +66,10 @@ public static partial class GuardClauseExtensions
     /// <param name="message">Optional. Custom error message</param>
     /// <returns><paramref name="input" /> if the value is not zero.</returns>
     /// <exception cref="ArgumentException"></exception>
-#if NETFRAMEWORK || NETSTANDARD2_0
-    public static float Zero(this IGuardClause guardClause,
-        float input,
-        string parameterName,
-        string? message = null)
-#else
     public static float Zero(this IGuardClause guardClause,
         float input,
         [CallerArgumentExpression("input")] string? parameterName = null,
         string? message = null)
-#endif
     {
         return Zero<float>(guardClause, input, parameterName!, message);
     }
@@ -111,17 +83,10 @@ public static partial class GuardClauseExtensions
     /// <param name="message">Optional. Custom error message</param>
     /// <returns><paramref name="input" /> if the value is not zero.</returns>
     /// <exception cref="ArgumentException"></exception>
-#if NETFRAMEWORK || NETSTANDARD2_0
-    public static double Zero(this IGuardClause guardClause,
-        double input,
-        string parameterName,
-        string? message = null)
-#else
     public static double Zero(this IGuardClause guardClause,
         double input,
         [CallerArgumentExpression("input")] string? parameterName = null,
         string? message = null)
-#endif
     {
         return Zero<double>(guardClause, input, parameterName!, message);
     }
@@ -134,15 +99,9 @@ public static partial class GuardClauseExtensions
     /// <param name="parameterName"></param>
     /// <returns><paramref name="input" /> if the value is not zero.</returns>
     /// <exception cref="ArgumentException"></exception>
-#if NETFRAMEWORK || NETSTANDARD2_0
-    public static TimeSpan Zero(this IGuardClause guardClause,
-        TimeSpan input,
-        string parameterName)
-#else
     public static TimeSpan Zero(this IGuardClause guardClause,
         TimeSpan input,
         [CallerArgumentExpression("input")] string? parameterName = null)
-#endif
     {
         return Zero<TimeSpan>(guardClause, input, parameterName!);
     }

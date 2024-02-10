@@ -15,17 +15,10 @@ public static partial class GuardClauseExtensions
     /// <param name="parameterName"></param>
     /// <returns><paramref name="input" /> if the value is not null.</returns>
     /// <exception cref="NotFoundException"></exception>
-#if NETFRAMEWORK || NETSTANDARD2_0
-    public static T NotFound<T>(this IGuardClause guardClause,
-        [NotNull][ValidatedNotNull] string key,
-        [NotNull][ValidatedNotNull] T? input,
-        string parameterName)
-#else
     public static T NotFound<T>(this IGuardClause guardClause,
         [NotNull][ValidatedNotNull] string key,
         [NotNull][ValidatedNotNull] T? input,
         [CallerArgumentExpression("input")] string? parameterName = null)
-#endif
     {
         guardClause.NullOrEmpty(key, nameof(key));
 
@@ -48,17 +41,10 @@ public static partial class GuardClauseExtensions
     /// <param name="parameterName"></param>
     /// <returns><paramref name="input" /> if the value is not null.</returns>
     /// <exception cref="NotFoundException"></exception>
-#if NETFRAMEWORK || NETSTANDARD2_0
-    public static T NotFound<TKey, T>(this IGuardClause guardClause,
-        [NotNull][ValidatedNotNull] TKey key,
-        [NotNull][ValidatedNotNull] T? input,
-        string parameterName) where TKey : struct
-#else
     public static T NotFound<TKey, T>(this IGuardClause guardClause,
         [NotNull][ValidatedNotNull] TKey key,
         [NotNull][ValidatedNotNull]T? input,
         [CallerArgumentExpression("input")] string? parameterName = null) where TKey : struct
-#endif
     {
         guardClause.Null(key, nameof(key));
 

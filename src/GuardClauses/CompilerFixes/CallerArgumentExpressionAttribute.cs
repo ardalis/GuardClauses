@@ -1,4 +1,4 @@
-﻿#if NETSTANDARD2_1
+﻿#if NETFRAMEWORK || NETSTANDARD2_0_OR_GREATER
 
 namespace System.Runtime.CompilerServices;
 
