@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using Ardalis.GuardClauses;
 
-namespace GuardClauses;
+namespace Ardalis.GuardClauses;
 
 /// <summary>
 /// The class containing extension methods for <see cref="IGuardClause"/> 
@@ -53,7 +53,7 @@ public static partial class GuardClauseExtensions
         Guard.Against.NegativeOrZero(maxLength, nameof(maxLength));
         if (input.Length > maxLength)
         {
-            throw new ArgumentException(message ?? $"Input {parameterName} with length {input.Length} is too long. Maxmimum length is {maxLength}.", parameterName);
+            throw new ArgumentException(message ?? $"Input {parameterName} with length {input.Length} is too long. Maximum length is {maxLength}.", parameterName);
         }
         return input;
     }
