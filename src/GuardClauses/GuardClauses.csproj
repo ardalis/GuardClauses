@@ -18,13 +18,10 @@
         <RepositoryUrl>https://github.com/ardalis/guardclauses</RepositoryUrl>
         <PackageTags>guard clause clauses assert assertion</PackageTags>
         <PackageReleaseNotes>
-            * Perf Improvements #328 by mjebrahimi
-            * StringTooShort #330
-            * StringTooLong #332
-            * StringLengthOutOfRange #333
-            * Compiler Warning Fixes #335
+* Removed different method signatures for NETFRAMEWORK and NETSTANDARD2_0 by @Ergamon in #338
+* Update for Guard Against StringLength by @rlarno in #343
         </PackageReleaseNotes>
-        <Version>4.4.0</Version>
+        <Version>4.5.0</Version>
         <AssemblyName>Ardalis.GuardClauses</AssemblyName>
         <PackageIcon>icon.png</PackageIcon>
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
