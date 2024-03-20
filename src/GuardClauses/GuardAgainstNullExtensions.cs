@@ -15,124 +15,137 @@ namespace Ardalis.GuardClauses;
 public static partial class GuardClauseExtensions
 {
     /// <summary>
-    /// Throws an <see cref="ArgumentNullException" /> if <paramref name="input" /> is null.
+    /// Throws an <see cref="ArgumentNullException" /> or a custom <see cref="Exception" /> if <paramref name="input" /> is null.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="guardClause"></param>
     /// <param name="input"></param>
     /// <param name="parameterName"></param>
     /// <param name="message">Optional. Custom error message</param>
+    /// <param name="customException"></param>
     /// <returns><paramref name="input" /> if the value is not null.</returns>
+    /// <exception cref="Exception"></exception>
     public static T Null<T>(this IGuardClause guardClause,
         [NotNull][ValidatedNotNull]T? input,
         [CallerArgumentExpression("input")] string? parameterName = null,
-        string? message = null)
+        string? message = null,
+        Exception? customException = null)
     {
         if (input is null)
         {
             if (string.IsNullOrEmpty(message))
             {
-                throw new ArgumentNullException(parameterName);
+                throw customException ?? new ArgumentNullException(parameterName);
             }
-            throw new ArgumentNullException(parameterName, message);
+            throw customException ?? new ArgumentNullException(parameterName, message);
         }
 
         return input;
     }
 
     /// <summary>
-    /// Throws an <see cref="ArgumentNullException" /> if <paramref name="input" /> is null.
+    /// Throws an <see cref="ArgumentNullException" /> or a custom <see cref="Exception" /> if <paramref name="input" /> is null.
     /// </summary>
     /// <typeparam name="T">Must be a value type.</typeparam>
     /// <param name="guardClause"></param>
     /// <param name="input"></param>
     /// <param name="parameterName"></param>
     /// <param name="message">Optional. Custom error message</param>
+    /// <param name="customException"></param>
     /// <returns><paramref name="input" /> if the value is not null.</returns>
+    /// <exception cref="Exception"></exception>
     public static T Null<T>(this IGuardClause guardClause,
         [NotNull][ValidatedNotNull]T? input,
         [CallerArgumentExpression("input")] string? parameterName = null,
-        string? message = null) where T : struct
+        string? message = null,
+        Exception? customException = null) where T : struct
     {
         if (input is null)
         {
             if (string.IsNullOrEmpty(message))
             {
-                throw new ArgumentNullException(parameterName);
+                throw customException ?? new ArgumentNullException(parameterName);
             }
-            throw new ArgumentNullException(parameterName, message);
+            throw customException ?? new ArgumentNullException(parameterName, message);
         }
 
         return input.Value;
     }
 
     /// <summary>
-    /// Throws an <see cref="ArgumentNullException" /> if <paramref name="input" /> is null.
-    /// Throws an <see cref="ArgumentException" /> if <paramref name="input" /> is an empty string.
+    /// Throws an <see cref="ArgumentNullException" /> or a custom <see cref="Exception" /> if <paramref name="input" /> is null.
+    /// Throws an <see cref="ArgumentException" /> or a custom <see cref="Exception" /> if <paramref name="input" /> is an empty string.
     /// </summary>
     /// <param name="guardClause"></param>
     /// <param name="input"></param>
     /// <param name="parameterName"></param>
     /// <param name="message">Optional. Custom error message</param>
+    /// <param name="customException"></param>
     /// <returns><paramref name="input" /> if the value is not an empty string or null.</returns>
     /// <exception cref="ArgumentNullException"></exception>
     /// <exception cref="ArgumentException"></exception>
+    /// <exception cref="Exception"></exception>
     public static string NullOrEmpty(this IGuardClause guardClause,
         [NotNull][ValidatedNotNull] string? input,
         [CallerArgumentExpression("input")] string? parameterName = null,
-        string? message = null)
+        string? message = null,
+        Exception? customException = null)
     {
-        Guard.Against.Null(input, parameterName, message);
+        Guard.Against.Null(input, parameterName, message, customException);
         if (input == string.Empty)
         {
-            throw new ArgumentException(message ?? $"Required input {parameterName} was empty.", parameterName);
+            throw customException ?? new ArgumentException(message ?? $"Required input {parameterName} was empty.", parameterName);
         }
 
         return input;
     }
 
     /// <summary>
-    /// Throws an <see cref="ArgumentNullException" /> if <paramref name="input" /> is null.
-    /// Throws an <see cref="ArgumentException" /> if <paramref name="input" /> is an empty guid.
+    /// Throws an <see cref="ArgumentNullException" /> or a custom <see cref="Exception" />if <paramref name="input" /> is null.
+    /// Throws an <see cref="ArgumentException" /> or a custom <see cref="Exception" /> if <paramref name="input" /> is an empty guid.
     /// </summary>
     /// <param name="guardClause"></param>
     /// <param name="input"></param>
     /// <param name="parameterName"></param>
     /// <param name="message">Optional. Custom error message</param>
+    /// <param name="customException"></param>
     /// <returns><paramref name="input" /> if the value is not an empty guid or null.</returns>
     /// <exception cref="ArgumentNullException"></exception>
     /// <exception cref="ArgumentException"></exception>
+    /// <exception cref="Exception"></exception>
     public static Guid NullOrEmpty(this IGuardClause guardClause,
         [NotNull][ValidatedNotNull] Guid? input,
         [CallerArgumentExpression("input")] string? parameterName = null,
-        string? message = null)
+        string? message = null, Exception? customException = null)
     {
-        Guard.Against.Null(input, parameterName, message);
+        Guard.Against.Null(input, parameterName, message, customException);
         if (input == Guid.Empty)
         {
-            throw new ArgumentException(message ?? $"Required input {parameterName} was empty.", parameterName);
+            throw customException ?? new ArgumentException(message ?? $"Required input {parameterName} was empty.", parameterName);
         }
 
         return input.Value;
     }
 
     /// <summary>
-    /// Throws an <see cref="ArgumentNullException" /> if <paramref name="input" /> is null.
-    /// Throws an <see cref="ArgumentException" /> if <paramref name="input" /> is an empty enumerable.
+    /// Throws an <see cref="ArgumentNullException" /> or a custom <see cref="Exception" /> if <paramref name="input" /> is null.
+    /// Throws an <see cref="ArgumentException" /> or a custom <see cref="Exception" /> if <paramref name="input" /> is an empty enumerable.
     /// </summary>
     /// <param name="guardClause"></param>
     /// <param name="input"></param>
     /// <param name="parameterName"></param>
     /// <param name="message">Optional. Custom error message</param>
+    /// <param name="customException"></param>
     /// <returns><paramref name="input" /> if the value is not an empty enumerable or null.</returns>
     /// <exception cref="ArgumentNullException"></exception>
     /// <exception cref="ArgumentException"></exception>
+    /// <exception cref="Exception"></exception>
     public static IEnumerable<T> NullOrEmpty<T>(this IGuardClause guardClause,
         [NotNull][ValidatedNotNull] IEnumerable<T>? input,
         [CallerArgumentExpression("input")] string? parameterName = null,
-        string? message = null)
+        string? message = null, Exception? customException = null)
     {
-        Guard.Against.Null(input, parameterName, message);
+        Guard.Against.Null(input, parameterName, message, customException);
         
         if (input is Array and { Length: 0 } //Try checking first with pattern matching because it's faster than TryGetNonEnumeratedCount on Array
 #if NET6_0_OR_GREATER
@@ -140,54 +153,59 @@ public static partial class GuardClauseExtensions
 #endif
             || !input.Any())
         {
-            throw new ArgumentException(message ?? $"Required input {parameterName} was empty.", parameterName);
+            throw customException ?? new ArgumentException(message ?? $"Required input {parameterName} was empty.", parameterName);
         }
 
         return input;
     }
 
     /// <summary>
-    /// Throws an <see cref="ArgumentNullException" /> if <paramref name="input" /> is null.
-    /// Throws an <see cref="ArgumentException" /> if <paramref name="input" /> is an empty or white space string.
+    /// Throws an <see cref="ArgumentNullException" /> or a custom <see cref="Exception" /> if <paramref name="input" /> is null.
+    /// Throws an <see cref="ArgumentException" /> or a custom <see cref="Exception" /> if <paramref name="input" /> is an empty or white space string.
     /// </summary>
     /// <param name="guardClause"></param>
     /// <param name="input"></param>
     /// <param name="parameterName"></param>
     /// <param name="message">Optional. Custom error message</param>
+    /// <param name="customException"></param>
     /// <returns><paramref name="input" /> if the value is not an empty or whitespace string.</returns>
     /// <exception cref="ArgumentNullException"></exception>
     /// <exception cref="ArgumentException"></exception>
+    /// <exception cref="Exception"></exception>
     public static string NullOrWhiteSpace(this IGuardClause guardClause,
         [NotNull][ValidatedNotNull] string? input,
         [CallerArgumentExpression("input")] string? parameterName = null,
-        string? message = null)
+        string? message = null, Exception? customException = null)
     {
-        Guard.Against.NullOrEmpty(input, parameterName, message);
+        Guard.Against.NullOrEmpty(input, parameterName, message, customException);
         if (String.IsNullOrWhiteSpace(input))
         {
-            throw new ArgumentException(message ?? $"Required input {parameterName} was empty.", parameterName);
+            throw customException ?? new ArgumentException(message ?? $"Required input {parameterName} was empty.", parameterName);
         }
 
         return input;
     }
 
     /// <summary>
-    /// Throws an <see cref="ArgumentException" /> if <paramref name="input" /> is default for that type.
+    /// Throws an <see cref="ArgumentException" /> or a custom <see cref="Exception" /> if <paramref name="input" /> is default for that type.
     /// </summary>
     /// <param name="guardClause"></param>
     /// <param name="input"></param>
     /// <param name="parameterName"></param>
     /// <param name="message">Optional. Custom error message</param>
+    /// <param name="customException"></param>
     /// <returns><paramref name="input" /> if the value is not default for that type.</returns>
     /// <exception cref="ArgumentException"></exception>
+    /// <exception cref="Exception"></exception>
     public static T Default<T>(this IGuardClause guardClause,
         [AllowNull, NotNull]T input,
         [CallerArgumentExpression("input")] string? parameterName = null,
-        string? message = null)
+        string? message = null,
+        Exception? customException = null)
     {
         if (EqualityComparer<T>.Default.Equals(input, default(T)!) || input is null)
         {
-            throw new ArgumentException(message ?? $"Parameter [{parameterName}] is default value for type {typeof(T).Name}", parameterName);
+            throw customException ?? new ArgumentException(message ?? $"Parameter [{parameterName}] is default value for type {typeof(T).Name}", parameterName);
         }
 
         return input;
@@ -195,26 +213,29 @@ public static partial class GuardClauseExtensions
 
 
     /// <summary>
-    /// Throws an <see cref="ArgumentNullException"/> if <paramref name="input"/> is null
-    /// Throws an <see cref="ArgumentException" /> if <paramref name="input"/> doesn't satisfy the <paramref name="predicate"/> function.
+    /// Throws an <see cref="ArgumentNullException"/> or a custom <see cref="Exception" /> if <paramref name="input"/> is null
+    /// Throws an <see cref="ArgumentException" /> or a custom <see cref="Exception" /> if <paramref name="input"/> doesn't satisfy the <paramref name="predicate"/> function.
     /// </summary>
     /// <param name="guardClause"></param>
     /// <param name="input"></param>
     /// <param name="parameterName"></param>
     /// <param name="predicate"></param>
     /// <param name="message">Optional. Custom error message</param>
+    /// <param name="customException"></param>
     /// <typeparam name="T"></typeparam>
     /// <returns></returns>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="ArgumentNullException"></exception>
+    /// <exception cref="Exception"></exception>
     public static T NullOrInvalidInput<T>(this IGuardClause guardClause,
         [NotNull] T? input,
         string parameterName,
         Func<T, bool> predicate,
-        string? message = null)
+        string? message = null,
+        Exception? customException = null)
     {
-        Guard.Against.Null(input, parameterName, message);
+        Guard.Against.Null(input, parameterName, message, customException);
 
-        return Guard.Against.InvalidInput(input, parameterName, predicate, message);
+        return Guard.Against.InvalidInput(input, parameterName, predicate, message, customException);
     }
 }
