@@ -42,13 +42,21 @@ namespace GuardClauses.UnitTests
             Guard.Against.NullOrOutOfRange(new TestObj(2), "index", new TestObj(1), new TestObj(3));
             Guard.Against.NullOrOutOfRange(new TestObj(3), "index", new TestObj(1), new TestObj(3));
         }
-
         [Fact]
         public void ThrowsGivenOutOfRangeValue()
         {
             Assert.Throws<ArgumentOutOfRangeException>(() => Guard.Against.NullOrOutOfRange(new TestObj(-1), "index", new TestObj(1), new TestObj(3)));
             Assert.Throws<ArgumentOutOfRangeException>(() => Guard.Against.NullOrOutOfRange(new TestObj(0), "index", new TestObj(1), new TestObj(3)));
             Assert.Throws<ArgumentOutOfRangeException>(() => Guard.Against.NullOrOutOfRange(new TestObj(4), "index", new TestObj(1), new TestObj(3)));
+        }
+
+        [Fact]
+        public void ThrowsCustomExceptionWhenSuppliedGivenOutOfRangeValue()
+        {
+            Exception customException = new Exception();
+            Assert.Throws<Exception>(() => Guard.Against.NullOrOutOfRange(new TestObj(-1), "index", new TestObj(1), new TestObj(3), exception: customException));
+            Assert.Throws<Exception>(() => Guard.Against.NullOrOutOfRange(new TestObj(0), "index", new TestObj(1), new TestObj(3), exception: customException));
+            Assert.Throws<Exception>(() => Guard.Against.NullOrOutOfRange(new TestObj(4), "index", new TestObj(1), new TestObj(3), exception: customException));
         }
 
         [Fact]
@@ -63,14 +71,12 @@ namespace GuardClauses.UnitTests
         public void ThrowsGivenInvalidNullArgumentValue()
         {
 #pragma warning disable CS8631 // The type cannot be used as type parameter in the generic type or method. Nullability of type argument doesn't match constraint type.
-
             Assert.Throws<ArgumentNullException>(() => Guard.Against.NullOrOutOfRange(null, "index", new TestObj(3), new TestObj(1)));
             Assert.Throws<ArgumentNullException>(() => Guard.Against.NullOrOutOfRange(new TestObj(0), "index", null, new TestObj(1)));
             Assert.Throws<ArgumentNullException>(() => Guard.Against.NullOrOutOfRange(new TestObj(4), "index", new TestObj(3), null));
-
 #pragma warning restore CS8631
         }
-        
+
         [Fact]
         public void ReturnsExpectedValueGivenInRangeValue()
         {

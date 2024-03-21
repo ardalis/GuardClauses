@@ -26,15 +26,36 @@ public class GuardAgainstNullOrWhiteSpace
     }
 
     [Fact]
+    public void ThrowsCustomExceptionWhenSuppliedGivenNullValue()
+    {
+        Exception customException = new Exception();
+        Assert.Throws<Exception>(() => Guard.Against.NullOrWhiteSpace(null, "null", exception: customException));
+    }
+
+    [Fact]
     public void ThrowsGivenEmptyString()
     {
         Assert.Throws<ArgumentException>(() => Guard.Against.NullOrWhiteSpace("", "emptystring"));
     }
 
     [Fact]
+    public void ThrowsCustomExceptionWhenSuppliedGivenEmptyString()
+    {
+        Exception customException = new Exception();
+        Assert.Throws<Exception>(() => Guard.Against.NullOrWhiteSpace("", "emptystring", exception: customException));
+    }
+
+    [Fact]
     public void ThrowsGivenEmptyStringSpan()
     {
         Assert.Throws<ArgumentException>(() => Guard.Against.WhiteSpace("".AsSpan(), "emptyStringSpan"));
+    }
+
+    [Fact]
+    public void ThrowsCustomExceptionWhenSuppliedGivenEmptyStringSpan()
+    {
+        Exception customException = new Exception();
+        Assert.Throws<Exception>(() => Guard.Against.WhiteSpace("".AsSpan(), "emptyStringSpan", exception: customException));
     }
 
     [Theory]
@@ -45,6 +66,17 @@ public class GuardAgainstNullOrWhiteSpace
         Assert.Throws<ArgumentException>(() => Guard.Against.NullOrWhiteSpace(whiteSpaceString, "whitespacestring"));
         Assert.Throws<ArgumentException>(() => Guard.Against.WhiteSpace(whiteSpaceString.AsSpan(), "whiteSpaceStringSpan"));
     }
+
+    [Theory]
+    [InlineData(" ")]
+    [InlineData("   ")]
+    public void ThrowsCustomExceptionWhenSuppliedGivenWhiteSpaceString(string? whiteSpaceString)
+    {
+        Exception customException = new Exception();
+        Assert.Throws<Exception>(() => Guard.Against.NullOrWhiteSpace(whiteSpaceString, "whitespacestring", exception: customException));
+        Assert.Throws<Exception>(() => Guard.Against.WhiteSpace(whiteSpaceString.AsSpan(), "whiteSpaceStringSpan", exception: customException));
+    }
+
 
     [Theory]
     [InlineData("a", "a")]

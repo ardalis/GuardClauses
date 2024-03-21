@@ -28,7 +28,7 @@ public static partial class GuardClauseExtensions
         string? message = null,
         Exception? exception = null)
     {
-        Guard.Against.NegativeOrZero(minLength, nameof(minLength));
+        Guard.Against.NegativeOrZero(minLength, nameof(minLength), exception: exception);
         if (input.Length < minLength)
         {
             throw exception ?? new ArgumentException(message ?? $"Input {parameterName} with length {input.Length} is too short. Minimum length is {minLength}.", parameterName);
@@ -55,7 +55,7 @@ public static partial class GuardClauseExtensions
         string? message = null,
         Exception? exception = null)
     {
-        Guard.Against.NegativeOrZero(maxLength, nameof(maxLength));
+        Guard.Against.NegativeOrZero(maxLength, nameof(maxLength), exception: exception);
         if (input.Length > maxLength)
         {
             throw exception ?? new ArgumentException(message ?? $"Input {parameterName} with length {input.Length} is too long. Maximum length is {maxLength}.", parameterName);

@@ -26,6 +26,16 @@ namespace GuardClauses.UnitTests
         }
 
         [Theory]
+        [InlineData(-1, 1, 3)]
+        [InlineData(0, 1, 3)]
+        [InlineData(4, 1, 3)]
+        public void ThrowsCustomExceptionWhenSuppliedGivenOutOfRangeValue(int input, int rangeFrom, int rangeTo)
+        {
+            Exception customException = new Exception();
+            Assert.Throws<Exception>(() => Guard.Against.NullOrOutOfRange(input, "index", rangeFrom, rangeTo, exception: customException));
+        }
+
+        [Theory]
         [InlineData(-1, 3, 1)]
         [InlineData(0, 3, 1)]
         [InlineData(4, 3, 1)]

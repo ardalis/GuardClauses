@@ -22,6 +22,22 @@ namespace GuardClauses.UnitTests
             Assert.Throws<ArgumentOutOfRangeException>(() => Guard.Against.NullOrOutOfSQLDateRange(date, nameof(date)));
         }
 
+        [Theory]
+        [InlineData(1)]
+        [InlineData(60)]
+        [InlineData(60 * 60)]
+        [InlineData(60 * 60 * 24)]
+        [InlineData(60 * 60 * 24 * 30)]
+        [InlineData(60 * 60 * 24 * 30 * 365)]
+        public void ThrowsCustomExceptionWhenSuppliedGivenValueBelowMinDate(int offsetInSeconds)
+        {
+            DateTime date = SqlDateTime.MinValue.Value.AddSeconds(-offsetInSeconds);
+            Exception customException = new Exception();
+
+            Assert.Throws<Exception>(() => Guard.Against.NullOrOutOfSQLDateRange(date, nameof(date), exception: customException));
+        }
+
+
         [Fact]
         public void DoNothingGivenCurrentDate()
         {
@@ -86,6 +102,12 @@ namespace GuardClauses.UnitTests
             Assert.Throws<ArgumentNullException>(() => Guard.Against.NullOrOutOfSQLDateRange(null, "index"));
         }
 
+        [Fact]
+        public void ThrowsCustomExceptionWhenSuppliedGivenInvalidNullArgumentValue()
+        {
+            Exception customException = new Exception();
+            Assert.Throws<Exception>(() => Guard.Against.NullOrOutOfSQLDateRange(null, "index", exception: customException));
+        }
         public static IEnumerable<object[]> GetSqlDateTimeTestVectors()
         {
             var now = DateTime.Now;

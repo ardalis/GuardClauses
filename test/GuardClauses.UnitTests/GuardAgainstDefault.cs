@@ -26,6 +26,16 @@ public class GuardAgainstDefault
         Assert.Throws<ArgumentException>("datetime", () => Guard.Against.Default(default(DateTime), "datetime"));
         Assert.Throws<ArgumentException>("object", () => Guard.Against.Default(default(object), "object"));
     }
+    [Fact]
+    public void ThrowsCustomExceptionWhenSuppliedGivenDefaultValue()
+    {
+        Exception customException = new Exception();
+        Assert.Throws<Exception>( () => Guard.Against.Default(default(string), "string", exception: customException));
+        Assert.Throws<Exception>( () => Guard.Against.Default(default(int), "int", exception: customException));
+        Assert.Throws<Exception>(() => Guard.Against.Default(default(Guid), "guid", exception: customException));
+        Assert.Throws<Exception>( () => Guard.Against.Default(default(DateTime), "datetime", exception: customException));
+        Assert.Throws<Exception>( () => Guard.Against.Default(default(object), "object", exception: customException));
+    }
 
     [Theory]
     [MemberData(nameof(GetNonDefaultTestVectors))]

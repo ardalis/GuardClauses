@@ -15,7 +15,6 @@ public class GuardAgainstOutOfRangeForDecimal
     {
         Guard.Against.OutOfRange(input, "index", rangeFrom, rangeTo);
     }
-
     [Theory]
     [InlineData(-1.0, 1.0, 3.0)]
     [InlineData(0.0, 1.0, 3.0)]
@@ -26,6 +25,16 @@ public class GuardAgainstOutOfRangeForDecimal
     }
 
     [Theory]
+    [InlineData(-1.0, 1.0, 3.0)]
+    [InlineData(0.0, 1.0, 3.0)]
+    [InlineData(4.0, 1.0, 3.0)]
+    public void ThrowsCustomExceptionWhenSuppliedGivenOutOfRangeValue(decimal input, decimal rangeFrom, decimal rangeTo)
+    {
+        Exception customException = new Exception();
+        Assert.Throws<Exception>(() => Guard.Against.OutOfRange(input, "index", rangeFrom, rangeTo, exception: customException));
+    }
+
+    [Theory]
     [InlineData(-1.0, 3.0, 1.0)]
     [InlineData(0.0, 3.0, 1.0)]
     [InlineData(4.0, 3.0, 1.0)]
@@ -33,6 +42,8 @@ public class GuardAgainstOutOfRangeForDecimal
     {
         Assert.Throws<ArgumentException>(() => Guard.Against.OutOfRange(input, "index", rangeFrom, rangeTo));
     }
+
+
 
     [Theory]
     [InlineData(1.0, 0.0, 1.0, 1.0)]
