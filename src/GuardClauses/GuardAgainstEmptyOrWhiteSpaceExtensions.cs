@@ -12,7 +12,7 @@ public static partial class GuardClauseExtensions
     /// <param name="input"></param>
     /// <param name="parameterName"></param>
     /// <param name="message">Optional. Custom error message</param>
-    /// <param name="customException">Optional. Custom exception</param>
+    /// <param name="exception">Optional. Custom exception</param>
     /// <returns><paramref name="input" /> if the value is not an empty string.</returns>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="Exception"></exception>
@@ -21,11 +21,11 @@ public static partial class GuardClauseExtensions
         ReadOnlySpan<char> input,
         string parameterName,
         string? message = null,
-        Exception? customException = null)
+        Exception? exception = null)
     {
         if (input.Length == 0 || input == string.Empty)
         {
-            throw customException ?? new ArgumentException(message ?? $"Required input {parameterName} was empty.", parameterName);
+            throw exception ?? new ArgumentException(message ?? $"Required input {parameterName} was empty.", parameterName);
         }
         return input;
     }
@@ -37,18 +37,18 @@ public static partial class GuardClauseExtensions
     /// <param name="input"></param>
     /// <param name="parameterName"></param>
     /// <param name="message">Optional. Custom error message</param>
-    /// <param name="customException">Optional. Custom exception</param>
+    /// <param name="exception">Optional. Custom exception</param>
     /// <returns><paramref name="input" /> if the value is not an empty or whitespace string.</returns>
     /// <exception cref="ArgumentException"></exception>
     public static ReadOnlySpan<char> WhiteSpace(this IGuardClause guardClause,
         ReadOnlySpan<char> input,
         string parameterName,
         string? message = null,
-        Exception? customException = null)
+        Exception? exception = null)
     {
         if (MemoryExtensions.IsWhiteSpace(input))
         {
-            throw customException ?? new ArgumentException(message ?? $"Required input {parameterName} was empty.", parameterName!);
+            throw exception ?? new ArgumentException(message ?? $"Required input {parameterName} was empty.", parameterName!);
         }
 
         return input;

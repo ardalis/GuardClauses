@@ -17,7 +17,7 @@ public static partial class GuardClauseExtensions
     /// <param name="minLength"></param>
     /// <param name="parameterName"></param>
     /// <param name="message">Optional. Custom error message</param>
-    /// <param name="customException"></param>
+    /// <param name="exception"></param>
     /// <returns><paramref name="input" /> if the value is not negative.</returns>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="Exception"></exception>
@@ -26,12 +26,12 @@ public static partial class GuardClauseExtensions
         int minLength,
         [CallerArgumentExpression("input")] string? parameterName = null,
         string? message = null,
-        Exception? customException = null)
+        Exception? exception = null)
     {
         Guard.Against.NegativeOrZero(minLength, nameof(minLength));
         if (input.Length < minLength)
         {
-            throw customException ?? new ArgumentException(message ?? $"Input {parameterName} with length {input.Length} is too short. Minimum length is {minLength}.", parameterName);
+            throw exception ?? new ArgumentException(message ?? $"Input {parameterName} with length {input.Length} is too short. Minimum length is {minLength}.", parameterName);
         }
         return input;
     }
@@ -44,7 +44,7 @@ public static partial class GuardClauseExtensions
     /// <param name="maxLength"></param>
     /// <param name="parameterName"></param>
     /// <param name="message">Optional. Custom error message</param>
-    /// <param name="customException"></param>
+    /// <param name="exception"></param>
     /// <returns><paramref name="input" /> if the value is not negative.</returns>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="Exception"></exception>
@@ -53,12 +53,12 @@ public static partial class GuardClauseExtensions
         int maxLength,
         [CallerArgumentExpression("input")] string? parameterName = null,
         string? message = null,
-        Exception? customException = null)
+        Exception? exception = null)
     {
         Guard.Against.NegativeOrZero(maxLength, nameof(maxLength));
         if (input.Length > maxLength)
         {
-            throw customException ?? new ArgumentException(message ?? $"Input {parameterName} with length {input.Length} is too long. Maximum length is {maxLength}.", parameterName);
+            throw exception ?? new ArgumentException(message ?? $"Input {parameterName} with length {input.Length} is too long. Maximum length is {maxLength}.", parameterName);
         }
         return input;
     }

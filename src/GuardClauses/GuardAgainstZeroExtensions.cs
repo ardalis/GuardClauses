@@ -13,7 +13,7 @@ public static partial class GuardClauseExtensions
     /// <param name="input"></param>
     /// <param name="parameterName"></param>
     /// <param name="message">Optional. Custom error message</param>
-    /// <param name="customException"></param>
+    /// <param name="exception"></param>
     /// <returns><paramref name="input" /> if the value is not zero.</returns>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="Exception"></exception>
@@ -21,9 +21,9 @@ public static partial class GuardClauseExtensions
         int input,
         [CallerArgumentExpression("input")] string? parameterName = null,
         string? message = null,
-        Exception? customException = null)
+        Exception? exception = null)
     {
-        return Zero<int>(guardClause, input, parameterName!, message, customException);
+        return Zero<int>(guardClause, input, parameterName!, message, exception);
     }
 
     /// <summary>
@@ -33,7 +33,7 @@ public static partial class GuardClauseExtensions
     /// <param name="input"></param>
     /// <param name="parameterName"></param>
     /// <param name="message">Optional. Custom error message</param>
-    /// <param name="customException"></param>
+    /// <param name="exception"></param>
     /// <returns><paramref name="input" /> if the value is not zero.</returns>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="Exception"></exception>
@@ -41,9 +41,9 @@ public static partial class GuardClauseExtensions
         long input,
         [CallerArgumentExpression("input")] string? parameterName = null,
         string? message = null,
-        Exception? customException = null)
+        Exception? exception = null)
     {
-        return Zero<long>(guardClause, input, parameterName!, message, customException);
+        return Zero<long>(guardClause, input, parameterName!, message, exception);
     }
 
     /// <summary>
@@ -53,7 +53,7 @@ public static partial class GuardClauseExtensions
     /// <param name="input"></param>
     /// <param name="parameterName"></param>
     /// <param name="message">Optional. Custom error message</param>
-    /// <param name="customException"></param>
+    /// <param name="exception"></param>
     /// <returns><paramref name="input" /> if the value is not zero.</returns>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="Exception"></exception>
@@ -61,9 +61,9 @@ public static partial class GuardClauseExtensions
         decimal input,
         [CallerArgumentExpression("input")] string? parameterName = null,
         string? message = null,
-        Exception? customException = null)
+        Exception? exception = null)
     {
-        return Zero<decimal>(guardClause, input, parameterName!, message,customException);
+        return Zero<decimal>(guardClause, input, parameterName!, message,exception);
     }
 
     /// <summary>
@@ -73,7 +73,7 @@ public static partial class GuardClauseExtensions
     /// <param name="input"></param>
     /// <param name="parameterName"></param>
     /// <param name="message">Optional. Custom error message</param>
-    /// <param name="customException"></param>
+    /// <param name="exception"></param>
     /// <returns><paramref name="input" /> if the value is not zero.</returns>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="Exception"></exception>
@@ -81,9 +81,9 @@ public static partial class GuardClauseExtensions
         float input,
         [CallerArgumentExpression("input")] string? parameterName = null,
         string? message = null,
-        Exception? customException = null)
+        Exception? exception = null)
     {
-        return Zero<float>(guardClause, input, parameterName!, message, customException);
+        return Zero<float>(guardClause, input, parameterName!, message, exception);
     }
 
     /// <summary>
@@ -93,7 +93,7 @@ public static partial class GuardClauseExtensions
     /// <param name="input"></param>
     /// <param name="parameterName"></param>
     /// <param name="message">Optional. Custom error message</param>
-    /// <param name="customException"></param>
+    /// <param name="exception"></param>
     /// <returns><paramref name="input" /> if the value is not zero.</returns>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="Exception"></exception>
@@ -101,9 +101,9 @@ public static partial class GuardClauseExtensions
         double input,
         [CallerArgumentExpression("input")] string? parameterName = null,
         string? message = null,
-        Exception? customException = null)
+        Exception? exception = null)
     {
-        return Zero<double>(guardClause, input, parameterName!, message,customException);
+        return Zero<double>(guardClause, input, parameterName!, message,exception);
     }
 
     /// <summary>
@@ -112,16 +112,16 @@ public static partial class GuardClauseExtensions
     /// <param name="guardClause"></param>
     /// <param name="input"></param>
     /// <param name="parameterName"></param>
-    /// <param name="customException"></param>
+    /// <param name="exception"></param>
     /// <returns><paramref name="input" /> if the value is not zero.</returns>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="Exception"></exception>
     public static TimeSpan Zero(this IGuardClause guardClause,
         TimeSpan input,
         [CallerArgumentExpression("input")] string? parameterName = null,
-        Exception? customException = null)
+        Exception? exception = null)
     {
-        return Zero<TimeSpan>(guardClause, input, parameterName!, customException:customException);
+        return Zero<TimeSpan>(guardClause, input, parameterName!, exception:exception);
     }
 
     /// <summary>
@@ -131,16 +131,16 @@ public static partial class GuardClauseExtensions
     /// <param name="input"></param>
     /// <param name="parameterName"></param>
     /// <param name="message">Optional. Custom error message</param>
-    /// <param name="customException"></param>
+    /// <param name="exception"></param>
     /// <returns><paramref name="input" /> if the value is not zero.</returns>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="Exception"></exception>
     private static T Zero<T>(this IGuardClause guardClause, T input, string parameterName, string? message = null,
-        Exception? customException = null) where T : struct
+        Exception? exception = null) where T : struct
     {
         if (EqualityComparer<T>.Default.Equals(input, default(T)))
         {
-            throw customException ?? new ArgumentException(message ?? $"Required input {parameterName} cannot be zero.", parameterName);
+            throw exception ?? new ArgumentException(message ?? $"Required input {parameterName} cannot be zero.", parameterName);
         }
 
         return input;
