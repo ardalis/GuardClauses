@@ -25,6 +25,15 @@ public class GuardAgainstNullOrInvalidInput
     }
 
     [Theory]
+    [ClassData(typeof(ArgumentExceptionClassData))]
+    public void ThrowsCustomExceptionWhenSuppliedArgumentExceptionWhenInputIsInvalid(string? input, Func<string, bool> func)
+    {
+        Exception customException = new Exception();
+        Assert.Throws<Exception>(
+            () => Guard.Against.NullOrInvalidInput(input, "string", func, exception: customException));
+    }
+
+    [Theory]
     [ClassData(typeof(ValidClassData))]
     public void ReturnsExceptedValueWhenGivenValidInput(int input, Func<int, bool> func)
     {

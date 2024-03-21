@@ -15,7 +15,6 @@ public class GuardAgainstOutOfRangeForDouble
     {
         Guard.Against.OutOfRange(input, "index", rangeFrom, rangeTo);
     }
-
     [Theory]
     [InlineData(-1.0, 1.0, 3.0)]
     [InlineData(0.0, 1.0, 3.0)]
@@ -26,6 +25,16 @@ public class GuardAgainstOutOfRangeForDouble
     }
 
     [Theory]
+    [InlineData(-1.0, 1.0, 3.0)]
+    [InlineData(0.0, 1.0, 3.0)]
+    [InlineData(4.0, 1.0, 3.0)]
+    public void ThrowsCustomExceptionWhenSuppliedGivenOutOfRangeValue(double input, double rangeFrom, double rangeTo)
+    {
+        Exception customException = new Exception();
+        Assert.Throws<Exception>(() => Guard.Against.OutOfRange(input, "index", rangeFrom, rangeTo, exception: customException));
+    }
+
+    [Theory]
     [InlineData(-1.0, 3.0, 1.0)]
     [InlineData(0.0, 3.0, 1.0)]
     [InlineData(4.0, 3.0, 1.0)]
@@ -33,6 +42,9 @@ public class GuardAgainstOutOfRangeForDouble
     {
         Assert.Throws<ArgumentException>(() => Guard.Against.OutOfRange(input, "index", rangeFrom, rangeTo));
     }
+
+
+
 
     [Theory]
     [InlineData(1.0, 0.0, 1.0, 1.0)]

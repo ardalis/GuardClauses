@@ -36,10 +36,26 @@ public class GuardAgainstNegative
     }
 
     [Fact]
+    public void ThrowsCustomExceptionWhenSuppliedGivenNegativeIntValue()
+    {
+        Exception customException = new Exception();
+        Assert.Throws<Exception>(() => Guard.Against.Negative(-1, "negative", exception: customException));
+    }
+
+
+    [Fact]
     public void ThrowsGivenNegativeLongValue()
     {
         Assert.Throws<ArgumentException>(() => Guard.Against.Negative(-1L, "negative"));
     }
+
+    [Fact]
+    public void ThrowsCustomExceptionWhenSuppliedGivenNegativeLongValue()
+    {
+        Exception customException = new Exception();
+        Assert.Throws<Exception>(() => Guard.Against.Negative(-1L, "negative", exception: customException));
+    }
+
 
     [Fact]
     public void ThrowsGivenNegativeDecimalValue()
@@ -48,10 +64,26 @@ public class GuardAgainstNegative
     }
 
     [Fact]
+    public void ThrowsCustomExceptionWhenSuppliedGivenNegativeDecimalValue()
+    {
+        Exception customException = new Exception();
+        Assert.Throws<Exception>(() => Guard.Against.Negative(-1.0M, "negative", exception: customException));
+    }
+
+
+    [Fact]
     public void ThrowsGivenNegativeFloatValue()
     {
         Assert.Throws<ArgumentException>(() => Guard.Against.Negative(-1.0f, "negative"));
     }
+
+    [Fact]
+    public void ThrowsCustomExceptionWhenSuppliedGivenNegativeFloatValue()
+    {
+        Exception customException = new Exception();
+        Assert.Throws<Exception>(() => Guard.Against.Negative(-1.0f, "negative", exception: customException));
+    }
+
 
     [Fact]
     public void ThrowsGivenNegativeDoubleValue()
@@ -60,10 +92,26 @@ public class GuardAgainstNegative
     }
 
     [Fact]
+    public void ThrowsCustomExceptionWhenSuppliedGivenNegativeDoubleValue()
+    {
+        Exception customException = new Exception();
+        Assert.Throws<Exception>(() => Guard.Against.Negative(-1.0, "negative", exception: customException));
+    }
+
+
+    [Fact]
     public void ThrowsGivenNegativeTimeSpanValue()
     {
         Assert.Throws<ArgumentException>(() => Guard.Against.Negative(TimeSpan.FromSeconds(-1), "negative"));
     }
+
+    [Fact]
+    public void ThrowsCustomExceptionWhenSuppliedGivenNegativeTimeSpanValue()
+    {
+        Exception customException = new Exception();
+        Assert.Throws<Exception>(() => Guard.Against.Negative(TimeSpan.FromSeconds(-1), "negative", exception: customException));
+    }
+
 
     [Fact]
     public void ReturnsExpectedValueGivenNonNegativeIntValue()

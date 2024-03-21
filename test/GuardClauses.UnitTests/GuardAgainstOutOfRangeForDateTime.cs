@@ -18,7 +18,6 @@ public class GuardAgainstOutOfRangeForDateTime
         DateTime rangeTo = input.AddSeconds(rangeToOffset);
         Guard.Against.OutOfRange(input, "index", rangeFrom, rangeTo);
     }
-
     [Theory]
     [InlineData(1, 3)]
     [InlineData(-4, -3)]
@@ -31,6 +30,18 @@ public class GuardAgainstOutOfRangeForDateTime
     }
 
     [Theory]
+    [InlineData(1, 3)]
+    [InlineData(-4, -3)]
+    public void ThrowsCustomExceptionWhenSuppliedGivenOutOfRangeValue(int rangeFromOffset, int rangeToOffset)
+    {
+        DateTime input = DateTime.Now;
+        DateTime rangeFrom = input.AddSeconds(rangeFromOffset);
+        DateTime rangeTo = input.AddSeconds(rangeToOffset);
+        Exception customException = new Exception();
+        Assert.Throws<Exception>(() => Guard.Against.OutOfRange(input, "index", rangeFrom, rangeTo, exception: customException));
+    }
+
+    [Theory]
     [InlineData(3, 1)]
     [InlineData(3, -1)]
     public void ThrowsGivenInvalidArgumentValue(int rangeFromOffset, int rangeToOffset)
@@ -40,6 +51,7 @@ public class GuardAgainstOutOfRangeForDateTime
         DateTime rangeTo = input.AddSeconds(rangeToOffset);
         Assert.Throws<ArgumentException>(() => Guard.Against.OutOfRange(DateTime.Now, "index", rangeFrom, rangeTo));
     }
+
 
     [Theory]
     [InlineData(0, 0)]

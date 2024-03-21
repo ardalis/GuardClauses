@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using Ardalis.GuardClauses;
 using Xunit;
 
@@ -18,7 +19,6 @@ public class GuardAgainstOutOfRangeForEnum
         Guard.Against.EnumOutOfRange<TestEnum>(enumValue, nameof(enumValue));
     }
 
-
     [Theory]
     [InlineData(-1)]
     [InlineData(6)]
@@ -28,6 +28,17 @@ public class GuardAgainstOutOfRangeForEnum
         var exception = Assert.Throws<InvalidEnumArgumentException>(() => Guard.Against.EnumOutOfRange<TestEnum>(enumValue, nameof(enumValue)));
         Assert.Equal(nameof(enumValue), exception.ParamName);
     }
+
+    [Theory]
+    [InlineData(-1)]
+    [InlineData(6)]
+    [InlineData(10)]
+    public void ThrowsCustomExceptionWhenSuppliedGivenOutOfRangeValue(int enumValue)
+    {
+        Exception customException = new Exception();
+        Assert.Throws<Exception>(() => Guard.Against.EnumOutOfRange<TestEnum>(enumValue, nameof(enumValue), exception: customException));
+    }
+
 
     [Theory]
     [InlineData(TestEnum.Budgie)]
@@ -50,6 +61,16 @@ public class GuardAgainstOutOfRangeForEnum
     {
         var exception = Assert.Throws<InvalidEnumArgumentException>(() => Guard.Against.EnumOutOfRange(enumValue, nameof(enumValue)));
         Assert.Equal(nameof(enumValue), exception.ParamName);
+    }
+
+    [Theory]
+    [InlineData((TestEnum)(-1))]
+    [InlineData((TestEnum)6)]
+    [InlineData((TestEnum)10)]
+    public void ThrowsCustomExceptionWhenSuppliedGivenOutOfRangeEnum(TestEnum enumValue)
+    {
+        Exception customException = new Exception();
+        Assert.Throws<Exception>(() => Guard.Against.EnumOutOfRange(enumValue, nameof(enumValue), exception: customException));
     }
 
     [Theory]

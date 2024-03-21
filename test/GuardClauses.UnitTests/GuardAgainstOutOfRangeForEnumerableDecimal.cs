@@ -23,11 +23,20 @@ public class GuardAgainstOutOfRangeForEnumerableDecimal
     }
 
     [Theory]
+    [ClassData(typeof(IncorrectClassData))]
+    public void ThrowsCustomExceptionWhenSuppliedGivenOutOfRangeValue(IEnumerable<decimal> input, decimal rangeFrom, decimal rangeTo)
+    {
+        Exception customException = new Exception();
+        Assert.Throws<Exception>(() => Guard.Against.OutOfRange(input, nameof(input), rangeFrom, rangeTo, exception: customException));
+    }
+
+    [Theory]
     [ClassData(typeof(IncorrectRangeClassData))]
     public void ThrowsGivenInvalidArgumentValue(IEnumerable<decimal> input, decimal rangeFrom, decimal rangeTo)
     {
         Assert.Throws<ArgumentException>(() => Guard.Against.OutOfRange(input, nameof(input), rangeFrom, rangeTo));
     }
+
 
     [Theory]
     [ClassData(typeof(CorrectClassData))]

@@ -25,6 +25,15 @@ public class GuardAgainstOutOfRangeForUint
     }
 
     [Theory]
+    [InlineData(0, 1, 3)]
+    [InlineData(4, 1, 3)]
+    public void ThrowsCustomExceptionWhenSuppliedGivenOutOfRangeValue(uint input, uint rangeFrom, uint rangeTo)
+    {
+        Exception customException = new Exception();
+        Assert.Throws<Exception>(() => Guard.Against.OutOfRange(input, "index", rangeFrom, rangeTo, exception: customException));
+    }
+
+    [Theory]
     [InlineData(0, 3, 1)]
     [InlineData(1, 3, 1)]
     [InlineData(4, 3, 1)]

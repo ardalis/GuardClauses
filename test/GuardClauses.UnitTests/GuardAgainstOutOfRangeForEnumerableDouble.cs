@@ -23,6 +23,14 @@ public class GuardAgainstOutOfRangeForEnumerableDouble
     }
 
     [Theory]
+    [ClassData(typeof(IncorrectClassData))]
+    public void ThrowsCustomExceptionWhenSuppliedGivenOutOfRangeValue(IEnumerable<double> input, double rangeFrom, double rangeTo)
+    {
+        Exception customException = new Exception();
+        Assert.Throws<Exception>(() => Guard.Against.OutOfRange(input, nameof(input), rangeFrom, rangeTo, exception: customException));
+    }
+
+    [Theory]
     [ClassData(typeof(IncorrectRangeClassData))]
     public void ThrowsGivenInvalidArgumentValue(IEnumerable<double> input, double rangeFrom, double rangeTo)
     {

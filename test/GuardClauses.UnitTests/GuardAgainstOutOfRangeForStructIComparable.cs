@@ -29,6 +29,17 @@ public class GuardAgainstOutOfRangeForStructIComparable
     }
 
     [Theory]
+    [InlineData(0, 1, 1, 1, 10, 10)]
+    [InlineData(1, 0, 1, 1, 10, 10)]
+    [InlineData(10, 11, 1, 1, 10, 10)]
+    [InlineData(11, 10, 1, 1, 10, 10)]
+    public void ThrowsCustomExceptionWhenSuppliedGivenOutOfRangeValue(int input1, int input2, int rangeFrom1, int rangeFrom2, int rangeTo1, int rangeTo2)
+    {
+        Exception customException = new Exception();
+        Assert.Throws<Exception>(() => Guard.Against.OutOfRange((input1, input2), "tuple", (rangeFrom1, rangeFrom2), (rangeTo1, rangeTo2), exception: customException));
+    }
+
+    [Theory]
     [InlineData(0, 1, 10, 10, 1, 1)]
     [InlineData(1, 0, 10, 10, 1, 1)]
     [InlineData(10, 11, 10, 10, 1, 1)]

@@ -22,6 +22,21 @@ public class GuardAgainstOutOfSQLDateRange
         Assert.Throws<ArgumentOutOfRangeException>(() => Guard.Against.OutOfSQLDateRange(date, nameof(date)));
     }
 
+    [Theory]
+    [InlineData(1)]
+    [InlineData(60)]
+    [InlineData(60 * 60)]
+    [InlineData(60 * 60 * 24)]
+    [InlineData(60 * 60 * 24 * 30)]
+    [InlineData(60 * 60 * 24 * 30 * 365)]
+    public void ThrowsCustomExceptionWhenSuppliedGivenValueBelowMinDate(int offsetInSeconds)
+    {
+        DateTime date = SqlDateTime.MinValue.Value.AddSeconds(-offsetInSeconds);
+        Exception customException = new Exception();
+
+        Assert.Throws<Exception>(() => Guard.Against.OutOfSQLDateRange(date, nameof(date), exception: customException));
+    }
+
     [Fact]
     public void DoNothingGivenCurrentDate()
     {

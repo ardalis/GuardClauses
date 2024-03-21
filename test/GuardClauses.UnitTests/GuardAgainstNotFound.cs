@@ -24,6 +24,14 @@ public class GuardAgainstNotFound
     }
 
     [Fact]
+    public void ThrowsCustomExceptionWhenSuppliedGivenNullValue()
+    {
+        object obj = null!;
+        Exception customException = new Exception();
+        Assert.Throws<Exception>(() => Guard.Against.NotFound(1, obj, "null", exception: customException));
+    }
+
+    [Fact]
     public void ReturnsExpectedValueWhenGivenNonNullValue()
     {
         Assert.Equal("", Guard.Against.NotFound("mykey", "", "string"));

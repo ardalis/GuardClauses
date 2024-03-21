@@ -23,6 +23,13 @@ public class GuardAgainstStringTooShort
     }
 
     [Fact]
+    public void ThrowsCustomExceptionWhenSuppliedGivenEmptyString()
+    {
+        Exception customException = new Exception();
+        Assert.Throws<Exception>(() => Guard.Against.StringTooShort("", 1, "string", exception: customException));
+    }
+
+    [Fact]
     public void ThrowsGivenNonPositiveMinLength()
     {
         Assert.Throws<ArgumentException>(() => Guard.Against.StringTooShort("", 0, "string"));
@@ -30,10 +37,26 @@ public class GuardAgainstStringTooShort
     }
 
     [Fact]
+    public void ThrowsCustomExceptionWhenSuppliedGivenNonPositiveMinLength()
+    {
+        Exception customException = new Exception();
+        Assert.Throws<Exception>(() => Guard.Against.StringTooShort("", 0, "string", exception: customException));
+        Assert.Throws<Exception>(() => Guard.Against.StringTooShort("", -1, "string", exception: customException));
+    }
+
+    [Fact]
     public void ThrowsGivenStringShorterThanMinLength()
     {
         Assert.Throws<ArgumentException>(() => Guard.Against.StringTooShort("a", 2, "string"));
     }
+
+    [Fact]
+    public void ThrowsCustomExceptionWhenSuppliedGivenStringShorterThanMinLength()
+    {
+        Exception customException = new Exception();
+        Assert.Throws<Exception>(() => Guard.Against.StringTooShort("a", 2, "string", exception: customException));
+    }
+
 
     [Fact]
     public void ReturnsExpectedValueWhenGivenLongerString()

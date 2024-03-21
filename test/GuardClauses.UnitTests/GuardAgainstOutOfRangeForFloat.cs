@@ -26,6 +26,16 @@ public class GuardAgainstOutOfRangeForFloat
     }
 
     [Theory]
+    [InlineData(-1.0, 1.0, 3.0)]
+    [InlineData(0.0, 1.0, 3.0)]
+    [InlineData(4.0, 1.0, 3.0)]
+    public void ThrowsCustomExceptionWhenSuppliedGivenOutOfRangeValue(float input, float rangeFrom, float rangeTo)
+    {
+        Exception customException = new Exception();
+        Assert.Throws<Exception>(() => Guard.Against.OutOfRange(input, "index", rangeFrom, rangeTo, exception: customException));
+    }
+
+    [Theory]
     [InlineData(-1.0, 3.0, 1.0)]
     [InlineData(0.0, 3.0, 1.0)]
     [InlineData(4.0, 3.0, 1.0)]
