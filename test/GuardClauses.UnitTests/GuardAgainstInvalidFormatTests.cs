@@ -31,6 +31,20 @@ public class GuardAgainstInvalidFormatTests
     }
 
     [Theory]
+    [InlineData("aaa", @"\d{1,6}")]
+    [InlineData("50XA", @"[0-9a-fA-F]{1,6}")]
+    [InlineData("2GudhUtG", @"[a-fA-F]+")]
+    [InlineData("sDHSTRY", @"[A-Z]+")]
+    [InlineData("3F498792", @"\d+")]
+    [InlineData("", @"\d+")]
+    public void ThrowsCustomExceptionWhenSuppliedGivenGivenIncorrectFormat(string input, string regexPattern)
+    {
+        Exception customException = new Exception();
+        Assert.Throws<Exception>(() => Guard.Against.InvalidFormat(input, nameof(input), regexPattern, exception: customException));
+    }
+
+
+    [Theory]
     [InlineData(null, "Input parameterName was not in required format (Parameter 'parameterName')")]
     [InlineData("Please provide value in a correct format", "Please provide value in a correct format (Parameter 'parameterName')")]
     public void ErrorMessageMatchesExpected(string? customMessage, string? expectedMessage)

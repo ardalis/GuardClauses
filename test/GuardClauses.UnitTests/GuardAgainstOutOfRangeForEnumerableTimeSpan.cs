@@ -32,6 +32,18 @@ public class GuardAgainstOutOfRangeForEnumerableTimeSpan
     }
 
     [Theory]
+    [ClassData(typeof(IncorrectClassData))]
+    public void ThrowsCustomExceptionWhenSuppliedGivenOutOfRangeValue(IEnumerable<int> input, int rangeFrom, int rangeTo)
+    {
+        var inputTimeSpan = input.Select(i => TimeSpan.FromSeconds(i));
+        var rangeFromTimeSpan = TimeSpan.FromSeconds(rangeFrom);
+        var rangeToTimeSpan = TimeSpan.FromSeconds(rangeTo);
+
+        Exception customException = new Exception();
+        Assert.Throws<Exception>(() => Guard.Against.OutOfRange(inputTimeSpan, nameof(inputTimeSpan), rangeFromTimeSpan, rangeToTimeSpan, exception: customException));
+    }
+
+    [Theory]
     [ClassData(typeof(IncorrectRangeClassData))]
     public void ThrowsGivenInvalidArgumentValue(IEnumerable<int> input, int rangeFrom, int rangeTo)
     {

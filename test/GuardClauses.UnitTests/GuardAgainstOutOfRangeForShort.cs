@@ -15,7 +15,6 @@ public class GuardAgainstOutOfRangeForShort
     {
         Guard.Against.OutOfRange(input, "index", rangeFrom, rangeTo);
     }
-
     [Theory]
     [InlineData(-1, 1, 3)]
     [InlineData(0, 1, 3)]
@@ -23,6 +22,16 @@ public class GuardAgainstOutOfRangeForShort
     public void ThrowsGivenOutOfRangeValue(short input, short rangeFrom, short rangeTo)
     {
         Assert.Throws<ArgumentOutOfRangeException>(() => Guard.Against.OutOfRange(input, "index", rangeFrom, rangeTo));
+    }
+
+    [Theory]
+    [InlineData(-1, 1, 3)]
+    [InlineData(0, 1, 3)]
+    [InlineData(4, 1, 3)]
+    public void ThrowsCustomExceptionWhenSuppliedGivenOutOfRangeValue(short input, short rangeFrom, short rangeTo)
+    {
+        Exception customException = new Exception();
+        Assert.Throws<Exception>(() => Guard.Against.OutOfRange(input, "index", rangeFrom, rangeTo, exception: customException));
     }
 
     [Theory]
