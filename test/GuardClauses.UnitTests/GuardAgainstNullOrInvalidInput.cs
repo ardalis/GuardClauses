@@ -30,7 +30,7 @@ public class GuardAgainstNullOrInvalidInput
     {
         Exception customException = new Exception();
         Assert.Throws<Exception>(
-            () => Guard.Against.NullOrInvalidInput(input, "string", func, exception: customException));
+            () => Guard.Against.NullOrInvalidInput(input, "string", func, exceptionCreator: () => customException));
     }
 
     [Theory]

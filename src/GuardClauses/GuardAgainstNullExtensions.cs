@@ -22,17 +22,19 @@ public static partial class GuardClauseExtensions
     /// <param name="input"></param>
     /// <param name="parameterName"></param>
     /// <param name="message">Optional. Custom error message</param>
-    /// <param name="exception"></param>
+    /// <param name="exceptionCreator"></param>
     /// <returns><paramref name="input" /> if the value is not null.</returns>
     /// <exception cref="Exception"></exception>
     public static T Null<T>(this IGuardClause guardClause,
         [NotNull][ValidatedNotNull]T? input,
         [CallerArgumentExpression("input")] string? parameterName = null,
         string? message = null,
-        Exception? exception = null)
+        Func<Exception>? exceptionCreator = null)
     {
         if (input is null)
         {
+            Exception? exception = exceptionCreator?.Invoke();
+
             if (string.IsNullOrEmpty(message))
             {
                 throw exception ?? new ArgumentNullException(parameterName);
@@ -51,17 +53,19 @@ public static partial class GuardClauseExtensions
     /// <param name="input"></param>
     /// <param name="parameterName"></param>
     /// <param name="message">Optional. Custom error message</param>
-    /// <param name="exception"></param>
+    /// <param name="exceptionCreator"></param>
     /// <returns><paramref name="input" /> if the value is not null.</returns>
     /// <exception cref="Exception"></exception>
     public static T Null<T>(this IGuardClause guardClause,
         [NotNull][ValidatedNotNull]T? input,
         [CallerArgumentExpression("input")] string? parameterName = null,
         string? message = null,
-        Exception? exception = null) where T : struct
+        Func<Exception>? exceptionCreator = null) where T : struct
     {
         if (input is null)
         {
+            Exception? exception = exceptionCreator?.Invoke();
+
             if (string.IsNullOrEmpty(message))
             {
                 throw exception ?? new ArgumentNullException(parameterName);
@@ -80,7 +84,7 @@ public static partial class GuardClauseExtensions
     /// <param name="input"></param>
     /// <param name="parameterName"></param>
     /// <param name="message">Optional. Custom error message</param>
-    /// <param name="exception"></param>
+    /// <param name="exceptionCreator"></param>
     /// <returns><paramref name="input" /> if the value is not an empty string or null.</returns>
     /// <exception cref="ArgumentNullException"></exception>
     /// <exception cref="ArgumentException"></exception>
@@ -89,12 +93,13 @@ public static partial class GuardClauseExtensions
         [NotNull][ValidatedNotNull] string? input,
         [CallerArgumentExpression("input")] string? parameterName = null,
         string? message = null,
-        Exception? exception = null)
+        Func<Exception>? exceptionCreator = null)
     {
-        Guard.Against.Null(input, parameterName, message, exception);
+        Guard.Against.Null(input, parameterName, message, exceptionCreator);
         if (input == string.Empty)
         {
-            throw exception ?? new ArgumentException(message ?? $"Required input {parameterName} was empty.", parameterName);
+            throw exceptionCreator?.Invoke() ?? 
+                new ArgumentException(message ?? $"Required input {parameterName} was empty.", parameterName);
         }
 
         return input;
@@ -108,7 +113,7 @@ public static partial class GuardClauseExtensions
     /// <param name="input"></param>
     /// <param name="parameterName"></param>
     /// <param name="message">Optional. Custom error message</param>
-    /// <param name="exception"></param>
+    /// <param name="exceptionCreator"></param>
     /// <returns><paramref name="input" /> if the value is not an empty guid or null.</returns>
     /// <exception cref="ArgumentNullException"></exception>
     /// <exception cref="ArgumentException"></exception>
@@ -116,12 +121,14 @@ public static partial class GuardClauseExtensions
     public static Guid NullOrEmpty(this IGuardClause guardClause,
         [NotNull][ValidatedNotNull] Guid? input,
         [CallerArgumentExpression("input")] string? parameterName = null,
-        string? message = null, Exception? exception = null)
+        string? message = null,
+        Func<Exception>? exceptionCreator = null)
     {
-        Guard.Against.Null(input, parameterName, message, exception);
+        Guard.Against.Null(input, parameterName, message, exceptionCreator);
         if (input == Guid.Empty)
         {
-            throw exception ?? new ArgumentException(message ?? $"Required input {parameterName} was empty.", parameterName);
+            throw exceptionCreator?.Invoke() ?? 
+                new ArgumentException(message ?? $"Required input {parameterName} was empty.", parameterName);
         }
 
         return input.Value;
@@ -135,7 +142,7 @@ public static partial class GuardClauseExtensions
     /// <param name="input"></param>
     /// <param name="parameterName"></param>
     /// <param name="message">Optional. Custom error message</param>
-    /// <param name="exception"></param>
+    /// <param name="exceptionCreator"></param>
     /// <returns><paramref name="input" /> if the value is not an empty enumerable or null.</returns>
     /// <exception cref="ArgumentNullException"></exception>
     /// <exception cref="ArgumentException"></exception>
@@ -143,9 +150,10 @@ public static partial class GuardClauseExtensions
     public static IEnumerable<T> NullOrEmpty<T>(this IGuardClause guardClause,
         [NotNull][ValidatedNotNull] IEnumerable<T>? input,
         [CallerArgumentExpression("input")] string? parameterName = null,
-        string? message = null, Exception? exception = null)
+        string? message = null,
+        Func<Exception>? exceptionCreator = null)
     {
-        Guard.Against.Null(input, parameterName, message, exception);
+        Guard.Against.Null(input, parameterName, message, exceptionCreator: exceptionCreator);
         
         if (input is Array and { Length: 0 } //Try checking first with pattern matching because it's faster than TryGetNonEnumeratedCount on Array
 #if NET6_0_OR_GREATER
@@ -153,7 +161,8 @@ public static partial class GuardClauseExtensions
 #endif
             || !input.Any())
         {
-            throw exception ?? new ArgumentException(message ?? $"Required input {parameterName} was empty.", parameterName);
+            throw exceptionCreator?.Invoke() ?? 
+                new ArgumentException(message ?? $"Required input {parameterName} was empty.", parameterName);
         }
 
         return input;
@@ -167,7 +176,7 @@ public static partial class GuardClauseExtensions
     /// <param name="input"></param>
     /// <param name="parameterName"></param>
     /// <param name="message">Optional. Custom error message</param>
-    /// <param name="exception"></param>
+    /// <param name="exceptionCreator"></param>
     /// <returns><paramref name="input" /> if the value is not an empty or whitespace string.</returns>
     /// <exception cref="ArgumentNullException"></exception>
     /// <exception cref="ArgumentException"></exception>
@@ -175,12 +184,14 @@ public static partial class GuardClauseExtensions
     public static string NullOrWhiteSpace(this IGuardClause guardClause,
         [NotNull][ValidatedNotNull] string? input,
         [CallerArgumentExpression("input")] string? parameterName = null,
-        string? message = null, Exception? exception = null)
+        string? message = null,
+        Func<Exception>? exceptionCreator = null)
     {
-        Guard.Against.NullOrEmpty(input, parameterName, message, exception);
+        Guard.Against.NullOrEmpty(input, parameterName, message, exceptionCreator);
         if (String.IsNullOrWhiteSpace(input))
         {
-            throw exception ?? new ArgumentException(message ?? $"Required input {parameterName} was empty.", parameterName);
+            throw exceptionCreator?.Invoke() ?? 
+                new ArgumentException(message ?? $"Required input {parameterName} was empty.", parameterName);
         }
 
         return input;
@@ -193,7 +204,7 @@ public static partial class GuardClauseExtensions
     /// <param name="input"></param>
     /// <param name="parameterName"></param>
     /// <param name="message">Optional. Custom error message</param>
-    /// <param name="exception"></param>
+    /// <param name="exceptionCreator"></param>
     /// <returns><paramref name="input" /> if the value is not default for that type.</returns>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="Exception"></exception>
@@ -201,11 +212,12 @@ public static partial class GuardClauseExtensions
         [AllowNull, NotNull]T input,
         [CallerArgumentExpression("input")] string? parameterName = null,
         string? message = null,
-        Exception? exception = null)
+        Func<Exception>? exceptionCreator = null)
     {
         if (EqualityComparer<T>.Default.Equals(input, default(T)!) || input is null)
         {
-            throw exception ?? new ArgumentException(message ?? $"Parameter [{parameterName}] is default value for type {typeof(T).Name}", parameterName);
+            throw exceptionCreator?.Invoke() ??
+                new ArgumentException(message ?? $"Parameter [{parameterName}] is default value for type {typeof(T).Name}", parameterName);
         }
 
         return input;
@@ -221,7 +233,7 @@ public static partial class GuardClauseExtensions
     /// <param name="parameterName"></param>
     /// <param name="predicate"></param>
     /// <param name="message">Optional. Custom error message</param>
-    /// <param name="exception"></param>
+    /// <param name="exceptionCreator"></param>
     /// <typeparam name="T"></typeparam>
     /// <returns></returns>
     /// <exception cref="ArgumentException"></exception>
@@ -232,10 +244,10 @@ public static partial class GuardClauseExtensions
         string parameterName,
         Func<T, bool> predicate,
         string? message = null,
-        Exception? exception = null)
+        Func<Exception>? exceptionCreator = null)
     {
-        Guard.Against.Null(input, parameterName, message, exception);
+        Guard.Against.Null(input, parameterName, message, exceptionCreator: exceptionCreator);
 
-        return Guard.Against.InvalidInput(input, parameterName, predicate, message, exception);
+        return Guard.Against.InvalidInput(input, parameterName, predicate, message, exceptionCreator?.Invoke());
     }
 }

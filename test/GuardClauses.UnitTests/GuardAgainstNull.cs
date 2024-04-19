@@ -27,8 +27,8 @@ public class GuardAgainstNull
     public void ThrowsCustomExceptionWhenSuppliedGivenNullValue()
     {
         object obj = null!;
-        Exception customException = new Exception();
-        Assert.Throws<Exception>(() => Guard.Against.Null(obj, "null", exception: customException));
+        //Exception customException = new Exception();
+        Assert.Throws<Exception>(() => Guard.Against.Null(obj, "null", exceptionCreator: () => new Exception()));
     }
 
     [Fact]

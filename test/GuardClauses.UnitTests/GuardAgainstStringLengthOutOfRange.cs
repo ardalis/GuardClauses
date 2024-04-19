@@ -25,7 +25,8 @@ public class GuardAgainstStringLengthOutOfRange
     public void ThrowsCustomExceptionWhenSuppliedGivenEmptyString()
     {
         Exception customException = new Exception();
-        Assert.Throws<Exception>(() => Guard.Against.LengthOutOfRange("", 1, 2, "string", exception: customException));
+        Assert.Throws<Exception>(() => Guard.Against.LengthOutOfRange("", 1, 2, "string",
+            exceptionCreator: () => customException));
     }
 
     [Fact]
@@ -39,8 +40,10 @@ public class GuardAgainstStringLengthOutOfRange
     public void ThrowsCustomExceptionWhenSuppliedGivenNonPositiveMinLength()
     {
         Exception customException = new Exception();
-        Assert.Throws<Exception>(() => Guard.Against.LengthOutOfRange("", 0, 0, "string", exception: customException));
-        Assert.Throws<Exception>(() => Guard.Against.LengthOutOfRange("", -1, -1, "string", exception: customException));
+        Assert.Throws<Exception>(() => Guard.Against.LengthOutOfRange("", 0, 0, "string",
+            exceptionCreator: () => customException));
+        Assert.Throws<Exception>(() => Guard.Against.LengthOutOfRange("", -1, -1, "string",
+            exceptionCreator: () => customException));
     }
 
     [Fact]
@@ -53,7 +56,8 @@ public class GuardAgainstStringLengthOutOfRange
     public void ThrowsCustomExceptionWhenSuppliedGivenStringShorterThanMinLength()
     {
         Exception customException = new Exception();
-        Assert.Throws<Exception>(() => Guard.Against.LengthOutOfRange("a", 2, 2, "string", exception: customException));
+        Assert.Throws<Exception>(() => Guard.Against.LengthOutOfRange("a", 2, 2, "string",
+            exceptionCreator: () => customException));
     }
 
     [Fact]
@@ -66,7 +70,8 @@ public class GuardAgainstStringLengthOutOfRange
     public void ThrowsCustomExceptionWhenSuppliedGivenStringLongerThanMaxLength()
     {
         Exception customException = new Exception();
-        Assert.Throws<Exception>(() => Guard.Against.LengthOutOfRange("abcd", 2, 2, "string", exception: customException));
+        Assert.Throws<Exception>(() => Guard.Against.LengthOutOfRange("abcd", 2, 2, "string",
+            exceptionCreator: () => customException));
     }
 
     [Fact]
@@ -79,7 +84,8 @@ public class GuardAgainstStringLengthOutOfRange
     public void ThrowsCustomExceptionWhenSuppliedWhenMinIsBiggerThanMax()
     {
         Exception customException = new Exception();
-        Assert.Throws<Exception>(() => Guard.Against.LengthOutOfRange("asd", 4, 2, "string", exception: customException));
+        Assert.Throws<Exception>(() => Guard.Against.LengthOutOfRange("asd", 4, 2, "string",
+            exceptionCreator: () => customException));
     }
 
 

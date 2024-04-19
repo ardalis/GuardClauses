@@ -46,7 +46,7 @@ public class GuardAgainstNullOrEmpty
     public void ThrowsCustomExceptionWhenSuppliedGivenEmptyString()
     {
         Exception customException = new Exception();
-        Assert.Throws<Exception>(() => Guard.Against.NullOrEmpty("", "emptyString", exception: customException));
+        Assert.Throws<Exception>(() => Guard.Against.NullOrEmpty("", "emptyString", exceptionCreator: () => customException));
     }
 
     [Fact]
@@ -79,7 +79,7 @@ public class GuardAgainstNullOrEmpty
     public void ThrowsCustomExceptionWhenSuppliedGivenEmptyGuid()
     {
         Exception customException = new Exception();
-        Assert.Throws<Exception>(() => Guard.Against.NullOrEmpty(Guid.Empty, "emptyGuid", exception: customException));
+        Assert.Throws<Exception>(() => Guard.Against.NullOrEmpty(Guid.Empty, "emptyGuid", exceptionCreator: () => customException));
     }
 
     [Fact]
@@ -92,9 +92,9 @@ public class GuardAgainstNullOrEmpty
     public void ThrowsCustomExceptionWhenSuppliedGivenEmptyEnumerable()
     {
         Exception customException = new Exception();
-        Assert.Throws<Exception>(() => Guard.Against.NullOrEmpty(Enumerable.Empty<string>(), "emptyStringEnumerable", exception: customException));
+        Assert.Throws<Exception>(() => Guard.Against.NullOrEmpty(Enumerable.Empty<string>(), "emptyStringEnumerable", 
+            exceptionCreator: () => customException));
     }
-
 
     [Fact]
     public void ReturnsExpectedValueWhenGivenValidValue()

@@ -18,7 +18,7 @@ public static partial class GuardClauseExtensions
     /// <param name="maxLength"></param>
     /// <param name="parameterName"></param>
     /// <param name="message">Optional. Custom error message</param>
-    /// <param name="exception"></param>
+    /// <param name="exceptionCreator"></param>
     /// <returns><paramref name="input" /> if the value is not negative.</returns>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="Exception"></exception>
@@ -28,12 +28,12 @@ public static partial class GuardClauseExtensions
         int maxLength,
         [CallerArgumentExpression("input")] string? parameterName = null,
         string? message = null,
-        Exception? exception = null)
+        Func<Exception>? exceptionCreator = null)
     {
         Guard.Against.Negative<int>(maxLength - minLength, parameterName: "min or max length",
-            message: "Min length must be equal or less than max length.", exception: exception);
-        Guard.Against.StringTooShort(input, minLength, nameof(minLength), exception: exception);
-        Guard.Against.StringTooLong(input, maxLength, nameof(maxLength), exception: exception);
+            message: "Min length must be equal or less than max length.", exception: exceptionCreator?.Invoke());
+        Guard.Against.StringTooShort(input, minLength, nameof(minLength), exception: exceptionCreator?.Invoke());
+        Guard.Against.StringTooLong(input, maxLength, nameof(maxLength), exception: exceptionCreator?.Invoke());
 
         return input;
     }
@@ -46,7 +46,7 @@ public static partial class GuardClauseExtensions
     /// <param name="input"></param>
     /// <param name="parameterName"></param>
     /// <param name="message">Optional. Custom error message</param>
-    /// <param name="exception"></param>
+    /// <param name="exceptionCreator"></param>
     /// <returns><paramref name="input" /> if the value is not out of range.</returns>
     /// <exception cref="InvalidEnumArgumentException"></exception>
     /// <exception cref="Exception"></exception>
@@ -54,10 +54,11 @@ public static partial class GuardClauseExtensions
         int input,
         [CallerArgumentExpression("input")] string? parameterName = null,
         string? message = null,
-        Exception? exception = null) where T : struct, Enum
+        Func<Exception>? exceptionCreator = null) where T : struct, Enum
     {
         if (!Enum.IsDefined(typeof(T), input))
         {
+            var exception = exceptionCreator?.Invoke();
             if (string.IsNullOrEmpty(message))
             {
                 throw exception ?? new InvalidEnumArgumentException(parameterName, input, typeof(T));
@@ -76,7 +77,7 @@ public static partial class GuardClauseExtensions
     /// <param name="input"></param>
     /// <param name="parameterName"></param>
     /// /// <param name="message">Optional. Custom error message</param>
-    /// <param name="exception"></param>
+    /// <param name="exceptionCreator"></param>
     /// <returns><paramref name="input" /> if the value is not out of range.</returns>
     /// <exception cref="InvalidEnumArgumentException"></exception>
     /// <exception cref="Exception"></exception>
@@ -84,10 +85,11 @@ public static partial class GuardClauseExtensions
         T input,
         [CallerArgumentExpression("input")] string? parameterName = null,
         string? message = null,
-        Exception? exception = null) where T : struct, Enum
+        Func<Exception>? exceptionCreator = null) where T : struct, Enum
     {
         if (!Enum.IsDefined(typeof(T), input))
         {
+            var exception = exceptionCreator?.Invoke();
             if (string.IsNullOrEmpty(message))
             {
                 throw exception ?? new InvalidEnumArgumentException(parameterName, Convert.ToInt32(input), typeof(T));
@@ -99,7 +101,8 @@ public static partial class GuardClauseExtensions
     }
 
     /// <summary>
-    /// Throws an <see cref="ArgumentOutOfRangeException" /> or a custom <see cref="Exception" /> if  any <paramref name="input"/>'s item is less than <paramref name="rangeFrom"/> or greater than <paramref name="rangeTo"/>.
+    /// Throws an <see cref="ArgumentOutOfRangeException" /> or a custom <see cref="Exception" /> if
+    /// any <paramref name="input"/>'s item is less than <paramref name="rangeFrom"/> or greater than <paramref name="rangeTo"/>.
     /// </summary>
     /// <param name="guardClause"></param>
     /// <param name="input"></param>
@@ -107,7 +110,7 @@ public static partial class GuardClauseExtensions
     /// <param name="rangeFrom"></param>
     /// <param name="rangeTo"></param>
     /// <param name="message">Optional. Custom error message</param>
-    /// <param name="exception"></param>
+    /// <param name="exceptionCreator"></param>
     /// <returns><paramref name="input" /> if any item is not out of range.</returns>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="ArgumentOutOfRangeException"></exception>
@@ -117,20 +120,22 @@ public static partial class GuardClauseExtensions
         string parameterName,
         T rangeFrom, T rangeTo,
         string? message = null,
-        Exception? exception = null) where T : IComparable, IComparable<T>
+        Func<Exception>? exceptionCreator = null) where T : IComparable, IComparable<T>
     {
         if (rangeFrom.CompareTo(rangeTo) > 0)
         {
-            throw new ArgumentException(message ?? $"{nameof(rangeFrom)} should be less or equal than {nameof(rangeTo)}", parameterName);
+            throw exceptionCreator?.Invoke() ?? 
+                new ArgumentException(message ?? $"{nameof(rangeFrom)} should be less or equal than {nameof(rangeTo)}", parameterName);
         }
 
         if (input.Any(x => x.CompareTo(rangeFrom) < 0 || x.CompareTo(rangeTo) > 0))
         {
             if (string.IsNullOrEmpty(message))
             {
-                throw exception ?? new ArgumentOutOfRangeException(parameterName, message ?? $"Input {parameterName} had out of range item(s)");
+                throw exceptionCreator?.Invoke() ?? 
+                    new ArgumentOutOfRangeException(parameterName, message ?? $"Input {parameterName} had out of range item(s)");
             }
-            throw exception ?? new ArgumentOutOfRangeException(parameterName, message);
+            throw exceptionCreator?.Invoke() ?? new ArgumentOutOfRangeException(parameterName, message);
         }
 
         return input;
@@ -154,7 +159,7 @@ public static partial class GuardClauseExtensions
          [CallerArgumentExpression("input")] string? parameterName = null,
          string? message = null, Exception? exception = null)
     {
-        guardClause.Null(input, nameof(input),exception: exception);
+        guardClause.Null(input, nameof(input), exceptionCreator: () =>exception);
         return OutOfSQLDateRange(guardClause, input.Value, parameterName, message, exception);
     }
 
@@ -228,8 +233,8 @@ public static partial class GuardClauseExtensions
         [NotNull][ValidatedNotNull] T rangeTo,
         string? message = null, Exception? exception = null) where T : IComparable<T>
     {
-        guardClause.Null(input, nameof(input),exception: exception);
-        return NullOrOutOfRangeInternal(guardClause, input, parameterName, rangeFrom, rangeTo, message,exception);
+        guardClause.Null(input, nameof(input),exceptionCreator: () => exception);
+        return NullOrOutOfRangeInternal(guardClause, input, parameterName, rangeFrom, rangeTo, message, exception);
     }
 
     /// <summary>
@@ -255,7 +260,7 @@ public static partial class GuardClauseExtensions
         [NotNull][ValidatedNotNull] T rangeTo,
         string? message = null, Exception? exception = null) where T : struct, IComparable<T>
     {
-        guardClause.Null(input, nameof(input), exception: exception);
+        guardClause.Null(input, nameof(input), exceptionCreator: () => exception);
         return NullOrOutOfRangeInternal<T>(guardClause, input.Value, parameterName, rangeFrom, rangeTo, message, exception);
     }
 

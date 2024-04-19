@@ -36,7 +36,8 @@ public class GuardAgainstOutOfRangeForEnum
     public void ThrowsCustomExceptionWhenSuppliedGivenOutOfRangeValue(int enumValue)
     {
         Exception customException = new Exception();
-        Assert.Throws<Exception>(() => Guard.Against.EnumOutOfRange<TestEnum>(enumValue, nameof(enumValue), exception: customException));
+        Assert.Throws<Exception>(() => Guard.Against.EnumOutOfRange<TestEnum>(enumValue, nameof(enumValue),
+            exceptionCreator: () => customException));
     }
 
 
@@ -70,7 +71,8 @@ public class GuardAgainstOutOfRangeForEnum
     public void ThrowsCustomExceptionWhenSuppliedGivenOutOfRangeEnum(TestEnum enumValue)
     {
         Exception customException = new Exception();
-        Assert.Throws<Exception>(() => Guard.Against.EnumOutOfRange(enumValue, nameof(enumValue), exception: customException));
+        Assert.Throws<Exception>(() => Guard.Against.EnumOutOfRange(enumValue, nameof(enumValue),
+            exceptionCreator: () => customException));
     }
 
     [Theory]

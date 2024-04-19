@@ -30,11 +30,16 @@ public class GuardAgainstDefault
     public void ThrowsCustomExceptionWhenSuppliedGivenDefaultValue()
     {
         Exception customException = new Exception();
-        Assert.Throws<Exception>( () => Guard.Against.Default(default(string), "string", exception: customException));
-        Assert.Throws<Exception>( () => Guard.Against.Default(default(int), "int", exception: customException));
-        Assert.Throws<Exception>(() => Guard.Against.Default(default(Guid), "guid", exception: customException));
-        Assert.Throws<Exception>( () => Guard.Against.Default(default(DateTime), "datetime", exception: customException));
-        Assert.Throws<Exception>( () => Guard.Against.Default(default(object), "object", exception: customException));
+        Assert.Throws<Exception>( () => Guard.Against.Default(default(string), "string",
+            exceptionCreator: () => customException));
+        Assert.Throws<Exception>( () => Guard.Against.Default(default(int), "int",
+            exceptionCreator: () => customException));
+        Assert.Throws<Exception>(() => Guard.Against.Default(default(Guid), "guid",
+            exceptionCreator: () => customException));
+        Assert.Throws<Exception>( () => Guard.Against.Default(default(DateTime), "datetime",
+            exceptionCreator: () => customException));
+        Assert.Throws<Exception>( () => Guard.Against.Default(default(object), "object",
+            exceptionCreator: () => customException));
     }
 
     [Theory]

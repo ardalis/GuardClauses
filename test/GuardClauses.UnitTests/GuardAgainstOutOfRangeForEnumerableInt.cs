@@ -27,7 +27,8 @@ public class GuardAgainstOutOfRangeForEnumerableInt
     public void ThrowsCustomExceptionWhenSuppliedGivenOutOfRangeValue(IEnumerable<int> input, int rangeFrom, int rangeTo)
     {
         Exception customException = new Exception();
-        Assert.Throws<Exception>(() => Guard.Against.OutOfRange(input, nameof(input), rangeFrom, rangeTo, exception: customException));
+        Assert.Throws<Exception>(() => Guard.Against.OutOfRange(input, nameof(input), rangeFrom, rangeTo, 
+            exceptionCreator: () => customException));
     }
 
     [Theory]
