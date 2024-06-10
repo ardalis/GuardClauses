@@ -17,7 +17,7 @@ jobs:
 
     steps:
     - name: Get the PR Number artifact
-      uses: dawidd6/action-download-artifact@v3
+      uses: dawidd6/action-download-artifact@v5
       with:
         workflow: ${{ github.event.workflow_run.workflow_id }}
         workflow_conclusion: ""
@@ -27,7 +27,7 @@ jobs:
     - name: Confirm the PR Number (Debugging)
       run: echo $PR_NUMBER
     - name: Get the code coverage results file
-      uses: dawidd6/action-download-artifact@v3
+      uses: dawidd6/action-download-artifact@v5
       with:
         workflow: ${{ github.event.workflow_run.workflow_id }}
         workflow_conclusion: ""
