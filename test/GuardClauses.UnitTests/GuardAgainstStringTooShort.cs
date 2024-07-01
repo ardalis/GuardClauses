@@ -26,7 +26,7 @@ public class GuardAgainstStringTooShort
     public void ThrowsCustomExceptionWhenSuppliedGivenEmptyString()
     {
         Exception customException = new Exception();
-        Assert.Throws<Exception>(() => Guard.Against.StringTooShort("", 1, "string", exception: customException));
+        Assert.Throws<Exception>(() => Guard.Against.StringTooShort("", 1, "string", exceptionCreator: () => customException));
     }
 
     [Fact]
@@ -40,8 +40,8 @@ public class GuardAgainstStringTooShort
     public void ThrowsCustomExceptionWhenSuppliedGivenNonPositiveMinLength()
     {
         Exception customException = new Exception();
-        Assert.Throws<Exception>(() => Guard.Against.StringTooShort("", 0, "string", exception: customException));
-        Assert.Throws<Exception>(() => Guard.Against.StringTooShort("", -1, "string", exception: customException));
+        Assert.Throws<Exception>(() => Guard.Against.StringTooShort("", 0, "string", exceptionCreator: () => customException));
+        Assert.Throws<Exception>(() => Guard.Against.StringTooShort("", -1, "string", exceptionCreator: () => customException));
     }
 
     [Fact]
@@ -54,7 +54,7 @@ public class GuardAgainstStringTooShort
     public void ThrowsCustomExceptionWhenSuppliedGivenStringShorterThanMinLength()
     {
         Exception customException = new Exception();
-        Assert.Throws<Exception>(() => Guard.Against.StringTooShort("a", 2, "string", exception: customException));
+        Assert.Throws<Exception>(() => Guard.Against.StringTooShort("a", 2, "string", exceptionCreator: () => customException));
     }
 
 

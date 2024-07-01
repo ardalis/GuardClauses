@@ -34,7 +34,7 @@ public class GuardAgainstOutOfSQLDateRange
         DateTime date = SqlDateTime.MinValue.Value.AddSeconds(-offsetInSeconds);
         Exception customException = new Exception();
 
-        Assert.Throws<Exception>(() => Guard.Against.OutOfSQLDateRange(date, nameof(date), exception: customException));
+        Assert.Throws<Exception>(() => Guard.Against.OutOfSQLDateRange(date, nameof(date), exceptionCreator: () => customException));
     }
 
     [Fact]

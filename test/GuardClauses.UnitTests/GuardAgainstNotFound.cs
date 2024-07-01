@@ -28,7 +28,7 @@ public class GuardAgainstNotFound
     {
         object obj = null!;
         Exception customException = new Exception();
-        Assert.Throws<Exception>(() => Guard.Against.NotFound(1, obj, "null", exception: customException));
+        Assert.Throws<Exception>(() => Guard.Against.NotFound(1, obj, "null", exceptionCreator: () => customException));
     }
 
     [Fact]

@@ -44,7 +44,7 @@ public class GuardAgainstOutOfRangeForTimeSpan
         var rangeToTimeSpan = TimeSpan.FromSeconds(rangeTo);
         Exception customException = new Exception();
 
-        Assert.Throws<Exception>(() => Guard.Against.OutOfRange(inputTimeSpan, "index", rangeFromTimeSpan, rangeToTimeSpan, exception: customException));
+        Assert.Throws<Exception>(() => Guard.Against.OutOfRange(inputTimeSpan, "index", rangeFromTimeSpan, rangeToTimeSpan, exceptionCreator: () => customException));
     }
 
     [Theory]

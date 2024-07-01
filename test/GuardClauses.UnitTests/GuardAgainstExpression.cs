@@ -34,7 +34,7 @@ public class GuardAgainstExpression
     {
         Exception customException = new Exception();
         int testCase = 10;
-        Assert.Throws<Exception>(() => Guard.Against.Expression((x) => x == 10, testCase, "Value cannot be 10", exception: customException));
+        Assert.Throws<Exception>(() => Guard.Against.Expression((x) => x == 10, testCase, "Value cannot be 10", exceptionCreator: () => customException));
     }
 
 
@@ -57,7 +57,7 @@ public class GuardAgainstExpression
     {
         Exception customException = new Exception();
         double testCase = 1.1;
-        Assert.Throws<Exception>(() => Guard.Against.Expression((x) => x == 1.1, testCase, "Value cannot be 1.1", exception: customException));
+        Assert.Throws<Exception>(() => Guard.Against.Expression((x) => x == 1.1, testCase, "Value cannot be 1.1", exceptionCreator: () => customException));
     }
 
 
@@ -80,7 +80,7 @@ public class GuardAgainstExpression
     public void GivenCustomStructWhenTheExpressionEvaluatesToTrueThrowsCustomExceptionWhenSupplied(CustomStruct test)
     {
         Exception customException = new Exception();
-        Assert.Throws<Exception>(() => Guard.Against.Expression((x) => x.FieldName == "FieldValue", test, "FieldValue is not matching", exception: customException));
+        Assert.Throws<Exception>(() => Guard.Against.Expression((x) => x.FieldName == "FieldValue", test, "FieldValue is not matching", exceptionCreator: () => customException));
     }
 
 

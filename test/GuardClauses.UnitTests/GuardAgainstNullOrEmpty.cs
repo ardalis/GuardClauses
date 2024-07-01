@@ -59,7 +59,7 @@ public class GuardAgainstNullOrEmpty
     public void ThrowsCustomExceptionWhenSuppliedGivenEmptyStringSpan()
     {
         Exception customException = new Exception();
-        Assert.Throws<Exception>(() => Guard.Against.Empty("".AsSpan(), "emptyStringSpan", exception: customException));
+        Assert.Throws<Exception>(() => Guard.Against.Empty("".AsSpan(), "emptyStringSpan", exceptionCreator: () => customException));
     }
 
     [Fact]

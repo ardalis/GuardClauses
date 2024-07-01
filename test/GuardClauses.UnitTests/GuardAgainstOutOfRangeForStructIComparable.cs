@@ -36,7 +36,7 @@ public class GuardAgainstOutOfRangeForStructIComparable
     public void ThrowsCustomExceptionWhenSuppliedGivenOutOfRangeValue(int input1, int input2, int rangeFrom1, int rangeFrom2, int rangeTo1, int rangeTo2)
     {
         Exception customException = new Exception();
-        Assert.Throws<Exception>(() => Guard.Against.OutOfRange((input1, input2), "tuple", (rangeFrom1, rangeFrom2), (rangeTo1, rangeTo2), exception: customException));
+        Assert.Throws<Exception>(() => Guard.Against.OutOfRange((input1, input2), "tuple", (rangeFrom1, rangeFrom2), (rangeTo1, rangeTo2), exceptionCreator: () => customException));
     }
 
     [Theory]

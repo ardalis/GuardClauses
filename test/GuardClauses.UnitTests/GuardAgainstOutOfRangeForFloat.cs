@@ -32,7 +32,7 @@ public class GuardAgainstOutOfRangeForFloat
     public void ThrowsCustomExceptionWhenSuppliedGivenOutOfRangeValue(float input, float rangeFrom, float rangeTo)
     {
         Exception customException = new Exception();
-        Assert.Throws<Exception>(() => Guard.Against.OutOfRange(input, "index", rangeFrom, rangeTo, exception: customException));
+        Assert.Throws<Exception>(() => Guard.Against.OutOfRange(input, "index", rangeFrom, rangeTo, exceptionCreator: () => customException));
     }
 
     [Theory]

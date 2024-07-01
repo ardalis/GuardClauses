@@ -14,7 +14,7 @@ public static partial class GuardClauseExtensions
     /// <param name="parameterName"></param>
     /// <param name="regexPattern"></param>
     /// <param name="message">Optional. Custom error message</param>
-    /// <param name="exception"></param>
+    /// <param name="exceptionCreator"></param>
     /// <returns></returns>
     /// <exception cref="ArgumentException"></exception>
     /// <exception cref="Exception"></exception>
@@ -23,11 +23,13 @@ public static partial class GuardClauseExtensions
         string parameterName,
         string regexPattern,
         string? message = null,
-        Exception? exception = null)
+        Func<Exception>? exceptionCreator =  null)
     {
         var m = Regex.Match(input, regexPattern);
         if (!m.Success || input != m.Value)
         {
+            Exception? exception = exceptionCreator?.Invoke();
+
             throw exception ?? new ArgumentException(message ?? $"Input {parameterName} was not in required format", parameterName);
         }
 
@@ -42,7 +44,7 @@ public static partial class GuardClauseExtensions
     /// <param name="parameterName"></param>
     /// <param name="predicate"></param>
     /// <param name="message">Optional. Custom error message</param>
-    /// <param name="exception"></param>
+    /// <param name="exceptionCreator"></param>
     /// <typeparam name="T"></typeparam>
     /// <returns></returns>
     /// <exception cref="ArgumentException"></exception>
@@ -51,10 +53,12 @@ public static partial class GuardClauseExtensions
         T input, string parameterName, 
         Func<T, bool> predicate, 
         string? message = null,
-        Exception? exception = null)
+        Func<Exception>? exceptionCreator =  null)
     {
         if (!predicate(input))
         {
+            Exception? exception = exceptionCreator?.Invoke();
+
             throw exception ?? new ArgumentException(message ?? $"Input {parameterName} did not satisfy the options", parameterName);
         }
 
@@ -69,7 +73,7 @@ public static partial class GuardClauseExtensions
     /// <param name="parameterName"></param>
     /// <param name="predicate"></param>
     /// <param name="message">Optional. Custom error message</param>
-    /// <param name="exception"></param>
+    /// <param name="exceptionCreator"></param>
     /// <typeparam name="T"></typeparam>
     /// <returns></returns>
     /// <exception cref="ArgumentException"></exception>
@@ -79,10 +83,12 @@ public static partial class GuardClauseExtensions
         string parameterName,
         Func<T, Task<bool>> predicate,
         string? message = null,
-        Exception? exception = null)
+        Func<Exception>? exceptionCreator =  null)
     {
         if (!await predicate(input))
         {
+            Exception? exception = exceptionCreator?.Invoke();
+
             throw exception ?? new ArgumentException(message ?? $"Input {parameterName} did not satisfy the options", parameterName);
         }
 
