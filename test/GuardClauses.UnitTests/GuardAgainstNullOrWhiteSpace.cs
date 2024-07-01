@@ -57,7 +57,7 @@ public class GuardAgainstNullOrWhiteSpace
     public void ThrowsCustomExceptionWhenSuppliedGivenEmptyStringSpan()
     {
         Exception customException = new Exception();
-        Assert.Throws<Exception>(() => Guard.Against.WhiteSpace("".AsSpan(), "emptyStringSpan", exception: customException));
+        Assert.Throws<Exception>(() => Guard.Against.WhiteSpace("".AsSpan(), "emptyStringSpan", exceptionCreator: () => customException));
     }
 
     [Theory]
@@ -78,7 +78,7 @@ public class GuardAgainstNullOrWhiteSpace
         Assert.Throws<Exception>(() => Guard.Against.NullOrWhiteSpace(whiteSpaceString, "whitespacestring", 
             exceptionCreator: () => customException));
         Assert.Throws<Exception>(() => Guard.Against.WhiteSpace(whiteSpaceString.AsSpan(), "whiteSpaceStringSpan", 
-            exception: customException));
+            exceptionCreator: () => customException));
     }
 
 

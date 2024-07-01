@@ -38,7 +38,7 @@ public class GuardAgainstOutOfRangeForDateTime
         DateTime rangeFrom = input.AddSeconds(rangeFromOffset);
         DateTime rangeTo = input.AddSeconds(rangeToOffset);
         Exception customException = new Exception();
-        Assert.Throws<Exception>(() => Guard.Against.OutOfRange(input, "index", rangeFrom, rangeTo, exception: customException));
+        Assert.Throws<Exception>(() => Guard.Against.OutOfRange(input, "index", rangeFrom, rangeTo, exceptionCreator: () => customException));
     }
 
     [Theory]

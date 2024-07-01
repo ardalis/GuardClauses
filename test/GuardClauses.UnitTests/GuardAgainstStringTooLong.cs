@@ -27,8 +27,8 @@ public class GuardAgainstStringTooLong
     public void ThrowsCustomExceptionWhenSuppliedGivenNonPositiveMaxLength()
     {
         Exception customException = new Exception();
-        Assert.Throws<Exception>(() => Guard.Against.StringTooLong("a", 0, "string", exception: customException));
-        Assert.Throws<Exception>(() => Guard.Against.StringTooLong("a", -1, "string", exception: customException));
+        Assert.Throws<Exception>(() => Guard.Against.StringTooLong("a", 0, "string", exceptionCreator: () => customException));
+        Assert.Throws<Exception>(() => Guard.Against.StringTooLong("a", -1, "string", exceptionCreator: () => customException));
     }
 
     [Fact]
@@ -41,7 +41,7 @@ public class GuardAgainstStringTooLong
     public void ThrowsCustomExceptionWhenSuppliedGivenStringLongerThanMaxLength()
     {
         Exception customException = new Exception();
-        Assert.Throws<Exception>(() => Guard.Against.StringTooLong("abc", 2, "string", exception: customException));
+        Assert.Throws<Exception>(() => Guard.Against.StringTooLong("abc", 2, "string", exceptionCreator: () => customException));
     }
 
     [Fact]

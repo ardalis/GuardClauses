@@ -36,7 +36,7 @@ public class GuardAgainstOutOfRangeForInvalidInput
     public void ThrowsCustomExceptionWhenSuppliedGivenOutOfRangeValue<T>(T input, Func<T, bool> func)
     {
         Exception customException = new Exception();
-        Assert.Throws<Exception>(() => Guard.Against.InvalidInput(input, nameof(input), func, exception: customException));
+        Assert.Throws<Exception>(() => Guard.Against.InvalidInput(input, nameof(input), func, exceptionCreator: () => customException));
     }
 
     [Theory]
@@ -51,7 +51,7 @@ public class GuardAgainstOutOfRangeForInvalidInput
     public async Task ThrowsCustomExceptionWhenSuppliedGivenOutOfRangeValueAsync<T>(T input, Func<T, Task<bool>> func)
     {
         Exception customException = new Exception();
-        await Assert.ThrowsAsync<Exception>(async () => await Guard.Against.InvalidInputAsync(input, nameof(input), func, exception: customException));
+        await Assert.ThrowsAsync<Exception>(async () => await Guard.Against.InvalidInputAsync(input, nameof(input), func, exceptionCreator: () => customException));
     }
 
 

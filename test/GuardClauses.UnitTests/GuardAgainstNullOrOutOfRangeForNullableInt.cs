@@ -32,7 +32,7 @@ namespace GuardClauses.UnitTests
         public void ThrowsCustomExceptionWhenSuppliedGivenOutOfRangeValue(int? input, int rangeFrom, int rangeTo)
         {
             Exception customException = new Exception();
-            Assert.Throws<Exception>(() => Guard.Against.NullOrOutOfRange(input, "index", rangeFrom, rangeTo, exception: customException));
+            Assert.Throws<Exception>(() => Guard.Against.NullOrOutOfRange(input, "index", rangeFrom, rangeTo, exceptionCreator: () => customException));
         }
 
         [Theory]
@@ -65,7 +65,7 @@ namespace GuardClauses.UnitTests
         public void ThrowsCustomExceptionWhenSuppliedGivenInvalidNullArgumentValue()
         {
             Exception customException = new Exception();
-            Assert.Throws<Exception>(() => Guard.Against.NullOrOutOfRange(null, "index", -10, 10, exception: customException));
+            Assert.Throws<Exception>(() => Guard.Against.NullOrOutOfRange(null, "index", -10, 10, exceptionCreator: () => customException));
         }
 
     }

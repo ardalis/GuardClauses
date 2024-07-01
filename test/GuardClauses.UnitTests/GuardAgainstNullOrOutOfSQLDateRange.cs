@@ -34,7 +34,7 @@ namespace GuardClauses.UnitTests
             DateTime date = SqlDateTime.MinValue.Value.AddSeconds(-offsetInSeconds);
             Exception customException = new Exception();
 
-            Assert.Throws<Exception>(() => Guard.Against.NullOrOutOfSQLDateRange(date, nameof(date), exception: customException));
+            Assert.Throws<Exception>(() => Guard.Against.NullOrOutOfSQLDateRange(date, nameof(date), exceptionCreator: () => customException));
         }
 
 
@@ -106,7 +106,7 @@ namespace GuardClauses.UnitTests
         public void ThrowsCustomExceptionWhenSuppliedGivenInvalidNullArgumentValue()
         {
             Exception customException = new Exception();
-            Assert.Throws<Exception>(() => Guard.Against.NullOrOutOfSQLDateRange(null, "index", exception: customException));
+            Assert.Throws<Exception>(() => Guard.Against.NullOrOutOfSQLDateRange(null, "index", exceptionCreator: () => customException));
         }
         public static IEnumerable<object[]> GetSqlDateTimeTestVectors()
         {

@@ -40,7 +40,7 @@ public class GuardAgainstInvalidFormatTests
     public void ThrowsCustomExceptionWhenSuppliedGivenGivenIncorrectFormat(string input, string regexPattern)
     {
         Exception customException = new Exception();
-        Assert.Throws<Exception>(() => Guard.Against.InvalidFormat(input, nameof(input), regexPattern, exception: customException));
+        Assert.Throws<Exception>(() => Guard.Against.InvalidFormat(input, nameof(input), regexPattern, exceptionCreator: () => customException));
     }
 
 
