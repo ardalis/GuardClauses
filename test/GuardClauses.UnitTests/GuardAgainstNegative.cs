@@ -39,7 +39,7 @@ public class GuardAgainstNegative
     public void ThrowsCustomExceptionWhenSuppliedGivenNegativeIntValue()
     {
         Exception customException = new Exception();
-        Assert.Throws<Exception>(() => Guard.Against.Negative(-1, "negative", exception: customException));
+        Assert.Throws<Exception>(() => Guard.Against.Negative(-1, "negative", exceptionCreator: () => customException));
     }
 
 
@@ -53,7 +53,7 @@ public class GuardAgainstNegative
     public void ThrowsCustomExceptionWhenSuppliedGivenNegativeLongValue()
     {
         Exception customException = new Exception();
-        Assert.Throws<Exception>(() => Guard.Against.Negative(-1L, "negative", exception: customException));
+        Assert.Throws<Exception>(() => Guard.Against.Negative(-1L, "negative", exceptionCreator: () => customException));
     }
 
 
@@ -67,7 +67,7 @@ public class GuardAgainstNegative
     public void ThrowsCustomExceptionWhenSuppliedGivenNegativeDecimalValue()
     {
         Exception customException = new Exception();
-        Assert.Throws<Exception>(() => Guard.Against.Negative(-1.0M, "negative", exception: customException));
+        Assert.Throws<Exception>(() => Guard.Against.Negative(-1.0M, "negative", exceptionCreator: () => customException));
     }
 
 
@@ -81,7 +81,7 @@ public class GuardAgainstNegative
     public void ThrowsCustomExceptionWhenSuppliedGivenNegativeFloatValue()
     {
         Exception customException = new Exception();
-        Assert.Throws<Exception>(() => Guard.Against.Negative(-1.0f, "negative", exception: customException));
+        Assert.Throws<Exception>(() => Guard.Against.Negative(-1.0f, "negative", exceptionCreator: () => customException));
     }
 
 
@@ -95,7 +95,7 @@ public class GuardAgainstNegative
     public void ThrowsCustomExceptionWhenSuppliedGivenNegativeDoubleValue()
     {
         Exception customException = new Exception();
-        Assert.Throws<Exception>(() => Guard.Against.Negative(-1.0, "negative", exception: customException));
+        Assert.Throws<Exception>(() => Guard.Against.Negative(-1.0, "negative", exceptionCreator: () => customException));
     }
 
 
@@ -109,7 +109,7 @@ public class GuardAgainstNegative
     public void ThrowsCustomExceptionWhenSuppliedGivenNegativeTimeSpanValue()
     {
         Exception customException = new Exception();
-        Assert.Throws<Exception>(() => Guard.Against.Negative(TimeSpan.FromSeconds(-1), "negative", exception: customException));
+        Assert.Throws<Exception>(() => Guard.Against.Negative(TimeSpan.FromSeconds(-1), "negative", exceptionCreator: () => customException));
     }
 
 

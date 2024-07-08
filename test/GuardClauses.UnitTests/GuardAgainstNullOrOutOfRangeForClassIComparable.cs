@@ -54,9 +54,9 @@ namespace GuardClauses.UnitTests
         public void ThrowsCustomExceptionWhenSuppliedGivenOutOfRangeValue()
         {
             Exception customException = new Exception();
-            Assert.Throws<Exception>(() => Guard.Against.NullOrOutOfRange(new TestObj(-1), "index", new TestObj(1), new TestObj(3), exception: customException));
-            Assert.Throws<Exception>(() => Guard.Against.NullOrOutOfRange(new TestObj(0), "index", new TestObj(1), new TestObj(3), exception: customException));
-            Assert.Throws<Exception>(() => Guard.Against.NullOrOutOfRange(new TestObj(4), "index", new TestObj(1), new TestObj(3), exception: customException));
+            Assert.Throws<Exception>(() => Guard.Against.NullOrOutOfRange(new TestObj(-1), "index", new TestObj(1), new TestObj(3), exceptionCreator: () => customException));
+            Assert.Throws<Exception>(() => Guard.Against.NullOrOutOfRange(new TestObj(0), "index", new TestObj(1), new TestObj(3), exceptionCreator: () => customException));
+            Assert.Throws<Exception>(() => Guard.Against.NullOrOutOfRange(new TestObj(4), "index", new TestObj(1), new TestObj(3), exceptionCreator: () => customException));
         }
 
         [Fact]

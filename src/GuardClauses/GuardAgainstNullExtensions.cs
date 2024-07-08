@@ -248,6 +248,6 @@ public static partial class GuardClauseExtensions
     {
         Guard.Against.Null(input, parameterName, message, exceptionCreator: exceptionCreator);
 
-        return Guard.Against.InvalidInput(input, parameterName, predicate, message, exceptionCreator?.Invoke());
+        return Guard.Against.InvalidInput(input, parameterName, predicate, message, exceptionCreator);
     }
 }

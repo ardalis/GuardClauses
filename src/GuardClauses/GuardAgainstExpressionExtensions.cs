@@ -17,7 +17,7 @@ public static partial class GuardClauseExtensions
     /// <param name="input">The input to evaluate.</param>
     /// <param name="message">The message to include in the exception if the input is invalid.</param>
     /// <param name="parameterName">The name of the parameter to include in the thrown exception, captured automatically from the input expression.</param>
-    /// <param name="exception"></param>
+    /// <param name="exceptionCreator"></param>
     /// <returns>The <paramref name="input"/> if the <paramref name="func"/> evaluates to false, indicating a valid state.</returns>
     /// <exception cref="ArgumentException">Thrown when the validation function returns true, indicating that the input is invalid.</exception>
     /// <exception cref="Exception"></exception>
@@ -26,11 +26,13 @@ public static partial class GuardClauseExtensions
         T input,
         string message,
         [CallerArgumentExpression("input")] string? parameterName = null,
-        Exception? exception = null)
+        Func<Exception>? exceptionCreator = null)
         where T : struct
     {
         if (func(input))
         {
+            Exception? exception = exceptionCreator?.Invoke();
+
             throw exception ?? new ArgumentException(message, parameterName!);
         }
 
@@ -48,7 +50,7 @@ public static partial class GuardClauseExtensions
     /// <param name="input">The input to evaluate.</param>
     /// <param name="message">The message to include in the exception if the input is invalid.</param>
     /// <param name="parameterName">The name of the parameter to include in the thrown exception, captured automatically from the input expression.</param>
-    /// <param name="exception"></param>
+    /// <param name="exceptionCreator"></param>
     /// <returns><paramref name="input"/> if the <paramref name="func"/> evaluates to true </returns>
     /// <exception cref="ArgumentException">Thrown when the validation function returns true, indicating that the input is invalid.</exception>
     /// <exception cref="Exception"></exception>
@@ -57,11 +59,13 @@ public static partial class GuardClauseExtensions
         T input,
         string message,
         [CallerArgumentExpression("input")] string? parameterName = null,
-        Exception? exception = null)
+        Func<Exception>? exceptionCreator = null)
         where T : struct
     {
         if (await func(input))
         {
+            Exception? exception = exceptionCreator?.Invoke();
+
             throw exception ?? new ArgumentException(message, parameterName!);
         }
 

@@ -14,7 +14,7 @@ public static partial class GuardClauseExtensions
     /// <param name="key"></param>
     /// <param name="input"></param>
     /// <param name="parameterName"></param>
-    /// <param name="exception"></param>
+    /// <param name="exceptionCreator"></param>
     /// <returns><paramref name="input" /> if the value is not null.</returns>
     /// <exception cref="NotFoundException"></exception>
     /// <exception cref="Exception"></exception>
@@ -22,12 +22,14 @@ public static partial class GuardClauseExtensions
         [NotNull][ValidatedNotNull] string key,
         [NotNull][ValidatedNotNull] T? input,
         [CallerArgumentExpression("input")] string? parameterName = null,
-        Exception? exception = null)
+        Func<Exception>? exceptionCreator =  null)
     {
         guardClause.NullOrEmpty(key, nameof(key));
 
         if (input is null)
         {
+            Exception? exception = exceptionCreator?.Invoke();
+
             throw exception ?? new NotFoundException(key, parameterName!);
         }
 
@@ -43,7 +45,7 @@ public static partial class GuardClauseExtensions
     /// <param name="key"></param>
     /// <param name="input"></param>
     /// <param name="parameterName"></param>
-    /// <param name="exception"></param>
+    /// <param name="exceptionCreator"></param>
     /// <returns><paramref name="input" /> if the value is not null.</returns>
     /// <exception cref="NotFoundException"></exception>
     /// <exception cref="Exception"></exception>
@@ -51,12 +53,14 @@ public static partial class GuardClauseExtensions
         [NotNull][ValidatedNotNull] TKey key,
         [NotNull][ValidatedNotNull]T? input,
         [CallerArgumentExpression("input")] string? parameterName = null,
-        Exception? exception = null) where TKey : struct
+        Func<Exception>? exceptionCreator =  null) where TKey : struct
     {
         guardClause.Null(key, nameof(key));
 
         if (input is null)
         {
+            Exception? exception = exceptionCreator?.Invoke();
+
             // TODO: Can we safely consider that ToString() won't return null for struct?
             throw exception ?? new NotFoundException(key.ToString()!, parameterName!);
         }

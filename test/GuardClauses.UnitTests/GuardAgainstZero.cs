@@ -34,7 +34,7 @@ public class GuardAgainstZero
     public void ThrowsCustomExceptionWhenSuppliedGivenZeroValueIntZero()
     {
         Exception customException = new Exception();
-        Assert.Throws<Exception>(() => Guard.Against.Zero(0, "zero", exception: customException));
+        Assert.Throws<Exception>(() => Guard.Against.Zero(0, "zero", exceptionCreator: () => customException));
     }
 
     [Fact]
@@ -47,7 +47,7 @@ public class GuardAgainstZero
     public void ThrowsCustomExceptionWhenSuppliedGivenZeroValueLongZero()
     {
         Exception customException = new Exception();
-        Assert.Throws<Exception>(() => Guard.Against.Zero(0L, "zero", exception: customException));
+        Assert.Throws<Exception>(() => Guard.Against.Zero(0L, "zero", exceptionCreator: () => customException));
     }
 
     [Fact]
@@ -60,7 +60,7 @@ public class GuardAgainstZero
     public void ThrowsCustomExceptionWhenSuppliedGivenZeroValueDecimalZero()
     {
         Exception customException = new Exception();
-        Assert.Throws<Exception>(() => Guard.Against.Zero(0.0M, "zero", exception: customException));
+        Assert.Throws<Exception>(() => Guard.Against.Zero(0.0M, "zero", exceptionCreator: () => customException));
     }
 
     [Fact]
@@ -73,7 +73,7 @@ public class GuardAgainstZero
     public void ThrowsCustomExceptionWhenSuppliedGivenZeroValueFloatZero()
     {
         Exception customException = new Exception();
-        Assert.Throws<Exception>(() => Guard.Against.Zero(0.0f, "zero", exception: customException));
+        Assert.Throws<Exception>(() => Guard.Against.Zero(0.0f, "zero", exceptionCreator: () => customException));
     }
 
     [Fact]
@@ -86,7 +86,7 @@ public class GuardAgainstZero
     public void ThrowsCustomExceptionWhenSuppliedGivenZeroValueDoubleZero()
     {
         Exception customException = new Exception();
-        Assert.Throws<Exception>(() => Guard.Against.Zero(0.0, "zero", exception: customException));
+        Assert.Throws<Exception>(() => Guard.Against.Zero(0.0, "zero", exceptionCreator: () => customException));
     }
 
     [Fact]
@@ -99,7 +99,7 @@ public class GuardAgainstZero
     public void ThrowsCustomExceptionWhenSuppliedGivenZeroValueDefaultInt()
     {
         Exception customException = new Exception();
-        Assert.Throws<Exception>(() => Guard.Against.Zero(default(int), "zero", exception: customException));
+        Assert.Throws<Exception>(() => Guard.Against.Zero(default(int), "zero", exceptionCreator: () => customException));
     }
 
     [Fact]
@@ -112,7 +112,7 @@ public class GuardAgainstZero
     public void ThrowsCustomExceptionWhenSuppliedGivenZeroValueDefaultLong()
     {
         Exception customException = new Exception();
-        Assert.Throws<Exception>(() => Guard.Against.Zero(default(long), "zero", exception: customException));
+        Assert.Throws<Exception>(() => Guard.Against.Zero(default(long), "zero", exceptionCreator: () => customException));
     }
 
     [Fact]
@@ -125,7 +125,7 @@ public class GuardAgainstZero
     public void ThrowsCustomExceptionWhenSuppliedGivenZeroValueDefaultDecimal()
     {
         Exception customException = new Exception();
-        Assert.Throws<Exception>(() => Guard.Against.Zero(default(decimal), "zero", exception: customException));
+        Assert.Throws<Exception>(() => Guard.Against.Zero(default(decimal), "zero", exceptionCreator: () => customException));
     }
 
     [Fact]
@@ -138,7 +138,7 @@ public class GuardAgainstZero
     public void ThrowsCustomExceptionWhenSuppliedGivenZeroValueDefaultFloat()
     {
         Exception customException = new Exception();
-        Assert.Throws<Exception>(() => Guard.Against.Zero(default(float), "zero", exception: customException));
+        Assert.Throws<Exception>(() => Guard.Against.Zero(default(float), "zero", exceptionCreator: () => customException));
     }
 
     [Fact]
@@ -151,7 +151,7 @@ public class GuardAgainstZero
     public void ThrowsCustomExceptionWhenSuppliedGivenZeroValueDefaultDouble()
     {
         Exception customException = new Exception();
-        Assert.Throws<Exception>(() => Guard.Against.Zero(default(double), "zero", exception: customException));
+        Assert.Throws<Exception>(() => Guard.Against.Zero(default(double), "zero", exceptionCreator: () => customException));
     }
 
     [Fact]
@@ -164,7 +164,7 @@ public class GuardAgainstZero
     public void ThrowsCustomExceptionWhenSuppliedGivenZeroValueDecimalDotZero()
     {
         Exception customException = new Exception();
-        Assert.Throws<Exception>(() => Guard.Against.Zero(decimal.Zero, "zero", exception: customException));
+        Assert.Throws<Exception>(() => Guard.Against.Zero(decimal.Zero, "zero", exceptionCreator: () => customException));
     }
 
 

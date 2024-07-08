@@ -31,7 +31,7 @@ public class GuardAgainstOutOfRangeForDecimal
     public void ThrowsCustomExceptionWhenSuppliedGivenOutOfRangeValue(decimal input, decimal rangeFrom, decimal rangeTo)
     {
         Exception customException = new Exception();
-        Assert.Throws<Exception>(() => Guard.Against.OutOfRange(input, "index", rangeFrom, rangeTo, exception: customException));
+        Assert.Throws<Exception>(() => Guard.Against.OutOfRange(input, "index", rangeFrom, rangeTo, exceptionCreator: () => customException));
     }
 
     [Theory]
