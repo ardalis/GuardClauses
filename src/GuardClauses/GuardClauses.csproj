@@ -18,10 +18,10 @@
         <RepositoryUrl>https://github.com/ardalis/guardclauses</RepositoryUrl>
         <PackageTags>guard clause clauses assert assertion</PackageTags>
         <PackageReleaseNotes>
-* Removed different method signatures for NETFRAMEWORK and NETSTANDARD2_0 by @Ergamon in #338
-* Update for Guard Against StringLength by @rlarno in #343
+* Added new "exception" optional parameter by @UnleashedGH in #344
+* Use Func to pass custom exception to Guard methods by @canro91 in #350
         </PackageReleaseNotes>
-        <Version>4.5.0</Version>
+        <Version>4.6.0</Version>
         <AssemblyName>Ardalis.GuardClauses</AssemblyName>
         <PackageIcon>icon.png</PackageIcon>
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
