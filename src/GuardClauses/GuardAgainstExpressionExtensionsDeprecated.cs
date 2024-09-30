@@ -15,16 +15,13 @@ public static partial class GuardClauseExtensions
     /// <param name="message"></param>
     /// <returns><paramref name="input"/> if the <paramref name="func"/> evaluates to true </returns>
     /// <exception cref="ArgumentException"></exception>
-    [Obsolete("Deprecated: Switch to Expression for validation.")]
+    [Obsolete("Deprecated: Switch to Expression for validation (and reverse logic).")]
     public static T AgainstExpression<T>(this IGuardClause guardClause,
         Func<T, bool> func,
         T input,
         string message) where T : struct
     {
-        if (!func(input))
-        {
-            throw new ArgumentException(message);
-        }
+        if (!func(input)) throw new ArgumentException(message);
 
         return input;
     }
@@ -39,16 +36,13 @@ public static partial class GuardClauseExtensions
     /// <param name="message"></param>
     /// <returns><paramref name="input"/> if the <paramref name="func"/> evaluates to true </returns>
     /// <exception cref="ArgumentException"></exception>
-    [Obsolete("Deprecated: Switch to ExpressionAsync for asynchronous validation.")]
+    [Obsolete("Deprecated: Switch to ExpressionAsync for asynchronous validation (and reverse logic).")]
     public static async Task<T> AgainstExpressionAsync<T>(this IGuardClause guardClause,
         Func<T, Task<bool>> func,
         T input,
         string message) where T : struct
     {
-        if (!await func(input))
-        {
-            throw new ArgumentException(message);
-        }
+        if (!await func(input)) throw new ArgumentException(message);
 
         return input;
     }
@@ -64,14 +58,11 @@ public static partial class GuardClauseExtensions
     /// <param name="paramName">The name of the parameter that is invalid</param>
     /// <returns><paramref name="input"/> if the <paramref name="func"/> evaluates to true </returns>
     /// <exception cref="ArgumentException"></exception>
-    [Obsolete("Deprecated: Switch to Expression for validation.")]
+    [Obsolete("Deprecated: Switch to Expression for validation (and reverse logic).")]
     public static T AgainstExpression<T>(this IGuardClause guardClause, Func<T, bool> func,
         T input, string message, string paramName) where T : struct
     {
-        if (!func(input))
-        {
-            throw new ArgumentException(message, paramName);
-        }
+        if (!func(input)) throw new ArgumentException(message, paramName);
 
         return input;
     }
