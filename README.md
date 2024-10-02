@@ -5,11 +5,8 @@
 [![NuGet](https://img.shields.io/nuget/v/Ardalis.GuardClauses.svg)](https://www.nuget.org/packages/Ardalis.GuardClauses)[![NuGet](https://img.shields.io/nuget/dt/Ardalis.GuardClauses.svg)](https://www.nuget.org/packages/Ardalis.GuardClauses)
 ![publish Ardalis.GuardClauses to nuget](https://github.com/ardalis/GuardClauses/workflows/publish%20Ardalis.GuardClauses%20to%20nuget/badge.svg)
 
-<a href="https://twitter.com/intent/follow?screen_name=ardalis">
-    <img src="https://img.shields.io/twitter/follow/ardalis.svg?label=Follow%20@ardalis" alt="Follow @ardalis" />
-</a> &nbsp; <a href="https://twitter.com/intent/follow?screen_name=nimblepros">
-    <img src="https://img.shields.io/twitter/follow/nimblepros.svg?label=Follow%20@nimblepros" alt="Follow @nimblepros" />
-</a>
+[![Follow Ardalis](https://img.shields.io/twitter/follow/ardalis.svg?label=Follow%20@ardalis)](https://twitter.com/intent/follow?screen_name=ardalis)
+[![Follow NimblePros](https://img.shields.io/twitter/follow/nimblepros.svg?label=Follow%20@nimblepros)](https://twitter.com/intent/follow?screen_name=nimblepros)
 
 # Guard Clauses
 
