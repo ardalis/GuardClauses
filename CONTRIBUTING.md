@@ -27,7 +27,7 @@ Mostly. But pretty much exclusively for non-maintainers. You'll need to fork the
 
 ## Ask before adding a pull request
 
-You can just add a pull request out of the blue if you want, but it's much better etitquette (and more likely to be accepted) if you open a new issue or comment in an existing issue stating you'd like to make a pull request.
+You can just add a pull request out of the blue if you want, but it's much better etiquette (and more likely to be accepted) if you open a new issue or comment in an existing issue stating you'd like to make a pull request.
 
 ## Getting Started
 
