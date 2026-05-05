@@ -121,3 +121,11 @@ If you require commercial support to include this library in your applications, 
 - Add a release with form `1.3.2` to GitHub Releases in order for the package to actually be published to Nuget. Otherwise it will claim to have been successful but is lying to you.
 
 
+
+### MalformedUri
+
+Throws if the input is not a valid absolute URI.
+
+~~~csharp
+var callbackUrl = Guard.Against.MalformedUri(input.CallbackUrl);
+~~~
