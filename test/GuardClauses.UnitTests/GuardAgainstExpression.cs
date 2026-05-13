@@ -26,7 +26,7 @@ public class GuardAgainstExpression
     public void GivenIntegerWhenTheExpressionEvaluatesToTrueThrowsException()
     {
         int testCase = 10;
-        Assert.Throws<ArgumentException>(() => Guard.Against.Expression((x) => x == 10, testCase, "Value cannot be 10"));
+        Assert.Throws<ArgumentException>(() => Guard.Against.Expression(x => x == 10, testCase, "Value cannot be 10"));
     }
 
     [Fact]
@@ -34,7 +34,7 @@ public class GuardAgainstExpression
     {
         Exception customException = new Exception();
         int testCase = 10;
-        Assert.Throws<Exception>(() => Guard.Against.Expression((x) => x == 10, testCase, "Value cannot be 10", exceptionCreator: () => customException));
+        Assert.Throws<Exception>(() => Guard.Against.Expression(x => x == 10, testCase, () => customException));
     }
 
 
@@ -42,14 +42,14 @@ public class GuardAgainstExpression
     public void GivenIntegerWhenTheExpressionEvaluatesToFalseDoesNothing()
     {
         int testCase = 10;
-        Guard.Against.Expression((x) => x == 5, testCase, "Value cannot be 5");
+        Guard.Against.Expression(x => x == 5, testCase, "Value cannot be 5");
     }
 
     [Fact]
     public void GivenDoubleWhenTheExpressionEvaluatesToTrueThrowsException()
     {
         double testCase = 1.1;
-        Assert.Throws<ArgumentException>(() => Guard.Against.Expression((x) => x == 1.1, testCase, "Value cannot be 1.1"));
+        Assert.Throws<ArgumentException>(() => Guard.Against.Expression(x => x == 1.1, testCase, "Value cannot be 1.1"));
     }
 
     [Fact]
@@ -57,7 +57,7 @@ public class GuardAgainstExpression
     {
         Exception customException = new Exception();
         double testCase = 1.1;
-        Assert.Throws<Exception>(() => Guard.Against.Expression((x) => x == 1.1, testCase, "Value cannot be 1.1", exceptionCreator: () => customException));
+        Assert.Throws<Exception>(() => Guard.Against.Expression(x => x == 1.1, testCase, () => customException));
     }
 
 
@@ -65,14 +65,14 @@ public class GuardAgainstExpression
     public void GivenDoubleWhenTheExpressionEvaluatesToFalseDoesNothing()
     {
         double testCase = 1.1;
-        Guard.Against.Expression((x) => x == 5.0, testCase, "Value cannot be 5.0");
+        Guard.Against.Expression(x => x == 5.0, testCase, "Value cannot be 5.0");
     }
 
     [Theory]
     [MemberData(nameof(GetCustomStruct))]
     public void GivenCustomStructWhenTheExpressionEvaluatesToTrueThrowsException(CustomStruct test)
     {
-        Assert.Throws<ArgumentException>(() => Guard.Against.Expression((x) => x.FieldName == "FieldValue", test, "FieldValue is not matching"));
+        Assert.Throws<ArgumentException>(() => Guard.Against.Expression(x => x.FieldName == "FieldValue", test, "FieldValue is not matching"));
     }
 
     [Theory]
@@ -80,7 +80,7 @@ public class GuardAgainstExpression
     public void GivenCustomStructWhenTheExpressionEvaluatesToTrueThrowsCustomExceptionWhenSupplied(CustomStruct test)
     {
         Exception customException = new Exception();
-        Assert.Throws<Exception>(() => Guard.Against.Expression((x) => x.FieldName == "FieldValue", test, "FieldValue is not matching", exceptionCreator: () => customException));
+        Assert.Throws<Exception>(() => Guard.Against.Expression(x => x.FieldName == "FieldValue", test, () => customException));
     }
 
 
@@ -88,7 +88,7 @@ public class GuardAgainstExpression
     [MemberData(nameof(GetCustomStruct))]
     public void GivenCustomStructWhenTheExpressionEvaluatesToFalseDoesNothing(CustomStruct test)
     {
-        Guard.Against.Expression((x) => x.FieldName == "FailThis", test, "FieldValue is not matching");
+        Guard.Against.Expression(x => x.FieldName == "FailThis", test, "FieldValue is not matching");
     }
 
     [Fact]
