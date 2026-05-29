@@ -12,6 +12,27 @@ public class MalformedUriGuardTests
     }
 
     [Fact]
+    public void DoesNothingGivenHttpUri()
+    {
+        var result = Guard.Against.AgainstMalformedUri("http://example.com", "url");
+        Assert.Equal("http://example.com", result);
+    }
+
+    [Fact]
+    public void ThrowsGivenFtpUri()
+    {
+        Assert.Throws<ArgumentException>(
+            () => Guard.Against.AgainstMalformedUri("ftp://example.com", "url"));
+    }
+
+    [Fact]
+    public void ThrowsGivenNullInput()
+    {
+        Assert.Throws<ArgumentNullException>(
+            () => Guard.Against.AgainstMalformedUri(null!, "url"));
+    }
+
+    [Fact]
     public void ThrowsGivenMalformedInput()
     {
         Assert.Throws<ArgumentException>(
