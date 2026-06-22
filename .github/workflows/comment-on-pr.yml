@@ -33,7 +33,7 @@ jobs:
         workflow_conclusion: ""
         name: code-coverage-results
     - name: Add Coverage PR Comment
-      uses: marocchino/sticky-pull-request-comment@v2
+      uses: marocchino/sticky-pull-request-comment@v3
       with:
         number: ${{ env.PR_NUMBER }}
         recreate: true
