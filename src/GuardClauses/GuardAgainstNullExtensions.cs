@@ -214,7 +214,7 @@ public static partial class GuardClauseExtensions
         string? message = null,
         Func<Exception>? exceptionCreator = null)
     {
-        if (EqualityComparer<T>.Default.Equals(input, default(T)!) || input is null)
+        if (input is null || EqualityComparer<T>.Default.Equals(input, default!))
         {
             throw exceptionCreator?.Invoke() ??
                 new ArgumentException(message ?? $"Parameter [{parameterName}] is default value for type {typeof(T).Name}", parameterName);
