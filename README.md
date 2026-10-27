@@ -42,7 +42,7 @@ public class Order
         _quantity = Guard.Against.NegativeOrZero(quantity);
         _max = Guard.Against.Zero(max);
         _unitPrice = Guard.Against.Negative(unitPrice);
-        _dateCreated = Guard.Against.OutOfSQLDateRange(dateCreated, dateCreated);
+        _dateCreated = Guard.Against.OutOfSQLDateRange(dateCreated);
     }
 }
 ```
