@@ -17,7 +17,9 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v6
       with:
-          dotnet-version: '8.x'
+          dotnet-version: |
+            10.x
+            11.x
     - name: Install dependencies
       run: dotnet restore
     - name: Build
