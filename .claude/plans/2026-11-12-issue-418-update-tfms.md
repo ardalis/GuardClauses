@@ -56,7 +56,7 @@ Current state:
 ## Phase 5 — Final verification
 - [x] `dotnet build -c Release` is clean
 - [x] `dotnet test -c Release` passes on all test TFMs
-- [x] `dotnet format --verify-no-changes` reports no changes
+- [x] `dotnet format --verify-no-changes --include <changed files>` reports no changes (repo-wide check already fails on `main`; see notes)
 
 ## Phase 6 — PR
 - [x] Push branch and open PR with `Fixes #418`
