@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
 
@@ -27,7 +27,6 @@ public static partial class GuardClauseExtensions
         string message,
         [CallerArgumentExpression("input")] string? parameterName = null,
         Func<Exception>? exceptionCreator = null)
-        where T : struct
     {
         if (func(input))
         {
@@ -60,7 +59,6 @@ public static partial class GuardClauseExtensions
         string message,
         [CallerArgumentExpression("input")] string? parameterName = null,
         Func<Exception>? exceptionCreator = null)
-        where T : struct
     {
         if (await func(input))
         {

@@ -17,7 +17,7 @@ jobs:
 
     steps:
     - name: Get the PR Number artifact
-      uses: dawidd6/action-download-artifact@v9
+      uses: dawidd6/action-download-artifact@v21
       with:
         workflow: ${{ github.event.workflow_run.workflow_id }}
         workflow_conclusion: ""
@@ -27,13 +27,13 @@ jobs:
     - name: Confirm the PR Number (Debugging)
       run: echo $PR_NUMBER
     - name: Get the code coverage results file
-      uses: dawidd6/action-download-artifact@v9
+      uses: dawidd6/action-download-artifact@v21
       with:
         workflow: ${{ github.event.workflow_run.workflow_id }}
         workflow_conclusion: ""
         name: code-coverage-results
     - name: Add Coverage PR Comment
-      uses: marocchino/sticky-pull-request-comment@v2
+      uses: marocchino/sticky-pull-request-comment@v3.0.5
       with:
         number: ${{ env.PR_NUMBER }}
         recreate: true

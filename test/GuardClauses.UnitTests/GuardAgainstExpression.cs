@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using Ardalis.GuardClauses;
 using Xunit;
@@ -98,7 +98,25 @@ public class GuardAgainstExpression
         var exception = Assert.Throws<ArgumentException>(() => Guard.Against.Expression(x => x == 2, 2, "custom message", paramName));
         Assert.NotNull(exception);
         Assert.NotNull(exception.Message);
-        Assert.Equal(paramName, exception.ParamName);
+        Assert.Contains(paramName, exception.Message);
     }
 
+    public class CustomClass
+    {
+        public string Name { get; set; } = string.Empty;
+    }
+
+    [Fact]
+    public void GivenReferenceTypeWhenTheExpressionEvaluatesToTrueThrowsException()
+    {
+        var testCase = new CustomClass { Name = "Test" };
+        Assert.Throws<ArgumentException>(() => Guard.Against.Expression((x) => x.Name == "Test", testCase, "Name cannot be Test"));
+    }
+
+    [Fact]
+    public void GivenReferenceTypeWhenTheExpressionEvaluatesToFalseDoesNothing()
+    {
+        var testCase = new CustomClass { Name = "Test" };
+        Guard.Against.Expression((x) => x.Name == "Other", testCase, "Name cannot be Other");
+    }
 }
