@@ -12,6 +12,10 @@ A simple extensible package with guard clause extensions.
 
 A [guard clause](https://deviq.com/design-patterns/guard-clause) is a software pattern that simplifies complex functions by "failing fast", checking for invalid inputs up front and immediately failing if any are found.
 
+## Announcement!
+
+Ardalis.GuardClauses is moving to a commercial license. [Tell me more](https://nimbletools.io/news/ardalis-nuget-packages/)
+
 ## Give a Star! :star:
 
 If you like or are using this project please give it a star. Thanks!
