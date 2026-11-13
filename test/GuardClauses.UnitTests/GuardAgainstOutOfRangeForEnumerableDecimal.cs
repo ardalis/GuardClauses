@@ -73,7 +73,7 @@ public class GuardAgainstOutOfRangeForEnumerableDecimal
         decimal rangeFrom = 2m;
         decimal rangeTo = 1m;
 
-        var exception = Assert.Throws<ArgumentException>(() => 
+        var exception = Assert.Throws<ArgumentException>(() =>
             Guard.Against.OutOfRange(input, expectedParamName!, rangeFrom, rangeTo, customMessage));
         Assert.NotNull(exception);
         Assert.Equal(expectedParamName, exception.ParamName);
@@ -88,7 +88,7 @@ public class GuardAgainstOutOfRangeForEnumerableDecimal
         decimal rangeFrom = 0m;
         decimal rangeTo = 1m;
 
-        var exception = Assert.Throws<ArgumentOutOfRangeException>(() => 
+        var exception = Assert.Throws<ArgumentOutOfRangeException>(() =>
             Guard.Against.OutOfRange(input, "parameterName", rangeFrom, rangeTo, customMessage));
         Assert.NotNull(exception);
         Assert.NotNull(exception.Message);
@@ -106,7 +106,7 @@ public class GuardAgainstOutOfRangeForEnumerableDecimal
         decimal rangeFrom = 0m;
         decimal rangeTo = 1m;
 
-        var exception = Assert.Throws<ArgumentOutOfRangeException>(() => 
+        var exception = Assert.Throws<ArgumentOutOfRangeException>(() =>
             Guard.Against.OutOfRange(input, expectedParamName!, rangeFrom, rangeTo, customMessage));
         Assert.NotNull(exception);
         Assert.Equal(expectedParamName, exception.ParamName);
@@ -117,8 +117,8 @@ public class GuardAgainstOutOfRangeForEnumerableDecimal
         public IEnumerator<object[]> GetEnumerator()
         {
             yield return new object[] { new List<decimal> { decimal.MaxValue, 1.0m, decimal.MinValue }, decimal.MinValue, decimal.MaxValue };
-            yield return new object[] { new List<decimal> { 1100000.0m, 2000.8m, 120.5m, 180000.0m }, 100.0, 1200000.0 };
-            yield return new object[] { new List<decimal> { 0.1m, 128, 200.5m }, 0.1, 200.5 };
+            yield return new object[] { new List<decimal> { 1100000.0m, 2000.8m, 120.5m, 180000.0m }, 100.0m, 1200000.0m };
+            yield return new object[] { new List<decimal> { 0.1m, 128, 200.5m }, 0.1m, 200.5m };
         }
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
@@ -127,9 +127,9 @@ public class GuardAgainstOutOfRangeForEnumerableDecimal
     {
         public IEnumerator<object[]> GetEnumerator()
         {
-            yield return new object[] { new List<decimal> { 10.0m, 12.0m, 1500.0m }, 10.0, 1200.0 };
-            yield return new object[] { new List<decimal> { 1000.0m, 200.0m, 120.0m, 180000.0m }, 100.0, 150000.0 };
-            yield return new object[] { new List<decimal> { 5.0m, 120.0m, 158.0m }, 10.1, 110.0 };
+            yield return new object[] { new List<decimal> { 10.0m, 12.0m, 1500.0m }, 10.0m, 1200.0m };
+            yield return new object[] { new List<decimal> { 1000.0m, 200.0m, 120.0m, 180000.0m }, 100.0m, 150000.0m };
+            yield return new object[] { new List<decimal> { 5.0m, 120.0m, 158.0m }, 10.1m, 110.0m };
         }
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
@@ -138,9 +138,9 @@ public class GuardAgainstOutOfRangeForEnumerableDecimal
     {
         public IEnumerator<object[]> GetEnumerator()
         {
-            yield return new object[] { new List<decimal> { 10000.0m, 1200.0m, 15.0m }, 10000.0, 10.0 };
-            yield return new object[] { new List<decimal> { 100010.0m, 200.0m, 120000.0m, 0.2m }, 2000000.0, 150.0 };
-            yield return new object[] { new List<decimal> { 52000.0m, 86.0m, 2500000.0m }, 20000000.0, 100.0 };
+            yield return new object[] { new List<decimal> { 10000.0m, 1200.0m, 15.0m }, 10000.0m, 10.0m };
+            yield return new object[] { new List<decimal> { 100010.0m, 200.0m, 120000.0m, 0.2m }, 2000000.0m, 150.0m };
+            yield return new object[] { new List<decimal> { 52000.0m, 86.0m, 2500000.0m }, 20000000.0m, 100.0m };
         }
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
