@@ -93,6 +93,31 @@ public void SomeMethod(string something)
 }
 ```
 
+## Enforcing guard clauses with CA1062
+
+The .NET analyzer rule [CA1062](https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1062) reports public methods that use a reference-type parameter without checking it for null first. Guard clauses count as that check: `Guard.Against.Null`, `NullOrEmpty`, `NullOrWhiteSpace` and `NotFound` mark their input with `[ValidatedNotNull]`, so CA1062 needs no extra configuration. Turn the rule on in `.editorconfig`:
+
+```ini
+[*.cs]
+dotnet_diagnostic.CA1062.severity = warning
+```
+
+```c#
+public string Name(Order order)
+{
+    Guard.Against.Null(order);
+    return order.Name; // no CA1062
+}
+
+public string NameUnchecked(Order order)
+{
+    return order.Name; // CA1062: validate parameter 'order' is non-null before using it
+}
+```
+
+- CA1062 only checks code with nullable reference types disabled. With `<Nullable>enable</Nullable>`, a non-nullable parameter isn't reported; use the compiler's nullable warnings instead.
+- For your own null-checking guards in a shared library, put `[ValidatedNotNull]` on the input parameter so CA1062 recognizes them in other projects.
+
 ## YouTube Overview
 
 [![Ardalis.GuardClauses on YouTube](http://img.youtube.com/vi/OkE2VeRM4mE/0.jpg)](http://www.youtube.com/watch?v=OkE2VeRM4mE "Improve Your Code with Ardalis.GuardClauses")
