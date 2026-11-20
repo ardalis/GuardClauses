@@ -60,7 +60,7 @@ This version. The last MIT-licensed package.
 
 The next version. It will have minimal changes from 6.x but will have a dual license and a compile-time license check and any planned breaking changes will be marked `[Obsolete]` if possible to signal what's coming. It will also be released both as `Ardalis.GuardClauses` and as `NimbleTools.GuardClauses` but with identical behavior to make upgrades as easy as possible, both now and in the future.
 
-Why the jump from 6 to 15? We want to consolidate the 3 Ardalis packages that are moving to commercial licensing (GuardClauses, SmartEnum, Specification) and, like Aspire, we want to keep our version numbers separated from .NET's version numbers. Starting at 15 for all 3 lets us do that.
+Why the jump from 6 to 15? We want to consolidate the 3 Ardalis packages that are moving to commercial licensing (GuardClauses, SmartEnum, Specification) and, [like Aspire](https://github.com/microsoft/aspire/discussions/11824#discussioncomment-14938556), we want to keep our version numbers separated from .NET's version numbers. Starting at 15 for all 3 lets us do that.
 
 ### Version 16.x
 
