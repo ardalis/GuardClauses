@@ -32,8 +32,8 @@ public static partial class GuardClauseExtensions
     {
         Guard.Against.Negative<int>(maxLength - minLength, parameterName: "min or max length",
             message: "Min length must be equal or less than max length.", exceptionCreator: exceptionCreator);
-        Guard.Against.StringTooShort(input, minLength, nameof(minLength), exceptionCreator: exceptionCreator);
-        Guard.Against.StringTooLong(input, maxLength, nameof(maxLength), exceptionCreator: exceptionCreator);
+        Guard.Against.StringTooShort(input, minLength, parameterName, message, exceptionCreator);
+        Guard.Against.StringTooLong(input, maxLength, parameterName, message, exceptionCreator);
 
         return input;
     }
