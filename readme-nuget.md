@@ -13,6 +13,7 @@ This is the last MIT-licensed release of this library (see above).
 - Updated to latest supported .NET frameworks (.NET 10, .NET 11) with continued NetStandard2.0 support (#419)
   - **Breaking:** dropped the `net8.0` and `netstandard2.1` targets (.NET 8 and 9 are out of support). Projects that can't use .NET 10+ get the `netstandard2.0` build instead.
 - Fixed `Guard.Against.Expression` so it works with reference types; the `struct` constraint was removed (#339, #406)
+- Fixed `Guard.Against.LengthOutOfRange` so the exception keeps the parameter name and your custom message (#422)
 - Updated Microsoft.SourceLink.GitHub to 10.0.400 (#410)
 - Package license is now declared as an MIT license expression, so it shows up on nuget.org and in license-scanning tools (#359)
 - NuGet package now ships its own focused readme
