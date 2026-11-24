@@ -35,7 +35,7 @@ jobs:
       run: find coverage -type f -name coverage.cobertura.xml -exec cp -p {} coverage/coverage.cobertura.xml \;
       
     - name: Code Coverage Summary Report
-      uses: irongut/CodeCoverageSummary@v1.3.0
+      uses: irongut/CodeCoverageSummary@51cc3a756ddcd398d447c044c02cb6aa83fdae95 # v1.3.0
       # uses: joshjohanning/CodeCoverageSummary@v1.0.2
       with:
         filename: coverage/coverage.cobertura.xml

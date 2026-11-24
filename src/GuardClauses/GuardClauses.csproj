@@ -15,15 +15,22 @@
         <RepositoryUrl>https://github.com/ardalis/guardclauses</RepositoryUrl>
         <PackageTags>guard clause clauses assert assertion</PackageTags>
         <PackageReleaseNotes>
+            * Version 6.0.0: This is the last MIT-licensed release of this library. Future releases will require a (potentially free) commercial license. See https://nimbletools.io/news/ardalis-nuget-packages/
+            * Updated target frameworks to net11.0, net10.0, and netstandard2.0; dropped net8.0 and netstandard2.1, which are no longer supported (#419)
+            * Fixed Guard.Against.Expression to support reference types by removing the struct constraint (#339, #406)
+            * Fixed Guard.Against.LengthOutOfRange so the exception keeps the parameter name and custom message (#422)
+            * Updated Microsoft.SourceLink.GitHub to 10.0.400 (#410)
+            * Package license is now declared as an MIT license expression (#359)
+            * NuGet package now ships a dedicated readme (readme-nuget.md)
             * Updating to 5.0 because 4.6 had breaking logic (see #354)
             * Updated Obsolete message for Guard.Against.Expression to clarify reversal of logic (#457)
         </PackageReleaseNotes>
-        <Version>5.0.0</Version>
+        <Version>6.0.0</Version>
         <AssemblyName>Ardalis.GuardClauses</AssemblyName>
         <PackageIcon>icon.png</PackageIcon>
         <PublishRepositoryUrl>true</PublishRepositoryUrl>
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
-        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <PackageReadmeFile>readme-nuget.md</PackageReadmeFile>
         <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
     </PropertyGroup>
     <PropertyGroup>
@@ -35,8 +42,8 @@
     <ItemGroup>
         <None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
         <!-- IMPORTANT: adding the Readme as a link -->
-        <None Include="..\..\README.md" Pack="true" PackagePath="">
-            <Link>Properties\README.md</Link>
+        <None Include="..\..\readme-nuget.md" Pack="true" PackagePath="">
+            <Link>Properties\readme-nuget.md</Link>
         </None>
 
     </ItemGroup>
