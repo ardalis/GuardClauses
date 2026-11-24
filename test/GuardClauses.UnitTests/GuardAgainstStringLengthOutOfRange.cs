@@ -6,6 +6,29 @@ namespace GuardClauses.UnitTests;
 
 public class GuardAgainstStringLengthOutOfRange
 {
+    [Theory]
+    [InlineData("a")]
+    [InlineData("abcd")]
+    public void PreservesCustomMessageAndParameterName(string input)
+    {
+        var exception = Assert.Throws<ArgumentException>(() =>
+            Guard.Against.LengthOutOfRange(input, 2, 3, "username", "Use 2 to 3 characters."));
+
+        Assert.Equal("username", exception.ParamName);
+        Assert.StartsWith("Use 2 to 3 characters.", exception.Message);
+    }
+
+    [Theory]
+    [InlineData("a")]
+    [InlineData("abcd")]
+    public void InfersInputParameterName(string input)
+    {
+        var exception = Assert.Throws<ArgumentException>(() =>
+            Guard.Against.LengthOutOfRange(input, 2, 3));
+
+        Assert.Equal(nameof(input), exception.ParamName);
+    }
+
     [Fact]
     public void DoesNothingGivenNonEmptyString()
     {
@@ -15,6 +38,7 @@ public class GuardAgainstStringLengthOutOfRange
         Guard.Against.LengthOutOfRange("a", 1, 4, "string");
         Guard.Against.LengthOutOfRange("a", 1, 4, "string");
     }
+
     [Fact]
     public void ThrowsGivenEmptyString()
     {
