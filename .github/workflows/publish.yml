@@ -33,7 +33,7 @@ jobs:
         run: dotnet pack src/GuardClauses/GuardClauses.csproj --configuration Release --no-build --output ./artifacts
 
       - name: NuGet login (trusted publishing)
-        uses: NuGet/login@v1
+        uses: NuGet/login@8d196754b4036150537f80ac539e15c2f1028841 # v1.2.0
         id: login
         with:
           user: ardalis
